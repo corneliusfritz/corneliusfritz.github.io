@@ -1,14 +1,15 @@
 ---
 layout: archive
 permalink: /posts/
-title: &title "News:"
-alt_title: *title
-excerpt: &excerpt ""
-introduction: *excerpt
+title: &title "News Archive"
+header:
+  overlay_image: /assets/images/changcheng.jpg
+  overlay_filter: 0.5
+show_overlay_title: true
 pagination:
   enabled: true
   category: posts
-author_profile: true
+author_profile: true  
 ---
 {% assign postsByYear = site.posts | group_by_exp:"post", "post.date | date: '%Y'"  %}
 {% for year in postsByYear %}
