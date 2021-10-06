@@ -2,21 +2,19 @@
 layout: single
 permalink: /contact/
 title: "Contact"
-excerpt: "Ways to contact Pat Eskinasy."
+excerpt: ""
 share: false
 classes: wide
 author_profile: true
 ---
 
-The best way to contact me is [via Twitter](https://twitter.com/celue).
+The best way to contact me is [via Twitter](https://twitter.com/cornelius_fritz).
 
 For anything not short and sweet, please contact me via the form below and I'll get back to you by email.
 
 Please note: I get a lot of email and may be slow to respond. Sometimes, unfortunately, things get lost in my dreaded inbox too.
 
 [My PGP public key](/PGPpublickey.txt).
-
-You should join my (infrequent) email [Newsletter](https://upscri.be/611534) for more content not published here.
 
 ## Contact Me
 
