@@ -1,0 +1,974 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy's Technology Stack - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Artsy's Technology Stack
+        
+        Oct 10, 2012
+          
+  
+
+
+...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2012/10/10/artsy-technology-stack/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Artsy's Technology Stack</h2>
+        
+        <time datetime="2012-10-10">Oct 10, 2012</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p>The public launch of Artsy via the <a href="http://www.nytimes.com/2012/10/09/arts/design/artsy-is-mapping-the-world-of-art-on-the-web.html">New York Times</a> is a good opportunity to describe our current technology stack.</p>
+
+<p>What you see when you go to <a href="http://artsy.net">Artsy</a> is a website built with <a href="http://backbonejs.org/">Backbone.js</a> and written in <a href="http://coffeescript.org/">CoffeeScript</a>. It renders JSON data from <a href="http://rubyonrails.org/">Ruby on Rails</a>, <a href="https://github.com/intridea/grape">Ruby Grape</a> and <a href="http://nodejs.org/">Node.js</a> services. Text search is powered by <a href="http://lucene.apache.org/solr/">Apache Solr</a>. We also have an <a href="https://developer.apple.com/devcenter/ios/index.action">iOS</a> application that talks to the same back-end Ruby API. We run all our web processes on <a href="http://www.heroku.com/">Heroku</a> and all job queues on <a href="http://aws.amazon.com/">Amazon EC2</a>. Our data store is <a href="http://www.mongodb.org/">MongoDB</a>, operated by <a href="https://mongohq.com/">MongoHQ</a> and we have some <a href="http://redis.io/">Redis</a> instances. Our assets, including images, are served from <a href="http://aws.amazon.com/s3/">Amazon S3</a> via the <a href="http://aws.amazon.com/cloudfront/">CloudFront CDN</a>. We heavily rely on <a href="http://memcached.org/">Memcached</a> Heroku addon and we use <a href="http://sendgrid.com/">SendGrid</a> and <a href="http://mailchimp.com/">MailChimp</a> to send e-mail. Systems are monitored by a combination of <a href="http://newrelic.com/">New Relic</a> and <a href="https://www.pingdom.com/">Pingdom</a>. All of this is built, tested and deployed with <a href="http://jenkins-ci.org/">Jenkins</a>.</p>
+
+<p><img src="/images/2012-10-10-artsy-technology-stack/artsy-infrastructure.png"></p>
+
+<p>In this post I'll go in depth in our current system architecture and tell you the story about how these parts all came together.</p>
+
+<!-- more -->
+
+
+<a name="Early.Prototypes"></a>
+<h2>Early Prototypes</h2>
+
+<p>Artsy early prototypes in 2010 consisted of a combination of PHP and Java web services running on JBoss and backed by a MySQL database. The system had more similarities with a large transactional banking application than a consumer website.</p>
+
+<p>In early 2011 we rebooted the project on Ruby on Rails. RDBMS storage was replaced with NoSQL MongoDB. A <a href="http://www.10gen.com/presentations/MongoNYC-2012/Using-MongoDB-to-Build-Artsy">video</a> was recorded at MongoNYC 2012 that goes in depth into this specific choice.</p>
+
+<a name="Artsy.Architecture.Today"></a>
+<h2>Artsy Architecture Today</h2>
+
+<p>Having only a handful of engineers, our goal has always been to keep the number of moving parts to an absolute minimum. With a few new engineers we were able to expand things a bit.</p>
+
+<a name="Artsy.Website.Front-End"></a>
+<h2>Artsy Website Front-End</h2>
+
+<p>The Artsy website is a responsive <a href="http://backbonejs.org/">Backbone.js</a> application written in <a href="http://coffeescript.org/">CoffeeScript</a> and <a href="http://sass-lang.com/">SASS</a> and served from a Rails back-end. The generated JavaScript and CSS files are packaged and compressed with <a href="http://documentcloud.github.com/jammit/">Jammit</a> and deployed to Amazon S3. The Rails app itself is a traditional MVC system that bootstraps application data and mostly serves SEO needs, such as meta tags, escaped fragments and page titles. Once the basic data has been rendered though, Backbone routing takes over and you're now navigating a client-side browser app with pushState support as available, swapping frames and rendering views using JST templates and JSON data returned from the API.</p>
+
+<a name="Core.API"></a>
+<h2>Core API</h2>
+
+<p>The website talks to the nervous system of Artsy, a RESTful API built in Ruby and <a href="https://github.com/intridea/grape">Grape</a>.</p>
+
+<p>In the early days we did a ton of domain-driven design and spent a lot of time modeling concepts such as <em>artist</em> or <em>artwork</em>. The API has read and write behavior for all our domain concepts. Probably 70% of it is pure CRUD doing <a href="http://mongoid.org/">Mongoid</a> queries with a layer of access control in <a href="https://github.com/ryanb/cancan">CanCan</a> and cache partitioning and binding using <a href="http://confreaks.com/videos/986-goruco2012-from-zero-to-api-cache-w-grape-mongodb-in-10-minutes">Garner</a>.</p>
+
+<a name="Search.Autocomplete"></a>
+<h2>Search Autocomplete</h2>
+
+<p>The first iteration of the website's text search was powered by <a href="https://github.com/artsy/mongoid_fulltext">mongoid_fulltext</a>. Today we run an <a href="http://lucene.apache.org/solr/">Apache Solr</a> master-slave environment hosted on EC2.</p>
+
+<a name="Offline.Indexes"></a>
+<h2>Offline Indexes</h2>
+
+<p>The indexes that serve complex queries like related artists/artworks and filtered searches of artworks are all built offline. Our index-building system runs continuously, repeatedly pulling data from our production system to build the most out-of-date index. All of the most current indexes are imported back into production by a daily batch process and we swap the old indexes out atomically using <a href="https://github.com/aaw/mongoid_collection_snapshot">mongoid_collection_snapshot</a>.</p>
+
+<p>One of such indexes a <em>similarity graph</em> that we query to produce most similar results on the website, other indexes serve filtering needs, etc. We run these processes nightly.</p>
+
+<a name="Admin.Back-End.and.Partner.CMS"></a>
+<h2>Admin Back-End and Partner CMS</h2>
+
+<p>The Artsy CMS and the Admin system are two newer projects and serve the needs of our partners and our internal back-end needs, respectively. These are built on a thin <a href="http://nodejs.org">Node.js</a> server that proxies requests to our API using <a href="https://github.com/nodejitsu/node-http-proxy">node-http-proxy</a>. They consist of a client-side Backbone.js application with assets packaged with <a href="https://github.com/craigspaeth/nap">nap</a>. This is a lot like our website, but completely decoupled from the main Rails application and sharing the same technology for both client and server with CoffeeScript and <a href="http://jade-lang.com/">Jade</a>.</p>
+
+<a name="Folio.Partner.App"></a>
+<h2>Folio Partner App</h2>
+
+<p>Artsy makes a free iOS application, called <a href="http://artsy.github.com/blog/categories/ios/">Folio</a>, which lets our partners display their inventory at art fairs.</p>
+
+<p>Folio is a native iOS implementation. The interface is heavily skinned UIKit with CoreData for storage. Our network code was originally a thin layer on top of NSURLConnection, but for our forthcoming update, we’ve rewritten it to use <a href="https://github.com/AFNetworking/AFNetworking/">AFNetworking</a>. We manage external dependencies with <a href="https://github.com/CocoaPods/CocoaPods">CocoaPods</a>.</p>
+
+<a name="Want.More.Specifics..Have.Questions."></a>
+<h2>Want More Specifics? Have Questions?</h2>
+
+<p>We hope you find this useful and are happy to describe any aspect of our system on this blog. Please ask questions below, we’ll be happy to answer them.</p>
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/db">
+        Daniel Doubrovkine
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://code.dblock.org">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/dblock">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/technology/'>technology</a>
+  
+</span>
+
+
+      </p>
+      
+       <p class="meta-series" style="padding-bottom:0;">Part of a series: <strong><a class='series' href='/series/artsy-tech-stack/'>Artsy Tech Stack</a></strong></p>
+       <ul>
+         
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2017/04/14/artsy-technology-stack-2017/">
+    <b>Artsy's Technology Stack, 2017</b> -
+    
+     <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>, <span class="byline author vcard"><a href ="/author/artsy_engineering">The Artsy Engineering Team<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2016/08/09/the-tech-behind-live-auction-integration/">
+    <b>The Tech Behind Live Auction Integration</b> -
+    
+     <span class="byline author vcard"><a href ="/author/alan">Alan Johnson<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2016/03/28/artsy-engineering-organization-stack/">
+    <b>Artsy's Engineering Organization Stack, 2016</b> -
+    
+     <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2015/03/23/artsy-technology-stack-2015/">
+    <b>Artsy's Technology Stack, 2015</b> -
+    
+     <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2012/10/10/artsy-technology-stack/">
+    <b>Artsy's Technology Stack</b> -
+    
+     <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+
+       </ul>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2012/10/09/how-to-run-rspec-test-suites-in-parallel-with-jenkins-ci-build-flow/" title="Previous Post: How to Run RSpec Test Suites in Parallel with JenkinsCI Build Flow">&laquo; How to Run RSpec Test Suites in Parallel with JenkinsCI Build Flow</a>
+        
+        
+          <a class="next" href="/blog/2012/10/18/so-you-want-to-do-a-css3-3d-transform/" title="next Post: So you want to do a CSS3 3D transform?">So you want to do a CSS3 3D transform? &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2012/10/10/artsy-technology-stack/';
+        var disqus_url = 'https://artsy.github.io/blog/2012/10/10/artsy-technology-stack/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

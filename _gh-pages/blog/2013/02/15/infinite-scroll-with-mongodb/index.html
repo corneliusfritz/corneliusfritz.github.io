@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Infinite Scroll with MongoDB - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Infinite Scroll with MongoDB
+        
+        Feb 15, 2013
+          
+ ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2013/02/15/infinite-scroll-with-mongodb/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Infinite Scroll with MongoDB</h2>
+        
+        <time datetime="2013-02-15">Feb 15, 2013</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p>An infinite scroll can be a beautiful and functional way to present feed data. You can see ours on the <a href="https://artsy.net/">homepage of artsy.net</a>. It works by fetching a few items from the API, then fetching some more items as the user scrolls down the feed. Each API call returns the items along with a "cursor", which marks the position of the last item retrieved. Subsequent API calls include the cursor in the query string and the iteration resumes from there.</p>
+
+<p>Why use a cursor and not standard pagination? Because inserting an item on top of the feed would shift the existing items down, causing the API to return a duplicate item on the page boundary. Removing an item from the top of the feed would pull the remaining items up, causing an item to be missed in the next request on the page boundary.</p>
+
+<p>Today we're open-sourcing a small gem called <a href="https://github.com/dblock/mongoid-scroll">mongoid-scroll</a>, which implements this cursor-like behavior for MongoDB using mongoid or moped. Here's how it works.</p>
+
+<!-- more -->
+
+
+<a name="Example"></a>
+<h2>Example</h2>
+
+<p>Define a sample <code>FeedItem</code> model with an index on <code>position</code>. We'll be iterating over our feed, starting with the newest item first.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Feed</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Item</span>
+</span><span class='line'>    <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>    <span class="n">field</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="nb">String</span>
+</span><span class='line'>    <span class="n">field</span> <span class="ss">:position</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="nb">Integer</span>
+</span><span class='line'>    <span class="n">index</span><span class="p">({</span> <span class="ss">position</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="ss">_id</span><span class="p">:</span> <span class="mi">1</span> <span class="p">})</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Insert some sample unordered data manufactured with <a href="https://github.com/stympy/faker">faker</a>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">total_items</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span class='line'><span class="n">rands</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="n">.total_items</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">sort</span> <span class="p">{</span> <span class="nb">rand</span> <span class="p">}</span><span class="o">[</span><span class="mi">0</span><span class="o">.</span><span class="n">.total_items</span><span class="o">]</span>
+</span><span class='line'><span class="n">total_items</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+</span><span class='line'>  <span class="no">Feed</span><span class="o">::</span><span class="no">Item</span><span class="o">.</span><span class="n">create!</span> <span class="ss">title</span><span class="p">:</span> <span class="no">Faker</span><span class="o">::</span><span class="no">Lorem</span><span class="o">.</span><span class="n">sentence</span><span class="p">,</span> <span class="ss">position</span><span class="p">:</span> <span class="n">rands</span><span class="o">.</span><span class="n">pop</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Iterate over this collection using a cursor, 7 items at a time.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">next_cursor</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class='line'><span class="k">while</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="n">current_cursor</span> <span class="o">=</span> <span class="n">next_cursor</span>
+</span><span class='line'>  <span class="n">next_cursor</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class='line'>  <span class="no">Feed</span><span class="o">::</span><span class="no">Item</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="ss">:position</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">current_cursor</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">cursor</span><span class="o">|</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">position</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">item</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="n">next_cursor</span> <span class="o">=</span> <span class="n">cursor</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="k">break</span> <span class="k">unless</span> <span class="n">next_cursor</span>
+</span><span class='line'>  <span class="c1"># destroy an item, the scroll is not affected</span>
+</span><span class='line'>  <span class="no">Feed</span><span class="o">::</span><span class="no">Item</span><span class="o">.</span><span class="n">desc</span><span class="p">(</span><span class="ss">:position</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">destroy</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The result is, as expected, all 20 items in reverse order.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>20: Quae eveniet est a.
+</span><span class='line'>19: Ab voluptatem aut possimus.
+</span><span class='line'>18: Tenetur voluptatem aut modi eos et fugiat ipsa impedit.
+</span><span class='line'>17: Autem enim qui illum ut sed et et pariatur.
+</span><span class='line'>16: Est molestias quidem adipisci culpa non.
+</span><span class='line'>15: Incidunt ad atque minus fuga illum ex earum.
+</span><span class='line'>14: Ullam et cum harum tempore nostrum consequatur.
+</span><span class='line'>13: Porro nostrum laboriosam aperiam blanditiis est.
+</span><span class='line'>12: Facere non a vel est sapiente sit officiis.
+</span><span class='line'>11: Itaque commodi deserunt aut exercitationem aut voluptatem.
+</span><span class='line'>10: Veritatis mollitia libero hic velit quos.
+</span><span class='line'>9: Iste ea dicta ut culpa.
+</span><span class='line'>8: Voluptatibus vel et minima.
+</span><span class='line'>7: Possimus molestiae quis consectetur iusto sed.
+</span><span class='line'>6: Aut fugit omnis incidunt.
+</span><span class='line'>5: Recusandae corrupti est in dolor est commodi aut.
+</span><span class='line'>4: Tenetur veniam ut id.
+</span><span class='line'>3: Voluptas exercitationem eos quia rem quia quas qui quae.
+</span><span class='line'>2: Eveniet repellendus corrupti molestiae molestias qui ullam.
+</span><span class='line'>1: Sapiente impedit iste quos eligendi cupiditate accusantium ad.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We've used 4 queries to iterate over this collection.</p>
+
+<a name="First.Query"></a>
+<h2>First Query</h2>
+
+<p>The first ordered query without an existing cursor uses a <code>limit</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">db</span><span class="p">.</span><span class="nx">feed_items</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">sort</span><span class="p">({</span> <span class="nx">position</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">_id</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">}).</span><span class="nx">limit</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The last item returned has a position of 14 (we scrolled from 20 down to 14, including the boundaries).</p>
+
+<a name="Second.and.Third.Query"></a>
+<h2>Second and Third Query</h2>
+
+<p>The second ordered query has to fetch any item that comes after 14, including any other item that has the same position further in the same direction as the MongoDB order (there're no duplicates in our example, but it's entirely possible).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">db</span><span class="p">.</span><span class="nx">feed_items</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> <span class="s2">&quot;$or&quot;</span> <span class="o">:</span> <span class="p">[</span>
+</span><span class='line'> <span class="p">{</span> <span class="s2">&quot;position&quot;</span> <span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;$lt&quot;</span> <span class="o">:</span> <span class="mi">14</span> <span class="p">}},</span>
+</span><span class='line'> <span class="p">{</span> <span class="s2">&quot;position&quot;</span> <span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;$lt&quot;</span> <span class="o">:</span> <span class="nx">ObjectId</span><span class="p">(</span><span class="s2">&quot;511d7c7c3b5552c92400000e&quot;</span><span class="p">)</span> <span class="p">}}</span>
+</span><span class='line'><span class="p">]}).</span><span class="nx">sort</span><span class="p">({</span> <span class="nx">position</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">_id</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">}).</span><span class="nx">limit</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that we're sorting by <code>_id</code> as well because MongoDB may relocate a document and therefore alter the natural order. See <a href="https://github.com/dblock/mongoid-scroll/commit/3cd75ded93f82adfcb1c17a8b9c98715c536b680">this commit</a> for a test that reproduces this behavior.</p>
+
+<a name="Last.Query"></a>
+<h2>Last Query</h2>
+
+<p>We've chosen to break out of the loop after getting no data back in the 4th iteration. You can check whether the item retrieved is the last one in the collection as an alternative to prevent this fourth empty database query.</p>
+
+<a name="Cursors"></a>
+<h2>Cursors</h2>
+
+<p>Cursors consist of the item's position and the item's BSON id. The cursor for the item at position 14 is <code>14:511d7c7c3b5552c92400000e</code>. This cursor is parsed to construct the query on subsequent requests or can be supplied as a <code>Mongoid::Scroll::Cursor</code> object.</p>
+
+<a name="Links"></a>
+<h2>Links</h2>
+
+<ul>
+<li><a href="https://github.com/dblock/mongoid-scroll">mongoid-scroll on Github</a></li>
+</ul>
+
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/db">
+        Daniel Doubrovkine
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://code.dblock.org">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/dblock">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mongodb/'>mongodb</a>, <a class='category' href='/blog/categories/mongoid/'>mongoid</a>
+  
+</span>
+
+
+      </p>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2013/02/09/data-corruption-and-concurrent-updates-to-embedded-objects-with-mongoid/" title="Previous Post: Data Corruption and Concurrent Updates to Embedded Objects with MongoDB">&laquo; Data Corruption and Concurrent Updates to Embedded Objects with MongoDB</a>
+        
+        
+          <a class="next" href="/blog/2013/02/17/impact-of-heroku-routing-mesh-and-random-routing/" title="next Post: The Impact of Heroku's Routing Mesh and Random Routing">The Impact of Heroku's Routing Mesh and Random Routing &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2013/02/15/infinite-scroll-with-mongodb/';
+        var disqus_url = 'https://artsy.github.io/blog/2013/02/15/infinite-scroll-with-mongodb/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

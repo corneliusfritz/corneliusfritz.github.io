@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using VS Code for JavaScript - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+ 
+
+
+
+I'm an old school TextMate user, who has also been using Xcode for the last decade. These two sit at a very
+opposite ends of an "editor" spec...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2016/08/15/vscode/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<link href="/css/epic.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+
+
+<body>
+  <div>
+    <div id="bodywrapper">
+      <header>
+        <ul>
+          <li><a href="/">Artsy Engineering Blog</a></li>
+          <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+          <li><a href="https://developers.artsy.net">API</a></li>
+        </ul>
+
+        <ul>
+          <li><a href="http://artsy.github.io/open-source/">Our Open Source</a></li>
+          <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+          <li><a href="https://www.artsy.net">artsy.net</a></li>
+        </ul>
+      </header>
+
+      <section>
+        <header id="page">
+          <h1>Using VS Code for JavaScript</h1>
+          <h3>
+          <!-- Yep, single line so the comma lines up right -->
+          By  Orta Therox
+          </h3>
+          <time datetime="2016-08-15">Aug 15, 2016</time>
+        </header>
+
+        <article class='post'>
+          <center>
+ <img src="/images/vscode/vscode_logo_artsy.svg" style="width:300px;">
+</center>
+
+
+<p>I'm an old school TextMate user, who has also been using Xcode for the last decade. These two sit at a very
+opposite ends of an "editor" spectrum.</p>
+
+<p>TextMate is extremely bare bones at the core, but introduced the idea of bundles as plugins. Making it really easy
+for others to build their own plugins for their own contexts. Xcode on the other-hand includes a 3D scene editor,
+the best interface builder I've seen, super rich debugging tools and close to zero support for improving it
+yourself.</p>
+
+<p>As we agreed on moving to React Native, we needed to decide what the team should use for <a href="https://github.com/artsy/emission/blob/master/docs/vscode.md">working in that
+environment</a>. After experimentation with many editors, we decided on Microsoft's <a href="https://code.visualstudio.com/">Visual
+Studio Code</a>.</p>
+
+<p>We wanted to keep a lot of the best features from Xcode, while working in a completely JavaScript environment. For
+example: debuggers, inline errors, auto-complete, symbol mapping and to ideally have them all inside a single
+editor.</p>
+
+<p>Let's dig into the principals of how Visual Studio Code works, what makes it a better option for us, and what parts
+of it really shine.</p>
+
+<!-- more -->
+
+
+<hr />
+
+<a name="What.is.Visual.Studio.Code."></a>
+<h3>What is Visual Studio Code?</h3>
+
+<p>Visual Studio Code (VS Code) is <em>yet another</em>, JavaScript-based text editor. It's built atop of GitHub's
+<a href="http://electron.atom.io">Electron</a>. Electron is a framework for writing native apps as easy as building websites. It started as a
+web component for some Microsoft web-service, and eventually evolved into a fully-fledged text editor.</p>
+
+<a name="IDE.-.Editor.hybrid"></a>
+<h4>IDE - Editor hybrid</h4>
+
+<p>Visual Studio Code (VS Code) believes that the sweet-spot between and IDE and a plain Text Editor, is somewhere a
+little bit closer to the IDE side.</p>
+
+<p></article>
+<a href='/images/vscode/editors.png' style="">
+  <img src="/images/vscode/editors.png" alt="Editors" style="width:100%;">
+</a>
+<article class="post"></p>
+
+<p>This means instead of the Text-Editor style folder based approach, VS Code expects to set up a project structure
+per-project to start supporting from of the more useful IDE-like features.</p>
+
+<p>It supports TextMate style plugins (called Extensions) through a controlled, but expanding <a href="https://code.visualstudio.com/docs/extensions/overview">extension
+API</a>. The extension API work takes an <a href="">Apple-like</a> approach to ensuring stability by having all
+extensions run outside of the host process. <a href="https://code.visualstudio.com/docs/extensions/our-approach">This approach</a> ensures any extension crash does
+not take down the editor.</p>
+
+<p>It's also smart about deciding when to load an extension, for example, my <a href="https://marketplace.visualstudio.com/items?itemName=Orta.vscode-danger">Danger</a> extension will
+<a href="">only load</a> if there is a <code>Dangerfile</code> in the root of the workspace.</p>
+
+<p>These two approaches to extensions are specifically aimed at <a href="https://discuss.atom.io/t/why-is-atom-so-slow/11376">addressing issues</a> seen inside Atom, where
+any user actions can be / are blocked by extensions, and extensions have full-reign to make any change they want.
+Even on my Mac Pro, there is a noticable lag. I initially assumed this was the "JavaScript tax" for all Electron
+apps, but VS Code is fast.</p>
+
+<a name="Making.Intellisense"></a>
+<h3>Making Intellisense</h3>
+
+<p>By default a JavaScript project does not have a way to provide auto-completion, or in VS Code's terminology:
+Intellisense. Trying to make auto-complete based on a <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> can only get you so far, because it has to be
+wary against functions with side-effects. Other alternatives are to build an <a href="http://jointjs.com/demos/javascript-ast">AST</a> from the code, and then
+introspect that.</p>
+
+<p>In Xcode the auto-complete tools are powered by the type systems of Objective-C and Swift. This means that you can
+know the structure of an object, without having to dig inside it, potentially breaking it in the process. Vanilla
+JavaScript does not have a type system. There are a few root classes though: String, Object, Number etc.</p>
+
+<p>To work around this problem, VS Code uses <a href="http://www.typescriptlang.org">TypeScript</a> behind the scenes. TypeScript is a language that
+compiles down to JavaScript which provides a typing structure on top of JavaScript. This is a similar approach to
+how <a href="https://flowtype.org">Flow works</a> too, which is the language <a href="https://github.com/artsy/emission/pull/220">we write React Native</a> in.</p>
+
+<p>This can work out really well for your own classes if you are declaring your types, but the npm ecosystem is <em>full</em>
+of untyped JavaScript, and a lot of your work is about sitting atop those abstractions. The fix for this is offered
+via <a href="http://definitelytyped.org">DefinitelyTyped</a> which provides type definitions for popular npm modules. For example here is <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/redux/redux.d.ts">one for
+Redux</a> - these act like <a href="https://github.com/artsy/eigen/blob/master/Artsy/App/ARSwitchBoard.h">header files in Objective-C</a> - offering inline documentation, and
+the shape of the object.</p>
+
+<p>I use an extension to keep these up to date and to have them installed in every project I work in: <a href="https://marketplace.visualstudio.com/items?itemName=jvitor83.types-autoinstaller">Types auto
+installer</a>. Here's an example of auto-complete for <a href="http://redux.js.org/docs/api/Store.html">a Redux store</a>.</p>
+
+<p></article>
+<a href='/images/vscode/redux.png' style="">
+  <img src="/images/vscode/redux.png" alt="Redux" style="width:100%;">
+</a>
+<article class="post"></p>
+
+<p>It'll also provide information about the parameters, which is a life-saver for me. Having grown up with
+<a href="">named</a> <a href="https://robots.thoughtbot.com/ruby-2-keyword-arguments">parameters</a>.</p>
+
+<p></article>
+<a href='/images/vscode/redux-params.png' style="">
+  <img src="/images/vscode/redux-params.png" alt="Redux Params" style="width:100%;">
+</a>
+<article class="post"></p>
+
+<a name="Runtime"></a>
+<h3>Runtime</h3>
+
+<p>Using console logs to debug isn't an acceptable answer when debugging for me anymore. <a href="http://blog.cleancoder.com/uncle-bob/2016/07/27/TheChurn.html">That's churn</a> that
+I'm not willing to lose time to. Luckily for me, VS Code supports debugging across many languages.</p>
+
+<p>It does this by having a generic VS Code <a href="https://code.visualstudio.com/docs/extensions/example-debuggers">Debug Protocol</a> which lets extensions use their own
+processes to run the debugger. So the ruby debugger runs on the <a href="https://github.com/rubyide/vscode-ruby#debugger"><code>ruby-debug-ide</code></a> gem, and for
+node-based projects it uses the debugger built into node.</p>
+
+<p>So, here is a common case. I want to start up my web-server, so I need to run <code>npm dev</code>. I can run this from VS
+Code:</p>
+
+<p></article>
+<a href='/images/vscode/start.png' style="">
+  <img src="/images/vscode/start.png" alt="Editors" style="width:100%;">
+</a>
+<article class="post"></p>
+
+<p>Once that's running - I can attach a debugger. This is listing all of the available node processes on my computer:</p>
+
+<p></article>
+<a href='/images/vscode/attatch.png' style="">
+  <img src="/images/vscode/attatch.png" alt="Editors" style="width:100%;">
+</a>
+<article class="post"></p>
+
+<p>Then I can add a breakpoint, and when it is triggered, I have a full stack trace and REPL. The REPL is very
+barebones, for example - there's no auto-complete. However, it's good for quick exploration. I keep <a href="https://www.objc.io/issues/19-debugging/lldb-debugging/#printing-objects">accidentally
+prefixing</a> my REPL code with <code>po</code>.</p>
+
+<p></article>
+<a href='/images/vscode/debug.png' style="">
+  <img src="/images/vscode/debug.png" alt="Editors" style="width:100%;">
+</a>
+<article class="post"></p>
+
+<p>The breakpoint works through a <a href="http://blog.teamtreehouse.com/introduction-source-maps">source map</a>, and so the line you expect is the one that you're working
+in. That stuff is all pretty magic to me. Good on Microsoft, and the node community for pulling that off.</p>
+
+<a name="Wrapup"></a>
+<h3>Wrapup</h3>
+
+<p>I still feel a little bit uncomfortable in JavaScript projects, as a long-time native developer. However feel like
+VS Code is a nice mix of the freeform "just do something" style of Text Editors, which work across a lot of systems
+and the tight-knit IDEs that are bound to a specific domain. It can be a bridge between worlds.</p>
+
+<p>VS Code has become my main editor in Ruby and JavaScript, due to having great support for the projects and being an
+OSS project which I feel like I can contribute to. No more being <a href="https://github.com/alcatraz/Alcatraz/issues/475">locked out</a> of improving my editor.
+Awesome!</p>
+
+<p>  https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Functions.html
+  https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html
+  https://github.com/orta/vscode-danger/blob/a21ccc101b2b1c1be595b10565bca9c88242fb6f/package.json#L18-L20</p>
+
+        </article>
+
+        <article class='post'>
+          <p style="padding-bottom: 0; margin-bottom:0;">
+            <a href="https://www.artsy.net/" style="background-image: none;">
+              <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"></path>
+              </svg>
+            </a>
+          <p/>
+        </article>
+
+      
+
+      </section>
+
+      <footer>
+        <article>
+
+          <section>
+            <h4>Author</h4>
+            <p> <a href="/author/orta"/>Orta Therox</a></p>
+            <p>Code Janitor at Artsy, thinking about JS tooling.</a></p>
+          </section>
+
+          <section>
+            <h4>Post Meta</h4>
+            <p>Aug 15, 2016</p>
+            <p>Tagged: <a class='category' href='/blog/categories/danger/'>danger</a>, <a class='category' href='/blog/categories/node/'>node</a>, <a class='category' href='/blog/categories/reactnative/'>reactnative</a>, <a class='category' href='/blog/categories/tooling/'>tooling</a></p>
+          </section>
+          <br/>
+          <section>
+            <h4>Artsy OSS</h4>
+            <ul>
+              <li><a href='https://www.artsy.net'>Artsy.net</a></li>
+              <li><a href='https://developers.artsy.net'>API</a></li>
+              <li><a href='http://artsy.github.io/open-source/'>Featured OSS</a></li>
+              <li><a href='https://www.artsy.net/jobs'>Careers</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <h4>Blog</h4>
+            <ul>
+              <li><a href='http://artsy.github.io/blog/archives/'>Archives</a></li>
+              <li><a href='http://artsy.github.io/search/'>Search</a></li>
+              <li><a href='https://github.com/artsy/artsy.github.io'>Code on GitHub</a></li>
+              <li><a href='https://github.com/artsy/artsy.github.io/edit/source/_posts/2016-08-15-vscode.markdown'>Fix typoes in this post</a></li>
+            </ul>
+          </section>
+
+        </article>
+
+        <article>
+          <section>
+            <h4>Post Series on the Blog</h4>
+            <ul>
+              
+              <li><a href='/series/react-native-at-artsy/'>React Native at Artsy</a></li>
+              
+              <li><a href='/series/javascriptures/'>JavaScriptures</a></li>
+              
+              <li><a href='/series/stages-of-professional-growth/'>Stages of Professional Growth</a></li>
+              
+              <li><a href='/series/artsy-tech-stack/'>Artsy Tech Stack</a></li>
+              
+              <li><a href='/series/open-source-by-default/'>Open Source by Default</a></li>
+              
+            </ul>
+          </section>
+
+          <section>
+          
+          <p class="meta-series" style="padding-bottom:0;">More from <strong><a class='series' href='/series/omakase/'>Omakase</a></strong></p>
+          <ul>
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2019/04/05/omakase-typescript/'>What is TypeScript?</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2019/01/29/from-tslint-to-eslint/'>From TSLint to ESLint, or How I Learned to Lint GraphQL Code</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2018/12/11/GraphQL-Stitching/'>GraphQL Stitching 101</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2018/11/21/conditional-types-in-typescript/'>Conditional types in TypeScript</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2018/10/04/artsy-frontend-history/'>A History of Artsy's Web Frontend</a></li>
+                  
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2018/08/24/How-to-debug-jest-tests/'>How To Debug Jest Tests</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2018/07/25/Relay-Networking-Deep-Dive/'>The Relay Network Deep Dive</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                
+                <li><a href='/blog/2016/11/02/improving-page-speed-with-graphql/'>Improving Page Speed with GraphQL</a></li>
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                  
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          </ul>
+          
+          </section>
+        </article>
+
+      </footer>
+    </div>
+  </div>
+</body>

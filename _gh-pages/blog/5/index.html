@@ -1,0 +1,985 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Why We Run Our Own Blog
+        
+        
+          
+...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/5/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/30/why-we-run-our-blog/">
+        
+        
+          <h2 class="entry-title">Why We Run Our Own Blog</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>This blog just passed the 7 year mark from our initial <a href="/blog/2012/01/05/hello-world/">"Hello World"</a> post. We've always built and hosted our
+own blog, initially <a href="/blog/2012/01/18/octopress-and-jekyll/">using OctoPress</a> but eventually migrating to just plain old Jekyll.</p>
+
+<p>Artsy uses 3 separate editorial platforms now, we built our own for <a href="https://www.artsy.net/articles">Artsy Magazine</a>, use Medium for our <a href="https://www.artsy.net/life-at-artsy">Life
+at Artsy blog</a> and Jekyll for the engineering blog. There was a healthy debate about whether we would migrate
+to one, or two systems, but I had pretty strong opinions on migrating the engineering blog to Medium and nipped
+that in the bud pretty quickly.</p>
+
+<p>With <a href="https://m.signalvnoise.com/signal-v-noise-exits-medium/">Signal vs Noise</a> being a high profile of a example of migrating to Medium and back again, I thought it's
+worth taking the time to examine our reasoning for doing it ourselves.</p>
+
+
+        <p><a href="/blog/2019/01/30/why-we-run-our-blog/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/29/from-tslint-to-eslint/">
+        
+        
+          <h2 class="entry-title">From TSLint to ESLint, or How I Learned to Lint GraphQL Code</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/chris">Christopher Pappas<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>At the beginning of January we discovered an interesting note in <a href="https://github.com/Microsoft/TypeScript/issues/29288">TypeScript's roadmap</a> about linting:</p>
+
+<blockquote><p>In a survey we ran in VS Code a few months back, the most frequent theme we heard from users was that the linting
+experience left much to be desired. Since part of our team is dedicated to editing experiences in JavaScript, our
+editor team set out to add support for both TSLint and ESLint. However, we noticed that there were a few
+architectural issues with the way TSLint rules operate that impacted performance. Fixing TSLint to operate more
+efficiently would require a different API which would break existing rules (unless an interop API was built like
+what wotan provides).</p>
+
+<p>Meanwhile, ESLint already has the more-performant architecture we're looking for from a linter. Additionally,
+different communities of users often have lint rules (e.g. rules for React Hooks or Vue) that are built for
+ESLint, but not TSLint.</p>
+
+<p>Given this, our editor team will be focusing on leveraging ESLint rather than duplicating work. For scenarios
+that ESLint currently doesn't cover (e.g. semantic linting or program-wide linting), we'll be working on sending
+contributions to bring ESLint's TypeScript support to parity with TSLint. As an initial testbed of how this works
+in practice, we'll be switching the TypeScript repository over to using ESLint, and sending any new rules
+upstream.</p></blockquote>
+
+<p>At Artsy we've been using TSLint for a few years now; it's worked well for us, and we've even written our own
+<a href="https://github.com/relay-tools/tslint-plugin-relay">custom rules</a>. However, given the vastness of the JS ecosystem
+and how fast it moves, it's easy to recognize this announcement as an exciting moment for tooling simplicity.</p>
+
+
+        <p><a href="/blog/2019/01/29/from-tslint-to-eslint/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/23/artsy-engineering-hiring/">
+        
+        
+          <h2 class="entry-title">How Artsy Hires Engineers</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/lily">Lily Pace<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/lilyfromseattle">@lilyfromseattle</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/steve-hicks">Steve Hicks<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/pepopowitz">@pepopowitz</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Interviewing is hard. Interviewers want to make sure they're hiring the person who will add the most value to their
+team; candidates want to make sure they're joining a company that aligns with their goals and perspectives.</p>
+
+<p>Recent trends in hiring are white-boarding sessions, trivia questions, and hours of take-home assignments. At
+Artsy, we don't use any of these. We often get asked why not - and how we assess technical skill without them.</p>
+
+
+        <p><a href="/blog/2019/01/23/artsy-engineering-hiring/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/14/graphql-union-vs-interface/">
+        
+        
+          <h2 class="entry-title">GraphQL: Union vs. Interface</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ashkan">Ashkan Nasseri<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashkinas">@ashkinas</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>At Artsy we’ve been moving towards GraphQL for all of our new services. Acknowledging GraphQL is a relatively new
+technology, we faced some challenging questions as we were developing one of our most recent services.</p>
+
+<p>Naively as my first attempt to define GraphQL types and schemas, I naturally tried to map our database models to
+GraphQL types. While this may work for lot of cases, we may not be utilizing some of the useful features that come
+with GraphQL that can make the consuming of our data a lot easier.</p>
+
+<a name="GraphQL:.Interface.or.Union."></a>
+<h2>GraphQL: Interface or Union?</h2>
+
+<p>Think of the case where we are trying to expose search functionality and the result of our search can be either a
+<code>Book</code> , <code>Movie</code> or <code>Album</code>. One way to think about this is to have our search query return something like:</p>
+
+
+        <p><a href="/blog/2019/01/14/graphql-union-vs-interface/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/08/automation-encourages-more-automation/">
+        
+        
+          <h2 class="entry-title">Automation Encourages More Automation</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Last year, <a href="http://artsy.github.io/blog/2018/05/07/fully-automated-standups/">I wrote about the process of fully automating our weekly engineering-wide standup</a>. One of
+the benefits of automating what <em>was</em> a meeting run by a single person to a meeting run by everyone is that we
+removed a <a href="https://en.wikipedia.org/wiki/Single_point_of_failure">single point of failure</a>. However, I may have fibbed just slightly when I called our standups
+<em>fully</em> automated.</p>
+
+<p>This blog post is going to cover how (and more importantly, <em>why</em>) I finally automated the last 5% of our weekly
+standups. Let's go!</p>
+
+
+        <p><a href="/blog/2019/01/08/automation-encourages-more-automation/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/05/its-time-to-use-spm/">
+        
+        
+          <h2 class="entry-title">It's time to use Swift Package Manager</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>It's been three years, and <a href="https://swift.org/package-manager/">Swift Package Manager</a> (SPM) is at a point where it can be useful for iOS
+projects. It'll take a bit of sacrifice and a little bit of community spirit to fix some holes probably but <strong>in my
+opinion, it's time for teams to start adopting SPM for their 3rd party dev tools</strong>.</p>
+
+<p><strong>TLDR:</strong> You should be using SPM for 3rd party dev tools like: <a href="https://github.com/realm/SwiftLint">SwiftLint</a>, <a href="https://github.com/nicklockwood/SwiftFormat">SwiftFormat</a>, <a href="https://danger.systems/swift/">Danger</a>,
+<a href="https://github.com/krzysztofzablocki/Sourcery">Sourcery</a>, <a href="https://github.com/SwiftGen/SwiftGen/">SwiftGen</a> and <a href="https://github.com/orta/Komondor">Git Hook management</a>.</p>
+
+<p>This post covers: What made it feasible to use SPM now? What are the downsides of the status quo? Why use SPM at
+all? What are the downsides to using SPM?</p>
+
+
+        <p><a href="/blog/2019/01/05/its-time-to-use-spm/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/01/03/label-based-prs/">
+        
+        
+          <h2 class="entry-title">Migrating to PR Label based Continuous Deployment</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>In the JavaScript world, the idea of deploying your libraries on every PR is pretty common. As someone who runs a
+dependency manager but comes from a native background, it's easy for me to cringe and imagine the strain this puts
+on NPM's servers. However, that is where the ecosystem is and <a href="https://github.com/artsy/reaction/issues/388">continuous deployment</a> can be really useful. So,
+about a year ago <a href="https://github.com/artsy/reaction/pull/521">we started</a> moving a lot of our libraries to do this at Artsy too. Starting with our most
+critical dependencies:</p>
+
+<ul>
+<li><a href="https://github.com/artsy/reaction#readme">Reaction</a> (our React components used in many of our web apps)</li>
+<li><a href="https://github.com/artsy/palette#readme">Palette</a> (our <a href="https://palette.artsy.net">design system</a>)</li>
+</ul>
+
+
+<p>We started off using a commit message based workflow, but have just finished the migrating to a GitHub Label based
+workflow that is less workload on individual contributors. This post will cover how, and why.</p>
+
+
+        <p><a href="/blog/2019/01/03/label-based-prs/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/12/21/why-is-swiftpm-taking-so-long/">
+        
+        
+          <h2 class="entry-title">Why is the Swift Package Manager taking so long?</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Last month I was chatting at a bar with an engineer working on the Swift team, and we welcomed someone to our
+conversation where they opened with the question: <em>"When can I stop using CocoaPods and switch to Swift PM?"</em> I
+chuckled, because I get this a lot (I have been helping to maintain CocoaPods for about 6 years now) but they had
+made mistake of asking an Apple employee about something which sounds even remotely like a future product question.
+So, it didn't go anywhere.</p>
+
+<p>Well, <em>person whose name I don't remember</em>, let me try to re-frame that question into something I can take a
+reasonable stab at: <strong>"Why are we all still using CocoaPods now instead of Swift PM for iOS apps three years after
+its release?"</strong></p>
+
+
+        <p><a href="/blog/2018/12/21/why-is-swiftpm-taking-so-long/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/12/11/GraphQL-Stitching/">
+        
+        
+          <h2 class="entry-title">GraphQL Stitching 101</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Micro-Services make sense for an engineering team of our size. You can scope a domain of your business to
+particular small unit of abstraction like an API. Doing so makes it easy to work in isolation, experiment with new
+ideas and evolve in many directions.</p>
+
+<p>We've been <a href="http://artsy.github.io/blog/2017/04/14/artsy-technology-stack-2017/#Artsy.Technology.Infrastructure.2017.-.Splitting.the.Monolith">carefully pushing</a> for years to move away from our single monolithic API, to a collection of
+smaller, more focused projects. Our <a href="https://github.com/artsy/README/blob/master/culture/highlights.md#highlights">highlights docs</a> showcase this well. The movement to smaller composable
+services works great from an isolated platform/systems perspective but can be a bit tricky to handle with front-end
+clients. Until 2018, the way that we've addressed the growing complexity in our service later has been to migrate
+the complexity inside our main GraphQL API, <a href="https://github.com/artsy/metaphysics/">metaphysics</a>. Metaphysics is our GraphQL API gateway that
+consolidates many API sources into a single service, then extending and interleaving and their data to make clients
+easier to write.</p>
+
+<p>However, as more services have been created, and grown - so has metaphysics. This creates a worrying trend, as the
+growth of code in metaphysics isn't quite linear.</p>
+
+<p>Our main line-of-thought on how to address this is via GraphQL schema stitching. We've been <a href="https://github.com/artsy/metaphysics/pull/809">running
+experiments</a> in stitching for over a year, and have have been running with stitching enabled in production for
+a few months.</p>
+
+
+        <p><a href="/blog/2018/12/11/GraphQL-Stitching/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/11/28/artsy-auth/">
+        
+        
+          <h2 class="entry-title">Everything You Ever Wanted To Know About Authentication at Artsy (But Didn't Know How To Ask)</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/myk">Mykola Bilokonsky<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/mykola">@mykola</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Hi! Let's talk a little bit about user authentication. We'll discuss it through the context of authentication
+within Artsy's ecosystem of applications, but ideally the same concepts will translate into other systems as well.
+The goal here is to build an understanding of (1) what exactly authentication is, (2) how it works, and (3) how to
+use artsy's specific infrastructure to delegate authentication for a new application to the existing ecosystem.</p>
+
+<p>There are two primary authentication flows that we use at Artsy. We support <em>user authentication</em> through
+<a href="https://oauth.net/2/">OAuth</a> to allow users to log into our applications by delegating authentication to Gravity,
+our primarily application API. Alternately, we support <em>app authentication</em> for those cases where an application
+will only be called by other applications. We don't care about user authentication in this context, there's no need
+to redirect to a login screen etc - we just need to establish permissions between services. In both cases you'll be
+working with <a href="https://jwt.io/introduction/">JSON Web Tokens (JWTs)</a>, and the difference is how the token you're
+looking at is generated.</p>
+
+<p>User authentication happens at login - when the user provides their credentials to our server, our server confirms
+that they are who they claim to be and then generates a cryptographically signed token that encodes a few facts
+about that user.</p>
+
+<p>App authentication, by contrast, all gets done in advance. We create the token manually, and share it with whatever
+application we want to grant access to.</p>
+
+<p>In this document we'll first develop an understanding of what OAuth is and how it works. Then we'll examine the
+tokens we're using to get a better sense of what kind of information we have to work with. Finally, we'll go into
+how to set up authentication for users and for applications, building on the knowledge we've established.</p>
+
+
+        <p><a href="/blog/2018/11/28/artsy-auth/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/4/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 5 of 27</span>
+
+    
+      <a href="/blog/6/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

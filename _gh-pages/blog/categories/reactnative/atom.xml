@@ -1,0 +1,1474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: reactnative | Artsy Engineering]]></title>
+  <link href="https://artsy.github.io/blog/categories/reactnative/atom.xml" rel="self"/>
+  <link href="https://artsy.github.io/"/>
+  <updated>2021-10-06T21:47:56+02:00</updated>
+  <id>https://artsy.github.io/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Becoming Mobile First]]></title>
+    <link href="https://artsy.github.io/blog/2020/09/29/becoming-mobile-first-at-artsy/"/>
+    <updated>2020-09-29T00:00:00+02:00</updated>
+    <id>https://artsy.github.io/blog/2020/09/29/becoming-mobile-first-at-artsy</id>
+    <content type="html"><![CDATA[<p>It was a Wednesday, mid-summer 2019. I don't know which Wednesday specifically, but I know that it was <em>a</em>
+Wednesday because I was attending Artsy's weekly all-hands meeting. Two hundred colleagues were also there (many
+dialing in remotely) and we were all listening to
+<a href="https://files.artsy.net/documents/artsy-names-new-ceo.pdf">Artsy's new CEO</a> talk about the company's direction.
+Mike Steib had only been around for a few months at that point, getting to know the business. He was talking about
+the product direction, and I was listening intently.</p>
+
+<p>With Artsy's iOS app, I knew there were only really two directions we could go. As I listened, I reflected on how
+we had gotten here.</p>
+
+<!-- more -->
+
+
+<p>When I joined Artsy in 2014, I joined the Mobile Team. It was an amazing team. While we were called the "mobile"
+team, we only worked on Artsy's iOS apps and not the mobile website.</p>
+
+<p>By 2016, Artsy Engineering had grown to the size that having only a "mobile team" and a "web team" was no longer
+working well. We dissolved both teams and distributed the engineers into
+<a href="https://artsy.github.io/blog/2016/03/28/artsy-engineering-organization-stack/">new product teams</a>, focused on
+vertical aspects of Artsy's business. Auctions. Partner Success. Editorial. And so on. The idea was that each team
+would have total autonomy over building products to support their slice of the business, and each would have the
+engineering and design resources to build new features across both our web and iOS canvases.</p>
+
+<p>That structure worked well, and continues to work well today (we have continued re-organizing ourselves into new
+teams to better meet business goals). But once we dissolved the mobile team, there was no longer anyone looking at
+our iOS software holistically. The app had become a series of silos – each silo was internally consistent, but
+distinct from each other. Often each silo was written in distinct programming languages (we had also started
+adopting React Native).</p>
+
+<p>New iOS technologies had been created by Apple, but our teams weren't taking full advantage of them. We would
+update to support the latest versions of Xcode and iOS in the free time between other tickets. It wasn't ideal. Of
+the <a href="https://github.com/artsy/mobile">five original members of the Mobile Team</a>, everyone else had moved on except
+me.</p>
+
+<p>As a product, the app was languishing.</p>
+
+<p>Yet despite this, it was also hugely popular among our users and very important to Artsy's business. Art collectors
+love our app! It gets a large percentage of our total sessions. Also, users place an outsized number of auction
+bids and artwork inquiries using our app relative to the number of sessions on our website. In fact, the highest
+value artwork transaction <em>ever</em> to take place on Artsy was made on an iPad, running software that I helped build.
+I'm still pretty proud of that.</p>
+
+<p>So, Wednesday all-hands. I stood there, not sure of what would happen next. I could see Artsy either making a
+massive investment in the app, or I could see Artsy cutting its losses and focusing on the software that we already
+knew how to build. Which direction we took largely depended on this new CEO, who was now standing in front of us
+all and describing the direction Artsy's product would take next.</p>
+
+<a name="The.Dream"></a>
+<h2>The Dream</h2>
+
+<p>Mike said something that caused a lot of raised eyebrows in the crowd. People were excited. <em>I</em> was excited.
+Artsy's product organization would shift to adopt a "mobile-first strategy."</p>
+
+<p>Someone asked "does this mean the app will reach feature parity with Artsy's website?"</p>
+
+<p>Mike responded: "No. It means that features are going to launch <em>first</em> on the app. If anything, it's the <em>website</em>
+that will be catching up <em>to the app</em>."</p>
+
+<p>I was kind of blown away! I mean, this had been the spirit of our original re-org in 2016, but that hadn't really
+materialized. The app had continued to trail the website. At most, only one product team was ever building new
+features for the app (usually which ever team I happened to be on). Shifting to this mobile-first strategy would be
+a <em>massive</em> undertaking, but I was keen.</p>
+
+<p>In August, an email landed in my inbox from Artsy's head of software. He wanted to spin up a new team to focus on
+the app: the team would be responsible for supporting Artsy's new mobile-first product strategy. He wanted to know
+what I thought, and he wanted to know if I was interested in leading the team.</p>
+
+<p>Honestly, it was a dream come true.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/rfc.png" alt="Screenshot of the RFC for creating the Mobile Experience team" /></p>
+
+<p>Here we are, a year later. This is the story of how Artsy created its Mobile Experience team. How we recovered a
+languishing iOS app. How engineers helped shift the product organization to a mobile-first product strategy. And
+how Artsy grew from <em>sometimes</em> having <em>a</em> team working on the app, to usually having <em>every</em> team working on it.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/faq.png" alt="Another screenshot of the RFC for creating the Mobile Experience team, describing frequently asked questions" /></p>
+
+<a name="Getting.Our.Bearings"></a>
+<h2>Getting Our Bearings</h2>
+
+<p>When Artsy created its new Mobile Experience team, we were already resource-constrained and so the new team would
+need to be nimble. We had three full-time engineers (myself as tech lead, and two others), assisted by a designer,
+product manager, and data analyst, who would each be spending only half their work time on the Mobile Experience
+team. We needed to be scrappy. I'm really proud of the work that that early team accomplished, and I look back
+fondly on those first few months working with Sam, Joanna, David, Kieran, and Ani.</p>
+
+<p>The first thing we did was define our own mandate. What was this team responsible for? What was it <em>not</em>
+responsible for? "Mobile Experience" is pretty vague, and we had to answer a lot of upfront questions. Would we be
+responsible for <em>all</em> of Artsy's iOS software? No, just the main collector app. Would we be responsible for Artsy's
+mobile website? No, that's too far-reaching. What about Android? Well, yes, eventually...</p>
+
+<p>After we decided on our mandate, the next step was to get really familiar with the existing app. We storyboarded
+out all the existing screens and their connections to one another.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/walkthrough.png" alt="Screenshot of all the screens in our app laid out to discuss" /></p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/brainstorm.png" alt="Screenshot of a brainstorm for app ideas" /></p>
+
+<p>No one on our team had complete knowledge of every screen in the app, not even me, so exploring it together was a
+great way to uncover what needed immediate attention. One example was our partner page, which displayed information
+to our users about Artsy's partners: galleries, museums, auction houses, etc. We learned that the app actually used
+an ancient web view, and it didn't even show the partner's <em>artworks</em>. The artworks! Probably the most important
+thing for it to do!</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/old_partner.png" alt="Screenshot of a presentation showing the old partner page" /></p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/new_partner.png" alt="Screenshot of a presentation showing the new partner page, which looks much nicer" /></p>
+
+<p>This is where "being scrappy" started to take root. Usually when developing new features, Artsy designers iterate
+on a design before we plan on execution, then we implement, test, and deploy. The nice part of replacing something
+that was <em>obviously broken</em> was that we didn't feel beholden to this usual process; whatever we built would be
+better than what we had. One engineer and our designer started the new partner page with a quick pencil sketch,
+using the app's existing UI abstractions to design something that we could quickly build. Once we had a prototype,
+the engineer and designer iterated. The whole project took only about three weeks.</p>
+
+<a name="Early.Wins"></a>
+<h2>Early Wins</h2>
+
+<p>Learning about the app itself was critical, but equally important was learning about how our users <em>used</em> the app.
+We scheduled user interviews and, in the mean time, looked into our anonymized user analytics. Our data analyst
+found a few representative sessions and we walked through each action that a user took. One big lesson here was how
+much our app users relied on the app's search feature, which was still written in Objective-C and hadn't been
+updated in a long time. We found that users would often search for the same query several times in the same
+session. For example, users would search for "banksy", wander off exploring some art, and then return to search for
+"bansky" again. And again. And again.</p>
+
+<p>Our search implementation didn't show users their own recent searches, which would have greatly reduced the amount
+of friction users experienced while exploring the art world in the app. Our other engineer took point working with
+our designer to migrate the app's search to React Native. We also added some other features to our search page,
+like adding entity subtitles so users would know if the result they were tapping on was an artwork, and artist, a
+gallery, and so on. The whole project took about a month to complete, and we have continued to iterate on the app's
+search.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/new_search.png" alt="Screenshot of a presentation showing the new search" /></p>
+
+<p>In early conversations with company leadership, the Mobile Experience team settled on an... interesting strategy to
+what we would prioritize. Our mission was "to make the app not suck." This might seem harsh! But it came from a
+place of caring. We knew how much better the app could be and we were motivated to make that a reality. In the
+spring of 2020, the team felt like we had reached a point where the app no longer "sucked" – our goal now was "to
+make the app amazing."</p>
+
+<p>During 2020, we made a lot of changes to the app. We had built a new home page, a profile tab for users, granular
+push notification settings, Sign In with Apple, and more.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/new_home.png" alt="Screenshot of a presentation showing the new home page" /></p>
+
+<p>It was really exciting to show off our progress to the rest of the company at our monthly Demo Day, especially in
+those early months. The product team makes up only a quarter of our company and it was really cool to hear gallery
+liaisons complementing our new partner page, or sales people complementing our refreshed home feed. I think that
+people had gotten so used to the app not moving much at all that this sudden high velocity of development was as
+exciting for them as it was for us.</p>
+
+<a name="Setting.Up.Others.To.Succeed"></a>
+<h2>Setting Up Others To Succeed</h2>
+
+<p>Artsy's goal for the Mobile Experience team was explicitly <em>not</em> to centralize all our iOS feature development, and
+so our mandate included much more that just working on iOS software ourselves. We wanted to sit between a typical
+product team and a "platform" team, to provide infrastructure and assistance so any team at Artsy could develop
+their own iOS feature. This was a big challenge, and required work at the individual and team levels.</p>
+
+<p>The first step was apparent before we even created the Mobile Experience team. Artsy Engineering runs skills
+surveys every six months, and we knew that building iOS software in React Native was something Artsy engineers
+weren't really familiar with, but that they really wanted to learn more about. I worked with the Engineering team's
+Peer Learning Working Group to design a curriculum – big shout out to Christina and Adam for their help here!</p>
+
+<p><a href="https://artsy.github.io/blog/2019/12/03/ios-learning-group/">The iOS Learning Group took four weeks to deliver four lessons</a>.
+The learners were mostly web engineers, so I emphasized the familiar parts of writing React Native software. I also
+provided weekly office hours for learners to get assistance with homework. I even stretched my wings as an
+educator, developing new skills around curriculum design and delivery. After the course, learners responded
+positively to the experience and we have integrated lessons learned from the iOS Learning Group into subsequent
+peer learning groups.</p>
+
+<a name="Aligning.Product.Releases"></a>
+<h2>Aligning Product Releases</h2>
+
+<p>Now that engineers had a solid grasp of how to build software in our application, we could re-align our product
+development process around iOS. I can't speak to the design side of this, but from a product perspective the most
+critical milestone was defining a regular 2-week app release cadence. Let me explain.</p>
+
+<p>Prior to the Mobile Experience team, we released the app pretty irregularly. We would release whenever we had
+something big to release, basically. There are two major flaws with that approach. The first problem is that since
+each release was bigger, each release was scarier. No one really felt confident releasing app updates. The second
+problem was that large pieces of work tended to get coupled together. This came to a head last summer when we were
+blocked from releasing an redesigned artwork view because we were waiting for a major overhaul to Artsy's GraphQL
+API to be completed. Without guidance or structure, different teams were building big projects and both had their
+changes in our default branch – it was a bit chaotic.</p>
+
+<p>These two problems are incidental to how we worked at Artsy but there is another, inherent problem to developing
+mobile apps:
+<a href="https://artsy.github.io/blog/2020/03/02/ios-deploys-super-weird-totally-normal/">deploying iOS software is weird</a>.
+Engineers, designers, and product managers at Artsy are used to being able to quickly and cheaply deploy software
+to the <em>web</em>, not the App Store. iOS software is deployed to our user's hardware, not to servers we control, which
+introduces the possibility that users might not upgrade. Software we shipped years ago is still being run today –
+we have the analytics to prove it. Not to mention that every app update has to go through Apple's App Store review
+process. Getting our product team aligned on a release schedule might also help us get aligned on the weirdness of
+deploying iOS software.</p>
+
+<center>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">iOS developers! I have a question for you. I hear a lot about teams releasing app updates on a 2-week cadence, to increase user confidence/App Store ranking/team morale/etc.<br><br>Have any teams shared their experiences with this? Bonus points for any quantitative data. Thanks!! 🤗</p>&mdash; Ash Furrow (@ashfurrow) <a href="https://twitter.com/ashfurrow/status/1184845989510811649?ref_src=twsrc%5Etfw">October 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
+
+
+<p><br /></p>
+
+<p>As the Mobile Experience team formed, I reached out to other mobile teams to find out about how they structured
+regular releases. <a href="https://twitter.com/Cform">Matt Greenwell</a> from BuzzFeed was really helpful in particular,
+outlining their experience of the pros and cons of a regular release cadence. We implemented a two-week release
+cadence so that all product teams could align their own feature development and testing around this predictable
+structure. We also created documentation for teams to hide their in-progress work behind feature flags. And
+finally, we refined our app QA process; teams would QA their own features and bug fixes while the Mobile Experience
+team would used a QA script to test the app <em>generally</em>, every other Monday, before submitting an update to the App
+Store.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/cadence.png" alt="Calendar describing our cadence on an example sprint" /></p>
+
+<a name="Making.Deploys.Not.Scary"></a>
+<h2>Making Deploys Not Scary</h2>
+
+<p>To further help teams get into the habit of developing and releasing iOS software often, we created nightly betas.
+We also adopted a clever idea from our web colleagues: deploy blocks. In case of a technical reason to not release
+a beta, we create a block and the CI job that deploys the beta would fail with a descriptive message. This reduced
+a lot of chatter in Slack where engineers would ask "could I make a new beta?" Instead, engineers usually just wait
+for the nightly beta. And if they get impatient, they now default to action (their beta deploy will fail if we set
+up a block).</p>
+
+<p>All of this was automated through <a href="https://fastlane.tools">fastlane</a> on our CI provider. We had been using fastlane
+for a long time at Artsy, but the Mobile Experience team took the time to share knowledge of how it worked. Any
+engineer at Artsy can now make a beta (<code>make deploy</code>) or promote the latest beta to an App Store submission
+(<code>make promote_beta_to_submission</code>).</p>
+
+<p>We deploy more often and, consequently, each deploy is less scary. And everyone is aware of the need to hide
+in-progress work behind feature flags. At this point, updates to our app are mundane, predictable, and boring. Just
+the way we like them.</p>
+
+<a name="Being.Generous.With.Our.Time"></a>
+<h2>Being Generous With Our Time</h2>
+
+<p>Our QA and deploy process touches on something I want to go into more detail about, which is how the Mobile
+Experience team helped support other product teams. I described earlier how Mobile Experience sits somewhere
+between a normal product team and a platform team, and we leveraged that to our advantage. It would have been easy
+to become primarily a supportive team, and leave feature development up to others. However, that would leave us
+unaware of how day-to-day development <em>feels</em> in the app. We own the platform, and that includes the developer
+experience. By sitting in this ambiguous in-between state, we stayed aware of both the needs of everyday
+developers, and the needs of our platform.</p>
+
+<p>I would encourage engineers from other teams to ask us for help, which led to a lot of pairing sessions. To be
+honest, I think it probably interfered with our productivity, but it was worth it. A half hour of my time spent
+pairing with a colleague might save them three hours of banging their head against Xcode. But it's not the time
+saved that I care about, it's the head-banging. I want engineers at Artsy to feel empowered to build their own iOS
+software, and that's only going to happen if they feel comfortable and supported.</p>
+
+<p>When the Galleries team kicked off their ambitious Viewing Rooms project, we helped them get started by lending an
+engineer to them for a few sprints. When they ran into problems, we were generous with our time by pairing with
+them. When they were nearing completion, we helped them test the new feature. This all culminated in a smooth
+release.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/new_loader.png" alt="Screenshot of a presentation showing the new home page's new loading indicator" /></p>
+
+<p>Speaking of Developer Experience, we took a keen interest in standardizing our best practices and modernizing the
+codebase. We
+<a href="https://github.com/artsy/eigen/blob/dc81bbc9cd33d51d10054a6c57e61a1bd0ee3e75/docs/preferred_practices.md">documented how we wanted the app's codebase to look</a>
+and set up
+<a href="https://github.com/artsy/eigen/blob/dc81bbc9cd33d51d10054a6c57e61a1bd0ee3e75/tslint-rules/useWrappedComponentsRule.js">processes like lint rules</a>
+to encourage developers to follow our best practices. We also invited any engineer at Artsy to join our
+twice-weekly Knowledge Share meetings (I'll discuss these in-depth shortly). We looked for bottle necks in the
+development process and found many problems, which we addressed.
+<a href="https://github.com/artsy/eigen/pull/3022">We combined the Native iOS and React Native repositories</a> (which had
+historically been separated). <a href="https://github.com/artsy/eigen/pull/3105">We overhauled the CI configuration</a> to
+leverage heavy caching – average build times dropped from fifteen minutes to less than five.
+<a href="https://github.com/artsy/eigen/pull/3210">And we adopted stricter TypeScript compiler settings</a> so that engineers
+would be forced to deal with nullability and other causes of bugs. (Hey, sometimes you need a carrot and sometimes
+you need a stick.)</p>
+
+<p>The React Native community has grown a lot since 2016. If Artsy were to begin our adoption of React Native today,
+we would be really well-supported by a community that has defined best practices, documented standard approaches to
+problems, and a consolidated opinion on what a React Native codebase should "feel" like. None of that existed in
+2016, and our early architectural decisions don't really reflect contemporary best practices. We continue working
+to bring our codebase closer to resembling a fresh project created with <code>react-native init</code>.</p>
+
+<p>I'm extraordinarily happy with how things have shaped up, and in the direction we continue to move. This is all an
+ongoing process, and should remain an ongoing process. For example, engineers were still facing a bottleneck with
+core parts of our app's routing logic that were in Objective-C, so we recently
+<a href="https://github.com/artsy/eigen/pull/3771">moved all routing to TypeScript</a>. Not only does moving code out of
+Objective-C make it easier for everyone to build, but it also ladders up to a cross-platform Artsy app.</p>
+
+<p>We still have older practices in the app that we want to migrate away from, like testing with Enzyme. But overall,
+things are looking good!</p>
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/IEn2_WSKFHw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<a name="Knowledge.Shares"></a>
+<h2>Knowledge Shares</h2>
+
+<p>We achieved most of these big, infrastructural changes in meetings called <em>Knowledge Shares</em>, which I mentioned
+earlier. I should write a dedicated blog post on these (update: <a href="/blog/2020/12/09/share-your-knowledge/">I did write one</a>), but in short: Knowledge Shares are a <em>structured</em> time to
+facilitate <em>unstructured learning</em>. Anyone can bring a topic to Knowledge Share, from a ticket that they're stuck
+on to an idea they have to a neat trick they recently learned. We set aside these two hours a week to discuss
+whatever the team wants, and we don't only invite engineers.</p>
+
+<p>New feature designs, product roadmaps, and data analyses are often brought up by our non-engineering colleagues; we
+discuss these at the beginning of the meetings to make sure everyone's time is respected. Throughout the week,
+someone will raise a question in Slack. Before we had Knowledge Share meetings, we might schedule a dedicated
+half-hour meeting to discussing this question. But instead, we now say "alright let's chat about this at tomorrow's
+KS." Usually the discussion lasts a lot less than a half hour, so we save time and needless context-switching.</p>
+
+<p>Knowledge Shares are also a manifestation of my philosophy of tech leadership, which is this: none of us have built
+an Artsy before, so instead of optimizing for building an Artsy, let's optimize for <em>learning</em> how to build an
+Artsy. The best Artsy we can build. And as a natural byproduct, an Artsy gets built. But it's the <em>learning</em> that
+is treated as the paramount goal.</p>
+
+<p>Like I said, I owe you a whole blog post on Knowledge Share meetings. I hope I have conveyed how important these
+scheduled "structured unstructured learning" times have been for us.</p>
+
+<a name="The.Results"></a>
+<h2>The Results</h2>
+
+<p>So where does that leave us? It's been a year and change, where are we now? Well I'm happy to say that we've made a
+huge impact. We've gone from only having (at most) one product team writing iOS software at a time to having nearly
+<em>every</em> product team building iOS software. Artsy is through the woods of its transition to a mobile-first product
+strategy. We still have a ways to go, but it feels like we have finally realized the dream we had in 2016 where
+every team is fully equipped and empowered to deliver on their own business goals, across all of Artsy's canvasses.</p>
+
+<p>Our App Store ranking has shot through the roof – not surprising considering our "make it not suck" and then "make
+it amazing" approach. Artsy's iOS app rating now sits at a stout 4.7.</p>
+
+<p><img src="/images/2020-09-29-becoming-mobile-first-at-artsy/ratings.png" alt="Screenshot of a graph showing an increasing average App Store rating" /></p>
+
+<p>We've also started tracking our iOS developer experience within Artsy. We know exactly where we still need work
+because we ask our engineers where they need support.</p>
+
+<p>It's taken a mammoth effort, and there's so much more that I could talk about, but this blog post is long enough
+already! Looking at the work we've done, the ways we've done it, and the results of our effort... I feel ecstatic.</p>
+
+<a name="Next.Steps"></a>
+<h2>Next Steps</h2>
+
+<p>All that said, Artsy's product team is currently embarking on another reorganization. With so much technical and
+product debt paid off, Artsy has evolved past the need for a dedicated Mobile Experience team. It's bittersweet,
+but I'm proud to say that the new Collector Experience team is about to be born. Our team will continue to own the
+mobile platform, including its holistic user experience and day-to-day developer experience, but we'll have an
+expanded mandate. That mandate includes a cross-platform Artsy app that will work for collectors on Android as well
+as iOS.</p>
+
+<p>The Mobile Experience team has grown, too. Since we started last year with just a few engineers and limited product
+support, we now boast a full roster of engineers and product support. I want to thank everyone on the team,
+currently: David, Sam, Brian, Mike, Brittney, Pavlos, and Mounir. You have made the past year an incredibly
+rewarding experience for me as I learn the ropes of technical leadership. I'm so proud of what we've built together
+and I'm excited for what the new Collector Experience team is going to do next!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Peril Architecture Deep Dive]]></title>
+    <link href="https://artsy.github.io/blog/2019/04/04/peril-architecture-deep-dive/"/>
+    <updated>2019-04-04T00:00:00+02:00</updated>
+    <id>https://artsy.github.io/blog/2019/04/04/peril-architecture-deep-dive</id>
+    <content type="html"><![CDATA[<p>For the <a href="/blog/2017/09/04/Introducing-Peril/">last two years</a>, we've used <a href="https://github.com/danger/peril">Peril</a> to automate quite a lot of process at Artsy. You can see
+a full overview of what <a href="https://github.com/artsy/README/blob/master/culture/peril.md">we automate in <code>artsy/README</code></a>. As a service, Peril is a bit of an iceberg
+of complexity, most tooling-y developers at Artsy have <a href="https://github.com/artsy/peril-settings/graphs/contributors">contributed</a> to our user-land Dangerfiles
+but very few have touched the server itself.</p>
+
+<p>To lower that barrier, I gave our Engineering team a run through of how the server works and how a lot of the
+pieces come together. Jump <a href="https://www.youtube.com/watch?v=3HNmiNHCvdA">to YouTube</a> for the video, or click more
+for a smaller inline preview.</p>
+
+<!-- more -->
+
+
+<p></div></div><iframe width='100%' height='600' src='https://www.youtube.com/embed/3HNmiNHCvdA ' frameborder='0' allowfullscreen></iframe><div class='meta-container'><header>&nbsp;</header></div><div class='content-container'><div class='entry-content'></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[React Native at Artsy, 3 years later]]></title>
+    <link href="https://artsy.github.io/blog/2019/03/17/three-years-of-react-native/"/>
+    <updated>2019-03-17T00:00:00+01:00</updated>
+    <id>https://artsy.github.io/blog/2019/03/17/three-years-of-react-native</id>
+    <content type="html"><![CDATA[<p>On Valentine's day in 2014, @alloy made our first commit moving the Artsy Mobile team to JavaScript, and paving the
+way to the <a href="https://www.youtube.com/watch?v=1Z3loALSVQM">shared Omakase JavaScript stack across web + iOS</a>. We've done a write-up at <a href="/blog/2016/08/15/React-Native-at-Artsy/">6 months</a>, <a href="/blog/2017/02/05/Retrospective-Swift-at-Artsy/">1 year</a>,
+<a href="/blog/2018/03/17/two-years-of-react-native/">2 years</a> and at 2.5 years we collaborated on a React Native conference with Facebook which features a <a href="http://artsy.net/x-react-native">very long
+Q&amp;A</a> session with the people who worked on, and with our React Native stack.</p>
+
+<p>Our experience has been really positive building a single platform data-driven app. We've been able to drastically
+increase the number of contributors to the codebase and with minimal guidance, web-developers are able to be
+productive and ship features to our iOS apps.</p>
+
+<p>That said, for this 3 year anniversary, I want to dive deeper into some of the less positive aspects of our
+transition. We think these trade-offs are worth it, and that this may be what a successful cultural transition
+eventually looks like for some companies.</p>
+
+<!-- more -->
+
+
+<a name="De-nativification"></a>
+<h2>De-nativification</h2>
+
+<p>When adopting React Native, we de-emphasized iOS as a unique platform for Artsy.</p>
+
+<p>From an engineering team's perspective, we think of it as skill <a href="https://github.com/artsy/README/blob/master/culture/engineering-principles.md#de-silo-engineers">de-siloing</a>. Prior to the move, if you
+were on the mobile team you only worked on the iOS apps. This meant you had a limited scope to make change at
+Artsy. This comes from two factors:</p>
+
+<ul>
+<li>Skills in Obj-C and Swift are only useful in the context of Apple's platforms.</li>
+<li>Internally and externally, Artsy is considered a website first.</li>
+</ul>
+
+
+<p>Within 2 years we had de-siloed mobile engineering completely. We started with a team of 5 experienced native iOS
+developers and by the end everyone had very solid skills across the board in JavaScript, React, GraphQL and the
+build tools we'd need to make it all come together. These engineers kept their native skills, but they became
+frozen in time.</p>
+
+<p>With time, we redistributed the native engineers across many teams, with the native Engineers effectively acting as
+a conduit for ensuring that we keep quality high and providing guidance to the rest of that team on how to make it
+feel right. A simple way to think of it, is that the native engineer's job was to make sure we still conformed to
+the <a href="https://developer.apple.com/design/human-interface-guidelines/">Apple Human Interface Guidelines</a> to ensure
+the user experience is consistent with the platform and the user’s expectations.</p>
+
+<p>We're reasonably lucky here too, the mobile team at Artsy has pre-dominantly hired folks interested in improving
+behind-the-scenes (<a href="https://www.fordfoundation.org/about/library/reports-and-studies/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/">Roads and Bridges</a> style) infrastructure. Once we had wrapped up the move, we effectively
+took all of our native product developers and moved them into JavaScript platform infrastructure roles.</p>
+
+<p>This was one of the major blocking points for AirBnB's adoption of React Native, specifically their native teams
+felt uncomfortable at the introduction of JavaScript and a whole new toolchain inside their apps. There are people
+who really love being a product developer in a native codebase, and React Native as a technology will de-value that
+as more work would happen in JavaScript.</p>
+
+<p>(Note: this is a gross simplification, and me reading between the lines, you should read from the horse’s mouth and
+check out <a href="https://medium.com/airbnb-engineering/react-native-at-airbnb-f95aa460be1c">Airbnb’s posts</a> (and <a href="https://ashfurrow.com/blog/airbnb-and-react-native-expectations/">Ash's continuation</a> on the subject ))</p>
+
+<p>After a year of adopting React Native, the ex-mobile team used to joke that no-one enjoyed working in the native
+codebase anymore. They still did. Three years down the line, with most screens now in React Native, that's not a
+joke anymore.</p>
+
+<p>This has consequences.</p>
+
+<a name="Platform.Concerns"></a>
+<h2>Platform Concerns</h2>
+
+<p>De-siloing our mobile team obviously wasn't without its risk. In expanding the scope of our mobile engineering
+team, and opening up the iOS app for contributions to the rest of the company we:</p>
+
+<ul>
+<li>Moved the engineers with a native focus to act more like platform engineers vs product engineers.</li>
+<li>Had iOS native platform engineers with the skills to now also work on the web's platform.</li>
+</ul>
+
+
+<p>This is what started to make our third year tricky. In Artsy, web is the <a href="https://en.wikipedia.org/wiki/The_squeaky_wheel_gets_the_grease">squeaky wheel</a>.</p>
+
+<p>After figuring out the JavaScript infrastructure for React Native on iOS, we replicated that infrastructure on the
+web to consolidate tooling and ideas across all of Artsy. We call that infrastructure for both <a href="https://www.youtube.com/watch?v=1Z3loALSVQM">the Artsy
+Omakase</a>. Maintaining, and keeping the infrastructure up-to-date on the web side is a much bigger task and
+requires a lot more engineering time.</p>
+
+<p>The web-aspect of the Omakase has more client consumers (1 iOS app vs 3 large websites), and its corresponding repo
+has more than double the number of commits per day on average. The web team has its own people running and
+improving infrastructure, which affects the iOS side too.</p>
+
+<p>We explicitly worked towards shared common infrastructure across all front-end at Artsy. It wasn't surprising when
+the aspect with the most company focus became much larger and more complex. What creates tricky constraints are
+that the few people with the interest and skills to work on our React Native infrastructure also happen to have the
+skills to work on the web problems too.</p>
+
+<p>Those web problems tend to be a lot more valuable to the business.</p>
+
+<p>There's some work that can be done to benefit both, but in the last year it has been hard to prioritise
+iOS-specific platform work. For example, it took almost a year to get around to upgrading our version of React
+Native. This is a pretty risky place to be for a platform which we care about.</p>
+
+<p>At the end of 2018, we came to the conclusion that this was something we wanted to work to improve. So, we
+specifically brought back an explicit iOS-specific culture to Artsy - when we split our front-end practice into web
+and <a href="https://github.com/artsy/README/commit/95c9b93ab966ed269b5ebd9f0bdec8d2434bab52#diff-342d3433f36fbedadc5a8f167985fdf3">iOS</a>.</p>
+
+<p>Maybe this is a small admission of failure to the idea of a purely de-silo'd team, but realistically while product
+work across the two front-ends teams is consistent - the platform concerns just aren't.</p>
+
+<a name="Keeping.up.with.the.Jobs."></a>
+<h2>Keeping up with the Jobs'</h2>
+
+<p>As individual developers, it's much less important for us to keep up to date with the latest Apple developer news.
+WWDCs and iOS releases just kinda happen, and we keep moving independently. We still write native code to make use
+of any iOS API available when we need to, but right now we don’t go out of our way to try to make use of all the
+shiny new things when they are released.</p>
+
+<p>This is a side-effect to the openness of the JavaScript toolchain, and our ability to contribute and fix a lot of
+our own problems at JavaScript level instead of needing to dive deeper into the native side to work on problems. We
+still support iOS 9, and have very little incentive to bump it - new APIs from Apple just aren't that interesting
+anymore.</p>
+
+<p>Without a focused iOS team, it's not easy to pitch for iOS specific projects. This means that features like moving
+to Apple's new app store review API or using iOS features which don't exist on web get spoken about in meetings,
+but never started. This lack of a focused team makes it really hard to implement fixes to e.g. bad App Store
+reviews.</p>
+
+<p>That said, in the last year we did manage to ship a pretty hefty <a href="/blog/2018/03/18/ar/">ARKit feature</a> - which is a positive
+example of an iOS-specific feature which is both forward-thinking tech and a super great fit for Artsy's product.
+React Native basically played no part in that.</p>
+
+<a name="Community.Disconnection"></a>
+<h2>Community Disconnection</h2>
+
+<p>There are maybe four communities at play if you're doing React Native:</p>
+
+<ul>
+<li>JavaScript (Babel/TypeScript/Storybooks/VSCode)</li>
+<li>React (Relay/Styled Components)</li>
+<li>React Native (Mostly people creating cross-platform tools)</li>
+<li>Native (Obj-C/Swift/CocoaPods/fastlane etc)</li>
+</ul>
+
+
+<p>It's hard to keep on-top of any one community, and it's very hard to keep on track of four. Realistically, if you
+want to be writing apps at the level of quality we want to - you need to, though.</p>
+
+<p>Artsy's principle of <a href="https://github.com/artsy/README/blob/master/culture/engineering-principles.md#own-your-dependencies">owning our dependencies</a> means involved in all of these communities, however it's
+hard to engage in the native community with too much excitement anymore. Most of their problems aren't the same as
+ours anymore, and the dependencies we want to improve live in the JavaScript realms.
+4</p>
+
+<a name="Universal.Issues."></a>
+<h2>Universal Issues?</h2>
+
+<p>Are these the kind of problems most teams would have? It depends, with React Native at Artsy our focus on:</p>
+
+<ul>
+<li>Offering a consistent way to write code across web and iOS, which doesn’t water down either platform.</li>
+<li>Ensuring we are able to meaningfully own our dependencies across the stacks.</li>
+</ul>
+
+
+<p>Means that we took on some technical and cultural debt, specifically around the platform aspect of our native
+codebase. There are a few levers we can use to fix some of these issues:</p>
+
+<ul>
+<li>Let iOS be a bit more webby, by using more JavaScript instead of enforcing stricter platform standards.</li>
+<li>Use more of the React Native community’s infra-structure, we generally don't use React Native JavaScript
+dependencies. These dependencies usually are cross-platform on Android and iOS which tends to mean making
+compromises per-platform. Often we are forcing ourselves into extra work to ensure platform consistency.</li>
+<li>Find a way to ensure clearer engineering and product ownership for iOS at Artsy.</li>
+<li>Hire more iOS infrastructure engineers to allow for a better mix of native infra vs JavaScript product engineers.</li>
+</ul>
+
+
+<p>How and if we'll tweak these levers will make for an interesting retrospective. Till then, I'd like to finish with
+a showcase of some of the React Native work we shipped over the course of the last 4 months:</p>
+
+<p></article>
+<a href='/images/react-native-3/rn_3_1.jpg' style="">
+  <img src="/images/react-native-3/rn_3_1.jpg" alt="" style="width:100%;">
+</a>
+<article class="post">
+</p>
+
+<p></article>
+<a href='/images/react-native-3/rn_3_2.jpg' style="">
+  <img src="/images/react-native-3/rn_3_2.jpg" alt="" style="width:100%;">
+</a>
+<article class="post">
+</p>
+
+<p>We wouldn't have been able to ship this without React Native.</p>
+
+<!-- prettier-ignore-start -->
+
+
+<!-- prettier-ignore-end -->
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Managing Secrets in a React Native App]]></title>
+    <link href="https://artsy.github.io/blog/2018/06/15/cocoapods-keys-react-native/"/>
+    <updated>2018-06-15T00:00:00+02:00</updated>
+    <id>https://artsy.github.io/blog/2018/06/15/cocoapods-keys-react-native</id>
+    <content type="html"><![CDATA[<!--
+Iɴᴛʀᴏᴅᴜᴄᴛɪᴏɴ
+-->
+
+
+<p>Hi! I'm Erik, a software engineer on the Purchase team. One of the most visible payoffs from Artsy's investments in React Native <a href="https://artsy.github.io/search/?q=react+native">over the past two years</a> has been the opening up of our mobile codebase to contributors like myself coming primarily from web stacks. It's nice to be able to build mobile interfaces with the same declarative API used by so many of our web projects, but sometimes we still need to bridge the divide to our Objective-C and Swift ecosystem. One such case: replacing the app secrets typically loaded from a deploy environment or web developer's <a href="https://www.npmjs.com/package/dotenv">dotenv</a> file.</p>
+
+<!-- more -->
+
+
+<!--
+Mᴀɪɴ Bᴏᴅʏ
+-->
+
+
+<p><a href="https://github.com/artsy/emission">Emission</a> is Artsy's React Native component library. It contains its own native app in the <code>/Example</code> folder, which uses <a href="https://artsy.github.io/blog/2015/01/21/cocoapods-keys-and-CI/">cocoapods-keys</a> to store secrets while still letting us code in the open. In order to expose these keys to our React Native components, however, we must do a fair bit of setup. Here's a straightforward how-to that also makes a quick tour through the iOS ecosystem for web developers looking at the React Native JavaScript runtime today.</p>
+
+<p>Links to examples below come from <a href="https://github.com/artsy/emission/pull/1086/commits/4a2a3e9260e97d791536cf38376a06b0ad0946a8">this commit</a> which adds a key for the Stripe API to Emission. When we are finished, a client app (<code>/Example</code>, <a href="https://github.com/artsy/eigen">Eigen</a>, etc.) will be able to initialize Emission with this secret, which will in turn make it available to React Native components.</p>
+
+<a name="Steps"></a>
+<h2>Steps</h2>
+
+<a name="L1..Add.the.key.to.the.app.s.Podfile."></a>
+<h4>1. Add the key to the app's Podfile.</h4>
+
+<p>This is the extent of <code>cocoapods-keys</code> official <a href="https://github.com/orta/cocoapods-keys#usage">setup</a>, and after this you <strong>could</strong> set the key via <code>pod keys set &lt;NAME&gt;</code> or <code>pod install</code>... but we have more to do.</p>
+
+<p><a href="https://github.com/artsy/emission/blob/4a2a3e9260e97d791536cf38376a06b0ad0946a8/Example/Podfile#L63">/Example/Podfile</a>:</p>
+
+<pre><code class="diff">plugin 'cocoapods-keys', {
+  :target =&gt; 'Emission',
+  :keys =&gt; [
+    'ArtsyAPIClientSecret',
+    'ArtsyAPIClientKey',
++    'StripePublishableKey',
+  ]
+}
+</code></pre>
+
+<hr />
+
+<a name="L2..Configure.the.library.to.consume.our.new.key"></a>
+<h4>2. Configure the library to consume our new key</h4>
+
+<p>We'll need to update the <code>initWithUserId...</code> function — one <strong>fun</strong> part of adjusting to Objective-C is that rather than named functions, we just refer to them by their entire signatures — to expose the new key as a property and add it to <code>constantsToExport</code> (<a href="https://facebook.github.io/react-native/docs/native-modules-ios.html#exporting-constants">docs</a>).</p>
+
+<p>Note that this is happening in our <em>Emission Pod</em>; The pod now expects that key to be available in our <em>consuming</em> Example app as defined above.</p>
+
+<p><a href="https://github.com/artsy/emission/blob/4a2a3e9260e97d791536cf38376a06b0ad0946a8/Pod/Classes/Core/AREmission.h#L17-L34">/Pod/Classes/Core/AREmission.h</a>:</p>
+
+<pre><code class="diff">// ENV Variables
+ #import &lt;React/RCTBridgeModule.h&gt;
+
+ @interface AREmissionConfiguration : NSObject &lt;RCTBridgeModule&gt;
+
++ @property (nonatomic, copy, readonly, nullable) NSString *stripePublishableKey;
+
+ - (instancetype)initWithUserID:(NSString *)userID
+           authenticationToken:(NSString *)token
+                     sentryDSN:(nullable NSString *)sentryDSN
++         stripePublishableKey:(NSString *)stripePublishableKey
+              googleMapsAPIKey:(nullable NSString *)googleAPIKey
+                    gravityURL:(NSString *)gravity
+                metaphysicsURL:(NSString *)metaphysics
+                     userAgent:(NSString *)userAgent;
+</code></pre>
+
+<p><code>AREmission</code>'s implementation (.m) needs to be configured to take this new key- It will be exported to our React Native components as <code>Emission</code>. We make our initializer match the signature defined in the header (.h) file, and add an instance <code>_stripePublishableKey</code> to match the <code>@property</code> declaration.</p>
+
+<p><a href="https://github.com/artsy/emission/blob/4a2a3e9260e97d791536cf38376a06b0ad0946a8/Pod/Classes/Core/AREmission.m#L24-L60">/Pod/Classes/Core/AREmission.m</a>:</p>
+
+<pre><code class="diff"> @implementation AREmissionConfiguration
+ RCT_EXPORT_MODULE(Emission);
+ # ...
+
+ - (NSDictionary *)constantsToExport
+ {
+   return @{
++    @"stripePublishableKey": self.stripePublishableKey ?: @"",
+     # ...lots more
+   };
+ }
+
+ - (instancetype)initWithUserID:(NSString *)userID
+            authenticationToken:(NSString *)token
+                      sentryDSN:(NSString *)sentryDSN
++          stripePublishableKey:(NSString *)stripePublishableKey
+               googleMapsAPIKey:(NSString *)googleAPIKey
+                     gravityURL:(NSString *)gravity
+                 metaphysicsURL:(NSString *)metaphysics
+                      userAgent:(nonnull NSString *)userAgent
+ {
+     self = [super init];
+     _userID = [userID copy];
++    _stripePublishableKey = [stripePublishableKey copy];
+     # ... More copies...
+     return self;
+ }
+</code></pre>
+
+<p><em>Why is <code>copy</code> needed at all? See <a href="https://stackoverflow.com/questions/387959/nsstring-property-copy-or-retain/388002#388002">here</a>.</em></p>
+
+<hr />
+
+<a name="L3..Configure.the.example.app.to.expose.the.new.key.to.our.library"></a>
+<h4>3. Configure the example app to expose the new key to our library</h4>
+
+<p>After making sure we have imported the keys from <code>cocoapods-keys</code> we update Emission's setup to use the new initializer signature we defined above.</p>
+
+<p><a href="https://github.com/artsy/emission/blob/4a2a3e9260e97d791536cf38376a06b0ad0946a8/Example/Emission/AppDelegate.m#L109">Example/Emission/AppDelegate.m</a>:</p>
+
+<pre><code class="diff">#import &lt;Keys/EmissionKeys.h&gt;
+
+  - (void)setupEmissionWithUserID:(NSString *)userID accessToken:(NSString *)accessToken keychainService:(NSString *)service;
+  {
+    # ...
+     AREmissionConfiguration *config = [[AREmissionConfiguration alloc]
+      initWithUserID:userID
+      authenticationToken:accessToken
+      sentryDSN:nil
++     stripePublishableKey:keys.stripePublishableKey
+      googleMapsAPIKey:nil
+      gravityURL:setup.gravityURL
+      metaphysicsURL:setup.metaphysicsURL
+      userAgent:@"Emission Example"];
+    # ...
+</code></pre>
+
+<hr />
+
+<a name="L4..Use.that.configured.key.in.a.React.Native.component."></a>
+<h4>4. Use that configured key in a React Native component.</h4>
+
+<p><code>Emission</code> is now exposed along with its configured keys via React Native's <a href="https://facebook.github.io/react-native/docs/native-modules-ios.html">NativeModules</a>.</p>
+
+<p><a href="https://github.com/artsy/emission/blob/4a2a3e9260e97d791536cf38376a06b0ad0946a8/src/lib/components/bidding/screens/confirmfirsttimebid.tsx#l31">src/lib/Components/Bidding/Screens/ConfirmFirstTimeBid.tsx</a>:</p>
+
+<pre><code class="js">import { NativeModules } from "react-native";
+const Emission = NativeModules.Emission || {};
+
+stripe.setOptions({
+  publishableKey: Emission.stripePublishableKey
+});
+</code></pre>
+
+<!--
+Cᴏɴᴄʟᴜsɪᴏɴ
+-->
+
+
+<p>That's it! Compared to a familiar dotenv file, <strong>it</strong> certainly means a bit more ceremony here, but we are working through React Native code, its containing Pod <em>and</em> a consuming app. The process is more complicated, but it's also a nice overview of some fundamentals of Objective-C, iOS development and bridging the gap between react and mobile native code.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Making a React Native Components Pod]]></title>
+    <link href="https://artsy.github.io/blog/2018/04/17/making-a-components-pod/"/>
+    <updated>2018-04-17T00:00:00+02:00</updated>
+    <id>https://artsy.github.io/blog/2018/04/17/making-a-components-pod</id>
+    <content type="html"><![CDATA[<p>When we talk about our React Native setup in abstract, there are two kinds of "<a href="http://2.bp.blogspot.com/_PekcT72-PGE/SK3PTKwW_eI/AAAAAAAAAGY/ALg_ApHyzR8/s1600-h/1219140692800.jpg">now draw The Tick</a>" for
+iOS developers:</p>
+
+<ul>
+<li>How do I build this React Native as a CocoaPods setup?</li>
+<li>How do I get all the JavaScript tooling setup up?</li>
+</ul>
+
+
+<p>We're going to address the first part in this post. By the end of this post we're going to get an <a href="/blog/2016/08/24/On-Emission/">Emission-like
+repo</a> set up for an existing OSS Swift iOS app called <a href="https://github.com/GitHawkApp/GitHawk/">GitHawk</a>. The aim being to introduce no
+JavaScript tooling into GitHawk itself, and to only expose iOS-native <code>UIViewControllers</code> via a CocoaPod which is
+consumed by GitHawk.</p>
+
+<p>To do this we're going to use the CocoaPods' <code>pod lib create</code> template, and React Native's <code>react-native init</code> to
+make a self-contained React Native repo. It will export a JS file, and some native code which Podspec will
+reference. This keeps the tooling complexity for iOS and React Native separate. Read on to start digging in.</p>
+
+<!-- more -->
+
+
+<p>So, I'm <strong>choosing</strong> to be annoying here. I will intentionally be adding <code>$</code>s before all of the commands, this is
+specifically to slow you down and make you think about each command. This isn't a quick tutorial you can skim in 2
+minutes, running though it properly should take about an hour.</p>
+
+<p>_You can also watch along with <a href="https://www.youtube.com/watch?v=ucQXL4vkP78">this YouTube video</a> of me going through
+the tutorial at <a href="http://artsy.github.io/artsy-x-react-native.html">Artsy x React Native_</a>.</p>
+
+<div class="mobile-only">
+<p>
+  <strong>Also, before you get started</strong>, it looks like you're using a really small screen, this post expects you would have a terminal around with useful tools for getting stuff done. I'm afraid without that, you're not going to get much out of it. I'd recommend switching to a computer.
+</p>
+</div>
+
+
+<a name="What.Are.We.Going.To.Do."></a>
+<h2>What Are We Going To Do?</h2>
+
+<p>We will make a React Native components library (GitDawg) for an existing open-source iOS Swift Application
+(GitHawk). This reflects an existing app with a team who wants to experiment with React Native in a way that doesn't
+affect the main codebase. In Artsy, GitDawg is <a href="https://github.com/artsy/emission">Emission</a>, and GitHawk is <a href="https://github.com/artsy/eigen">Eigen</a>.</p>
+
+<ol>
+<li><p>We will clone and set up GitHawk</p></li>
+<li><p>We will use <code>pod lib create</code> to make a library repo called GitDawg</p></li>
+<li><p>We will use <code>react-native init</code> to make a React Native environment</p></li>
+<li><p>We will bundle the React Native code into our Pod's asset folder</p></li>
+<li><p>We will edit the Podspec for GitDawg, and then the Podfile for the example project to consume it</p></li>
+<li><p>We will use <a href="https://github.com/orta/cocoapods-fix-react-native#readme">cocoapods-fix-react-native</a> to hotfix the React Native files</p></li>
+<li><p>We will expose a UIViewController which corresponds to the default screen from <code>react-native init</code> in our Pod</p></li>
+<li><p>We will change the storyboard reference to point to the UIViewController from our Pod, and run the simulator to
+see our welcome screen.</p></li>
+<li><p>We will set up GitHawk to consume our new Pod</p></li>
+<li><p>We will change GitHawk to show our new UIViewController instead of the bookmarks screen</p></li>
+<li><p>We will edit GitDawg to act more like a development environment</p></li>
+</ol>
+
+
+<a name="GitHawk"></a>
+<h2>GitHawk</h2>
+
+<p>Let's get started by having a working <a href="https://github.com/GitHawkApp/GitHawk/">copy of GitHawk</a>. I'll leave the README for GitHawk to do that, but
+if you want to be certain you're on the same version as me - I'm working from this commit
+<code>6dc2988d23d70eb0862d11f4a365bf47a87848c6</code>.</p>
+
+<p>Clone a copy of GitHawk, and get it running in your Simulator, should take about 5-10 minutes, you'll need Xcode
+9.3. Then we can move on to starting our components repo.</p>
+
+<a name="GitDawg.JS"></a>
+<h2>GitDawg JS</h2>
+
+<p>When you're done with GitHawk, go back a folder so that you're ready to create the GitDawg repo: <code>$ cd ..</code>.</p>
+
+<a name="Pre-requisites"></a>
+<h3>Pre-requisites</h3>
+
+<p>We need CocoaPods: <code>$ gem install cocoapods</code>.</p>
+
+<p>We're going to need node, and a dependency manager. If you run <code>$ brew install yarn</code> you will get both.</p>
+
+<p>I'm running on node <code>8.9.x</code> and yarn <code>1.5.x</code>. Honestly, it shouldn't matter if you're on node 8, or 9. Yarn is
+basically CocoaPods for node projects. If you're wondering what the differences are between <a href="https://github.com/yarnpkg/yarn/">yarn</a> and <a href="https://www.npmjs.com/">NPM</a>,
+then TLDR: there used to be some, but now there's few. I stick with yarn because I prefer how the CLI works, and I
+can easily read the lockfile it generates.</p>
+
+<p>We need the React Native CLI, so let's install it globally: <code>$ yarn global add react-native-cli</code>.</p>
+
+<a name="Starting.with.the.Pod"></a>
+<h3>Starting with the Pod</h3>
+
+<p>We're going to let CocoaPods create the initial folder for our project. Let's set up your Pod:</p>
+
+<pre><code class="sh">$ pod lib create GitDawg
+
+Cloning `https://github.com/CocoaPods/pod-template.git` into `GitDawg`.
+Configuring GitDawg template.
+
+------------------------------
+
+To get you started we need to ask a few questions, this should only take a minute.
+
+If this is your first time we recommend running through with the guide:
+ - http://guides.cocoapods.org/making/using-pod-lib-create.html
+ ( hold cmd and click links to open in a browser. )
+
+
+What platform do you want to use?? [ iOS / macOS ]
+ &gt; iOS
+
+What language do you want to use?? [ Swift / ObjC ]
+ &gt; ObjC
+
+Would you like to include a demo application with your library? [ Yes / No ]
+ &gt; Yes
+
+Which testing frameworks will you use? [ Specta / Kiwi / None ]
+ &gt; None
+
+Would you like to do view based testing? [ Yes / No ]
+ &gt; No
+
+What is your class prefix?
+ &gt; GD
+</code></pre>
+
+<p>I'd recommend using only Objective-C at this point, for simplicities sake. Swift is a great language, but I want
+tooling simplicity. Swift and React Native is [docs] though. We're also not going to write enough native code to
+warrant the setup for testing. Plus, if we skip native testing then we can run CI on linux - which is basically
+instant in comparison.</p>
+
+<p>This has made a new library. Let's go into our project's root with <code>$ cd GitDawg</code>. There shouldn't be too much in
+here:</p>
+
+<pre><code class="sh">$ ls
+Example         GitDawg         GitDawg.podspec LICENSE         README.md         _Pods.xcodeproj
+</code></pre>
+
+<p>Because the core competency of the repo is the JavaScript, we're going to rename the "GitDawg" folder in the root to
+be about the CocoaPod instead of owning the name of the project. Run <code>$ mv GitDawg Pod</code> to do that.</p>
+
+<p>We want to create our React Native project. I'm hard-coding my versions in these commands to try ensure this post
+lasts some time, but you never know what amazing changes the future brings. If things are broken, leave a comment at
+the bottom of this post.</p>
+
+<p>Let’s create a GitDawg React Native project, and then rename the folder to src:</p>
+
+<pre><code class="sh"># Use the RN CLI to create a new RN app in the folder GitDawg
+$ react-native init GitDawg --version react-native@0.54.4
+
+# Rename the folder to src
+$ mv GitDawg src
+
+# Remove _Pods.xcodeproj as it's relevant for our pod
+$ rm -rf _Pods.xcodeproj
+</code></pre>
+
+<p>We don't want all our project files living in a sub-folder though, so let's move a few of them back to the repo's
+root, then remove some unused files.</p>
+
+<pre><code class="sh"># Copy the package metadata, deps, lockfile and dotfiles to root
+$ mv src/package.json src/node_modules src/yarn.lock src/.* .
+
+# Remove the ios and android scaffolds as we have the CP one
+$ rm -rf src/ios src/android
+</code></pre>
+
+<p>Which should make your app's folder look something like this:</p>
+
+<pre><code class="sh">$ ls
+Example         GitDawg.podspec LICENSE         README.md       Pods        node_modules    package.json    src             yarn.lock
+
+$ ls src/
+App.js    __tests__ app.json  index.js
+</code></pre>
+
+<p>To ensure everything is still hooked up, let's make sure that all of your tests are working in the new repo.</p>
+
+<pre><code class="sh">$ yarn test
+
+yarn run v1.5.1
+ PASS  src/__tests__/App.js
+  ✓ renders correctly (176ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.392s
+Ran all test suites.
+✨  Done in 2.32s.
+</code></pre>
+
+<p>We're now going to be done with our JavaScript side, basically is our React Native "hello world". It's a React
+Native project that exposes a single component which says <code>"Welcome to React Native!"</code>.</p>
+
+<p>However, it's going to take a bit of work before we can see it in action.</p>
+
+<a name="Deployment"></a>
+<h3>Deployment</h3>
+
+<p>We're going to want to have this exposed to our native libraries, so we're going to ship the bundled JavaScript as
+our library's source code. We do this via the React Native CLI, and it's going to place the file inside our Pod
+folder from earlier.</p>
+
+<pre><code class="sh">$ react-native bundle --entry-file src/index.js --bundle-output Pod/Assets/GitDawg.js --assets-dest Pod/Assets
+</code></pre>
+
+<p>It looks like this, when you run it via the sim:</p>
+
+<center><img src="/images/making_cp_pod/success.png" width="50%" /></center>
+
+
+<a name="GitDawg.Pod"></a>
+<h2>GitDawg Pod</h2>
+
+<p>With that done, we can start looking at the native side of our codebase. We let <code>pod lib create</code> set up an Example
+app for us to work with in the repo, which consumes a Podspec in the root. So we're going to take a look at the
+Podspec, and update it.</p>
+
+<p>Our goal with the Example app is to set up an app exclusively for developing components in. In Artsy's case, this
+app handles auth to the Artsy API and has a series of jump-off points for developing a component.</p>
+
+<p>To get started we need to modify the CocoaPod this repo represents:</p>
+
+<ul>
+<li>Update our Podspec to handle React Native as a dependency, and our assets</li>
+<li>Add support for native compilation via CocoaPods with <a href="https://github.com/orta/cocoapods-fix-react-native#readme">cocoapods-fix-react-native</a></li>
+<li>Create a single <code>UIViewController</code> subclass for the Welcome Screen using the bundled React Native JS</li>
+</ul>
+
+
+<p>We want to have our Podspec re-use the metadata from React Native to set up GitDawg's dependencies. So replace
+<code>GitDawg.podspec</code> with this:</p>
+
+<pre><code class="ruby">require 'json'
+
+# Returns the version number for a package.json file
+pkg_version = lambda do |dir_from_root = '', version = 'version'|
+  path = File.join(__dir__, dir_from_root, 'package.json')
+  JSON.parse(File.read(path))[version]
+end
+
+# Let the main package.json decide the version number for the pod
+gitdawg_version = pkg_version.call
+# Use the same RN version that the JS tools use
+react_native_version = pkg_version.call('node_modules/react-native')
+
+Pod::Spec.new do |s|
+  s.name             = 'GitDawg'
+  s.version          = gitdawg_version
+  s.description      = 'Components for GitHawk.'
+  s.summary          = 'Components for GitHawk.'
+  s.homepage         = 'https://github.com/orta/GitDawg'
+  s.license          = { type: 'MIT', file: 'LICENSE' }
+  s.author           = { 'orta' =&gt; 'orta.therox@gmail.com' }
+  s.source           = { git: 'https://github.com/orta/GitDawg.git', tag: s.version.to_s }
+
+  s.source_files   = 'Pod/Classes/**/*.{h,m}'
+  s.resources      = 'Pod/Assets/{GitDawg.js,assets}'
+  s.platform       = :ios, '8.0'
+
+  # React is split into a set of subspecs, these are the essentials
+  s.dependency 'React/Core', react_native_version
+  s.dependency 'React/CxxBridge', react_native_version
+  s.dependency 'React/RCTAnimation', react_native_version
+  s.dependency 'React/RCTImage', react_native_version
+  s.dependency 'React/RCTLinkingIOS', react_native_version
+  s.dependency 'React/RCTNetwork', react_native_version
+  s.dependency 'React/RCTText', react_native_version
+
+  # React's dependencies
+  s.dependency 'yoga', "#{react_native_version}.React"
+  podspecs = [
+    'node_modules/react-native/third-party-podspecs/DoubleConversion.podspec',
+    'node_modules/react-native/third-party-podspecs/Folly.podspec',
+    'node_modules/react-native/third-party-podspecs/glog.podspec'
+  ]
+  podspecs.each do |podspec_path|
+    spec = Pod::Specification.from_file podspec_path
+    s.dependency spec.name, "#{spec.version}"
+  end
+end
+</code></pre>
+
+<p>This Podspec is probably more complex then you're used to, but it means less config. To validate the Podspec, use
+<code>$ pod ipc spec GitDawg.podspec</code> and read the JSON it outputs. With the Podspec set up, it's time to set up the
+example project's <code>Gemfile</code> and <code>Podfile</code>.</p>
+
+<p>We'll start with applying the <a href="https://github.com/orta/cocoapods-fix-react-native#readme">React Native hot-fix plugin</a>, sometimes a version of React Native is released
+that doesn't support Swift frameworks (as Facebook doesn't use Swift) and so you have to apply some patches to the
+code. I made a CocoaPods Plugin that handles the hot-fixes for you.</p>
+
+<p>Start by making a <code>Gemfile</code> in the <code>Example</code> folder: <code>touch Example/Gemfile</code></p>
+
+<pre><code class="ruby">source 'https://rubygems.org'
+
+gem 'cocoapods'
+gem 'cocoapods-fix-react-native'
+</code></pre>
+
+<p>Then run <code>$ bundle install</code> in the <code>Example</code> folder, which will set up the ruby dependencies of <code>cocoapods</code> and
+<code>cocoapods-fix-react-native</code> for your app. This makes it possible to reference <code>"cocoapods-fix-react-native"</code> in
+your <code>Podfile</code> next.</p>
+
+<pre><code class="sh">$ cd Example
+$ bundle install
+</code></pre>
+
+<p>We want to take the current <code>Podfile</code> and make sure that every React Native dependency comes from the folder
+<code>node_modules/react-native</code>. We can do this using the <code>:path</code> operator to redeclare where you can find each Pod.</p>
+
+<p>Note: we also <em>extend</em> the amount of subspecs for <code>'React'</code> in this Podfile via <code>subspecs: ['DevSupport']</code> - this
+subspec is what provide the hot code reloading and other developer tools. You'll want this, in here, it will mean
+that the example app can be used as a dev environment, and your main app will only get a production environment.</p>
+
+<p>So edit <code>Example/Podfile</code> to look like this:</p>
+
+<pre><code class="ruby">platform :ios, '9.0'
+
+node_modules_path = '../node_modules'
+react_path = File.join(node_modules_path, 'react-native')
+yoga_path = File.join(react_path, 'ReactCommon/yoga')
+folly_spec_path = File.join(react_path, 'third-party-podspecs/Folly.podspec')
+glog_spec_path = File.join(react_path, 'third-party-podspecs/glog.podspec')
+double_conversion_spec_path = File.join(react_path, 'third-party-podspecs/DoubleConversion.podspec')
+
+plugin 'cocoapods-fix-react-native'
+
+target 'GitDawg_Example' do
+  pod 'GitDawg', path: '../'
+
+  # We want extra developer support in React inside this app
+  pod 'React', path: react_path, subspecs: ['DevSupport']
+
+  # We're letting CP know where it can find these Podspecs
+  pod 'yoga', path: yoga_path
+  pod 'Folly', podspec: folly_spec_path
+  pod 'DoubleConversion', podspec: double_conversion_spec_path
+  pod 'glog', podspec: glog_spec_path
+end
+</code></pre>
+
+<p>Run the following to set up the React Native dependencies for your project.</p>
+
+<pre><code>$ bundle exec pod install
+</code></pre>
+
+<p>We need some native code to represent our Welcome component from the React Native template. Create two new files in
+<code>Pod/Classes</code>, then re-create the CocoaPods project for it by <code>pod install</code>ing again.</p>
+
+<pre><code class="sh">$ touch ../Pod/Classes/GDWelcomeViewController.h ../Pod/Classes/GDWelcomeViewController.m
+$ bundle exec pod install
+$ open GitDawg.xcworkspace
+</code></pre>
+
+<p>We're going to make a pretty vanilla <code>UIViewController</code>, so declare it exists in the interface and then use an
+<code>RCTRootView</code> as it's <code>self.view</code>.</p>
+
+<pre><code class="objc">#import &lt;UIKit/UIKit.h&gt;
+
+@interface GDWelcomeViewController : UIViewController
+@end
+</code></pre>
+
+<p>The <code>GDWelcomeViewController</code> is going to handle the React bridging, because that is the simplest option for our
+Hello World app. We'll be going back to improve this later.</p>
+
+<pre><code class="objc">#import "GDWelcomeViewController.h"
+#import &lt;React/RCTRootView.h&gt;
+#import &lt;React/RCTBridgeDelegate.h&gt;
+#import &lt;React/RCTBridge.h&gt;
+
+// Let this View Controller handle getting the URL for the JS
+@interface GDWelcomeViewController () &lt;RCTBridgeDelegate&gt;
+@end
+
+@implementation GDWelcomeViewController
+
+// Set self.view on the VC to be an RCTRootView
+- (void)loadView
+{
+    RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:@{}];
+    self.view = [[RCTRootView alloc] initWithBridge:bridge
+                                         moduleName:@"GitDawg"
+                                  initialProperties:@{}];
+}
+
+// Use our bundled JS for now
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+    NSBundle *gitdawgBundle = [NSBundle bundleForClass:GDWelcomeViewController.class];
+    return [gitdawgBundle URLForResource:@"GitDawg" withExtension:@"js"];
+}
+
+@end
+</code></pre>
+
+<p>As the <code>pod lib create</code> template uses storyboards, you will need to open up the example app's storyboard and
+<a href="/images/making_cp_pod/settings_welcome.png">change the initial view controller</a> to be a <code>GDWelcomeViewController</code>.
+If you see a <a href="/images/making_cp_pod/not_working.png">white screen</a> on the app launches then this hasn't been done.
+Run the app in the simulator, and you should get this screen:</p>
+
+<center><img src="/images/making_cp_pod/success.png" width="50%" /></center>
+
+
+<p>This is the default screen from the React Native template, and it's proof that everything has worked for our dev
+app.</p>
+
+<p>Let's take a second to re-cover what has happened to get to this point.</p>
+
+<ol>
+<li><p>We used the <code>pod lib create</code> template to make a library repo</p></li>
+<li><p>We used <code>react-native init</code> to make a React Native environment, which has the settings in the root and the
+source code inside <code>src</code></p></li>
+<li><p>We've bundled the React Native code into our CocoaPod's asset folder</p></li>
+<li><p>We set up the Podspec for GitDawg, and then the Podfile for the example project to consume it</p></li>
+<li><p>We added <a href="https://github.com/orta/cocoapods-fix-react-native#readme">cocoapods-fix-react-native</a> to hot-fix the native files</p></li>
+<li><p>We added a UIViewController for the default screen from <code>react-native init</code> to our CocoaPod, and ran
+<code>bundle exec pod install</code> to update the example project</p></li>
+<li><p>We changed the storyboard reference to point to the UIViewController from our Pod, and ran the simulator to see
+our welcome screen</p></li>
+</ol>
+
+
+<p>This is a full run-through of how your Pod would look when integrated into your main app's codebase. At this point
+you have a unique, isolated app which is going to be your development environment. In our case this app is a menu of
+different root screens and admin flags.</p>
+
+<p>—</p>
+
+<p>OK, let’s go take this and migrate it into GitHawk. This is our end-goal:</p>
+
+<center><img src="/images/making_cp_pod/githawk.gif" width="75%" /></center>
+
+
+<p>Our setup is going to be different here because we can't rely on React Native coming from the file-system, as we
+want to make sure our app has no hint of JS tooling. So we will use CocoaPods to handle downloading and setting up
+our versions of the React Native libraries. As of 0.54.x, that is React and Yoga.</p>
+
+<p>We want to have a local copy of the JSON version of Podspecs for each of these. They can be generated from the
+Podspecs using <code>bundle exec pod ipc spec [file.podspec]</code>. Let's generate one for React:</p>
+
+<pre><code class="sh">$ cd GitDawg/node_modules/react-native/; pod ipc spec React.podspec
+</code></pre>
+
+<p>It will output a bunch of JSON to your terminal. This is perfect. Let's move that text to a file on your desktop.</p>
+
+<pre><code class="sh">$ pod ipc spec React.podspec &gt; ~/Desktop/React.podspec.json
+</code></pre>
+
+<!--
+
+You'll see no output if everything went fine. Before you grab that podspec, let's get the one for yoga too.
+
+```sh
+$ cd ReactCommon/yoga/; pod ipc spec yoga.podspec > ~/Desktop/yoga.podspec.json
+```
+
+-->
+
+
+<p>For the yoga podspec, you should just grab our version, it's not worth me explaining all the details why, other than
+the PR I made to fix a bug isn't shipped in 0.54 so run:</p>
+
+<pre><code class="sh">curl https://raw.githubusercontent.com/artsy/emission/v1.5.0/externals/yoga/yoga.podspec.json &gt; ~/Desktop/yoga.podspec.json
+</code></pre>
+
+<p>You should now have two JSON files in your Desktop. Grab them, move them into the <code>Local Pods</code> folder inside
+GitHawk. It should already have a few Podspecs.</p>
+
+<pre><code class="sh">$ cd ../../../ # Or however it takes to get back to the project root
+
+# Move any podspec.json into the Local Pods folder
+$ mv ~/Desktop/*.podspec.json "Local Pods"
+</code></pre>
+
+<p>Modify their <code>Gemfile</code> to include <a href="https://github.com/orta/cocoapods-fix-react-native#readme">cocoapods-fix-react-native</a>:</p>
+
+<pre><code class="diff">source 'https://rubygems.org'
+
+gem 'cocoapods', '~&gt; 1.4.0'
++ gem 'cocoapods-fix-react-native'
+</code></pre>
+
+<p>Then run <code>bundle install</code>. Next we need to add GitDawg, and our custom Podspecs to the Podfile:</p>
+
+<pre><code class="diff">source 'https://github.com/CocoaPods/Specs.git'
+
+# Local Pods w/ custom changes
+pod 'SwipeCellKit', :path =&gt; 'Local Pods/SwipeCellKit'
+pod 'GitHubAPI', :path =&gt; 'Local Pods/GitHubAPI'
+pod 'GitHubSession', :path =&gt; 'Local Pods/GitHubSession'
+
++ # React Native Support
++ plugin 'cocoapods-fix-react-native'
++ pod 'GitDawg', :path =&gt; '../GitDawg'
++ pod 'React', :podspec =&gt; 'Local Pods/React.podspec.json'
++ pod 'yoga',  :podspec =&gt; 'Local Pods/yoga.podspec.json'
+
+target 'Freetime' do
+</code></pre>
+
+<p>Then run <code>$ bundle exec pod install</code>. That should grab React Native for you. Unlike inside GitDawg, CocoaPods will
+download the source code from the internet. <code>:podspec</code> only tells CocoaPods where to find the Podspec, but it will
+still download code externally.</p>
+
+<p>Open up the Xcode Workspace - <code>open Freetime.xcworkspace</code>, and we're gonna make the code changes - it's all in one
+file. Open the file <code>RootNavigationManager.swift</code> (it's in <code>Classes/Systems</code>) and add a new <code>import</code> at the top for
+<code>GitDawg</code>:</p>
+
+<pre><code class="diff">import UIKit
+import GitHubAPI
+import GitHubSession
++ import GitDawg
+</code></pre>
+
+<p>Then add our new view controller by replacing the bookmarks view controller on line 78.</p>
+
+<pre><code class="diff">        tabBarController?.viewControllers = [
+            newNotificationsRootViewController(client: client),
+            newSearchRootViewController(client: client),
++            GDWelcomeViewController(),
+-            newBookmarksRootViewController(client: client),
+            settingsRootViewController ?? UIViewController() // simply satisfying compiler
+        ]
+</code></pre>
+
+<p>That should get you to the same point as we were in the dev app. Now when you run the app, log in and hit the place
+where the bookmarks icon used to live. Tada.</p>
+
+<p>So what did we do? First, we added GitDawg, React and Yoga as dependencies in GitHawk's Podfile to get them
+installed. Then we switched to using GitDawg's native view controller in 2 lines of code. No JavaScript in GitHawk,
+little faffing overall.</p>
+
+<p>This is how all our view controllers are exposed and used in production.</p>
+
+<a name="What.now."></a>
+<h2>What now?</h2>
+
+<p>We've now got a successful deploy of our React Native Pod into an external app. However, we need to make some
+changes in GitDawg now to start making it possible to develop efficiently.</p>
+
+<p>We will need to:</p>
+
+<ol>
+<li><p>Make a singleton to handle setting up React Native between all potential UIViewControllers</p></li>
+<li><p>Use the React Native Packager to get runtime editing support</p></li>
+</ol>
+
+
+<p>Move your terminal back to the GitDawg folder. We're going to make a class that represents our library, GitDawg</p>
+
+<pre><code class="sh">$ touch Pod/Classes/GitDawg.h Pod/Classes/GitDawg.m
+</code></pre>
+
+<p>Then we need to re-run <code>$ bundle exec pod install</code> in the <code>Example</code> folder to get it in Xcode. Open up the Xcode
+workspace for GitDawg and let's fill in these files. These files are based on <a href="https://github.com/artsy/emission/blob/master/Pod/Classes/Core/AREmission.h">AREmission.h</a> and
+<a href="https://github.com/artsy/emission/blob/master/Pod/Classes/Core/AREmission.m">AREmission.m</a>. For us, in a production app, <code>AREmission</code> has a few key responsibilities:</p>
+
+<ol>
+<li><p>Pass through the non-optional environment variables to expose in JS</p></li>
+<li><p>Create and retain the React Native bridge</p></li>
+<li><p>Set up the native modules so that we React Native can communicate with the host app</p></li>
+</ol>
+
+
+<p>For this tutorial we don't need all of these responsibilities, but we will handle the second one.</p>
+
+<p>For the header file, <code>GitDawg.h</code>:</p>
+
+<pre><code class="objc">#import &lt;Foundation/Foundation.h&gt;
+#import &lt;React/RCTBridge.h&gt;
+
+NS_ASSUME_NONNULL_BEGIN
+
+/// The RN library API
+@interface GitDawg : NSObject
+
+/// The way in which we communicate with React Native
+@property (nonatomic, strong, readonly) RCTBridge *bridge;
+
+/// The single instance of a GitDawg
++ (instancetype)sharedInstance;
++ (void)setSharedInstance:(GitDawg *)instance;
+
+/// Pass in nil for a packagerURL to indicate this is in release mode
+- (instancetype)initWithPackagerURL:(nullable NSURL *)packagerURL NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+
+@end
+
+NS_ASSUME_NONNULL_END
+</code></pre>
+
+<p>And for the implementation file <code>GitDawg.m</code>:</p>
+
+<pre><code class="objc">#import "GitDawg.h"
+
+@interface GitDawg() &lt;RCTBridgeDelegate&gt;
+@property (nonatomic, copy) NSURL *packagerURL;
+@end
+
+@implementation GitDawg
+
+static GitDawg *_sharedInstance = nil;
+
++ (void)setSharedInstance:(GitDawg *)instance;
+{
+    _sharedInstance = instance;
+}
+
++ (instancetype)sharedInstance;
+{
+    NSParameterAssert(_sharedInstance);
+    return _sharedInstance;
+}
+
+- (instancetype)initWithPackagerURL:(NSURL *)packagerURL
+{
+    self = [super init];
+
+    _packagerURL = packagerURL;
+    _bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:@{}];
+
+    return self;
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+    return self.packagerURL ?: self.releaseBundleURL;
+}
+
+- (NSURL *)releaseBundleURL;
+{
+    return [[NSBundle bundleForClass:self.class] URLForResource:@"GitDawg" withExtension:@"js"];
+}
+
+@end
+</code></pre>
+
+<p>Then change your <code>GDWelcomeViewController.m</code> to use the shared <code>GitDawg</code>.</p>
+
+<pre><code class="diff"> #import "GDWelcomeViewController.h"
++#import "GitDawg.h"
+ #import &lt;React/RCTRootView.h&gt;
+-#import &lt;React/RCTBridgeDelegate.h&gt;
+-#import &lt;React/RCTBridge.h&gt;
+
+ - (void)loadView
+ {
+-    RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:@{}];
++    RCTBridge *bridge = [GitDawg sharedInstance].bridge;
+     self.view = [[RCTRootView alloc] initWithBridge:bridge
+                                              moduleName:@"GitDawg"
+                                     initialProperties:@{}];
+ }
+
+-// Just use our packaged JS for now
+-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+-{
+-    NSBundle *emissionBundle = [NSBundle bundleForClass:GDWelcomeViewController.class];
+-    return [emissionBundle URLForResource:@"GitDawg" withExtension:@"js"];
+-}
+-
+ @end
+</code></pre>
+
+<p>We use the UIAppDelegate callback to set up our React Native bridge (you want this ready as fast as possible
+normally) so edit <code>Example/GitDawg/GDAppDelegate.m</code></p>
+
+<pre><code class="diff"> #import "GDAppDelegate.h"
++#import &lt;GitDawg/GitDawg.h&gt;
+
+ @implementation GDAppDelegate
+
+ - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ {
+-    // Override point for customization after application launch.
++    NSURL *packagerURL = [NSURL URLWithString:@"http://localhost:8081/src/index.bundle?platform=ios"];
++    GitDawg *dawg = [[GitDawg alloc] initWithPackagerURL:packagerURL];
++    [GitDawg setSharedInstance:dawg];
++
+     return YES;
+ }
+</code></pre>
+
+<p>These changes give you the ability to switch between a dev mode and a release mode. Consider that React Native just
+runs your JavaScript, the source of that could be anything, including from a local dev server. Well, almost.</p>
+
+<p>Because of Apple's HTTP security, you cannot connect to localhost in an app by default. To fix this, open up
+<code>GitDawg-info.plist</code> and right-click to add a new row. Paste in <code>NSAppTransportSecurity</code> as the name, and Xcode will
+switch it to "App Transport Security Settings". Hit the <code>+</code> and add "Allow arbitrary loads" then set it to true.</p>
+
+<p>From here: run the GitDawg app and you should see a red screen. This will be telling you to start the React Native
+Packager. Let's do that. From the root of the GitDwag repo run <code>$ yarn start</code>. This will start up a server. Once it
+says "Metro Bundler Ready." you can go back into your simulator for GitDawg and hit the reload button at the bottom.</p>
+
+<p>That's it.</p>
+
+<p>We're done.</p>
+
+<p>So, there's obviously a lot more to learn here. You've successfully set up a Pod that you can deploy to an app. To
+make a real version you'd need to do a bit more process like creating a repo, and making tags.</p>
+
+<p>We use our root view controller in Emission to trigger loading any of our view controllers, in different states. We
+also mix that with some admin options, the ability to run someone's PRs and <a href="https://storybook.js.org">storybooks</a>.</p>
+
+<center><img src="/images/making_cp_pod/emission.png" width="100%" /></center>
+
+
+<p>So good luck! Something like this probably easily scripted, but there's a lot of value in understanding how every
+piece comes together. So let me know if you make something cool - we've been using this structure for 2 years now
+and I think it's the right way to integrate React Native into an existing complex app. It keeps your JS tooling in a
+completely different repo from your iOS tooling.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          How To Debug Jest Tests
+        
+        
+          
+...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/7/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/08/24/How-to-debug-jest-tests/">
+        
+        
+          <h2 class="entry-title">How To Debug Jest Tests</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/anson">Anson Wang<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Hey there! My name is Anson and I work on the Platform team at Artsy. Recently, we faced an issue where a certain
+<a href="https://github.com/airbnb/enzyme">Enzyme</a> test we wrote using mock tracking was failing, but we couldn't figure
+out why. Luckily, with some help from <a href="/author/orta">Orta</a> and some clever thinking, we figured out what was going
+on.</p>
+
+
+        <p><a href="/blog/2018/08/24/How-to-debug-jest-tests/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/08/22/engineering-guiding-principles/">
+        
+        
+          <h2 class="entry-title">Defining Our Engineering Guiding Principles</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The Artsy Engineering team recently underwent the process of defining our guiding principles; you can read through the pull request <a href="https://github.com/artsy/meta/pull/41">here</a> and the finished principles <a href="https://github.com/artsy/README/blob/master/culture/engineering-principles.md">here</a>. In this blog post, I'd like to use our experience of defining these to answer the following questions:</p>
+
+<ul>
+<li>Why define engineering guiding principles?</li>
+<li>What makes principles different from company values?</li>
+<li>How to define guiding principles?</li>
+</ul>
+
+
+<p>Let's dive in.</p>
+
+
+        <p><a href="/blog/2018/08/22/engineering-guiding-principles/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/08/21/OSS-by-Default-Docs/">
+        
+        
+          <h2 class="entry-title">Open Source by Default: Docs</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Artsy is growing up. We have thousands of subscriber galleries paying 3 to 4 figure monthly fees. As we're starting
+to see a real market-fit, and have started to mature our organization. For example, this year we introduced product
+managers into our 8 year old company to help us figure out how to build the right things. We actually started having
+open headcount on Engineering again, for the first time <em>in years</em>.</p>
+
+<p>As a part of maturing, our team has really had to start considering how to make parts of our culture explicit
+instead of implicit. We have new, awesome folks wanting to understand why things are the way they are as well as
+folk who are raising up to new responsibilities only to find them completely un-documented.</p>
+
+<p>In-part, having a consistent team for so long hasn't made it worth the time to document things everyone knows, but
+growth is very happy to disrupt that balance. Now we're shipping documentation updates weekly, to all sorts of
+places. In trying to write an awesome document, which I'll cover later, I looked at how we had consolidated our
+documentation over the last few years, and saw that we had fragmented due the tensions around wanting to write
+publicly.</p>
+
+<p>This post covers that tension, and how we came about to the new docs setup.</p>
+
+
+        <p><a href="/blog/2018/08/21/OSS-by-Default-Docs/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/08/10/On-Context-Switching/">
+        
+        
+          <h2 class="entry-title">Context Switching</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Programming generally requires getting into a good <a href="https://en.wikipedia.org/wiki/Flow_(psychology)">flow state</a> and working on a tricky problem for some time.
+In the last 2 years, most of my work at Artsy (and in the OSS world) has been less about longer-term building of
+hard things, but working on many smaller tasks across a lot of different areas.</p>
+
+<p>Somehow, during this period I managed to end up in the top of "most active" <a href="https://gist.github.com/paulmillr/2657075">GitHub members</a>, I feel like a
+lot of this is due to doing <a href="http://artsy.github.io/series/open-source-by-default/">Open Source by Default</a> at Artsy and second to being good at context switching. I
+want to try and talk though some of my techniques for handling context switching, as well as a bit of philosophy
+around adopting and owning your tools.</p>
+
+
+        <p><a href="/blog/2018/08/10/On-Context-Switching/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/07/25/Relay-Networking-Deep-Dive/">
+        
+        
+          <h2 class="entry-title">The Relay Network Deep Dive</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/sibelius">Sibelius Seraphini<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/sseraphini">@sseraphini</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <blockquote><p>Hey all, we have another guest post, this one comes from <a href="https://github.com/sibelius">Sibelius Seraphini</a> - a very active contributor to
+Relay and its eco-system. When we spotted he had wrote an amazing article on how the networking aspects of Relay
+comes together, we wanted to expand his reach and inform more people on how Relay comes together.</p>
+
+<p>-- Orta</p></blockquote>
+
+<p>Data fetching is a hard problem for apps. You need to ask yourself a lot of questions: How do you ask for data from
+a server? How do you handle authentication? When is the right time to request data? How can you ensure you have all
+the necessary data to render your views? How can you make sure you're not over-fetching? Can you do lazy loading?
+When should you trigger lazy loading of data? What about pre-fetching data?</p>
+
+<p><a href="https://facebook.github.io/relay/">Relay</a> is a framework for building data-driven applications which handles data fetching for you. For an
+introduction to Relay, read <a href="https://facebook.github.io/relay/">their docs</a>, and also check out my Relay talk at <a href="https://speakerdeck.com/sibelius/reactconfbr-is-relay-modern-the-future">React Conf BR</a>.</p>
+
+<blockquote><p>You don’t deep dive if you don’t know how to swim</p></blockquote>
+
+<a name="TL.DR.Relay.Modern.Network"></a>
+<h2>TL;DR Relay Modern Network</h2>
+
+<p>Relay will aggregate the data requirements (fragments) for your components, then create a request to fulfill it.
+The API to do this is via the <a href="https://facebook.github.io/relay/docs/en/relay-environment.html">Relay Environment</a>:</p>
+
+<blockquote><p>The Relay "Environment" bundles together the configuration, cache storage, and network-handling that Relay needs
+in order to operate.</p></blockquote>
+
+<p>This post focuses on the "network-handling" part, the <a href="https://facebook.github.io/relay/docs/en/network-layer.html">Network Layer</a>. The network layer's responsibility
+is to make a request to a server (or a local graphql) and return the response data to Relay. Your implementation
+should conform to either <a href="https://github.com/facebook/relay/blob/v1.6.0/packages/relay-runtime/network/RelayNetworkTypes.js#L79-L90">FetchFunction</a> for a Promise-like API, or <a href="https://github.com/facebook/relay/blob/v1.6.0/packages/relay-runtime/network/RelayNetworkTypes.js#L92-L107">SubscribeFunction</a> for an
+Observable-like API.</p>
+
+<p>This article will provide 5 implementations of a Relay Network Interface, each of one providing more capabilities
+than the other one, eventually enabling GraphQL Live Queries and Deferrable Queries.</p>
+
+<p>You can see the code for these 5 network layers on GitHub here, open source under MIT license:
+<a href="https://github.com/sibelius/relay-modern-network-deep-dive">https://github.com/sibelius/relay-modern-network-deep-dive</a>.</p>
+
+
+        <p><a href="/blog/2018/07/25/Relay-Networking-Deep-Dive/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/06/18/On-Obsessive-Statelessness/">
+        
+        
+          <h2 class="entry-title">On the obsessive statelessness of Peril</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>We're at 9 months of serious usage <a href="/blog/2017/09/04/Introducing-Peril/">of Peril in Artsy</a>. However, I've been worried.</p>
+
+<p>To get you up to speed on Peril, Peril is a tool that takes GitHub webhooks, and makes it easy to build one-off
+actions. It does this by having a per-account settings JSON, that connects JavaScript files to events from webhooks.
+So, for example, you can write a rule which runs when closing an issue in GitHub that looks for associated Jira
+tickets and resolves them. Peril provides no implicit actions like that, it instead offers a JavaScript runtime
+environment optimised to this domain so you can make actions to fit your needs. Like a collection of single-file
+<a href="https://probot.github.io">probots</a>.</p>
+
+<p>Three months ago I started building out a "true" staging environment for Peril, one that allows any user or org on
+GitHub to click a button and have Peril running on their account. Pulling this off has two real interesting
+problems. Problem number one, security. Problem number two, my wallet.</p>
+
+<p>Both of these issues stem from one simple problem: I need to run other people's code on my machines and I think they
+should be able to store data. Which to be quite frank, is horrifying for a side-project. So, this post explores one
+of main aspects which I've architected Peril to make this problem tractable. Avoiding storing state in the form of
+data.</p>
+
+
+        <p><a href="/blog/2018/06/18/On-Obsessive-Statelessness/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/06/15/cocoapods-keys-react-native/">
+        
+        
+          <h2 class="entry-title">Managing Secrets in a React Native App</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/erik">Erik Stockmeier<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/erikdstock">@erikdstock</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <!--
+Iɴᴛʀᴏᴅᴜᴄᴛɪᴏɴ
+-->
+
+
+<p>Hi! I'm Erik, a software engineer on the Purchase team. One of the most visible payoffs from Artsy's investments in React Native <a href="https://artsy.github.io/search/?q=react+native">over the past two years</a> has been the opening up of our mobile codebase to contributors like myself coming primarily from web stacks. It's nice to be able to build mobile interfaces with the same declarative API used by so many of our web projects, but sometimes we still need to bridge the divide to our Objective-C and Swift ecosystem. One such case: replacing the app secrets typically loaded from a deploy environment or web developer's <a href="https://www.npmjs.com/package/dotenv">dotenv</a> file.</p>
+
+
+        <p><a href="/blog/2018/06/15/cocoapods-keys-react-native/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/06/15/JavaScriptures-5-Babel-Webpack/">
+        
+        
+          <h2 class="entry-title">JavaScriptures 5 - Tooling</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/chris">Christopher Pappas<a/></span>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The sixth, and last in our JavaScriptures series on the Artsy <a href="http://artsy.github.io/blog/2017/02/05/Front-end-JavaScript-at-Artsy-2017/">omakase</a>. This talk covers a lot of the
+tooling basics for setting up a web JavaScript project. In this talk <a href="https://github.com/damassi">Chris</a> covers the how to use Webpack
+and Babel in a fresh application.</p>
+
+
+        <p><a href="/blog/2018/06/15/JavaScriptures-5-Babel-Webpack/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/06/15/JavaScriptures-4.2-Local-State/">
+        
+        
+          <h2 class="entry-title">JavaScriptures 4.2 - Local State</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/chris">Christopher Pappas<a/></span>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/eve">Eve Essex<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/seevexes">@seevexes</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The fifth in our JavaScriptures series on the Artsy <a href="http://artsy.github.io/blog/2017/02/05/Front-end-JavaScript-at-Artsy-2017/">omakase</a>. This talk is the second part on state
+management inside JavaScript projects. In this talk <a href="https://github.com/damassi">Chris</a> and <a href="https://twitter.com/seevexes">Eve</a> cover the basics of how we handle
+interacting with local state in our different applications.</p>
+
+<p><a href="https://github.com/damassi">Chris</a> and <a href="https://twitter.com/seevexes">Eve</a> <a href="https://github.com/artsy/javascriptures/tree/master/5_intro-to-state">create three demos</a> which cover using Reacts <code>setState</code>, <a href="https://github.com/artsy/javascriptures/blob/master/5_intro-to-state/2-redux">Redux</a> and
+<a href="https://github.com/jamiebuilds/unstated">Unstated</a> to make complex applications.</p>
+
+
+        <p><a href="/blog/2018/06/15/JavaScriptures-4.2-Local-State/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/06/13/JavaScriptures-4.1-Relay/">
+        
+        
+          <h2 class="entry-title">JavaScriptures 4.1 - Relay</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/eloy">Eloy Durán<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/alloy">@alloy</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The fourth in our JavaScriptures series on the Artsy <a href="http://artsy.github.io/blog/2017/02/05/Front-end-JavaScript-at-Artsy-2017/">omakase</a>. This talk is the first part on state
+management inside JavaScript projects. In this talk <a href="https://twitter.com/alloy">Alloy</a> covers the basics of how we handle interacting with
+external state with our GraphQL API <a href="https://github.com/artsy/metaphysics/">metaphysics</a>.</p>
+
+<p><a href="https://twitter.com/alloy">Alloy</a> takes our <a href="https://github.com/artsy/javascriptures/tree/master/4_intro-to-relay">existing demo application</a> from the previous JavaScriptures and converts it to use Relay
+with all of the Artsy tooling.</p>
+
+
+        <p><a href="/blog/2018/06/13/JavaScriptures-4.1-Relay/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/6/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 7 of 27</span>
+
+    
+      <a href="/blog/8/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

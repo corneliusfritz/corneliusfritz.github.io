@@ -1,0 +1,930 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Is this you? No, really, is this you?
+        
+      ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/3/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2020/01/06/is-this-you/">
+        
+        
+          <h2 class="entry-title">Is this you? No, really, is this you?</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/myk">Mykola Bilokonsky<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/mykola">@mykola</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>You are a software engineer.</p>
+
+<p>You consider yourself an introvert, and you really appreciate "engineering time", where you prefer to work for
+extended uninterrupted periods because interruptions wreck you. You are used to being misunderstood. Ever since you
+can remember the people around you have been kind of baffling: they constantly fail to notice stuff that's really
+obvious and important to you, and then they have the audacity to get frustrated with you for not understanding
+<em>them</em>.</p>
+
+<p>But whatever, you can deal with this, right? This is just how life goes, right? Everyone's like this, right?</p>
+
+<p>Right?</p>
+
+
+        <p><a href="/blog/2020/01/06/is-this-you/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/12/03/ios-learning-group/">
+        
+        
+          <h2 class="entry-title">iOS Learning Group</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Regular readers of our blog might be familiar with <a href="https://www.cultureamp.com">Culture Amp</a>, a tool Artsy uses to
+collect anonymous feedback and take action on cultural issues (we most recently discussed the tool
+<a href="https://artsy.github.io/blog/2019/04/19/having-a-coffee-with-every-engineer/">in this blog post</a>). At a
+company-wide level, Culture Amp has helped guide everything from Artsy's evolving culture, to our physical work
+spaces, to our support for remote work. At an engineering-team level, we've also been using Culture Amp to guide
+our choices in technology, documentation, and training.</p>
+
+<p>In this blog post I'll be detailing a recent learning course we ran to share knowledge about how Artsy builds iOS
+software for our entire engineering team.</p>
+
+
+        <p><a href="/blog/2019/12/03/ios-learning-group/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/11/14/diagnosing-our-radiation-problems/">
+        
+        
+          <h2 class="entry-title">Diagnosing our Radiation Problems</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Email! Electronic mail! What a concept! Like many companies, Artsy has built products on top of email, but this is
+a decision that (like many companies) Artsy periodically regrets. But overall, our email systems work well!</p>
+
+<p>But what about when it doesn't? Well that's what today's blog post is about: what happens when things break and you
+don't know why?</p>
+
+
+        <p><a href="/blog/2019/11/14/diagnosing-our-radiation-problems/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/10/29/css-is-hard-and-vanguard-2019-learnings/">
+        
+        
+          <h2 class="entry-title">CSS is Hard and Other Things I Learned Working on the 2019 Artsy Vanguard</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ashley">Ashley Jelks<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/AshTheYogiDev">@AshTheYogiDev</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The Artsy Vanguard is an annual editorial series where we feature up-and-coming, notable, and praiseworthy artists
+and their contributions to the art world. 2019 was the second year that Artsy published this special feature,
+although we have been publishing custom editorial segments multiple times per year since 2015.</p>
+
+<p><em>In this post, I’ll discuss my recent experience working on the
+<a href="https://www.artsy.net/series/artsy-vanguard-2019">2019 Artsy Vanguard</a> editorial feature. I’ll start by
+introducing the technology stack behind our articles and then discuss what I learned from both a team/organization
+and technical perspective.</em></p>
+
+
+        <p><a href="/blog/2019/10/29/css-is-hard-and-vanguard-2019-learnings/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/10/18/kubernetes-and-hokusai/">
+        
+        
+          <h2 class="entry-title">Kubernetes and Hokusai</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/matt-dole">Matt Dole<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>When I joined Artsy Engineering a few months ago, I had roughly zero knowledge of Kubernetes. I'd heard the term
+thrown around a few times, but had no idea how it worked or what it was used for.</p>
+
+<p>Kubernetes is still a bit of a mystery to me, but I'm able to do a lot of Kubernetes operations quickly and easily
+thanks to an open-source tool developed at Artsy: <a href="https://github.com/artsy/hokusai">Hokusai</a>.</p>
+
+<p>In this post, I'll give some background on <a href="https://kubernetes.io">Kubernetes</a>, a brief history of Hokusai, a
+description of its functionality, and some pointers for how to get started using it.</p>
+
+
+        <p><a href="/blog/2019/10/18/kubernetes-and-hokusai/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/09/10/unbearable-lightness-of-refactoring/">
+        
+        
+          <h2 class="entry-title">Unbearable Lightness of Refactoring</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ashkan">Ashkan Nasseri<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashkinas">@ashkinas</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>As engineers we are constantly in the process of building new features and improving our existing ones. Nowadays, with the help of tools and processes like code reviews one could argue the quality of the code being written has risen. At Artsy a pull request normally has one Assignee and possibly one or more Reviewers, so why do we still do a lot of refactoring?</p>
+
+<blockquote><p>There is no means of testing which decision is better, because there is no basis for comparison. We live everything as it comes, without warning, like an actor going on cold. And what can life be worth if the first rehearsal for life is life itself?</p>
+
+<p>― Milan Kundera, <a href="https://en.wikipedia.org/wiki/The_Unbearable_Lightness_of_Being">The Unbearable Lightness of Being</a></p></blockquote>
+
+<p>Part of me wants to end this blogpost by Kundra’s quote, but for now let's get deeper.</p>
+
+
+        <p><a href="/blog/2019/09/10/unbearable-lightness-of-refactoring/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/05/24/server-rendering-responsively/">
+        
+        
+          <h2 class="entry-title">Server-Rendering Responsively</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/steve-hicks">Steve Hicks<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/pepopowitz">@pepopowitz</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/eloy">Eloy Durán<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/alloy">@alloy</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/chris">Christopher Pappas<a/></span>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/justin">Justin Bennett<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/zephraph">@zephraph</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>We use server-side rendering (SSR) to deliver every page you hit on <a href="https://artsy.net">artsy.net</a>. We decided on
+using SSR for many reasons, amongst them performance.
+<a href="https://artsy.github.io/blog/2013/11/30/rendering-on-the-server-and-client-in-node-dot-js/">We wrote about this all the way back in 2013</a>!</p>
+
+<p>We've also built our site using responsive design, so you get a browsing experience optimized for your device.</p>
+
+<p>Combining SSR and responsive design is a non-trivial problem. There are many concerns to manage, and they are
+sometimes in conflict with each other. We server render for performance reasons, but we also want to be sure our
+app is performant when your browser takes over, all while optimizing for accessibility and SEO.</p>
+
+<p>This article describes the tools we use on <a href="https://artsy.net">artsy.net</a> to combine SSR and responsive design.</p>
+
+
+        <p><a href="/blog/2019/05/24/server-rendering-responsively/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/05/10/why-projects-need-codenames/">
+        
+        
+          <h2 class="entry-title">Why Projects Need Code Names</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/joey">Joey Aghion<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/joeyAghion">@joeyAghion</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Before I joined Artsy, I worked at companies where software projects tended to have meaningful, predictable names. If we were building a system for flagging media uploads, it might be called <code>media-review</code>. In many cases, our code repositories' names matched the main product's branding or even the company's name. Life was simple and there was no risk of ambiguity.</p>
+
+<p>At Artsy, our systems have peculiar code names like <em>Gravity</em>, <em>Pulse</em>, and <em>Vortex</em>. There's a persistent learning curve as you contribute to different repositories or as new services get created. Numerous times, I've wondered: are code names worth the trouble?</p>
+
+
+        <p><a href="/blog/2019/05/10/why-projects-need-codenames/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/05/09/rosalind/">
+        
+        
+          <h2 class="entry-title">Rosalind and The Art Genome Project</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/roop">Roop<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>We recently bade a fond farewell to two <a href="https://code.dblock.org">of</a> <a href="http://orta.io">the</a> champions of our “open source by default” ethos, but
+this spirit lives on at Artsy.</p>
+
+<p>Today we open-source one of our key metadata apps, and explain how it fits into Artsy’s ecosystem.</p>
+
+
+        <p><a href="/blog/2019/05/09/rosalind/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2019/05/06/technical-writing-for-teams/">
+        
+        
+          <h2 class="entry-title">Artsy Writing Office Hours</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Welcome back to my series on writing for engineers. In the last post, we discussed <a href="https://ashfurrow.com/blog/technical-writing-on-the-web/">technical writing on the
+web</a> from an individual's perspective: how do you get started? how do you leverage the web? how do you
+improve? In today's post, I want to change directions; instead of focusing on how <em>individuals</em> write, we'll
+discuss how <em>teams</em> write.</p>
+
+
+        <p><a href="/blog/2019/05/06/technical-writing-for-teams/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/2/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 3 of 27</span>
+
+    
+      <a href="/blog/4/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

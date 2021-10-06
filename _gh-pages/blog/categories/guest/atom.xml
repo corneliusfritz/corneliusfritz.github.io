@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: guest | Artsy Engineering]]></title>
+  <link href="https://artsy.github.io/blog/categories/guest/atom.xml" rel="self"/>
+  <link href="https://artsy.github.io/"/>
+  <updated>2021-10-06T21:47:56+02:00</updated>
+  <id>https://artsy.github.io/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[The Relay Network Deep Dive]]></title>
+    <link href="https://artsy.github.io/blog/2018/07/25/Relay-Networking-Deep-Dive/"/>
+    <updated>2018-07-25T00:00:00+02:00</updated>
+    <id>https://artsy.github.io/blog/2018/07/25/Relay-Networking-Deep-Dive</id>
+    <content type="html"><![CDATA[<blockquote><p>Hey all, we have another guest post, this one comes from <a href="https://github.com/sibelius">Sibelius Seraphini</a> - a very active contributor to
+Relay and its eco-system. When we spotted he had wrote an amazing article on how the networking aspects of Relay
+comes together, we wanted to expand his reach and inform more people on how Relay comes together.</p>
+
+<p>-- Orta</p></blockquote>
+
+<p>Data fetching is a hard problem for apps. You need to ask yourself a lot of questions: How do you ask for data from
+a server? How do you handle authentication? When is the right time to request data? How can you ensure you have all
+the necessary data to render your views? How can you make sure you're not over-fetching? Can you do lazy loading?
+When should you trigger lazy loading of data? What about pre-fetching data?</p>
+
+<p><a href="https://facebook.github.io/relay/">Relay</a> is a framework for building data-driven applications which handles data fetching for you. For an
+introduction to Relay, read <a href="https://facebook.github.io/relay/">their docs</a>, and also check out my Relay talk at <a href="https://speakerdeck.com/sibelius/reactconfbr-is-relay-modern-the-future">React Conf BR</a>.</p>
+
+<blockquote><p>You don’t deep dive if you don’t know how to swim</p></blockquote>
+
+<a name="TL.DR.Relay.Modern.Network"></a>
+<h2>TL;DR Relay Modern Network</h2>
+
+<p>Relay will aggregate the data requirements (fragments) for your components, then create a request to fulfill it.
+The API to do this is via the <a href="https://facebook.github.io/relay/docs/en/relay-environment.html">Relay Environment</a>:</p>
+
+<blockquote><p>The Relay "Environment" bundles together the configuration, cache storage, and network-handling that Relay needs
+in order to operate.</p></blockquote>
+
+<p>This post focuses on the "network-handling" part, the <a href="https://facebook.github.io/relay/docs/en/network-layer.html">Network Layer</a>. The network layer's responsibility
+is to make a request to a server (or a local graphql) and return the response data to Relay. Your implementation
+should conform to either <a href="https://github.com/facebook/relay/blob/v1.6.0/packages/relay-runtime/network/RelayNetworkTypes.js#L79-L90">FetchFunction</a> for a Promise-like API, or <a href="https://github.com/facebook/relay/blob/v1.6.0/packages/relay-runtime/network/RelayNetworkTypes.js#L92-L107">SubscribeFunction</a> for an
+Observable-like API.</p>
+
+<p>This article will provide 5 implementations of a Relay Network Interface, each of one providing more capabilities
+than the other one, eventually enabling GraphQL Live Queries and Deferrable Queries.</p>
+
+<p>You can see the code for these 5 network layers on GitHub here, open source under MIT license:
+<a href="https://github.com/sibelius/relay-modern-network-deep-dive">https://github.com/sibelius/relay-modern-network-deep-dive</a>.</p>
+
+<!-- more -->
+
+
+<a name="Simplest.Network.Layer"></a>
+<h3>Simplest Network Layer</h3>
+
+<p>The simplest network layer would; get the request, send it to a GraphQL server to resolve and return the data to
+Relay environment.</p>
+
+<pre><code class="js">const fetchFunction = async (
+  request: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig,
+  uploadables: ?UploadableMap
+) =&gt; {
+  // Most GraphQL APIs expect a POST with a JSON
+  // string containing the query and associated variables
+  const body = JSON.stringify({
+    query: request.text, // GraphQL text from input
+    variables
+  })
+
+  const headers = {
+    Accept: "application/json",
+    "Content-type": "application/json",
+    authorization: getToken()
+  }
+
+  const response = await fetchWithRetries(ENV.GRAPHQL_URL, {
+    method: "POST",
+    headers,
+    body,
+    fetchTimeout: 20000,
+    retryDelays: [1000, 3000, 5000, 10000]
+  })
+
+  const data = await response.json()
+
+  // Mutations should throw when they have errors, making it easier
+  // for client code to react
+  if (isMutation(request) &amp;&amp; data.errors) {
+    throw data
+  }
+
+  // We return the GraphQL response to update the Relay Environment
+  // which updates internal store where relay keeps its data
+  return data
+}
+</code></pre>
+
+<a name="Network.that.Handle.Uploadables"></a>
+<h3>Network that Handle Uploadables</h3>
+
+<p>The GraphQL spec does not handle form data, and so if you need to send along files to upload to your server with a
+mutation, you'll want to use the uploadables API in Relay when you commit the mutation.</p>
+
+<p>Adding uploadables in a mutation will inevitably get passed to your network interface, where you'll need to change
+your request body to use FormData instead of the JSON string above:</p>
+
+<pre><code class="js">function getRequestBodyWithUploadables(request, variables, uploadables) {
+  let formData = new FormData()
+  formData.append("query", request.text)
+  formData.append("variables", JSON.stringify(variables))
+
+  Object.keys(uploadables).forEach(key =&gt; {
+    if (Object.prototype.hasOwnProperty.call(uploadables, key)) {
+      formData.append(key, uploadables[key])
+    }
+  })
+
+  return formData
+}
+</code></pre>
+
+<a name="Network.that.Caches.Requests"></a>
+<h3>Network that Caches Requests</h3>
+
+<p>This builds on top of the other 2 implementations, we use
+<a href="https://github.com/facebook/relay/blob/v1.6.0/packages/relay-runtime/network/RelayQueryResponseCache.js#L24-L29">RelayQueryResponseCache</a>
+to query GraphQL requests based on query and variables.</p>
+
+<p>Every time a mutation happens, we should invalidate our cache as we are not sure how a change can affect all cached
+query responses.</p>
+
+<pre><code class="js">// Create our own in-memory cache
+const relayResponseCache = new RelayQueryResponseCache({ size: 250, ttl: oneMinute })
+
+const cacheHandler = async (
+  request: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig,
+  uploadables: UploadableMap
+) =&gt; {
+  const queryID = request.text
+
+  // If it's a mutation, clear all cache, then call the implementation above
+  if (isMutation(request)) {
+    relayResponseCache.clear()
+    return fetchFunction(request, variables, cacheConfig, uploadables)
+  }
+
+  // Try grab the request from the cache first
+  const fromCache = relayResponseCache.get(queryID, variables)
+  // Did it hit? Or did we suppress the cache for this request
+  if (isQuery(request) &amp;&amp; fromCache !== null &amp;&amp; !forceFetch(cacheConfig)) {
+    return fromCache
+  }
+
+  // Make the request, and cache it if we get a response
+  const fromServer = await fetchFunction(request, variables, cacheConfig, uploadables)
+  if (fromServer) {
+    relayResponseCache.set(queryID, variables, fromServer)
+  }
+
+  return fromServer
+}
+</code></pre>
+
+<a name="Network.using.Observable"></a>
+<h3>Network using Observable</h3>
+
+<p>Relay provides a limited implementation of the upcoming <a href="https://github.com/tc39/proposal-observable">ESObservables</a> spec. I recommend reading <a href="https://kriskowal.gitbooks.io/gtor/content/">A General
+Theory of Reactivity</a> to understand why Observables are a great solution instead of promises in some
+situations. Notably; a promise is one value in a time space, an observable is a stream of values in a time space.</p>
+
+<!-- [TODO: Why Sink and not the Relay Observable? Observable is exported but has one more function (complete)] -->
+
+
+<p>To work with this API, we're going to use a private interface for the observable object called Sink:</p>
+
+<pre><code class="js">/**
+ * A Sink is an object of methods provided by Observable during construction.
+ * The methods are to be called to trigger each event. It also contains a closed
+ * field to see if the resulting subscription has closed.
+ */
+export type Sink&lt;-T&gt; = {|
+  +next: T =&gt; void,
+  +error: (Error, isUncaughtThrownError?: boolean) =&gt; void,
+  +complete: () =&gt; void,
+  +closed: boolean
+|}
+</code></pre>
+
+<p>Which is the shape of the Observable object we pass back to Relay:</p>
+
+<pre><code class="js">const fetchFunction = async (
+  request: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig,
+  uploadables: ?UploadableMap,
+  sink: Sink&lt;any&gt;
+) =&gt; {
+  const body = getRequestBody(request, variables, uploadables)
+
+  const headers = {
+    ...getHeaders(uploadables),
+    authorization: getToken()
+  }
+
+  const response = await fetchWithRetries(ENV.GRAPHQL_URL, {
+    method: "POST",
+    headers,
+    body,
+    fetchTimeout: 20000,
+    retryDelays: [1000, 3000, 5000, 10000]
+  })
+
+  const data = await handleData(response)
+
+  if (isMutation(request) &amp;&amp; data.errors) {
+    sink.error(data)
+    sink.complete()
+
+    return
+  }
+
+  sink.next(data)
+  sink.complete()
+}
+
+// Instead of returning a Promise that will resolve a single GraphQL response.
+// We return an Observable that could fulfill many responses before it finishes.
+
+const executeFunction = (
+  request: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig,
+  uploadables: ?UploadableMap
+) =&gt; {
+  return Observable.create(sink =&gt; {
+    fetchFunction(request, variables, cacheConfig, uploadables, sink)
+  })
+}
+</code></pre>
+
+<p>This is an implementation you would need when working with <a href="https://github.com/facebook/relay/issues/2174">GraphQL Live Queries</a> (based on polling), as you
+are going to resolve the same query more than once.</p>
+
+<a name="Deferrable.Queries.Network"></a>
+<h3>Deferrable Queries Network</h3>
+
+<p>A common case for deferrable queries is to lazy load fragments. This lets you get request content above the page
+fold first, and then request additional data after. A good example is loading a Post's content first and then
+subsequently loading all comments of this post after the post has finished.</p>
+
+<p>Without deferrable queries you could simulate this using the <a href="https://facebook.github.io/relay/docs/en/graphql-in-relay.html#directives">@include</a> directive in your Relay fragment
+and a <a href="https://facebook.github.io/relay/docs/en/refetch-container.html">refetch container</a>. When the component mounts the refetch container changes the variable used on
+the <code>@include</code> to true and it will request the rest of the data.</p>
+
+<p>The problem with above approach is that you need to wait for the component to mount before you can start the next
+request. This becomes a bigger problem as React does more work asynchronously.</p>
+
+<!-- TODO: There are no docs for relay deferrable -->
+
+
+<p>An ideal deferrable query will start as soon as the previous query has finished, rather than depending on your
+React components render cycles. Relay provides a <a href="https://github.com/facebook/relay/issues/2194#issuecomment-383466255">directive</a> for this: <code>@relay(deferrable: true)</code>:</p>
+
+<pre><code class="js">const PostFragment = createFragmentContainer(Post, {
+  post: graphql`
+    fragment Post_post on Post {
+      title
+      commentsCount
+      ...CommentsList_post @relay(deferrable: true)
+    }
+  `
+})
+</code></pre>
+
+<p>In the fragment above, Relay will first get the <code>title</code> and <code>commentsCount</code> from the Post, then afterwards Relay
+will get the data for <code>CommentsList_post</code> fragment. Sending both through the observable.</p>
+
+<p>Here is the implementation of an execute function to handle a batched request:</p>
+
+<pre><code class="js">const executeFunction = (
+  request: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig,
+  uploadables: ?UploadableMap
+) =&gt; {
+  return Observable.create(sink =&gt; {
+    if (request.kind === "Request") {
+      cacheHandler(request, variables, cacheConfig, uploadables, sink, true)
+    }
+
+    if (request.kind === "BatchRequest") {
+      batchRequestQuery(request, variables, cacheConfig, uploadables, sink)
+    }
+  })
+}
+</code></pre>
+
+<p>This execute function now can handle 2 types of requests:</p>
+
+<ul>
+<li>a single GraphQL query <code>Request</code></li>
+<li>or a <code>BatchRequest</code> that could have be many queries with inter-related data</li>
+</ul>
+
+
+<p>So, what does the <code>batchRequestQuery</code> function look like?</p>
+
+<!-- TODO: Annotate ths code, I'm not 100% what it's doing myself -->
+
+
+<pre><code class="js">// Get variables from the results that have already been sent
+const getDeferrableVariables = (requests, request, variables: Variables) =&gt; {
+  const { argumentDependencies } = request
+
+  if (argumentDependencies.length === 0) {
+    return variables
+  }
+
+  return argumentDependencies.reduce((acc, ad) =&gt; {
+    const { response } = requests[ad.fromRequestName]
+
+    const variable = get(response.data, ad.fromRequestPath)
+
+    // TODO - handle ifList, ifNull
+    // See: https://github.com/facebook/relay/issues/2194
+    return {
+      ...acc,
+      [ad.name]: variable
+    }
+  }, {})
+}
+
+// Execute each of the requests, and call `sink.next()` as soon as it has the GraphQL
+/// server response data.
+//
+// It will only close the Observable stream when all requests has been fulfilled.
+const batchRequestQuery = async (
+  request: RequestNode,
+  variables: Variables,
+  cacheConfig: CacheConfig,
+  uploadables: ?UploadableMap,
+  sink: Sink&lt;ExecutePayload&gt;
+) =&gt; {
+  const requests = {}
+
+  for (const r of request.requests) {
+    const v = getDeferrableVariables(requests, r, variables)
+
+    const response = await cacheHandler(r, v, cacheConfig, uploadables, sink, false)
+
+    requests[r.name] = response
+  }
+
+  sink.complete()
+}
+</code></pre>
+
+<a name="Relay.Modern.is.very.flexible"></a>
+<h2>Relay Modern is very flexible</h2>
+
+<p>Depending on your application needs, you can scale from a simpler Promise-based API for your custom network layer
+to one that uses Observables to always resolves from cache data first and then resolves from the server.</p>
+
+<p>Here are some production examples:</p>
+
+<ul>
+<li><p><a href="https://github.com/artsy/emission/blob/master/src/lib/relay/fetchQuery.ts">Artsy Emission</a>: Uses the Promise API, caches the results locally, and shares logic with native code in
+an iOS app so that queries can be pre-cached before the JavaScript runtime has started.</p></li>
+<li><p><a href="https://github.com/relay-tools/react-relay-network-modern">ReactRelayNetworkModern</a>: A network layer that uses the middleware pattern to separate responsibilities like
+retrying, logging, caching and auth.</p></li>
+<li><p><a href="https://github.com/facebook/relay/issues/2174#issuecomment-375274003">timobetina's example</a>: The simplest Observable network layer you can start with.</p></li>
+</ul>
+
+
+<!-- TODO: More, @sibelius do you have some good examples? -->
+
+
+<a name="More.Resources"></a>
+<h2>More Resources</h2>
+
+<p>If you want to expand your understanding of GraphQL and Relay Modern, I have two great related resources:</p>
+
+<ul>
+<li><p>A boilerplate that uses dataloader to batch and cache requests to your database in a GraphQL API:
+<a href="https://github.com/entria/graphql-dataloader-boilerplate">https://github.com/entria/graphql-dataloader-boilerplate</a></p></li>
+<li><p>A simple boilerplate for working with Relay Modern and React Navigation:
+<a href="https://github.com/entria/ReactNavigationRelayModern">https://github.com/entria/ReactNavigationRelayModern</a></p></li>
+</ul>
+
+
+<p>If you have questions about this or anything send me a DM on twitter
+<a href="https://twitter.com/sseraphini">https://twitter.com/sseraphini</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Relay Mutations]]></title>
+    <link href="https://artsy.github.io/blog/2017/04/26/Relay-Mutations/"/>
+    <updated>2017-04-26T00:00:00+02:00</updated>
+    <id>https://artsy.github.io/blog/2017/04/26/Relay-Mutations</id>
+    <content type="html"><![CDATA[<blockquote><p>Hey there everyone, it took us two years to <a href="https://github.com/artsy/metaphysics/pull/583">make our</a> GraphQL implementation support any mutations. We opted to keep it read-only for quite a long time because we use GraphQL to consolidate multiple APIs, but as we start new projects as GraphQL + databases then understanding mutations becomes much more important.</p>
+
+<p>Last month, I talked with the team at <a href="https://www.graph.cool/">Graph.cool</a> about having them talk through Relay mutations comprehensively as a guest post on the Artsy Engineering blog. So, I'm really excited to introduce this great post on the topic by <a href="http://twitter.com/nikolasburk">Nikolas Burk</a>.</p>
+
+<p>-- Orta</p></blockquote>
+
+<a name="The.Magic.behind.Relay.Mutations"></a>
+<h1>The Magic behind Relay Mutations</h1>
+
+<p><a href="https://facebook.github.io/relay/">Relay</a> is a powerful GraphQL client for React and React Native applications. It was open sourced by Facebook alongside GraphQL in 2015 and is a great tool for supporting you with managing your app's data layer.</p>
+
+<p>In this post, we are going to explore how Relay mutations work by looking at a React Native app. The code can be found on <a href="https://github.com/graphcool-examples/react-native-relay-pokedex-example">GitHub</a>. Our sample application is a simple <em>Pokedex</em>, where users can manage their Pokemons.</p>
+
+<p><img src="http://i.imgur.com/S21GfEo.png" alt="" /></p>
+
+<blockquote><p>Note: We're going to assume a basic familiarity with GraphQL in this article. If you haven't heard of GraphQL before, the <a href="www.graphql.org">documentation</a> and the <a href="http://artsy.github.io/blog/2016/06/19/graphql-for-mobile/">GraphQL for iOS Developers</a> post are great places to start. If you're interested in learning more about Relay in general, head over to <a href="www.learnrelay.org">Learn Relay</a> for a comprehensive tutorial.</p></blockquote>
+
+<!-- more -->
+
+
+<p>If you want to run the example with your own GraphQL server, you can use <a href="https://www.graph.cool/graphql-up/">graphql-up</a> to quickly spin one up yourself from within your browser. Simply click the pink button and follow the instructions on the website.</p>
+
+<p><a href="https://www.graph.cool/graphql-up/new?source=https://raw.githubusercontent.com/graphcool-examples/react-native-relay-pokedex-example/master/pokedex.schema"><img src="http://static.graph.cool/images/graphql-up.svg" alt="graphql-up" /></a></p>
+
+<a name="Relay.-.A.brief.Overview"></a>
+<h2>Relay - A brief Overview</h2>
+
+<p>Relay is the most sophisticated GraphQL client available at the moment. Like GraphQL, it has been used and battle-tested internally by Facebook for many years before it was open sourced.</p>
+
+<p>Relay surely isn't the easiest framework to learn - but when used correctly, it takes care of managing large parts of your app's data layer in a consistent and reliable manner! It therefore is particularly well-suited for complex applications with lots of data interdependencies and provides outstanding longterm developer productivity.</p>
+
+<a name="Declarative.API.and.Colocation"></a>
+<h3>Declarative API and Colocation</h3>
+
+<p>With Relay, React components specify their data requirements in a declarative fashion, making use of GraphQL <em>fragments</em>.</p>
+
+<blockquote><p>A <a href="https://learngraphql.com/basics/fragments">GraphQL fragment</a> is a selection of fields on a GraphQL type. You can use them to define <em>reusable sub-parts</em> of queries or mutations.</p></blockquote>
+
+<p>Considering the <code>PokemonDetails</code> view above, we need to display the Pokemon's name and image. The fragment that represents these data requirements looks as follows:</p>
+
+<pre><code>fragment PokemonDetails on Node {
+  ... on Pokemon {
+    id
+    name
+    url
+  }
+}
+</code></pre>
+
+<p>Note that the <code>id</code> is required so that Relay can identify the objects in the cache, so it's included in the payload as well (even if it's not displayed on the UI).</p>
+
+<p>These fragments are kept in the same file as the React component, so UI and data requirements are <em>colocated</em>. Relay then uses a <a href="https://facebook.github.io/react/docs/higher-order-components.html">higher-order component</a> called <a href="https://facebook.github.io/relay/docs/guides-containers.html#content"><code>Relay.Container</code></a>, to wrap the component along with its data requirements. From this point, the developer doesn't have to worry about the data any more! It will be fetched behind the scenes and is made available to the component via its props.</p>
+
+<a name="Build-time.Schema.Validation"></a>
+<h3>Build-time Schema Validation</h3>
+
+<p>Another great feature of Relay that ensures developer productivity is  <em>schema validation</em>. At build time, Relay checks your GraphQL queries, fragments and mutations to ensure their compatibility with the GraphQL API. It is thus able to catch any typos or other schema-related errors before you run (or even worse: deploy) your app, saving your users from unpleasant experiences. Note that the schema validation step requires a <a href="https://facebook.github.io/relay/docs/guides-babel-plugin.html">Babel Relay Plugin</a>.</p>
+
+<a name="Mutations.in.Relay"></a>
+<h2>Mutations in Relay</h2>
+
+<a name="GraphQL.Recap"></a>
+<h3>GraphQL Recap</h3>
+
+<p>In GraphQL, a <em>mutation</em> is the only way to create, update or delete data on the server - they effectively are the GraphQL abstraction for <em>changing state</em> in your backend.</p>
+
+<p>As an example, creating a new Pokemon in our sample app uses the following mutation:</p>
+
+<pre><code>mutation CreatePokemon($name: String!, $url: String!) {
+  createPokemon(input: {
+    name: $name,
+    url: $url
+  }) {
+    # payload of the mutation (will be returned by the server)
+    pokemon {
+      id 
+    }
+  }
+}
+</code></pre>
+
+<p>Notice that mutations, similar to queries, also require a <em>payload</em> to be specified. This payload represents the information that we'd like to have returned from the server after the mutation was performed. In the above example, we're asking for the <code>id</code> of the new <code>pokemon</code>.</p>
+
+<a name="The.Magic:.Declarative.Mutations....."></a>
+<h3>The Magic: Declarative Mutations 🔮</h3>
+
+<p>Relay doesn't (yet) give the developer the ability to manually modify the data that it stores internally. Instead, with every change, it requires a declarative <em>description</em> of how the local cache should be updated after the change happened in the form of a <a href="https://facebook.github.io/relay/docs/guides-mutations.html#content">mutation</a> and then takes care of the update under the hood.</p>
+
+<p>The description is provided by subclassing <code>Relay.Mutation</code> and implementing (at least) four methods that help Relay to properly update the local store:</p>
+
+<ul>
+<li><code>getMutation()</code>: the name of the mutation (from the GraphQL schema)</li>
+<li><code>getVariables()</code>: the input variables for the mutation</li>
+<li><code>getFatQuery()</code>: a GraphQL query that fetches all data that potentially was changed due to the mutation</li>
+<li><code>getConfigs()</code>: a precise specification how the mutation should be incorporated into the cache</li>
+</ul>
+
+
+<p>In the following, we'll take a deeper look at the different kinds of mutations in our sample app, which are used for creating, updating and deleting Pokemons.</p>
+
+<blockquote><p>Note: We're using the <a href="https://www.graph.cool/docs/reference/relay-api/overview-aizoong9ah">Graphcool Relay API</a> for this example. If you used <code>graphql-up</code> to create your own backend, you can explore the API by pasting the endpoint for the Relay API into the address bar of a browser.</p></blockquote>
+
+<a name="Creating.a.new.Pokemon:..code.RANGE_ADD..code."></a>
+<h3>Creating a new Pokemon: <code>RANGE_ADD</code></h3>
+
+<p><img src="http://i.imgur.com/yskx5KU.png" alt="" /></p>
+
+<p>Let's walk through the different methods and understand what information we have to provide so that Relay can successfully merge the newly created Pokemon into its store.</p>
+
+<p>The first two methods, <code>getMutation()</code> and <code>getVariables()</code> are relatively obvious and can be retrieved directly from the documentation where the API is described.</p>
+
+<p>The implementations look as follows:</p>
+
+<pre><code class="js">getMutation() {
+  return Relay.QL`mutation { createPokemon }`
+}
+
+getVariables() {
+  return {
+    name: this.props.name,
+    url: this.props.url,
+  }
+}
+</code></pre>
+
+<p>Notice that the <code>props</code> of a <code>Relay.Mutation</code> are passed through its constructor. Here, we simply provide the <code>name</code> and the <code>url</code> of the Pokemon that is to be created.</p>
+
+<p>Now, on to the interesting parts. In <code>getFatQuery()</code>, we need to specify the parts that might change due to the mutation. Here, we simply specify the <code>viewer</code>:</p>
+
+<pre><code class="js">getFatQuery() {
+  return Relay.QL`
+    fragment on CreatePokemonPayload {
+      viewer {
+        allPokemons
+      }
+    }
+  `
+}
+</code></pre>
+
+<p>Notice that <em>every</em> subfield of <code>allPokemons</code> is also automatically included with this approach. In our example app, <code>allPokemons</code> is the only point we expect to change after our mutation is performed.</p>
+
+<p>Finally, in <code>getConfigs()</code>, we need to specify the <a href="https://facebook.github.io/relay/docs/guides-mutations.html#mutator-configuration">mutator configurations</a>, telling Relay exactly how the new data should be incorporated into the cache. This is where the magic happens:</p>
+
+<pre><code class="js">getConfigs() {
+  return [{
+    type: 'RANGE_ADD',
+    parentName: 'viewer',
+    parentID: this.props.viewerId,
+    connectionName: 'allPokemons',
+    edgeName: 'edge',
+    rangeBehaviors: {
+      '': 'append'
+    }
+  }]
+}
+</code></pre>
+
+<p>We first express that we want to <em>add</em> the node using <code>RANGE_ADD</code> for the <code>type</code> (there are 5 different types in total).</p>
+
+<p>Relay internally represents the stored data as a graph, so the remaining information expresses where exactly the new node should be hooked into the existing structure.</p>
+
+<p>Let's consider the shape of the data before we move on:</p>
+
+<pre><code>viewer {
+  allPokemons {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>Here we clearly see the direct connection between <code>viewer</code> and the Pokemons goes through <code>allPokemons</code> <em>connection</em>, so the <em>parent</em> of the new Pokemon is the <code>viewer</code>. The name of that connection is <code>allPokemons</code>, and lastly the <code>edgeName</code> is taken from the payload of the mutation.</p>
+
+<p>The last piece, <code>rangeBehaviors</code>, specifies whether we want to <em>append</em> or <em>prepend</em> the new node.</p>
+
+<p>Executing the mutation is as simple as calling <code>commitUpdate</code> on the <code>relay</code> prop that's injected to each component being wrapped with a <code>Relay.Container</code>. An instance of the mutation and the expected variables are passed as arguments to the constructor:</p>
+
+<pre><code class="js">_sendCreatePokemonMutation = () =&gt; {
+  const createPokemonMutation = new CreatePokemonMutation({
+    viewerId: this.props.viewer.id,
+    name: this.state.pokemonName,
+    url: this.state.pokemonUrl,
+  })
+  this.props.relay.commitUpdate(createPokemonMutation)
+}
+</code></pre>
+
+<a name="Updating.a.Pokemon:..code.FIELDS_CHANGE..code."></a>
+<h3>Updating a Pokemon: <code>FIELDS_CHANGE</code></h3>
+
+<p>Like with creating a Pokemon, <code>getMutation()</code> and <code>getVariables()</code> are trivial to implement and can be derived directly from the API documentation:</p>
+
+<pre><code class="js">getMutation() {
+  return Relay.QL`mutation { updatePokemon }`
+}
+
+getVariables() {
+  return {
+    id: this.props.id,
+    name: this.props.name,
+    url: this.props.url,
+  }
+}
+</code></pre>
+
+<p>In <code>getFatQuery()</code>, we only include the <code>pokemon</code> which includes the updated info this time, since that is the only part we expect to change after our mutation:</p>
+
+<pre><code class="js">getFatQuery() {
+  return Relay.QL`
+    fragment on UpdatePokemonPayload {
+      pokemon
+    }
+  `
+}
+</code></pre>
+
+<p>Finally, <code>getConfigs()</code>, this time specifies a mutator configuration of type <code>FIELDS_CHANGE</code> since we're only updating properties on a single Pokemon:</p>
+
+<pre><code class="js">getConfigs() {
+  return [{
+    type: 'FIELDS_CHANGE',
+    fieldIDs: {
+      pokemon: this.props.id,
+    }
+  }]
+}
+</code></pre>
+
+<p>As sole additional piece of info, we declare the ID of the Pokemon that is being updated so that Relay has this information available when receiving the new Pokemon data.</p>
+
+<a name="Deleting.a.Pokemon:..code.NODE_DELETE..code."></a>
+<h3>Deleting a Pokemon: <code>NODE_DELETE</code></h3>
+
+<p>As before, <code>getMutation()</code> and <code>getVariables()</code> are self-explanatory:</p>
+
+<pre><code class="js">getMutation() {
+  return Relay.QL`mutation { deletePokemon }`
+}
+
+getVariables() {
+  return {
+    id: this.props.id,
+  }
+}
+</code></pre>
+
+<p>Then, in <code>getFatQuery()</code>, we need to retrieve the <code>pokemon</code> from the mutation payload:</p>
+
+<pre><code class="js">getFatQuery() {
+  return Relay.QL`
+    fragment on DeletePokemonPayload {
+      pokemon
+    }
+  `
+}
+</code></pre>
+
+<p>In <code>getConfigs()</code>, we're getting to know another mutator configuration type called <code>NODE_DELETE</code>. This one requires a <code>parentName</code> as well as a <code>connectionName</code>, both coming from the mutation payload and specifying where that node existed in Relay's data graph. Another requirement, that is specifically relevant for the implementation of a GraphQL server, is that the mutation payload of a deleting mutation always needs to return the <code>id</code> of the deleted node so that Relay can find that node in its store. Taking all of this together, our implementation of <code>getConfigs()</code> can be written like so:</p>
+
+<pre><code class="js">getConfigs() {
+  return [{
+    type: 'NODE_DELETE',
+    parentName: 'pokemon',
+    connectionName: 'edge',
+    deletedIDFieldName: 'deletedId'
+  }]
+}
+</code></pre>
+
+<a name="Wrapping.Up"></a>
+<h2>Wrapping Up</h2>
+
+<p>Relay has a lot of benefits that make it a very compelling framework to use for state management and interaction with GraphQL APIs. Its major strengths are a highly optimized cache, thoughtful UI integration as well as the declarative API for data fetching and mutations.</p>
+
+<p>The initial version of Relay came with a notable learning curve due to lots of magic happening behind the scenes. However, Facebook recently released the first release candidates of <a href="https://github.com/facebook/relay/releases/">Relay v1.0.0</a> (<em>Relay Modern</em>) with the <a href="https://code.facebook.com/posts/1362748677097871">goal of making Relay generally more approachable</a>.</p>
+
+<p>It's worth noting that Relay isn't the only available GraphQL client. Apollo Client is a great alternative which is a lot easier to get started with. <a href="https://www.graph.cool/docs/tutorials/relay-vs-apollo-iechu0shia/">For a detailed comparison please refer to this article.</a></p>
+
+<p>If you want to learn more about GraphQL and want to stay up-to-date with the latest news of the GraphQL community, subscribe to <a href="https://graphqlweekly.com/">GraphQL Weekly</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

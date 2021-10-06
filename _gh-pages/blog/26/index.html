@@ -1,0 +1,1411 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          How to Start Small with Big Data and Google Analytics...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/26/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/05/01/how-to-start-small-with-big-data-and-google-analytics/">
+        
+        
+          <h2 class="entry-title">How to Start Small with Big Data and Google Analytics</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Why do so many companies write a homegrown pageviews tracking system? Between Google Analytics, Kissmetrics and many others, isn't that a completely solved problem?</p>
+
+<p>These popular solutions lack domain knowledge. They are easily capable of segmenting users by region or browser, but they fail to recognize rules core to your business. Tracking pageviews with a homegrown system becomes your next sprint's goal.</p>
+
+<p>Implementing a hit counter service is quite tricky. This is a write-heavy, asynchronous problem that must minimize impact on page rendering time, while dealing with rapidly growing amounts of data. Is there a middle ground between using Google Analytics and rolling out our own homegrown implementation? How can we use Google Analytics for data collection and inject domain knowledge into gathered data, incrementally, without writing our own service?</p>
+
+<!--more-->
+
+
+<p>Let's write a Rake task that pulls data from Google Analytics. We can run it daily. Start with a Ruby gem called <a href="https://github.com/vigetlabs/garb">Garb</a>.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s2">&quot;garb&quot;</span><span class="p">,</span> <span class="s2">&quot;0.9.1&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Garb requires Google Analytics credentials. Those can go into a YAML configuration file, which will use environment settings in production (it's an ERB template, too). We can hardcode the test account values.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>config/google_analytics.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="nl">&amp;defaults</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">development, test</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&lt;&lt;</span><span class="p-Indicator">:</span> <span class="nv">*defaults</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="s">&quot;ga@example.com&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="s">&quot;password&quot;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">ua</span><span class="p-Indicator">:</span> <span class="s">&quot;UA-12345678-1&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="l-Scalar-Plain">production</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&lt;&lt;</span><span class="p-Indicator">:</span> <span class="nv">*defaults</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;GOOGLE_ANALYTICS_EMAIL&#39;] %&gt;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;GOOGLE_ANALYTICS_PASSWORD&#39;] %&gt;</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">ua</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">&lt;%= ENV[&#39;GOOGLE_ANALYICS_UA&#39;] %&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Establish a Google Analytics session and fetch the profile corresponding to the Google user account with Garb.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="no">ERB</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;config/google_analytics.yml&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">)</span><span class="o">[</span><span class="no">Rails</span><span class="o">.</span><span class="n">env</span><span class="o">].</span><span class="n">symbolize_keys</span>
+</span><span class='line'><span class="no">Garb</span><span class="o">::</span><span class="no">Session</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">config</span><span class="o">[</span><span class="ss">:email</span><span class="o">]</span><span class="p">,</span> <span class="n">config</span><span class="o">[</span><span class="ss">:password</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="n">profile</span> <span class="o">=</span> <span class="no">Garb</span><span class="o">::</span><span class="no">Management</span><span class="o">::</span><span class="no">Profile</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">detect</span> <span class="p">{</span> <span class="o">|</span><span class="nb">p</span><span class="o">|</span> <span class="nb">p</span><span class="o">.</span><span class="n">web_property_id</span> <span class="o">==</span> <span class="n">config</span><span class="o">[</span><span class="ss">:ua</span><span class="o">]</span> <span class="p">}</span>
+</span><span class='line'><span class="k">raise</span> <span class="s2">&quot;missing profile </span><span class="si">#{</span><span class="n">config</span><span class="o">[</span><span class="ss">:ua</span><span class="o">]</span><span class="si">}</span><span class="s2"> in </span><span class="si">#{</span><span class="no">Garb</span><span class="o">::</span><span class="no">Management</span><span class="o">::</span><span class="no">Profile</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:web_property_id</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">unless</span> <span class="n">profile</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Garbs needs a data model to collect pageviews. It extends <code>Garb::Model</code> and defines a set of "metrics" and "dimensions".</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/models/google_analytics_pageviews.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">GoogleAnalyticsPageviews</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="no">Garb</span><span class="o">::</span><span class="no">Model</span>
+</span><span class='line'>  <span class="n">metrics</span> <span class="ss">:pageviews</span>
+</span><span class='line'>  <span class="n">dimensions</span> <span class="ss">:page_path</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>You can play with the <a href="http://ga-dev-tools.appspot.com/explorer/">Google Analytics Query Explorer</a> to see the many possible metrics (such as pageviews) and dimensions (such as requested page path).</p>
+
+<p>By default, Google Analytics lets clients retrieve 1000 records in a single request. To get all records we can add an iterator, called <code>all</code>, that will keep making requests until the server runs out of data. The code for <em>config/initializers/garb_model.rb</em> is <a href="https://gist.github.com/2265877">in this gist</a> and I made a <a href="https://github.com/vigetlabs/garb/pull/116">pull request</a> into Garb if you'd rather merge that onto your fork.</p>
+
+<p>The majority of our pages are in the form of "/model/id", for example "/artwork/leonardo-mona-lisa". We're interested in all pageviews for a given artwork and in pageviews for a given artist, at a given date. We'll store selected Google Analytics data in a <code>GoogleAnalyticsPageviewsRecord</code> model described further.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">t</span> <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">today</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'><span class="no">GoogleAnalyticsPageviews</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:start_date</span> <span class="o">=&gt;</span> <span class="n">t</span><span class="p">,</span> <span class="ss">:end_date</span> <span class="o">=&gt;</span> <span class="n">t</span> <span class="p">})</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">model</span> <span class="o">=</span> <span class="sr">/^\/#\!\/(?&lt;type&gt;[a-z-]+)\/(?&lt;id&gt;[a-z-]+)$/</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">page_path</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">next</span> <span class="k">unless</span> <span class="p">(</span><span class="n">model</span><span class="o">[</span><span class="ss">:type</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;artwork&quot;</span> <span class="o">||</span> <span class="n">model</span><span class="o">[</span><span class="ss">:type</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;artist&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">GoogleAnalyticsPageviewsRecord</span><span class="o">.</span><span class="n">create!</span><span class="p">({</span>
+</span><span class='line'>    <span class="ss">:model_type</span> <span class="o">=&gt;</span> <span class="n">model</span><span class="o">[</span><span class="ss">:type</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:model_id</span> <span class="o">=&gt;</span> <span class="n">model</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:pageviews</span> <span class="o">=&gt;</span> <span class="n">row</span><span class="o">.</span><span class="n">pageviews</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">:dt</span> <span class="o">=&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-%d&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Each <code>GoogleAnalyticsPageviewsRecord</code> contains the total pageviews for a given model ID at a given date. We now have a record for each artwork and artist. We can rollup existing data into a set of collections, incrementally. For example, <code>google_analytics_artworks_monthly</code> will contain the monthly hits for each artwork.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">GoogleAnalyticsPageviewsRecord</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:model_type</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:model_id</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="nb">String</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:pageviews</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="nb">Integer</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:dt</span><span class="p">,</span> <span class="ss">type</span><span class="p">:</span> <span class="no">Date</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">index</span> <span class="o">[</span>
+</span><span class='line'>    <span class="o">[</span><span class="ss">:model_type</span><span class="p">,</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">ASCENDING</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="o">[</span><span class="ss">:model_id</span><span class="p">,</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">ASCENDING</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="o">[</span><span class="ss">:dt</span><span class="p">,</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">DESCENDING</span><span class="o">]</span>
+</span><span class='line'>  <span class="o">]</span><span class="p">,</span> <span class="ss">:unique</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">after_create</span> <span class="ss">:rollup</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">rollup</span>
+</span><span class='line'>    <span class="no">Mongoid</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="s2">&quot;google_analytics_</span><span class="si">#{</span><span class="nb">self</span><span class="o">.</span><span class="n">model_type</span><span class="si">}</span><span class="s2">s_total&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+</span><span class='line'>      <span class="p">{</span> <span class="ss">:model_id</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">model_id</span> <span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span> <span class="s2">&quot;$inc&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">&quot;count&quot;</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">pageviews</span> <span class="p">}},</span> <span class="p">{</span> <span class="ss">:upsert</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">})</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="ss">:daily</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-%d&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="ss">:weekly</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">beginning_of_week</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%W&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="ss">:monthly</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">beginning_of_month</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="ss">:yearly</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">beginning_of_year</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="p">,</span> <span class="n">dt</span><span class="o">|</span>
+</span><span class='line'>      <span class="no">Mongoid</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="s2">&quot;google_analytics_</span><span class="si">#{</span><span class="nb">self</span><span class="o">.</span><span class="n">model_type</span><span class="si">}</span><span class="s2">s_</span><span class="si">#{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span> <span class="ss">:model_id</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">model_id</span><span class="p">,</span> <span class="ss">:dt</span> <span class="o">=&gt;</span> <span class="n">dt</span> <span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span> <span class="s2">&quot;$inc&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">&quot;count&quot;</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">pageviews</span> <span class="p">}},</span> <span class="p">{</span> <span class="ss">:upsert</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">})</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>The rollup lets us query these tables directly. For example, the following query returns a record with the pageviews for the Leonardo's "Mona Lisa" in January 2012.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Mongoid</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="s2">&quot;google_analytics_artworks_monthly&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span>
+</span><span class='line'>  <span class="ss">:model_type</span> <span class="o">=&gt;</span> <span class="s2">&quot;artwork&quot;</span><span class="p">,</span> <span class="ss">:model_id</span> <span class="o">=&gt;</span> <span class="s2">&quot;leonardo-mona-lisa&quot;</span><span class="p">,</span> <span class="ss">:dt</span> <span class="o">=&gt;</span> <span class="s2">&quot;2012/01&quot;</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>One of the obvious advantages of pulling Google Analytics data is the low volume of requests and offline processing. We're letting Google Analytics do the hard work of collecting data for us in real time and are consuming its API without the performance or time pressures.</p>
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/04/10/css-trick-adjusting-text-underlines/">
+        
+        
+          <h2 class="entry-title">CSS Trick: Adjusting Text Underlines</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/craig">Craig Spaeth<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/craigspaeth">@craigspaeth</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Often times people will use <em>border-bottom: 1px solid</em> in favor of <em>text-decoration: underline</em> to give their links some breathing room. But what if you're giving it <em>too</em> much breathing room and want to adjust the height of that underline. With Adobe Garamond that happened to be the case, so we've come up with this little css trick:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">a</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nt">a</span><span class="o">:</span><span class="nd">:after</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">content</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">height</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">margin-top</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>This overlays a CSS pseudo element with a border-bottom that can be adjusted by changing margin-top.</p>
+
+<p>For handling browsers that don't support pseudo elements I recommend targeting them with the <a href="http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/">Paul Irish class-on-html-trick</a>.</p>
+
+<p>Let your links breathe!</p>
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/03/23/simplifying-model-level-json-versioning-with-mongoid-cached-json/">
+        
+        
+          <h2 class="entry-title">Simplifying Model-Level JSON Versioning with Mongoid-Cached-Json</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Did you know that Netflix has hundreds of API versions, one for each device? Daniel Jacobson's <a href="http://www.slideshare.net/danieljacobson/techniques-for-scaling-the-netflix-api-qcon-sf">Techniques for Scaling the Netflix API</a> at QConSF 2011 explained why they chose this model. And while we don't all build distributed services that supply custom-tailored data to thousands of heterogeneous TVs and set-top boxes, we do have to pay close attention to API versioning from day one.</p>
+
+<p>Versioning is hard. Your data models evolve, but you must maintain backward-compatibility for your public interfaces. While many strategies exist to deal with this problem, we'd like to propose one that requires very little programming effort and that is more declarative in nature.</p>
+
+<p>At Artsy we use <a href="http://github.com/intridea/grape">Grape</a> and implement the "path" versioning strategy from the <a href="http://github.com/intridea/grape/tree/frontier">frontier</a> branch. Our initial v1 API is consumed by our own website and services and lives at <a href="https://artsyapi.com/api/v1">https://artsyapi.com/api/v1</a>. We've also prototyped v2 and by the time v1 is frozen, it should already be in production.</p>
+
+<p>Grape takes care of version-based routing and has a system that lets you split version-based presentation of a model from the model implementation. I find that separation forcefully induced by unnecessary implementation complexity around wanting to return different JSON depending on the API version requested. What if implementing versioning in <code>as_json</code> were super simple?</p>
+
+<p>Consider a Person model returned from a v1 API.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">API</span> <span class="o">&lt;</span> <span class="no">Grape</span><span class="o">::</span><span class="no">API</span>
+</span><span class='line'>  <span class="n">prefix</span> <span class="ss">:api</span>
+</span><span class='line'>  <span class="n">version</span> <span class="ss">:v1</span>
+</span><span class='line'>  <span class="n">namespace</span> <span class="ss">:person</span>
+</span><span class='line'>    <span class="n">get</span> <span class="s2">&quot;:id&quot;</span>
+</span><span class='line'>      <span class="no">Person</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">as_json</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">as_json</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nb">name</span><span class="p">:</span> <span class="nb">name</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>In v2 the model split <code>:name</code> into a <code>:first</code> and <code>:last</code> name and in v3 <code>:name</code> has finally been deprecated. A version v3 Person model would look as follows.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:first</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:last</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">as_json</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="ss">first</span><span class="p">:</span> <span class="n">first</span><span class="p">,</span>
+</span><span class='line'>      <span class="ss">last</span><span class="p">:</span> <span class="n">last</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>How can we combine these two implementations and write <code>Person.find(params[:id]).as_json({ :version =&gt; ? })</code>?</p>
+
+<p>In <a href="http://github.com/dblock/mongoid-cached-json">mongoid-cached-json</a> we've introduced a declarative way of versioning JSON. Here's the code for Person v3.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">CachedJson</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:first</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:last</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">name</span>
+</span><span class='line'>    <span class="o">[</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">].</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">json_fields</span> <span class="p">\</span>
+</span><span class='line'>    <span class="nb">name</span><span class="p">:</span> <span class="p">{</span> <span class="ss">:versions</span> <span class="o">=&gt;</span> <span class="o">[</span> <span class="ss">:v1</span><span class="p">,</span> <span class="ss">:v2</span> <span class="o">]</span> <span class="p">},</span>
+</span><span class='line'>    <span class="ss">first</span><span class="p">:</span> <span class="p">{</span> <span class="ss">:versions</span> <span class="o">=&gt;</span> <span class="o">[</span> <span class="ss">:v2</span><span class="p">,</span> <span class="ss">:v3</span> <span class="o">]</span> <span class="p">},</span>
+</span><span class='line'>    <span class="ss">last</span><span class="p">:</span> <span class="p">{</span> <span class="ss">:versions</span> <span class="o">=&gt;</span> <span class="o">[</span> <span class="ss">:v2</span><span class="p">,</span> <span class="ss">:v3</span> <span class="o">]</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>With the <a href="http://github.com/dblock/mongoid-cached-json">mongoid-cached-json</a> gem you also get caching that respects JSON versioning, for free. Read about it <a href="http://artsy.github.com/blog/2012/02/20/caching-model-json-with-mongoid-cached-json/">here</a>.</p>
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/03/06/how-to-redirect-bang-hash-urls/">
+        
+        
+          <h2 class="entry-title">How To Redirect Bang Hash Urls</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Sometimes you type a hash-bang URL too fast, bang first.</p>
+
+<p>Consider <code>https://artsy.net/!#/log_in</code>. Rails will receive <code>/!</code> as the file path, resulting in a 404, File Not Found error. The part of the URL after the hash is a position within the page and is never sent to the web server.</p>
+
+<p>It's actually pretty easy to handle this scenario and redirect to the corresponding hash-bang URL.</p>
+
+<p>The most straightforward way is to create a file called <code>!.html</code> in your <code>public</code> folder and use JavaScript to rewrite the URL with the bang-hash.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>public/!.html</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'> <span class="nt">&lt;head&gt;</span>
+</span><span class='line'> <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'> <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  Click <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span> <span class="na">onclick=</span><span class="s">&quot;return window.redirect();&quot;</span><span class="nt">&gt;</span>here<span class="nt">&lt;/a&gt;</span> if you&#39;re not redirected ...
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">language=</span><span class="s">&quot;javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">redirect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;/#!&#39;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">redirect</span><span class="p">();</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'> <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>You can also do this inside a controller with a view or layout. Start by trapping the URL in your <code>ApplicationController</code>.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/controllers/application_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;PATH_INFO&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;/!&#39;</span>
+</span><span class='line'>  <span class="n">render</span> <span class="ss">layout</span><span class="p">:</span> <span class="s2">&quot;bang_hash&quot;</span>
+</span><span class='line'>  <span class="k">return</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>The layout can have the piece of JavaScript that redirects to the corresponding hash-bang URL.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/views/layouts/bang_hash.html.haml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">!!!</span>
+</span><span class='line'><span class="o">-</span> <span class="n">ie_tag</span><span class="p">(</span><span class="ss">:html</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>  <span class="o">%</span><span class="n">body</span>
+</span><span class='line'>    <span class="ss">:javascript</span>
+</span><span class='line'>      <span class="n">window</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="s1">&#39;/#!&#39;</span> <span class="o">+</span> <span class="n">window</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">hash</span><span class="o">.</span><span class="n">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/02/24/10x-rack-and-rails-output-compression-with-rack-deflater/">
+        
+        
+          <h2 class="entry-title">10x Rack and Rails Output Compression with Rack::Deflater</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>You can quickly reduce the amount of data transferred from your Rack or Rails application with <a href="https://github.com/rack/rack/blob/master/lib/rack/deflater.rb">Rack::Deflater</a>. Anecdotal evidence shows a reduction from a 50Kb JSON response into about 6Kb. It may be a huge deal for your mobile clients.</p>
+
+<p>For a Rails application, modify config/application.rb or config/environment.rb.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>config/application.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Acme</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">configure</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">middleware</span><span class="o">.</span><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Deflater</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>For a Rack application, add the middleware in config.ru.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>config.ru</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Deflater</span>
+</span><span class='line'><span class="n">run</span> <span class="no">Acme</span><span class="o">::</span><span class="no">Instance</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+
+
+
+        <p><a href="/blog/2012/02/24/10x-rack-and-rails-output-compression-with-rack-deflater/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/02/20/caching-model-json-with-mongoid-cached-json/">
+        
+        
+          <h2 class="entry-title">Caching Model JSON with Mongoid-Cached-Json</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Consider the following two <a href="http://mongoid.org">Mongoid</a> domain models, <em>Widget</em> and <em>Gadget</em>.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>widget.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Widget</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:gadgets</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>gadget.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Gadget</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">Mongoid</span><span class="o">::</span><span class="no">Document</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:name</span>
+</span><span class='line'>  <span class="n">field</span> <span class="ss">:extras</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:widget</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>And an API call that returns a collection of widgets.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="s1">&#39;widgets&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="no">Widget</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">as_json</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Given many widgets, the API makes a subquery to fetch the corresponding gadgets for each widget.</p>
+
+<p>Introducing <a href="https://github.com/dblock/mongoid-cached-json">mongoid-cached-json</a>. This library mitigates several frequent problems with such code.</p>
+
+<ul>
+<li>Adds a declarative way of specifying a subset of fields to be returned part of <em>as_json</em>.</li>
+<li>Avoids a large amount of subqueries by caching document JSONs participating in the parent-child relationship.</li>
+<li>Provides a consistent strategy for restricting child documents' fields from being returned via the parent JSON.</li>
+</ul>
+
+
+<p>Using <em>Mongoid::CachedJson</em> we were able to cut our JSON API average response time by about a factor of 10. Find it <a href="https://github.com/dblock/mongoid-cached-json">on Github</a>.</p>
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/02/03/reliably-testing-asynchronous-ui-w-slash-rspec-and-capybara/">
+        
+        
+          <h2 class="entry-title">Reliably Testing Asynchronous UI w/ RSpec and Capybara</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>tl;dr - You can write 632 rock solid UI tests with Capybara and RSpec, too.</p>
+
+<p><img src="Miami%20Weather%20in%20NYC" alt="/images/2012-02-03-reliably-testing-asynchronous-ui-w-slash-rspec-and-capybara/jenkins-ci.png" /></p>
+
+<p>We have exactly 231 integration tests and 401 view tests out of a total of 3086 in our core application today. This adds up to 632 tests that exercise UI. The vast majority use <a href="http://rspec.info/">RSpec</a> with <a href="https://github.com/jnicklas/capybara">Capybara</a> and <a href="http://seleniumhq.org/">Selenium</a>. This means that every time the suite runs we set up real data in a local MongoDB and use a real browser to hit a fully running local application, 632 times. The suite currently takes 45 minutes to run headless on a slow Linode, UI tests taking more than half the time.</p>
+
+<p>While the site is in private beta, you can get a glimpse of the complexity of the UI from the <a href="http://artsy.net">splash page</a>. It's a rich client-side Javascript application that talks to an API. You can open your browser's developer tools and watch a combination of API calls and many asynchronous events.</p>
+
+<p>Keeping the UI tests reliable is notoriously difficult. For the longest time we felt depressed under the Pacific Northwest -like weather of our Jenkins CI and blamed every possible combination of code and infrastructure for the many intermittent failures. We've gone on sprees of marking many such tests "pending" too.</p>
+
+<p>We've learned a lot and stabilized our test suite. This is how we do UI testing.</p>
+
+
+        <p><a href="/blog/2012/02/03/reliably-testing-asynchronous-ui-w-slash-rspec-and-capybara/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/01/31/beyond-heroku-satellite-delayed-job-workers-on-ec2/">
+        
+        
+          <h2 class="entry-title">Beyond Heroku: "Satellite" Delayed Job Workers on EC2</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/joey">Joey Aghion<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/joeyAghion">@joeyAghion</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>[TL;DR: To supplement Heroku-managed app servers, we launched custom EC2 instances to host Delayed Job worker processes. See the <a href="https://github.com/joeyAghion/satellite_setup">satellite_setup github repo</a> for rake tasks and Chef recipes that make it easy.]</p>
+
+<p><a href="http://artsy.net">Artsy</a> engineers are big users and abusers of <a href="http://heroku.com">Heroku</a>. It's a neat abstraction of server resources, so we were conflicted when parts of our application started to bump into Heroku's limitations. While we weren't eager to start managing additional infrastructure, we found that--with a few good tools--we could migrate some components away from Heroku without fragmenting the codebase or over-complicating our development environments.</p>
+
+<p>There are a number of reasons your app might need to go beyond Heroku. It might rely on a locally installed tool (not possible on Heroku's locked-down servers), or require heavy file-system usage (limited to <code>tmp/</code> and <code>log/</code>, and not permanent or shared). In our case, the culprit was Heroku's 512 MB RAM limit--reasonable for most web processes, but quickly exceeded by the image-processing tasks of our <a href="https://github.com/collectiveidea/delayed_job">delayed_job</a> workers. We considered building a specialized image-processing service, but decided instead to supplement our web apps with a custom <a href="http://aws.amazon.com/ec2/">EC2</a> instance dedicated to processing background tasks. We call these servers "satellites."</p>
+
+<p>We'll walk through the pertinent sections here, but you can find Rake tasks that correspond with these scripts, plus all of the necessary cookbooks, in the <a href="https://github.com/joeyAghion/satellite_setup">satellite_setup github repo</a>. Now, on to the code!</p>
+
+<p>First, generate a key-pair from <a href="https://console.aws.amazon.com/ec2/home?#s=KeyPairs">Amazon's AWS Management Console</a>. Then we'll use <a href="http://fog.io">Fog</a> to spawn the EC2 instance.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;fog&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Update these values according to your environment...</span>
+</span><span class='line'><span class="no">S3_ACCESS_KEY_ID</span> <span class="o">=</span> <span class="s1">&#39;XXXXXXXXXXXXXXXXXXXX&#39;</span>
+</span><span class='line'><span class="no">S3_SECRET_ACCESS_KEY</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;</span>
+</span><span class='line'><span class="no">KEY_NAME</span> <span class="o">=</span> <span class="s1">&#39;satellite_keypair&#39;</span>
+</span><span class='line'><span class="no">KEY_PATH</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;HOME&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">/.ssh/</span><span class="si">#{</span><span class="no">KEY_NAME</span><span class="si">}</span><span class="s2">.pem&quot;</span>
+</span><span class='line'><span class="no">IMAGE_ID</span> <span class="o">=</span> <span class="s1">&#39;ami-c162a9a8&#39;</span>  <span class="c1"># 64-bit Ubuntu 11.10</span>
+</span><span class='line'><span class="no">FLAVOR_ID</span> <span class="o">=</span> <span class="s1">&#39;m1.large&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">connection</span> <span class="o">=</span> <span class="no">Fog</span><span class="o">::</span><span class="no">Compute</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">provider</span><span class="p">:</span> <span class="s1">&#39;AWS&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">aws_access_key_id</span><span class="p">:</span> <span class="no">S3_ACCESS_KEY_ID</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">aws_secret_access_key</span><span class="p">:</span> <span class="no">S3_SECRET_ACCESS_KEY</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">server</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">bootstrap</span><span class="p">(</span>
+</span><span class='line'>  <span class="ss">key_name</span><span class="p">:</span> <span class="no">KEY_NAME</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">private_key_path</span><span class="p">:</span> <span class="no">KEY_PATH</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">image_id</span><span class="p">:</span> <span class="no">IMAGE_ID</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">flavor_id</span><span class="p">:</span> <span class="no">FLAVOR_ID</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Next, we'll do some basic server prep and install our preferred Ruby version.
+        <p><a href="/blog/2012/01/31/beyond-heroku-satellite-delayed-job-workers-on-ec2/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/01/31/delaying-carrierwave-image-processing/">
+        
+        
+          <h2 class="entry-title">Delaying CarrierWave Image Processing</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>We do a lot of image processing at Artsy. We have tens of thousands of beautiful original high resolution images from our partners and treat them with care. The files mostly come from professional art photographers, include embedded color profiles and other complicated features that make image processing a big deal.</p>
+
+<p>Once uploaded, these images are converted to JPG, resized into many versions and often resampled. We are using <a href="https://github.com/jnicklas/carrierwave">CarrierWave</a> for this process - our typical image uploader starts like a usual CarrierWave implementation with a few additional features.</p>
+
+
+        <p><a href="/blog/2012/01/31/delaying-carrierwave-image-processing/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2012/01/29/how-art-dot-sy-uses-github-to-build-art-dot-sy/">
+        
+        
+          <h2 class="entry-title">How Artsy Uses GitHub to Build Artsy</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p><a href="http://zachholman.com/">Zach Holman</a> gave a good talk on <a href="http://zachholman.com/talk/how-github-uses-github-to-build-github">How GitHub uses GitHub to build GitHub</a> at Rubyconf. It was great to hear how similar our own processes are at Artsy, with a few notable differences.</p>
+
+<p>Artsy engineers store almost everything on GitHub. We use GitHub Wikis, but don't use GitHub Issues much. We work in 3-week sprints with <a href="http://pivotaltracker.com/">Pivotal Tracker</a> instead. This blog is on GitHub. And, of course, we have our own Hubot which feeds funny animated GIFs after each successful deploy to our IRC channel.</p>
+
+<p>The most interesting part for me was around these two slides.</p>
+
+<p><img src="/images/2012-01-29-how-art-dot-sy-uses-github-to-build-art-dot-sy/github-pull.png" alt="Pull" /></p>
+
+<p><img src="/images/2012-01-29-how-art-dot-sy-uses-github-to-build-art-dot-sy/github-fork.png" alt="Fork" /></p>
+
+<p>Zach emphasized that you don't need forks to make pull requests. While technically true, I find forks particularly useful to keep things clean.</p>
+
+<p>At Artsy we use personal forks to work on features, create topical branches and make pull requests into the master from there. This is the workflow of the vast majority of open-source projects too. Now, Zach is right, you don't want to create any second class developers - our entire team has write access to the master. We use pull requests from forks to do peer code reviews, even for trivial things. I would typically make a pull request including the person I'd like to code review my changes in the title. Here's an example.</p>
+
+<p><img src="/images/2012-01-29-how-art-dot-sy-uses-github-to-build-art-dot-sy/github-pull-request.png" alt="Targeted Pull Request" /></p>
+
+<p>(Notice the use of hash rocket. Zach, Ruby has transcended our lives too.)</p>
+
+<p>Working on forks keeps developer branches away from "master". The main repository only has three branches: "master", "staging" and "production" and each developer can make up whatever branching strategy they like in individual forks.</p>
+
+<p>Code reviews have nothing to do with hierarchy or organization, any developer will code review any other developer's work. We tend to avoid using the same person for two subsequent code reviews to prevent excessive buddying. Zach called his pull requests "collective experiments" - a place for active discussions, rejections and praise. I really like that. Each of my rejected pull requests has been a great learning experience.</p>
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/25/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 26 of 27</span>
+
+    
+      <a href="/blog/27/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

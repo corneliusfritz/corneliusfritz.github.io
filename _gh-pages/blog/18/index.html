@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Cocoa Architecture: Dropped Design Patterns
+        
+...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/18/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/09/01/Cocoa-Architecture-Dropped-Design-Patterns/">
+        
+        
+          <h2 class="entry-title">Cocoa Architecture: Dropped Design Patterns</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>As a part of going through the design patterns we've found in the creation of the Artsy iOS apps, I'd like to talk a bit about some of the patterns that we've had and migrated away from. This is not 100% comprehensive, as there has been a lot of time, and a lot of people involved. Instead I'm going to try and give a birds eye view, and zoom in on some things that feel more important overall.</p>
+
+<p>It's important to preface that I don't believe in perfect code, or am I a fan of big re-writes. We can spot a bad pattern, but not do anything about it. We do have apps to ship, not a codebase to make perfect for the sake of technical purity.</p>
+
+
+        <p><a href="/blog/2015/09/01/Cocoa-Architecture-Dropped-Design-Patterns/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/08/27/swift-trek-2-the-wrath-of-count/">
+        
+        
+          <h2 class="entry-title">Swift Trek 2: The Wrath of count()</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>On Tuesday at our mobile practice standup, I mentioned that I was in-between projects and looking for something to do. Orta suggested migrating Eidolon, the Artsy bidding kiosk app, to Swift 2.</p>
+
+<p>Our CI is <a href="https://github.com/artsy/eidolon/pull/466">broken anyway</a>, so now is the perfect opportunity to make changes that would break CI. Additionally, Swift 2 seems to have more-or-less stabilized in the latest betas, so we don't expect many gotchas leading up to the GM. Finally, this is an enterprise-distributed app, so we don't have to worry about submitting to the App Store using betas of Xcode.</p>
+
+<p>So Swift 2 it is!</p>
+
+
+        <p><a href="/blog/2015/08/27/swift-trek-2-the-wrath-of-count/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/08/24/Cocoa-Architecture-Hybrid-Apps/">
+        
+        
+          <h2 class="entry-title">Cocoa Architecture: Hybrid Apps</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>As a part of going through the design patterns we've found in the creation of the Artsy iOS apps, I'd like to talk a bit about <em>Hybrid Applications</em>. A hybrid application refers to an app that uses native code and web content intertwined. Our flagship iOS app, <a href="https://github.com/artsy/eigen">eigen</a> is a hybrid app, and it seems to get more and more hybrid-y each release. Let's talk a little bit about the pros and cons of this approach.</p>
+
+
+        <p><a href="/blog/2015/08/24/Cocoa-Architecture-Hybrid-Apps/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/08/19/Cocoa-Architecture-Switchboard-Pattern/">
+        
+        
+          <h2 class="entry-title">Cocoa Architecture: ARSwitchboard</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>As a part of going through the design patterns we've found in the creation of the Artsy iOS apps, I'd like to introduce the Switchboard pattern. This evolved quite naturally out of <a href="/blog/2015/08/15/Cocoa-Architecture:-Router-Pattern/">ARRouter</a> when applied to generating view controllers instead of API requests.</p>
+
+
+        <p><a href="/blog/2015/08/19/Cocoa-Architecture-Switchboard-Pattern/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/08/15/Cocoa-Architecture-Router-Pattern/">
+        
+        
+          <h2 class="entry-title">Cocoa Architecture: ARRouter</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>I want to talk about a pattern that we've been using for the last few years on the Artsy Mobile team. This pattern pre-dates me joining Artsy by a few weeks, and was introduced into our codebase by <a href="http://90wpm.com">Ben Jackson</a>, this was the <code>ARRouter</code>'s first method:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'>  <span class="o">+</span> <span class="p">(</span><span class="bp">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nl">newOAuthURLWithUsername</span><span class="p">:(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">username</span> <span class="nl">password</span><span class="p">:(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">password</span> <span class="p">{</span>
+</span><span class='line'>      <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">params</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSDictionary</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithObjectsAndKeys</span><span class="p">:</span>
+</span><span class='line'>                              <span class="n">username</span><span class="p">,</span> <span class="s">@&quot;email&quot;</span><span class="p">,</span>
+</span><span class='line'>                              <span class="n">password</span><span class="p">,</span> <span class="s">@&quot;password&quot;</span><span class="p">,</span>
+</span><span class='line'>                              <span class="n">ARAuthClientID</span><span class="p">,</span> <span class="s">@&quot;client_id&quot;</span><span class="p">,</span>
+</span><span class='line'>                              <span class="n">ARAuthSecret</span><span class="p">,</span> <span class="s">@&quot;client_secret&quot;</span><span class="p">,</span>
+</span><span class='line'>                              <span class="s">@&quot;credentials&quot;</span><span class="p">,</span> <span class="s">@&quot;grant_type&quot;</span><span class="p">,</span>
+</span><span class='line'>                              <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>      <span class="bp">NSString</span> <span class="o">*</span><span class="n">url_string</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">NSString</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFormat</span><span class="p">:</span><span class="s">@&quot;%@%@&quot;</span><span class="p">,</span> <span class="n">AROAuthURL</span><span class="p">,</span> <span class="p">[</span><span class="n">params</span> <span class="n">queryString</span><span class="p">]];</span>
+</span><span class='line'>      <span class="bp">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">ARRouter</span> <span class="nl">newURLWithPath</span><span class="p">:</span><span class="n">url_string</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">[</span><span class="n">url_string</span> <span class="k">release</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">[</span><span class="n">params</span> <span class="k">release</span><span class="p">];</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">url</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Yep, that's pre-ARC, pre-Dictionary Literals, memory-managed code. We took this pattern and rolled with it for the next 4 years, this article is about where we've taken it.</p>
+
+<p>Within Eigen, <code>ARRouter</code> is one of our <a href="https://github.com/artsy/eigen/blob/904e8abfc11ce6ea4b6e81f0e02684b755a280c3/Artsy/Networking/ARRouter.m">biggest classes</a>, coming in at almost 1,000 lines of code. Whereas in Energy, it sits at a <a href="https://github.com/artsy/energy/blob/e51529250ede359c781042f222d5836eb9e8a979/Classes/Util/App/ARRouter.m">more reasonable</a> 300 lines. Eidolon does not have an ARRouter, what gives?</p>
+
+
+        <p><a href="/blog/2015/08/15/Cocoa-Architecture-Router-Pattern/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/08/10/peer-lab/">
+        
+        
+          <h2 class="entry-title">Peer Lab</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>When I was living in Amsterdam, I participated in plenty of <a href="https://appsterdam.rs">Appsterdam</a> events. Things like the weekly Meeten en Drinken. I even helped lead a class in Swift. One of the events I liked the most was called Peer Lab, organized every Saturday morning by <a href="https://twitter.com/samuelgoodwin">Samuel Goodwin</a>.</p>
+
+<p>The idea of Peer Lab is pretty simple, but also somewhat profound: developers gather in a physical space to work on things. If someone has a question, they ask the group. If you can help, you offer assistance. The goal is to foster a collaborative learning environment where everyone feels fulfilled.</p>
+
+
+        <p><a href="/blog/2015/08/10/peer-lab/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/08/06/open-sourcing-energy/">
+        
+        
+          <h2 class="entry-title">Open Sourcing Energy</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The Artsy Mobile team is pretty aggressive in our stance on
+<a href="http://code.dblock.org/2015/02/09/becoming-open-source-by-default.html">Open Source by Default</a>. We've talked
+about it at <a href="https://www.youtube.com/watch?v=2DvDeEZ0NDw&amp;spfreload=10">conferences</a>
+<a href="https://www.youtube.com/watch?v=SjjvnrqDjpM">around</a> <a href="https://www.youtube.com/watch?v=zPbLYWmLPow">the</a>
+<a href="https://speakerdeck.com/orta/ios-at-artsy">world</a>, in
+<a href="http://www.objc.io/issues/22-scale/artsy">renowned magazines</a> and on
+<a href="http://artsy.github.io/blog/2015/04/28/how-we-open-sourced-eigen/">our blog</a>.</p>
+
+<p>It's worth mentioning that we don't just talk externally about Open Source. Internally, the Mobile team runs talks
+about Open Source for the rest of the Artsy staff. As well, we discuss the tooling and business implications of
+having our work in public repos. Artsy strives for an open culture, in this case the development team, on the
+whole, is just further along in the process.</p>
+
+<p>The Open Source app idea started with an experiment in the Summer of 2014, asking, "What does a truly Open Source
+App look like?" The outcome of that was our Swift Kiosk app, <a href="https://github.com/artsy/eidolon/">Eidolon</a>. Open
+from day one. We took the knowledge from that and applied it to our public facing app,
+<a href="https://github.com/artsy/eigen/">Eigen</a>. Open from day 806. That made 2/3rds of our apps Open Source.</p>
+
+<p>I'm going to talk about our final app, <a href="https://github.com/artsy/energy">Energy</a>. Open from day 1433 and ~3500
+commits.</p>
+
+
+        <p><a href="/blog/2015/08/06/open-sourcing-energy/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/07/30/Notorious-BUG-Part-1/">
+        
+        
+          <h2 class="entry-title">Notorious BUG – The Unbugged Sessions Part 1</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/eloy">Eloy Durán<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/alloy">@alloy</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>When the odds are stacked against you, your mind is overflowing, and you are ready to just pop, there’s always practical
+debugging tips to help you through a cloudy day.</p>
+
+<p>In this post I’ll take you through a debugging session where I reproduce a crash, for which we were receiving a bunch of
+crash reports, but I was unable to reproduce by just using the application.</p>
+
+<p>It will cover the following topics:</p>
+
+<ul>
+<li>Narrow down the breakpoint to the method invocation where the crash occurs.</li>
+<li>Locate the exact instruction that causes the crash.</li>
+<li>Look at the implementation of the method where the crash occurs.</li>
+<li>Simulate the crash.</li>
+</ul>
+
+
+
+        <p><a href="/blog/2015/07/30/Notorious-BUG-Part-1/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/07/06/how-to-write-unit-tests-like-a-brood-parasite/">
+        
+        
+          <h2 class="entry-title">How To Write Unit Tests Like a Brood Parasite</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/sarahscott">Sarah Scott<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>To a beginner, <a href="http://ocmock.org/">OCMock</a> looks scary. The syntax is strange, the idea of stubbing seems complicated, and skirting around the need to use it at all times kind of works out for a while.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[[[</span><span class="n">mock</span> <span class="n">stub</span><span class="p">]</span> <span class="c1">// three brackets!!</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">OCMockObject</span> <span class="nl">niceMockForClass</span><span class="p">:</span><span class="bp">UINavigationItem</span><span class="p">.</span><span class="k">class</span><span class="p">];</span> <span class="c1">// it has to be told to be nice?</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>All of this can be overwhelming for someone who just wants to write simple unit tests for a particular view controller.</p>
+
+<p>Once you look into the specifics of OCMock, however, things get less terrifying really quickly. It is helpful to compare OCMock’s approach to stubbing to the <a href="https://vimeo.com/60553870">behaviors of certain bird species</a>. As always, the soothing voice of David Attenborough brings clarity and joy to even the most mundane puzzles of life’s journey.</p>
+
+
+        <p><a href="/blog/2015/07/06/how-to-write-unit-tests-like-a-brood-parasite/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2015/06/04/an-eigenstate-of-mind/">
+        
+        
+          <h2 class="entry-title">An Eigenstate of Mind</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/sarahscott">Sarah Scott<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Prior to starting at Artsy, I followed a few online tutorials on iOS development. But a simple application demonstrating how to <a href="http://www.raywenderlich.com/85578/first-core-data-app-using-swift">build a todo list</a> didn't illustrate the nuances of a production codebase. Tutorials are an important learning tool for beginners, but can't possibly prepare you for everything you would encounter within an application like Artsy's.</p>
+
+<p>I was lucky to have a mentor at Artsy to help me get started, and I wrote this post to pass along the lessons I learned. This is meant to be a guide for iOS beginners to get to know an open source production codebase. I'll cover the Xcode project organization and where to find things.</p>
+
+
+        <p><a href="/blog/2015/06/04/an-eigenstate-of-mind/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/17/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 18 of 27</span>
+
+    
+      <a href="/blog/19/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

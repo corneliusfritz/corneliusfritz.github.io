@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Taking a Snapshot with Second Curtain - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Taking a Snapshot with Second Curtain
+        
+        Aug 7, 2014
+    ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2014/08/07/taking-a-snapshot-with-second-curtain/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Taking a Snapshot with Second Curtain</h2>
+        
+        <time datetime="2014-08-07">Aug 7, 2014</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p>At Artsy, we try hard to <a href="https://speakerdeck.com/orta/getting-eigen-out?slide=35">test</a>
+our iOS applications to ensure that we avoid regressions and have a clearly
+defined spec of how our apps should look and behave. One of the core pieces of
+our testing setup is <a href="https://github.com/facebook/ios-snapshot-test-case">FBSnapshotTestCase</a>,
+a library written by Facebook to compare views at runtime with images of those
+views that are known to be correct. If the images differ, the test fails. We
+also use <a href="https://travis-ci.org">Travis</a> for continuous integration.</p>
+
+<p>Lately, we've been noticing a friction between the developers on the iOS team
+and the tools we're using to test our apps: while Travis allows us to easily
+access the logs of test runs, it can only indicate that a snapshot test failed,
+not why it failed. That's because the images that are compared are locked on
+Travis' machine – we cannot access those images, so we can't see the
+differences. This is <em>really</em> promblematic when the tests pass locally but fail
+only on Travis.</p>
+
+<!-- more -->
+
+
+<p>A few weeks ago, <a href="http://twitter.com/orta">Orta</a> and I were discussing this
+problem and we came up with a potential solution. Since the images were stored
+on disk on Travis' machine, why not just upload them somewhere we <em>can</em> see
+them? Like an S3 bucket. We could even generate a basic HTML page showing you
+the different test failures.</p>
+
+<p>Time passed and, later on, I had tests passing locally but failing on Travis.
+I saw an opportunity to build something new. I'm not a proficient Ruby developer,
+but I enjoy learning new things, so I decided to create a Ruby gem that could
+fit within our existing testing pipeline. A lot of the structure for the code
+came from an existing gem we already use with Travis, <a href="https://github.com/supermarin/xcpretty">xcpretty</a>.
+With an example of how gems that support iOS testing are written, I was on my
+way to creating my own.</p>
+
+<p>At first, things were very difficult. While I had contributed small patches to
+existing Ruby projects before, I had never created a brand new one from scratch.
+The existing <a href="http://guides.rubygems.org/make-your-own-gem/">guides</a> were very
+helpful, and I found help from the CocoaPods developers when I had questions
+about things like the arcane semantics of Ruby's <code>require</code> syntax.</p>
+
+<p>Eventually, I had a working proof-of-concept. Everything seemed ready to go, and
+I prepared to incorporate my new tool, which I called <a href="https://github.com/AshFurrow/second_curtain">Second Curtain</a>,
+into my pull request on the Artsy repo. But there was a problem.</p>
+
+<p>Second Curtain relies on environment variables to get access to the S3 bucket
+where it stores the images. I planned on using Travis' system to <a href="http://docs.travis-ci.com/user/encryption-keys/">encrypt</a>
+those credentials. It turns out, for very good reasons, encrypted environment
+variables are not available on pull requests created on forks of repositories.
+This is a problem because of the way that <a href="http://artsy.github.io/blog/2012/01/29/how-art-dot-sy-uses-github-to-build-art-dot-sy/">Artsy uses GitHub</a>.
+While it's not a problem for a closed-source repository to have (restrictive)
+access to an S3 bucket, it would be irresponsible to expose S3 credentials for
+an open-source project. I'm <a href="https://github.com/AshFurrow/second_curtain/issues/5">working</a>
+on a solution.</p>
+
+<p>Orta helped with the design aspect of the tool; while uploading the images was
+sufficient, we could make the process of seeing the differences between the two
+images even easier. He created a <a href="https://eigen-ci.s3.amazonaws.com/snapshots/2014-08-04--15-47/index.html">HTML page</a>
+that would allow developers to see the before-and-after versions by moving their
+mouse cursor over the different images.</p>
+
+<p><img src="http://static.ashfurrow.com/github/second_curtain.png" alt="Image Diff" /></p>
+
+<p>In the end, I got Second Curtain to work with Artsy's iOS repository and I
+discovered the discrepency between the two images: due to a timezone difference
+between my computer and Travis', a date was being formatted differently. Not a
+difficult thing to fix, but not something I would have ever been able to
+discover had I not been able to see the images side-by-side.</p>
+
+<p>So after all that, one line of Objective-C was changed and the tests passed – my
+pull request was merged. I learnt a lot about how Ruby developers structure
+their code and what tools they use to write software. While I'm happy to return
+to iOS apps for a while, it was a great experience and I'm hoping to bring some
+of the ideas I discovered writing Ruby back to Objective-C.</p>
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/ash">
+        Ash Furrow
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://ashfurrow.com">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/ashfurrow">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/continuous-integration/'>continuous integration</a>, <a class='category' href='/blog/categories/ios/'>ios</a>, <a class='category' href='/blog/categories/testing/'>testing</a>, <a class='category' href='/blog/categories/travis/'>travis</a>
+  
+</span>
+
+
+      </p>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2014/08/04/aspect-oriented-programming-and-aranalytics/" title="Previous Post: Aspect-Oriented Programming and ARAnalytics">&laquo; Aspect-Oriented Programming and ARAnalytics</a>
+        
+        
+          <a class="next" href="/blog/2014/08/08/CocoaPods-Caching/" title="next Post: Using CocoaPods Caching with Travis CI">Using CocoaPods Caching with Travis CI &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2014/08/07/taking-a-snapshot-with-second-curtain/';
+        var disqus_url = 'https://artsy.github.io/blog/2014/08/07/taking-a-snapshot-with-second-curtain/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

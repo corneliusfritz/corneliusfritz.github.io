@@ -1,0 +1,988 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy's Engineering Compensation Framework - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Artsy's Engineering Compensation Framework
+        
+        Apr 3, 2015...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2015/04/03/artsy-engineering-compensation-framework/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Artsy's Engineering Compensation Framework</h2>
+        
+        <time datetime="2015-04-03">Apr 3, 2015</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p>Fair compensation is an important part of cultivating and growing engineers, and determining how much money someone is going to make is often more art than science, especially in young start-ups. We wanted this to be a collaborative process and not an adversarial one, and as our engineering team grew past 20 members it became important to think about compensation more systematically.</p>
+
+<p>In this post I will share our individual contributor engineering ladder and our performance evaluation and compensation process.</p>
+
+<!-- more -->
+
+
+<p>Performance evaluation at Artsy is composed of the <em>what</em>, i.e. what you achieve that contributes to your team’s goals and ultimately Artsy goals, and the <em>how</em>, i.e. how you act and how those actions  contribute to Artsy’s culture and values. The <em>what</em> part for an engineer is expressed in our individual contributor ladder, which describes typical growth from someone who has recently graduated, to an inspiring technologist. There's nothing typical to engineering in our team - we have more art degrees than computer science ones, and I find all our junior engineers incredibly inspiring. This ladder is a benchmark, not a formula - knowing what's typical helps team leads highlight the exceptional achievements and individuals to find themselves in a traditional growth path and figure out what their next step could be. It's also important to note that our ladder recognizes that individual contributors do not need to become team leads to make more money - individual contributors are the most important people at Artsy and there's no ceiling in their career here. We also are working on a company-wide system for team leads, but that's a subject for another post.</p>
+
+<p>We have devised 5 levels, much inspired by the excellent <a href="http://dresscode.renttherunway.com/blog/ladder">Rent-the-Runway's Engineering Ladder</a>. You'll find it at the end of this article.</p>
+
+<p>Armed with this list a team lead can have a good 1:1 conversation with a team member about where they are in their career in terms of pure performance, and what areas need be paid attention to in order to grow into the next level. Leads can also compare engineers that don't work on their teams using a consistent vocabulary.</p>
+
+<p>In parallel with working on this ladder, we did a lot of research regarding market compensation for Engineers. We routinely ask candidates questions about their pay and competitive offers, discuss this with  heads of engineering in other companies, use market data from large recruiting firms and pay attention to polls in the various technology organizations. We understand regional differences and have a good idea of the ranges that a company similar to Artsy pays individuals and constantly update our knowledge. If you run a team and would like to compare your numbers to ours, please e-mail <a href='mailto:db@artsy.net'>db@artsy.net</a>.</p>
+
+<p>A significant portion of your compensation comes in Artsy stock options. However, we do not assign dollar value to those or consider them to do compensation math, other than for the case when we offer you a range of possible salaries and a range of possible stock compensation. We often let you choose high equity and low cash, or low equity and high cash, which shifts down or up your target market value by the difference in dollars between your choice and fair market compensation. We determine the amount of stock options at the time of your joining and you may also receive subsequent grants with the goal of always providing you a fair amount of stock appropriate to your ladder at the moment of the grant.</p>
+
+<p>We review compensation every six months. And so, how do we determine your actual pay? We identify your ladder level, which yields your fair market value. Your lead then considers how you act and how those actions contribute to Artsy’s culture and values. This determines whether you are paid an amount that's market high, or maybe even above market, creating a good margin to work with for exceptional achievements, strong progress or impact outside of your primary responsibilities.</p>
+
+<p>We test our framework when making new offers by asking candidates what their compensation expectations are. Some will give a number above their fair market value and we'll offer them less. Some will give a number below their fair market value and we'll offer them more. You read that right - people are paramount at Artsy - we do make offers above what a candidate may be asking for, based on our data and compensation framework. But don't take our word for it, e-mail us your resume to <a href='jobs@artsy.net'>jobs@artsy.net</a>.</p>
+
+<a name="Individual.Contributor.Ladder"></a>
+<h3>Individual Contributor Ladder</h3>
+
+<a name="Engineer.1"></a>
+<h4>Engineer 1</h4>
+
+<ul>
+<li>Broad knowledge of CS concepts.</li>
+<li>Can complete well-defined and subdivided tasks.</li>
+<li>Focuses on learning tools and processes.</li>
+<li>Pushes code through the entire lifecycle from development to production for the first time.</li>
+<li>Develops individual contributor skills, including source control, editors or test-driven development.</li>
+</ul>
+
+
+<a name="Engineer.2"></a>
+<h4>Engineer 2</h4>
+
+<ul>
+<li>Consistently writes and delivers correct and clean quality code with guidance.</li>
+<li>Self-sufficient and makes steady progress on tasks.</li>
+<li>Knows when to ask for help and how to get unblocked.</li>
+<li>Makes steady, well-paced progress without the need for constant significant feedback from more senior engineers.</li>
+<li>Owns a small-to-medium feature from technical design through completion.</li>
+<li>Provides help and support outside of area under their responsibility.</li>
+</ul>
+
+
+<a name="Engineer.3"></a>
+<h4>Engineer 3</h4>
+
+<ul>
+<li>Owns a service or large technology component.</li>
+<li>Requires minimal direction or oversight, delivers quickly.</li>
+<li>Understands elements of the business that their work supports.</li>
+<li>Understands and makes well-reasoned design decisions and tradeoffs in their area.</li>
+<li>Works in other areas of the codebase with guidance from owners of that system.</li>
+<li>Persistent in the face of roadblocks, dispatches them efficiently, pulling in others as necessary.</li>
+<li>Has end-to-end responsibility on projects of increasing complexity and contributes to code shared across projects.</li>
+<li>Mentors junior engineers.</li>
+<li>Participates in the interviewing process of new team members.</li>
+<li>Demonstrates knowledge of industry trends, infrastructure and systems.</li>
+</ul>
+
+
+<a name="Engineer.4"></a>
+<h4>Engineer 4</h4>
+
+<ul>
+<li>Owns large scale and impact service or collection of services.</li>
+<li>Understands the Artsy business and makes decisions based on its direction.</li>
+<li>Sought out by other team members for technical guidance.</li>
+<li>Anticipates technical issues at the product level and makes architectural and design decisions to avoid them.</li>
+<li>Recognized as a prolific contributor to core and side projects.</li>
+<li>Multiplies the effectiveness of others by facilitating cross-team work.</li>
+<li>Has track record of creating sweeping improvements in stability, performance, and scalability across services.</li>
+<li>Consistently reduces the complexity of projects, services, and processes in order to get more done with less work.</li>
+<li>Has made an obvious positive impact on the entire company's technical trajectory.</li>
+<li>Sets short to medium-term strategic technical direction.</li>
+<li>Communicates the awesomeness of Artsy technology externally via talks and blog posts.</li>
+</ul>
+
+
+<a name="Engineer.5"></a>
+<h4>Engineer 5</h4>
+
+<ul>
+<li>Inspires engineers and is seen as a role model and mentor to every technical member of the team.</li>
+<li>Plays a key role in developing multi-year technology strategy for complete and critical areas of the business.</li>
+<li>Has organization-wide impact on architecture and technology solutions.</li>
+<li>Anticipates broad technical change and ensures Artsy is always ahead of the curve.</li>
+<li>Consistently delivers large systems involving one or more teams' contribution.</li>
+<li>Primarily acts as a multiplier by building systems, authoring tools, or introducing policies or patterns.</li>
+<li>Quickly breaks down complex problems into potential solutions, knowns, and unknowns.</li>
+<li>Creates architecture that enables many potential futures without knowing exactly what the future is.</li>
+<li>Leads the conversations internally about the direction of major areas of the technology.</li>
+<li>Identifies technology strategic growth opportunities that enable Artsy to grow as a business.</li>
+</ul>
+
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/db">
+        Daniel Doubrovkine
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://code.dblock.org">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/dblock">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/money/'>money</a>, <a class='category' href='/blog/categories/team/'>team</a>
+  
+</span>
+
+
+      </p>
+      
+       <p class="meta-series" style="padding-bottom:0;">Part of a series: <strong><a class='series' href='/series/stages-of-professional-growth/'>Stages of Professional Growth</a></strong></p>
+       <ul>
+         
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2016/09/10/Help!-I'm-becoming-Post-Junior/">
+    <b>Help! I'm becoming Post-Junior</b> -
+    
+     <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2016/01/30/iOS-Junior-Interviews/">
+    <b>Interviewing, applying and getting your first job in iOS</b> -
+    
+     <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <li><div>
+  <a href="/blog/2015/04/03/artsy-engineering-compensation-framework/">
+    <b>Artsy's Engineering Compensation Framework</b> -
+    
+     <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+  </a>
+</div>
+</li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+
+       </ul>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2015/03/31/the-culture-of-openness-artsy-mobile/" title="Previous Post: The Culture of Openness in the Artsy Mobile Team">&laquo; The Culture of Openness in the Artsy Mobile Team</a>
+        
+        
+          <a class="next" href="/blog/2015/04/08/creating-a-dynamic-single-page-app-for-our-genome-team-using-react/" title="next Post: Trying out React">Trying out React &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2015/04/03/artsy-engineering-compensation-framework/';
+        var disqus_url = 'https://artsy.github.io/blog/2015/04/03/artsy-engineering-compensation-framework/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

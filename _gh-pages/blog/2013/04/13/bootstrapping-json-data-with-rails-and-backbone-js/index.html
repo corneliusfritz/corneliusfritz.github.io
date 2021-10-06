@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrapping JSON Data with Rails and Backbone.js - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Bootstrapping JSON Data with Rails and Backbone.js
+        
+        Apr...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2013/04/13/bootstrapping-json-data-with-rails-and-backbone-js/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Bootstrapping JSON Data with Rails and Backbone.js</h2>
+        
+        <time datetime="2013-04-13">Apr 13, 2013</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p>The <a href="http://artsy.net">artsy.net website</a> is a Backbone.js application that talks to a server-side RESTful Grape API sitting on top of a Rails app which serves minimal HTML markup. The latter includes such things as a page title, along with links to JavaScript and stylesheet packages. A page loads, scripts run, data is fetched from the API. The result is merged into a HAMLJS template and rendered client-side.</p>
+
+<p>Building this kind of one-page apps allows for clean separation between the presentation and API layers. The downside is that it will slow page render times - fetching data after page load means waiting for an AJAX request to complete before displaying anything.</p>
+
+<p>There're many solutions to this problem, all involving some kind of server-side rendering. You could, for example, share views and JavaScript between client and server. This would be a major paradigm shift for a large application like ours and not something we could possibly maneuver in a short amount of time.</p>
+
+<p>Without changing the entire architecture of the system, how can we bootstrap JSON data server-side and avoid the data roundtrip on every page load?</p>
+
+<!-- more -->
+
+
+<a name="Model.Repository"></a>
+<h3>Model Repository</h3>
+
+<p>First, we need to keep track of our objects on the client. We've implemented a simple data repository. It ensures that the same model is passed around instead of instantiating new models each time. This helps prevent unnecessary trips to the server, and makes sure events are bound to the same model instance.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">App.Repository =</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Gets a model from the repository or fetches it from the server.</span>
+</span><span class='line'>  <span class="nv">getOrFetch: </span><span class="nf">(id, options) -&gt;</span>
+</span><span class='line'>    <span class="nv">model = </span><span class="nx">@get</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="nx">model</span><span class="o">?</span>
+</span><span class='line'>      <span class="nx">options</span><span class="o">?</span><span class="p">.</span><span class="nx">success</span><span class="o">?</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">model</span>
+</span><span class='line'>      <span class="nx">model</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="nv">model = </span><span class="k">new</span> <span class="nx">@model</span><span class="p">({</span> <span class="nv">id: </span><span class="nx">id</span> <span class="p">})</span>
+</span><span class='line'>      <span class="nx">model</span><span class="p">.</span><span class="nx">fetch</span> <span class="nx">options</span>
+</span><span class='line'>      <span class="nx">@add</span> <span class="nx">model</span>
+</span><span class='line'>    <span class="nx">model</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Function to extend a collection in to a repository</span>
+</span><span class='line'><span class="nv">App.Repository.extend = </span><span class="nf">(collectionClass) -&gt;</span>
+</span><span class='line'>  <span class="nv">collection = </span><span class="k">new</span> <span class="nx">collectionClass</span>
+</span><span class='line'>  <span class="nv">repository = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">collection</span><span class="p">,</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Repository</span>
+</span><span class='line'>  <span class="nv">repository.collectionClass = </span><span class="nx">collectionClass</span>
+</span><span class='line'>  <span class="nx">repository</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Objects of the same type are stored together in a repository collection.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Artists</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">model: </span><span class="nx">App</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Artist</span>
+</span><span class='line'>  <span class="nv">App.Repositories.Artists = </span><span class="nx">App</span><span class="p">.</span><span class="nx">Repository</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">@</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<a name="Fetching.Data"></a>
+<h3>Fetching Data</h3>
+
+<p>A view requires data before it can be rendered. For example, navigating to <a href="https://artsy.net/artist/hendrik-kerstens">artsy.net/artist/hendrik-kerstens</a> (a Dutch photographer who obsessively took pictures of his daughter in all kinds of artificial setups for 20 years) will call the following.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">ArtistView</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">render: </span><span class="nf">-&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">App</span><span class="p">.</span><span class="nx">Repositories</span><span class="p">.</span><span class="nx">Artists</span><span class="p">.</span><span class="nx">getOrFetch</span> <span class="nx">@options</span><span class="p">.</span><span class="nx">artistId</span><span class="p">,</span>
+</span><span class='line'>      <span class="nv">success: </span><span class="nf">(artist) =&gt;</span>
+</span><span class='line'>        <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">JST</span><span class="p">[</span><span class="s">&#39;templates/artist/show&#39;</span><span class="p">]({</span> <span class="nv">artist: </span><span class="nx">artist</span> <span class="p">}))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<a name="Bootstrapping.Data"></a>
+<h3>Bootstrapping Data</h3>
+
+<p>Since our implementation sits on top of a Rails app, we can now bootstrap the data in a server-side Rails view without any JavaScript code changes. The following example lives in <code>app/views/artists/_bootstrap.html.haml</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">:</span><span class="nx">javascript</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">parseJSON</span><span class="p">(</span><span class="s2">&quot;#{j @artist.to_json}&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="nx">App</span><span class="p">.</span><span class="nx">Repositories</span><span class="p">.</span><span class="nx">Artists</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Artist</span><span class="p">(</span><span class="nx">json</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You must encode JSON data inside a Rails template, otherwise unicode characters like U+2028 become actual line-endings. This has been discussed <a href="http://stackoverflow.com/questions/2965293/javascript-parse-error-on-u2028-unicode-character">here</a> and <a href="http://stackoverflow.com/questions/9691611/print-valid-non-escaped-json-in-a-view-with-rails">here</a>. The <code>j</code> above is an alias for <code>escape_javascript</code>.</p>
+
+<p>The Rails view layout calls <code>yield :javascript</code> and the <code>show.html.haml</code> template includes the bootstrapped data as a partial.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='haml'><span class='line'><span class="p">=</span> <span class="n">content_for</span> <span class="ss">:javascript</span> <span class="k">do</span>
+</span><span class='line'>  <span class="p">=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s2">&quot;artists/bootstrap&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The generated HTML includes the escaped JSON representation of the artist, which will be parsed client-side when the page loads and inserted into <code>App.Repositories.Artists</code>. The <code>App.Views.ArtistView</code> will no longer need to fetch the data from the server with an AJAX call.</p>
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/db">
+        Daniel Doubrovkine
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://code.dblock.org">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/dblock">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/backbone-js/'>backbone.js</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+      </p>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2013/04/10/aranalytics/" title="Previous Post: ARAnalytics - Analytics for iOS Apps">&laquo; ARAnalytics - Analytics for iOS Apps</a>
+        
+        
+          <a class="next" href="/blog/2013/06/14/writing-headless-backbone-tests-with-node-dot-js/" title="next Post: Writing Headless Backbone Tests With Node.js">Writing Headless Backbone Tests With Node.js &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2013/04/13/bootstrapping-json-data-with-rails-and-backbone-js/';
+        var disqus_url = 'https://artsy.github.io/blog/2013/04/13/bootstrapping-json-data-with-rails-and-backbone-js/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

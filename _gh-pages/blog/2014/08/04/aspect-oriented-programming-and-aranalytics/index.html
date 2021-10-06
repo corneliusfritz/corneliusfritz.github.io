@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Aspect-Oriented Programming and ARAnalytics - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Aspect-Oriented Programming and ARAnalytics
+        
+        Aug 4, 201...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2014/08/04/aspect-oriented-programming-and-aranalytics/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Aspect-Oriented Programming and ARAnalytics</h2>
+        
+        <time datetime="2014-08-04">Aug 4, 2014</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p>Analytics are common in iOS applications. They help inform our decisions
+about products. Since analytics are so common, Artsy developed a library called
+<a href="https://github.com/orta/ARAnalytics">ARAnalytics</a>. This library provides a
+single interface to many different backend analytics providers, freeing
+developers from having to write code for each of the providers that they're
+using.</p>
+
+<p>Let's consider a typical view controller on iOS. View controllers on iOS
+represent the glue code between models and views. When a model changes, the view
+controller updates the appearance of the UI. Similarly, when the UI is
+interacted with by the user, the view controller updates the model. This is the
+core of any standard iOS application.</p>
+
+<p>So let's say that a button is pressed. We'll handle that interaction in a
+method called <code>buttonWasPressed:</code>. We'll want to update our model, but also to
+track the analytics event.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">buttonWasPressed:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">hearted</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">[</span><span class="n">ARAnalytics</span> <span class="nl">event</span><span class="p">:</span><span class="s">@&quot;hearted&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Simple enough, but consider that the analytics tracking code doesn't fall within
+our definition of a view controller – the button handler just happens to be a
+convenient place to put the tracking code. Also consider that <em>every single</em>
+button handler is going to have to have similar code implemented.</p>
+
+<a name="There.has.to.be.a.better.way."></a>
+<h2>There has to be a better way.</h2>
+
+<!-- more -->
+
+
+<p><a href="http://twitter.com/steipete">Pete Steinberger</a> and <a href="http://twitter.com/orta">Orta Therox</a>
+were talking and the topic of <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect-Oriented Programming</a>,
+specifically in the context of analytics. AOP takes a look at the different
+<em>conerns</em> of an application – logical, cohesive units of functionality. While
+most programming paradigms, including those used with Objective-C, group and
+encapsulate these concerns, there are some concerns that are "cross-cutting"
+because they are involved through several other concerns.</p>
+
+<p>Analytics is such a cross-cutting concern. That makes it a prime target for
+being abstracted away using AOP. Using <a href="http://albertodebortoli.github.io/blog/2014/03/25/an-aspect-oriented-approach-programming-to-ios-analytics/">another blog post</a>  as an example, we set about <a href="https://github.com/orta/ARAnalytics/pull/74">integrating an AOP-like DSL within ARAnalytics</a>
+that would allow you to define all of your analytics in one spot.</p>
+
+<p>The interface would be simple. When providing your API keys to the various
+backend services you'd like to use with ARAnalytics, you'd also provide a
+dictionary specifying the classes you'd like us to "hook into". Whenever a
+selector from an instance of the given class was invoked, we'd execute the
+analytics event specified in the dictionary.</p>
+
+<p>Since Objective-C has a dynamic runtime, we could have swizzled the instance
+methods on the classes you specified in the dictionary. This gets a little
+tricky and represents a lot of work for us. We could directly swizzle the
+instance methods on the classes in question, but wrapping parameters of variable
+types and in various numbers becomes a chore. If we didn't get it done
+perfectly, we'd risk introducing bugs into the entire application.</p>
+
+<p>I wrote a proof-of-concept of analytics using AOP with <a href="http://reactivecocoa.io">ReactiveCocoa</a>.
+It worked, but was a little hacky since it involved the swizzling of <code>alloc</code>.
+ReactiveCocoa is also a large framework to be included just for the sake of
+analytics. Additionally, its interface exposed ReactiveCocoa's <code>RACTuple</code> class,
+which smells like a leaky abstraction.</p>
+
+<a name="What.could.we.do."></a>
+<h2>What could we do?</h2>
+
+<p>Well, about the same time, Pete Steinberger open sourced a new framework just
+for AOP called <a href="https://github.com/steipete/Aspects">Aspects</a>. Pete did all the
+difficult work of swizzling methods with variable parameter lists, including
+wrapping primitive parameters in values.</p>
+
+<p>Pete and I worked together to get Aspects working with ARAnalytics, removing our
+dependency on ReactiveCocoa.</p>
+
+<a name="How.to.Use.it"></a>
+<h2>How to Use it</h2>
+
+<p>Using ARAnalytics with the new DSL is super-easy. Just add either <code>ARAnalytics</code>
+or <code>ARAnalytics/DSL</code> to your podfile, specifying a version of at least 2.6. Run
+<code>pod install</code> and you're ready to get started.</p>
+
+<p>Since all of your analytics are going to be specified in one spot, and that spot
+is going to get rather large, I'd recommend creating an Objective-C category on
+your app delegate to set up all of your analytics. Then you can call this
+<code>setupAnalytics</code> method when your app launches.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &quot;ARAppDelegate.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">ARAppDelegate</span> <span class="nl">(Analytics)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupAnalytics</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &lt;ARAnalytics/DSL.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">ARAppDelegate</span> <span class="nl">(Analytics)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupAnalytics</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">ARAnalytics</span> <span class="nl">setupWithAnalytics</span><span class="p">:</span><span class="l">@{</span>
+</span><span class='line'>      <span class="cm">/* keys */</span>
+</span><span class='line'>    <span class="l">}</span> <span class="nl">configuration</span><span class="p">:</span>
+</span><span class='line'>    <span class="l">@{</span>
+</span><span class='line'>      <span class="nl">ARAnalyticsTrackedEvents</span><span class="p">:</span> <span class="l">@[</span>
+</span><span class='line'>          <span class="l">@{</span>
+</span><span class='line'>              <span class="nl">ARAnalyticsClass</span><span class="p">:</span> <span class="n">MyViewController</span><span class="p">.</span><span class="k">class</span><span class="p">,</span>
+</span><span class='line'>              <span class="nl">ARAnalyticsDetails</span><span class="p">:</span> <span class="l">@[</span>
+</span><span class='line'>                  <span class="l">@{</span>
+</span><span class='line'>                      <span class="nl">ARAnalyticsEventName</span><span class="p">:</span> <span class="s">@&quot;hearted&quot;</span><span class="p">,</span>
+</span><span class='line'>                      <span class="nl">ARAnalyticsSelectorName</span><span class="p">:</span> <span class="n">NSStringFromSelector</span><span class="p">(</span><span class="k">@selector</span><span class="p">(</span><span class="nl">buttonWasPressed</span><span class="p">:)),</span>
+</span><span class='line'>                  <span class="l">}</span>
+</span><span class='line'>              <span class="l">]</span>
+</span><span class='line'>          <span class="l">}</span>
+</span><span class='line'>      <span class="l">]</span>
+</span><span class='line'>  <span class="l">}</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now our <code>buttonWasPressed:</code> method is <em>very</em> straightforward:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">buttonWasPressed:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nb">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">hearted</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The view controller is now <em>only</em> responsible for what it should be responsible
+for: mediating interactions between the view and the model. Awesome! Even
+cooler, we can provide fine-grain control over which analytics events are
+invoked and with what properties they are sent with. Let's take a look.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">ARAnalytics</span> <span class="nl">setupWithAnalytics</span><span class="p">:</span><span class="l">@{</span>
+</span><span class='line'>  <span class="cm">/* keys */</span>
+</span><span class='line'><span class="l">}</span> <span class="nl">configuration</span><span class="p">:</span>
+</span><span class='line'><span class="l">@{</span>
+</span><span class='line'>  <span class="nl">ARAnalyticsTrackedEvents</span><span class="p">:</span> <span class="l">@[</span>
+</span><span class='line'>      <span class="l">@{</span>
+</span><span class='line'>          <span class="nl">ARAnalyticsClass</span><span class="p">:</span> <span class="n">MyViewController</span><span class="p">.</span><span class="k">class</span><span class="p">,</span>
+</span><span class='line'>          <span class="nl">ARAnalyticsDetails</span><span class="p">:</span> <span class="l">@[</span>
+</span><span class='line'>              <span class="l">@{</span>
+</span><span class='line'>                  <span class="nl">ARAnalyticsEventName</span><span class="p">:</span> <span class="s">@&quot;hearted&quot;</span><span class="p">,</span>
+</span><span class='line'>                  <span class="nl">ARAnalyticsSelectorName</span><span class="p">:</span> <span class="n">NSStringFromSelector</span><span class="p">(</span><span class="k">@selector</span><span class="p">(</span><span class="nl">buttonWasPressed</span><span class="p">:)),</span>
+</span><span class='line'>                  <span class="nl">ARAnalyticsEventProperties</span><span class="p">:</span> <span class="o">^</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">(</span><span class="n">MyViewController</span> <span class="o">*</span><span class="n">controller</span><span class="p">,</span> <span class="bp">NSArray</span> <span class="o">*</span><span class="n">parameters</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                        <span class="bp">UIButton</span> <span class="o">*</span><span class="n">button</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">firstObject</span><span class="p">;</span>
+</span><span class='line'>                        <span class="bp">NSString</span> <span class="o">*</span><span class="n">buttonTitle</span> <span class="o">=</span> <span class="p">[</span><span class="n">button</span> <span class="nl">titleForState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>                        <span class="k">return</span> <span class="l">@{</span>
+</span><span class='line'>                            <span class="s">@&quot;view_title&quot;</span> <span class="o">:</span> <span class="n">controller</span><span class="p">.</span><span class="n">title</span> <span class="o">?:</span> <span class="s">@&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>                            <span class="s">@&quot;button_title&quot;</span> <span class="o">:</span> <span class="n">buttonTitle</span> <span class="o">?:</span> <span class="s">@&quot;&quot;</span><span class="p">,</span>
+</span><span class='line'>                        <span class="l">}</span><span class="p">;</span>
+</span><span class='line'>                    <span class="p">},</span>
+</span><span class='line'>                  <span class="nl">ARAnalyticsShouldFire</span><span class="p">:</span> <span class="o">^</span><span class="kt">BOOL</span><span class="p">(</span><span class="n">MyViewController</span> <span class="o">*</span><span class="n">controller</span><span class="p">,</span> <span class="bp">NSArray</span> <span class="o">*</span><span class="n">parameters</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                      <span class="k">return</span> <span class="cm">/* selective disable firing of analytics */</span><span class="p">;</span>
+</span><span class='line'>                  <span class="l">}</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>          <span class="p">]</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So you see that even though you're defining your analytics once, at application
+startup, you're still able to provide dynamic, per-instance behaviour and event
+properties.</p>
+
+<p>Finally, we've also written support for page views. In a few lines, you can
+have every view controller track its page view with ARAnalytics.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">ARAnalytics</span> <span class="nl">setupWithAnalytics</span><span class="p">:</span><span class="l">@{</span>
+</span><span class='line'>  <span class="cm">/* keys */</span>
+</span><span class='line'><span class="l">}</span> <span class="nl">configuration</span><span class="p">:</span>
+</span><span class='line'><span class="l">@{</span>
+</span><span class='line'>  <span class="nl">ARAnalyticsTrackedScreens</span><span class="p">:</span> <span class="l">@[</span>
+</span><span class='line'>      <span class="l">@{</span>
+</span><span class='line'>          <span class="nl">ARAnalyticsClass</span><span class="p">:</span> <span class="bp">UIViewController</span><span class="p">.</span><span class="k">class</span><span class="p">,</span>
+</span><span class='line'>          <span class="nl">ARAnalyticsDetails</span><span class="p">:</span> <span class="l">@[</span> <span class="c1">// default selector on iOS is viewDidAppear:</span>
+</span><span class='line'>              <span class="l">@{</span>
+</span><span class='line'>                  <span class="nl">ARAnalyticsPageNameKeyPath</span><span class="p">:</span> <span class="s">@&quot;title&quot;</span>
+</span><span class='line'>              <span class="l">}</span>
+</span><span class='line'>          <span class="l">]</span>
+</span><span class='line'>      <span class="l">}</span>
+</span><span class='line'>  <span class="l">]</span>
+</span><span class='line'><span class="l">}</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code will track a page view with the title the same as the view
+controller's <code>title</code> property, but just like with events you can provide
+fine-grained handling.</p>
+
+<a name="Some.Limitations"></a>
+<h2>Some Limitations</h2>
+
+<p>There is a <a href="https://github.com/steipete/Aspects/issues/11">limitation</a> on
+Aspects that wasn't fully understood until we used the new AOP approach to
+analytics in the Artsy app. Selectors can only be "hooked into" once per class
+hierarchy. That  means that you cannot create a tracked events for two
+difference view controllers, both on the <code>viewWillAppear:</code> selector. This is a
+temporary limitation while the Aspects library is being worked on. In the mean
+time, you are free to use the <a href="https://github.com/orta/ARAnalytics/tree/ashfurrow-temporary-dsl-fix">original implementation</a>
+with ReactiveCocoa, which doesn't have this limitation and which we are using
+currently.</p>
+
+<a name="What.we.Learnt"></a>
+<h2>What we Learnt</h2>
+
+<p>AOP is a really cool paradigm that can reduce tight coupling in your code and
+increase your overall level of cohesion. Its applications extend beyond just
+analytics – any time you have a behaviour that's being exhibited in several
+abstractions in your code, you should consider if using AOP to replace that
+behaviour might make for cleaner code and more cohesive abstractions.</p>
+
+<p>Finally, I got to make my first significant contribution to open source at
+Artsy. It was awesome to be able to collaborate with Pete and Orta on this
+project, as well as receive feedback from developers who are already using
+ARAnalytics.</p>
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/ash">
+        Ash Furrow
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://ashfurrow.com">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/ashfurrow">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/analytics/'>analytics</a>, <a class='category' href='/blog/categories/aranalytics/'>aranalytics</a>, <a class='category' href='/blog/categories/ios/'>ios</a>
+  
+</span>
+
+
+      </p>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2014/07/09/retain-scroll-position-in-infinite-scroll/" title="Previous Post: Retain scroll position in infinite scroll">&laquo; Retain scroll position in infinite scroll</a>
+        
+        
+          <a class="next" href="/blog/2014/08/07/taking-a-snapshot-with-second-curtain/" title="next Post: Taking a Snapshot with Second Curtain">Taking a Snapshot with Second Curtain &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2014/08/04/aspect-oriented-programming-and-aranalytics/';
+        var disqus_url = 'https://artsy.github.io/blog/2014/08/04/aspect-oriented-programming-and-aranalytics/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

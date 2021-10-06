@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Master the Heroku CLI with Heroku Commander - Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+
+    
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Master the Heroku CLI with Heroku Commander
+        
+        Feb 1, 201...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/2013/02/01/master-heroku-command-line-with-heroku-commander/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div>
+  <article class="hentry" role="article">
+
+    
+<div class="article-container-single ">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="">
+        
+        
+          <h2 class="entry-title">Master the Heroku CLI with Heroku Commander</h2>
+        
+        <time datetime="2013-02-01">Feb 1, 2013</time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+      <div class="entry-content"><p><img src="/images/2013-02-01-master-heroku-command-line-with-heroku-commander/heroku-commander.png"></p>
+
+<p>Heroku users frequently run the <strong>heroku</strong> command-line tool that ships with the <a href="https://toolbelt.heroku.com/">Heroku Toolbelt</a>. It has two very convenient features: it will remember API credentials and default to the "heroku" GIT remote to figure out the application to connect to. Neither of these features are available in the Heroku client API, so it's not unusual to find developers invoke the Heroku CLI from Rake tasks and other automation scripts.</p>
+
+<p>There're several problems with using the Heroku CLI for automation:</p>
+
+<ol>
+<li>The exit code from <code>heroku run</code> is not the exit code from the process being run on Heroku. See <a href="https://github.com/heroku/heroku/issues/186">#186</a>.</li>
+<li>Gathering console output from <code>heroku run:detached</code> requires an external <code>heroku logs --tail</code> process that will never finish.</li>
+</ol>
+
+
+<p>The <a href="https://github.com/dblock/heroku-commander">heroku-commander</a> gem wraps execution of the Heroku CLI to overcome these common limitations.</p>
+
+<!-- more -->
+
+
+<a name="Heroku.Configuration"></a>
+<h3>Heroku Configuration</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">commander</span> <span class="o">=</span> <span class="no">Heroku</span><span class="o">::</span><span class="no">Commander</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="c1"># a hash of all settings for your default heroku app</span>
+</span><span class='line'><span class="n">commander</span><span class="o">.</span><span class="n">config</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice that unlike <code>Heroku::Client.new</code>, this doesn't require your e-mail or API key. It will invoke <code>heroku config -s</code>.</p>
+
+<p>You can specify an application name, too.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">commander</span> <span class="o">=</span> <span class="no">Heroku</span><span class="o">::</span><span class="no">Commander</span><span class="o">.</span><span class="n">new</span><span class="p">({</span> <span class="ss">:app</span> <span class="o">=&gt;</span> <span class="s2">&quot;heroku-commander&quot;</span> <span class="p">})</span>
+</span><span class='line'><span class="c1"># a hash of all settings for the heroku-commander application</span>
+</span><span class='line'><span class="n">commander</span><span class="o">.</span><span class="n">config</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<a name="Run.Commands.on.Heroku"></a>
+<h3>Run Commands on Heroku</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">commander</span> <span class="o">=</span> <span class="no">Heroku</span><span class="o">::</span><span class="no">Commander</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="c1"># returns all output lines</span>
+</span><span class='line'><span class="c1"># eg. [ &quot;Linux 2.6.32-348-ec2 #54-Ubuntu SMP x86_64 GNU&quot; ]</span>
+</span><span class='line'><span class="n">commander</span><span class="o">.</span><span class="n">run</span> <span class="s2">&quot;uname -a&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This calls <code>(heroku run 2&gt;&amp;1 uname -a; echo rc=\\$?)</code>, parses output for the final exit code line and raises an exception if the run's result code wasn't zero. In other words, if the command fails, an error is raised, which makes this suitable for Rake tasks.</p>
+
+<p>You can also read output line-by-line.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">commander</span><span class="o">.</span><span class="n">run</span> <span class="s2">&quot;ls -1&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+</span><span class='line'>  <span class="c1"># each line from the output of ls -1</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<a name="Detach.Commands.on.Heroku"></a>
+<h3>Detach Commands on Heroku</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">commander</span> <span class="o">=</span> <span class="no">Heroku</span><span class="o">::</span><span class="no">Commander</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">commander</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;ls -R&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:detached</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">})</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+</span><span class='line'>  <span class="c1"># each line from the output of ls -r -1</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This calls <code>(heroku detached:run ls -r -1 2&gt;&amp;1; echo rc=\\$?)</code>, parses the output for a Heroku process ID, spawns a <code>heroku logs --tail -p pid</code> and monitors the log output until it reports process completion. It will also parse output for the final exit code and raise an exception if the run's result code wasn't zero.</p>
+
+<a name="More.Examples"></a>
+<h3>More Examples</h3>
+
+<p>There're more working examples <a href="https://github.com/dblock/heroku-commander/tree/master/examples">here</a>.</p>
+</div>
+    
+
+    
+      <p class="meta-author">
+        
+  
+
+
+
+
+
+<div class="meta">
+  Posted by
+
+
+  
+
+  
+    <span class="byline author vcard">
+
+      <div class="meta"><span class="fn"><a href="/author/db">
+        Daniel Doubrovkine
+      </a></span></div>
+
+      
+      <span class="fn">
+        <a href="http://code.dblock.org">Site</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://github.com/dblock">GitHub</a>
+      </span>
+      
+      
+      <span class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </span>
+      
+    </span>
+
+  
+</div>
+
+
+
+
+      </p>
+      <p class="meta-categories">
+        Categories: 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/heroku/'>heroku</a>, <a class='category' href='/blog/categories/rake/'>rake</a>, <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+      </p>
+      
+
+      
+        <hr/>
+        <section class="comments">
+          <h1>Comments</h1>
+          <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        </section>
+        <hr/>
+      
+
+      <p class="meta-paginate">
+        
+          <a class="previous" href="/blog/2013/01/31/create-mongodb-command-lines-with-mongo/" title="Previous Post: Create MongoDB Command-Lines from Mongoid Configuration">&laquo; Create MongoDB Command-Lines from Mongoid Configuration</a>
+        
+        
+          <a class="next" href="/blog/2013/02/09/data-corruption-and-concurrent-updates-to-embedded-objects-with-mongoid/" title="next Post: Data Corruption and Concurrent Updates to Embedded Objects with MongoDB">Data Corruption and Concurrent Updates to Embedded Objects with MongoDB &raquo;</a>
+        
+      </p>
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+
+  </article>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://artsy.github.io/blog/2013/02/01/master-heroku-command-line-with-heroku-commander/';
+        var disqus_url = 'https://artsy.github.io/blog/2013/02/01/master-heroku-command-line-with-heroku-commander/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

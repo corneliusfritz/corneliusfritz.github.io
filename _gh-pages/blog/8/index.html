@@ -1,0 +1,970 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Announcing: Artsy x React Native
+        
+        
+  ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/8/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/06/03/Announcing-Artsy-x-React-Native/">
+        
+        
+          <h2 class="entry-title">Announcing: Artsy x React Native</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/maxim">Maxim Cramer<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/mennenia">@mennenia</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>React Native has a lot of buzz around it. It is some serious and cool tech, yet can feel like a big departure from
+your native iOS codebase. At Artsy, we like it. It has been the right choice for us. We've <a href="http://artsy.github.io/search/?q=react+native">documented</a> <a href="http://artsy.github.io/series/react-native-at-artsy/">our</a>
+<a href="http://artsy.github.io/blog/2016/08/15/React-Native-at-Artsy/">journey</a> and <a href="http://artsy.github.io/blog/2018/03/17/two-years-of-react-native/">reasoning</a> quite extensively, but naturally, developers around the world are still wondering
+whether the trade-offs make sense to <em>their</em> team, and <em>their</em> situation.</p>
+
+<p>Enter <a href="https://www.artsy.net/x-react-native">Artsy x React-Native</a>.</p>
+
+<p>Who better to partner with than Facebook? We're bringing a day full of hands-on informative insight and practical
+play. With the focus on what building world class applications with RN can be like.</p>
+
+<p>We'll demo, through talks and workshops, how to add React Native bit by bit to an existing codebase, set your
+tooling up for success, and create solid animations.</p>
+
+<p>We want <a href="https://www.artsy.net/x-react-native">Artsy x React-Native</a> to be about getting you up to speed with the framework, so you can make your
+own decisions going forward.</p>
+
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/30/my-first-week-on-call/">
+        
+        
+          <h2 class="entry-title">My First Week On Call</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>As I write this, I have completed my first ever engineering on-call rotation at Artsy, so naturally I had to write a blog post about some of the things I learned.</p>
+
+
+        <p><a href="/blog/2018/05/30/my-first-week-on-call/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/25/support-process/">
+        
+        
+          <h2 class="entry-title">How we designed our Engineering On-Call Process</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/sarahweir">Sarah Weir<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/sweir27">@sweir27</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Over the past few months, we've been working on formalizing an on-call support process for our engineering team. This post details our current state and how we decided what system would work best for us.</p>
+
+
+        <p><a href="/blog/2018/05/25/support-process/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/08/is-graphql-the-future/">
+        
+        
+          <h2 class="entry-title">Is GraphQL The Future?</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/alan">Alan Johnson<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/AlanJay1">@AlanJay1</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>I have seen the future, and it looks a lot like GraphQL. Mark my words: in 5
+years, newly minted full-stack app developers won’t be debating <em>RESTfulness</em>
+anymore, because REST API design will be obsolete. By the end of this post, I
+hope you'll see what I see in the promise of GraphQL as a new approach to
+client-server interaction.</p>
+
+
+        <p><a href="/blog/2018/05/08/is-graphql-the-future/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/07/fully-automated-standups/">
+        
+        
+          <h2 class="entry-title">Fully Automated Standups</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>When I began working at Artsy four years ago, remotely, I really didn't like the weekly engineering standup. I'd sit in front of my computer and strain to hear a dozen people gathered around a laptop with Google Hangout. They'd discuss implementation details for projects I wasn't familiar with, and then I'd do the same to them (our mobile team was still very separate from our web team). Twenty minutes would pass and I didn't feel like my work experience at Artsy had been enriched in any way.</p>
+
+<p>The first time I came to New York to visit the office – before moving here – I sat down with <a href="https://github.com/dylanfareed">Dylan</a> and <a href="https://github.com/orta">Orta</a>. Dylan ran the weekly standup, and Orta was also not a fan of the meeting. Dylan was clear: if the standup wasn't working for the two of us, then it wasn't working for anyone. So let's fix it together.</p>
+
+
+        <p><a href="/blog/2018/05/07/fully-automated-standups/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/04/JavaScriptures-3-Styled-Components/">
+        
+        
+          <h2 class="entry-title">JavaScriptures 3 - Styled Components</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/roop">Roop<a/></span>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/jonallured">Jon Allured<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/jonallured">@jonallured</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The third in our JavaScriptures series on the Artsy <a href="http://artsy.github.io/blog/2017/02/05/Front-end-JavaScript-at-Artsy-2017/">omakase</a>. This workshop is a deep dive into <a href="https://www.styled-components.com">Styled
+Components</a>, where we take our React app from the first workshop and convert it to use Styled Components. We
+have Roop and Jon Allured covering all the details.</p>
+
+
+        <p><a href="/blog/2018/05/04/JavaScriptures-3-Styled-Components/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/02/JavaScriptures-2-TypeScript/">
+        
+        
+          <h2 class="entry-title">JavaScriptures 2 - TypeScript</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/eloy">Eloy Durán<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/alloy">@alloy</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/sarahscott">Sarah Scott<a/></span>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>The second in our JavaScriptures series on the Artsy <a href="http://artsy.github.io/blog/2017/02/05/Front-end-JavaScript-at-Artsy-2017/">omakase</a>. This one is a deep dive in TypeScript with
+a minor-focus on working with React. We run through a series of excercises you can run <a href="https://github.com/artsy/javascriptures/tree/master/2_intro-to-typescript">through yourself
+here</a>.</p>
+
+<p>It's ran by <a href="https://twitter.com/alloy">@alloy</a> and <a href="https://github.com/sarahscott">Sarah Scott</a> and covers compilation, errors, default types, interfaces,
+inference, generics and how they all come together in your tools.</p>
+
+
+        <p><a href="/blog/2018/05/02/JavaScriptures-2-TypeScript/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/05/01/JavaScriptures-1-React/">
+        
+        
+          <h2 class="entry-title">JavaScriptures 1 - React</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/luc">Luc Succes<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/lucsucces">@lucsucces</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>We're a growing engineering team, and that tends to mean that people move towards being more specialized. This is
+great for an individual's technical depth, but can weaken their breadth of knowledge on new technology. We want to
+encourage the growth of both within our engineering team. To address this our front-end engineers worked together to
+run a series of workshops for the whole engineering team.</p>
+
+<p>We called this JavaScriptures, 6 workshop-style deep dives into the major parts of the <a href="http://artsy.github.io/blog/2017/02/05/Front-end-JavaScript-at-Artsy-2017/">Artsy JavaScript
+omakase</a>. They are: React, TypeScript, Styled Components, Relay and Redux, Babel and Webpack. Today I'm
+posting the <a href="https://youtu.be/k_f7Ff7bREc">recording</a> and <a href="https://speakerdeck.com/artsyopensource/javascriptures-1-react">slides</a> from a deep dive into React hosted by <a href="https://twitter.com/lucsucces">Luc Succes</a> and
+myself.</p>
+
+
+        <p><a href="/blog/2018/05/01/JavaScriptures-1-React/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/04/18/programmer-misconceptions-about-art/">
+        
+        
+          <h2 class="entry-title">Programmer Misconceptions about Art</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Our mission at Artsy has been to make a world where everyone is moved by art every day, and at a high level, the way that our engineering team supports that mission is through building software. We have built systems and databases and user interfaces that represent different facets of the art world, and throughout our work, we have... made some mistakes.</p>
+
+<p>That's okay! Programmers make mistakes all the time. There is <a href="https://github.com/kdeldycke/awesome-falsehood">a large list of blog posts</a> describing various programmer misconceptions, from subjects you might expect would be simple to model in computers, like units of measurement and time, to subjects that are based more in the human condition, like postal addresses and marriage.</p>
+
+<p>In the interest of openness and sharing what we've learned, the Artsy Engineering team has come up with the following list of misconceptions programmers believe about art. Thank you to everyone at Artsy who contributed to this list.</p>
+
+
+        <p><a href="/blog/2018/04/18/programmer-misconceptions-about-art/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/04/17/making-a-components-pod/">
+        
+        
+          <h2 class="entry-title">Making a React Native Components Pod</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>When we talk about our React Native setup in abstract, there are two kinds of "<a href="http://2.bp.blogspot.com/_PekcT72-PGE/SK3PTKwW_eI/AAAAAAAAAGY/ALg_ApHyzR8/s1600-h/1219140692800.jpg">now draw The Tick</a>" for
+iOS developers:</p>
+
+<ul>
+<li>How do I build this React Native as a CocoaPods setup?</li>
+<li>How do I get all the JavaScript tooling setup up?</li>
+</ul>
+
+
+<p>We're going to address the first part in this post. By the end of this post we're going to get an <a href="/blog/2016/08/24/On-Emission/">Emission-like
+repo</a> set up for an existing OSS Swift iOS app called <a href="https://github.com/GitHawkApp/GitHawk/">GitHawk</a>. The aim being to introduce no
+JavaScript tooling into GitHawk itself, and to only expose iOS-native <code>UIViewControllers</code> via a CocoaPod which is
+consumed by GitHawk.</p>
+
+<p>To do this we're going to use the CocoaPods' <code>pod lib create</code> template, and React Native's <code>react-native init</code> to
+make a self-contained React Native repo. It will export a JS file, and some native code which Podspec will
+reference. This keeps the tooling complexity for iOS and React Native separate. Read on to start digging in.</p>
+
+
+        <p><a href="/blog/2018/04/17/making-a-components-pod/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/7/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 8 of 27</span>
+
+    
+      <a href="/blog/9/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>

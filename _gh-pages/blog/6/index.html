@@ -1,0 +1,976 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artsy Engineering</title>
+  <meta name="author" content="">
+
+  
+  <meta name="description" content="
+  
+  
+    
+      
+        
+
+
+
+  
+    
+      
+        
+          
+        
+        
+          Switch from Capybara Webkit to Chrome
+        
+      ...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:image" content="http://artsy.github.io/images/artsy_oss_image.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  
+  <link rel="canonical" href="https://artsy.github.io/blog/6/">
+  <link rel="alternate" type="application/rss+xml" title="Artsy Engineering Blog" href="/feed">
+  <link rel="alternate" type="application/atom+xml" title="Podcast Feed" href="/podcast.xml" />
+
+  <link href="/favicon.ico" rel="icon">
+  <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  <script src="/javascripts/jquery-1.11.3.min.js"> </script>
+  <script src="/javascripts/gradient-fade.js"></script>
+  <script src="/javascripts/noframework.waypoints.min.js"></script>
+  <script src="/javascripts/sticky.min.js"></script>
+  <script src="/javascripts/search.min.js"></script>
+  <script src="/javascripts/custom-element.min.js"></script>
+  <script src="/javascripts/g-emoji-element.js"></script>
+
+  
+
+  <script type="text/javascript" src="https://fast.fonts.net/jsapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.js"></script>
+
+
+  <link href="/feed.xml" rel="alternate" title="Artsy Engineering" type="application/atom+xml">
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12450662-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  <!--[if IE 8]><link href="/stylesheets/custom/ie_font.css" type="text/css"><![endif]-->
+
+</head>
+
+
+<body>
+  <div id="logo-container">
+    <a id="lrg-mark" href="https://www.artsy.net/">
+      <svg viewBox="0 0 510 510" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <path transform="scale(1, -1) translate(0, -480)" d="M0 -32h512v512h-512v-512v0zM464 16h-80v80h-48v-80h-288v416h416v-416v0zM194 384h-40l-74 -186h38l20 52h72l19 -52h39l-74 186v0zM149 282l25 66l24 -66h-49v0z"/>
+      </svg>
+    </a>
+  </div>
+  <header id="banner"><div id="header">
+  <div class="header-navigation">
+    <ul>
+      <li><a href="https://developers.artsy.net/">API</a></li>
+      <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+      <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+      <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+    </ul>
+    <span class="header-section-title">
+      
+        <a href="/open-source">Open Source</a>
+      
+    </span>
+  </div>
+
+  <div class="header-sticky-container">
+    <div class="header-logo">
+      <h2><a href="https://artsy.github.io">Artsy</a></h2>
+    </div>
+    <div class="header-search">
+      
+        <h2><a href="/">Engineering Blog</a></h2>
+        <span>
+  <form action="/search" method="get">
+    <input class="search" id="search-query" type="text" name="q" results="0" placeholder="Search"/>
+  </form>
+
+</span>
+      
+    </div>
+  </div>
+</div>
+</header>
+  <div class="header-hamburger">
+    <button class="cmn-toggle-switch cmn-toggle-switch__htx">
+      <span>toggle menu</span>
+    </button>
+  </div>
+  <div id="main">
+    <div id="content">
+
+      <div class="blog-index">
+  
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/11/27/switch-from-capybara-webkit-to-chrome/">
+        
+        
+          <h2 class="entry-title">Switch from Capybara Webkit to Chrome</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/chungyi">Chung-Yi Chi<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Volt is the internal app name of Artsy CMS, and our partners use it to manage their inventory and presence on artsy.net. It's a Rails-based UI app that talks to many API services. We use <a href="https://github.com/rspec/rspec">RSpec</a> extensively to cover controller, model, view, and feature specs. As of Jun. 2018, Volt had 3751 specs and 495 of them were run with JavaScript enabled. It took about 16 mins to run on CircleCI with 6x parallelism.</p>
+
+<p>Capybara-webkit was introduced from the very beginning of Volt for testing JavaScript-enabled specs via headless WebKit browser. It's been providing a lot of confidence for the past 4+ years; however, a few reasons/growing concerns have encouraged us to look for (more modern) alternatives:</p>
+
+
+        <p><a href="/blog/2018/11/27/switch-from-capybara-webkit-to-chrome/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/11/26/keeping-dependencies-updated/">
+        
+        
+          <h2 class="entry-title">Keeping Artsy's dependencies up to date</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/justin">Justin Bennett<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/zephraph">@zephraph</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Hey everyone! I'm Justin, a senior engineer here at Artsy. I've been here for about 6 months and I'm a bit overdue
+on my first blog post. This will be one of a series of posts I'm dubbing <em>roads and bridges</em> (<a href="https://www.fordfoundation.org/about/library/reports-and-studies/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/">thanks Orta</a>)
+describing infrastructure and tooling work here at Artsy.</p>
+
+<a name="Backstory"></a>
+<h3>Backstory</h3>
+
+<p>Here at Artsy we have a lot of internal dependencies. Keeping these dependencies up to date across all of our
+projects can be a bit of a headache. For example, there's <a href="https://github.com/artsy/palette">Palette</a> (our <a href="https://www.uxpin.com/studio/blog/design-systems-vs-pattern-libraries-vs-style-guides-whats-difference/">design system</a>)
+which is consumed by <a href="https://github.com/artsy/reaction">Reaction</a> (our react component/app library), <a href="https://github.com/artsy/emission">Emission</a> (our React Native
+application), <a href="https://github.com/artsy/force">Force</a> (our main site), and <a href="https://github.com/artsy/positron">Positron</a> (our editorial creation tool). That's not
+even an exhaustive list. As you can imagine, after making an update to <a href="https://github.com/artsy/palette">Palette</a> we have to make a lot of
+Pull Requests to get everything synced up across our many projects. And that's just <em>one</em> dependency.</p>
+
+
+        <p><a href="/blog/2018/11/26/keeping-dependencies-updated/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/11/21/conditional-types-in-typescript/">
+        
+        
+          <h2 class="entry-title">Conditional types in TypeScript</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/david">David Sheldrick<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/djsheldrick">@djsheldrick</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>This year TypeScript gained a new feature that punches far above its weight.</p>
+
+<blockquote><p>Working through our (enormous) backlog of unsorted TypeScript "Suggestions" and it's remarkable how many of them
+are solved by conditional types.</p></blockquote>
+
+<p>-- <a href="https://twitter.com/SeaRyanC/status/1029846761718702081">Ryan Cavanaugh</a>, TypeScript maintainer</p>
+
+<p>Conditional types probably aren't something you'll write every day, but you might end up using them indirectly all
+the time. That's because they're great for 'plumbing' or 'framework' code, for dealing with API boundaries and
+other behind-the-scenes kinda stuff. So, dear reader, read on! It's always good to learn how the sausage is made.
+Then you can make sausage of your own.</p>
+
+<p>Typewurst! 🌭</p>
+
+
+        <p><a href="/blog/2018/11/21/conditional-types-in-typescript/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/11/19/mjml/">
+        
+        
+          <h2 class="entry-title">How hard could it be to create an email?</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/erik">Erik Stockmeier<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/erikdstock">@erikdstock</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/matt-dole">Matt Dole<a/></span>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <!-- OUTLINE -->
+
+
+<p>Let's talk about email HTML.</p>
+
+<p>If you've never worked on emails before, you might think the process works something like this:</p>
+
+<ol>
+<li>Write some HTML, but maybe with a few more tables than you usually use since emails like those.</li>
+<li>Render it in your browser. Nice! Looking great.</li>
+<li>Send yourself a quick test. Just like in your browser! Sweet!</li>
+<li>Send that PR and move on to the next thing.</li>
+</ol>
+
+
+<p><img src="/images/2018-11-19-mjml/example.png" alt="/images/2018-11-19-mjml/example.png" /></p>
+
+<p>In reality, it's more like this:</p>
+
+<ol>
+<li>Write some HTML with more tables than you think could possibly be necessary. There's no way it'll break with all
+these tables, right?</li>
+<li>Render it in the browser. Cool, looks fine.</li>
+<li>Send yourself a test, and send one to a service like <a href="https://www.litmus.com">Litmus</a> or
+<a href="https://www.emailonacid.com">Email on Acid</a> that renders the email in dozens of clients</li>
+<li>Looking good in Gmail...good in Apple mail...wait why is it completely broken in Outlook 2007 (and 2010, 2013,
+and 2019)? And Yahoo Mail on Internet Explorer? Shoot.</li>
+<li>Better add some more tables. That's usually the solution.</li>
+<li>Well...that didn't work. Find a post from 2009 in a forum for Netscape enthusiasts that implies you might want
+to add an extra Outlook-only table using <code>&lt;!--[if mso | IE]&gt;</code> with
+<code>role="presentation" and cellpadding="0" cellspacing="0"</code>. Maybe that'll work.</li>
+<li>Outlook 2007 is fixed! Nice! Oh...but now it looks broken on iPhones. Back to the drawing board.</li>
+</ol>
+
+
+<p><img src="/images/2018-11-19-mjml/outlook-2019-broken.png" alt="/images/2018-11-19-mjml/outlook-2019-broken.png" /></p>
+
+
+        <p><a href="/blog/2018/11/19/mjml/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/11/17/calling-the-elevator-from-slack/">
+        
+        
+          <h2 class="entry-title">Calling the Elevator from Slack</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/db">Daniel Doubrovkine<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/dblockdotorg">@dblockdotorg</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Artsy's New York HQ occupies four top floors of <a href="http://401broadway.com">401 Broadway</a>, located in historic Tribeca at the intersection of Broadway &amp; Canal St., famous for its sellers of fake designer bags. Five elevators carry you up to our breathtaking views, albeit slowly.</p>
+
+<p>Despite having been fully rebuilt in the last few years these machines are simply too few for the too many people working in the building. The lobby gets packed in the morning. The floors are crowded with coworkers waiting for an elevator to go to lunch around noon. Elevators make all local stops.</p>
+
+<p>Because everything is a technology problem, I decided to improve this situation during our fall hackathon by building a Slack bot to call the elevator. Slack it, keep working for a few minutes, then dash out when you hear the elevator "ding", collectively gaining hours of productivity!</p>
+
+
+        <p><a href="/blog/2018/11/17/calling-the-elevator-from-slack/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/10/19/where-art-thou-my-error/">
+        
+        
+          <h2 class="entry-title">Where art thou, my error?</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/eloy">Eloy Durán<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/alloy">@alloy</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p><em>Note: This is the text of a presentation given at <a href="https://graphql-finland.fi">GraphQL Finland 2018</a>, as such the
+language may in some cases be slightly awkward for a blog post. You can find those slides on
+<a href="https://speakerdeck.com/alloy/where-art-thou-my-error">Speaker Deck</a>.</em></p>
+
+<p>GraphQL is still in its early stages and thus these are very exciting times, indeed! Traditionally the GraphQL team
+has taken the approach of defining the bare minimum in the specification that was deemed needed and otherwise
+letting the community come-up with defining problems and experimenting with solutions for those. One such example
+is how metadata about the location in the graph where errors occurred during execution were <a href="https://github.com/facebook/graphql/pull/230">added to the
+specification</a>.</p>
+
+<p>This is great in the sense that we still have the ability, as a community, to shape the future of a GraphQL
+specification that we all <em>want</em> to use, but on the other hand it also means that we may need to spend significant
+amounts of time on thinking about these problems and iterating. Seeing as we all strive to have backwards
+compatible schemas, it’s of great importance that we know of the various iterations that people have experimented
+with and what the outcome was.</p>
+
+<p>This is our story of thinking about and working with errors, thus far.</p>
+
+
+        <p><a href="/blog/2018/10/19/where-art-thou-my-error/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/10/19/pair-programming/">
+        
+        
+          <h2 class="entry-title">The Hows and Whys of Pair Programming</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/yuki">Yuki Nishijima<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/yuki24">@yuki24</a>
+      </p>
+      
+
+    </div>
+  
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p><em>Why pair program? As new engineers join Artsy, we've been experimenting with different programming cultures - Yuki
+came from Pivotal Labs where they have a strong pair programming culture and introduced it at Artsy - it's been
+about a year and a half and we're all really loving the changes he's introduced.</em></p>
+
+<p><em>I asked Yuki if he'd pair program with me on a blog, post on Pair Programming, and this is it. He's going to
+dive into what pair programming is, why you should do it, what are good mental models to think about, the techniques
+you can use to make it work, what hardware you might need and how Yuki persuaded so many of us to start doing it
+more often.</em></p>
+
+<p>&mdash; Orta</p>
+
+
+        <p><a href="/blog/2018/10/19/pair-programming/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/10/18/long-term-highlights/">
+        
+        
+          <h2 class="entry-title">Engineering Highlights</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>Engineering is an inherently long-term process. The Artsy engineering team has been around for 7 years, and that's
+quite a lot of time to get things done. We use software that keeps track of changes over time thanks to source
+control, but tools like git only help keep track of small passages of time. I want to keep track of events that
+could take months to ship.</p>
+
+<p>We've been doing a lot of long-term introspection as a team in 2018. Externally, this has been visible through
+things like opening our docs and creating our engineering principles. I'm expanding on this with an idea that I
+took from my work in building large open source projects: <a href="https://github.com/artsy/README/blob/master/culture/highlights.md#readme">Highlight docs</a>.</p>
+
+
+        <p><a href="/blog/2018/10/18/long-term-highlights/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/10/04/artsy-frontend-history/">
+        
+        
+          <h2 class="entry-title">A History of Artsy's Web Frontend</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/ash">Ash Furrow<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/ashfurrow">@ashfurrow</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>As Artsy Engineering grows in 2018, we have so many newcomers looking for context: they want to understand the
+systems they'll be working in day-to-day. Awesome! But it's not enough to understand the systems themselves, it's
+often helpful to understand the <em>history</em> of how we ended up where we are.</p>
+
+<p>Frontend web development has changed a <em>lot</em> during Artsy's existence, and it continues to advance at a blistering
+pace. It's easy to get caught up in the churn of frameworks and languages and tools, so I want to use this post as
+an opportunity to contextualize each transition that Artsy's web presence has made over the past seven years. We've
+changed technologies, but we've tried to do so with care and attention. Documenting these decisions is important
+(and is ideally done <a href="https://ashfurrow.com/blog/contemporaneous-blogging/">contemporaneously</a>), but even with the best documentation, <a href="https://github.com/artsy/artsy.github.io/pull/489#discussion_r221301472">sometimes our own documentation
+is unclear to us</a>.</p>
+
+<p>In an effort to help contextualize our web frontend (which is <a href="https://github.com/artsy/force">open source</a>), this blog post will document
+the major transitions that Artsy's web presence has made over the past seven years. Let's begin!</p>
+
+
+        <p><a href="/blog/2018/10/04/artsy-frontend-history/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+    
+      <article>
+        
+<div class="article-container">
+
+
+  
+    <div class="meta-container">
+      <header>
+        
+          <a href="/blog/2018/09/10/Dockerhub-Stamping-Commits/">
+        
+        
+          <h2 class="entry-title">Stamping the commit SHA into the ENV vars of a running Docker-based app</h2>
+        
+        <time datetime=""></time>
+          <p class="meta-author">
+  
+
+
+
+  
+
+  
+    <div class="meta">
+      <span class="byline author vcard"><a href ="/author/orta">Orta Therox<a/></span>
+      
+      <p class="fn">
+        <a href="https://twitter.com/orta">@orta</a>
+      </p>
+      
+
+    </div>
+  
+
+</p>
+          </a>
+      </header>
+    </div>
+  
+
+  <div class="content-container">
+    
+    
+        <p>For what feels like the last 3-6 months, I've been trying to figure out how to know what the commit is for the
+Docker runtime in Peril. Roughly: every master commit on Peril triggers a Docker image on Docker Hub for the
+environment in which JavaScript is running. There's a lag between creating the commit, having the image ready on
+Docker Hub, and Peril using the new image. There's also space for these automated systems to go wrong, so I'd like
+to be able to be certain in logging.</p>
+
+<p>I've thrown a lot of commits and time every few weeks at this, so now that I've figured it out, I'll give you an
+idea of what I needed to do to make it work in a micro-post.</p>
+
+
+        <p><a href="/blog/2018/09/10/Dockerhub-Stamping-Commits/">Read on →</a></p>
+    
+
+    
+
+    
+  </div>
+
+
+  <footer>
+  </footer>
+
+</div>
+
+      </article>
+  
+
+  <div class="pagination">
+    <a href="/blog/archives">Blog Archives</a>
+    <a href="/blog/categories">Categories</a>
+
+    
+      <a href="/blog/5/" class="previous">Previous</a>
+    
+    <span class="page_number ">Page: 6 of 27</span>
+
+    
+      <a href="/blog/7/" class="next">Older</a>
+    
+  </div>
+</div>
+
+
+    </div>
+  </div>
+  <footer id="main_footer"> <div class="footer-navigation">
+  <ul>
+    <li><a href="https://developers.artsy.net/">API</a></li>
+    <li><a href="https://www.artsy.net/jobs">Careers</a></li>
+    <li><a href="http://twitter.com/artsyopensource">@artsyopensource</a></li>
+    <li><a href="http://www.artsy.net/">Artsy.net</a></li>
+  </ul>
+</div>
+
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artsy';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+</footer>
+  <script type="text/javascript">
+  $(function() {
+    // TODO: Move this whole file to a javascript file that is included in the footer
+
+    // Main sticky header
+    if ($(window).width() >= 700) {
+      var sticky = new Waypoint.Sticky({
+        element: $("#banner"),
+        offset: -100
+      });
+    }
+
+    // Toggle hamburger menu
+    $('.header-hamburger').click(function() {
+      $('#banner, .cmn-toggle-switch').toggleClass('active');
+      if (location.pathname == '/open-source') {
+        $('.header-search span').hide();
+        $('#page-sidebar').toggle();
+      }
+    });
+
+    // Toggle search focus on mobile
+    $('input.search').focus(function() {
+      $('#header').addClass('search-focused');
+    }).blur(function() {
+      $('#header').removeClass('search-focused');
+    });
+  });
+</script>
+
+</body>
+</html>
