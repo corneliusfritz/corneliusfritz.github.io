@@ -19,10 +19,10 @@ locale: "en-US"
 title: "Eskinasy Notes | Pat Eskinasy Writings"
 title_separator: "-"
 subtitle: # site tagline that appears below site title in masthead
-name: "Pat Eskinasy"
-description: "A few of my favourite things. Decentralized, Distributed and Federated systems | Open Source Software | Digital Privacy | Artificial Intelligence | Product Development | Software Development | Cryptocurrency | Data Science | Product Management | InfoSec | Leadership | Decentralized Governance | Supply Chains | Ethical Design | Economics | Economic Empowerment | Plant-Based Lifestyle | Yoga | Woodlands | Trees | Jogging | Venture Capital | Capital Markets | Startups | Mandarin."
+name: "Cornelius Fritz"
+description: "PhD Student working on social network analysis"
 baseurl: # the subpath of your site, e.g. "/blog"
-repository: pateskinasy/pateskinasy.github.io # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository: corneliusfritz/corneliusfritz.github.io # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser: /assets/images/interface.jpg # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo: /assets/images/logo.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title: " " # overrides the website title displayed in the masthead, use " " for no title
@@ -95,10 +95,10 @@ social:
   type: # Person or Organization (defaults to Person)
   name: # If the user or organization name differs from the site's name
   links:
-    - "https://www.twitter.com/celue"
+    - "https://www.twitter.com/cornelius_fritz"
     - "https://www.linkedin.com/in/pateskinasy"
     - "https://medium.com/@celue"
-    - "https://github.com/pateskinasy"
+    - "https://github.com/corneliusfritz"
   # An array of links to social media profiles
 
 # Analytics
@@ -110,11 +110,11 @@ analytics:
 
 # Site Author
 author:
-  name: "Pat Eskinasy"
+  name: "Cornelius Fritz"
   avatar: "https://ik.imagekit.io/214u6evjbiyb9/image1__1__HJ1gMcnXV.jpeg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio: "Now: Own projects, Past: B2B deep tech. | Engineer | Economist | 🌳🌳🌳"
-  location: " :gb:  :sweden:  :brazil: "
-  email:
+  bio: "PhD Student"
+  location: "Munich, Germany"
+  email: cornelius.fritz@stat.uni-muenchen.de
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
@@ -130,7 +130,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/pateskinasy"
+      url: "https://github.com/corneliusfritz"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
