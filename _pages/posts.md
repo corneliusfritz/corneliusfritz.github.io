@@ -1,9 +1,9 @@
 ---
 layout: archive
 permalink: /posts/
-title: &title "Writings by Year"
+title: &title "News:"
 alt_title: *title
-excerpt: &excerpt "Blog posts by Pat Eskinasy archived by year."
+excerpt: &excerpt ""
 introduction: *excerpt
 pagination:
   enabled: true
