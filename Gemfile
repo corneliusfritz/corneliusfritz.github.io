@@ -1,17 +1,8 @@
 source "https://rubygems.org"
+gem 'jekyll-include-cache'
+gem 'github-pages'
 
-gem 'rake'
-gem 'compass'
-gem 'jekyll'
-gem 'octopress-hooks'
-gem 'rdiscount'
-gem 'pygments.rb'
-gem 'RedCloth'
-gem 'pry'
-gem 'mp3info'
-gem 'aws-sdk'
-gem 'jekyll-lunr-js-search', git: 'https://github.com/ashfurrow/jekyll-lunr-js-search.git', branch: 'v2'
-
-group :distribution do
-  gem 'danger'
+group :jekyll_plugins do
+    gem "jekyll-algolia"
 end
+

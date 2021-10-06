@@ -1,33 +1,44 @@
 ---
 layout: default
-exclude_from_search: true
 ---
 
-<div id="search-container">
-  <div class="entries">
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+{% include page__hero.html %}
+{% endif %}
+
+{% if page.url != "/" and site.breadcrumbs %}
+{% unless paginator %}
+{% include breadcrumbs.html %}
+{% endunless %}
+{% endif %}
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <div class="archive">
+    {% unless page.header.overlay_color or page.header.overlay_image %}
+    <h1 id="page-title" class="page__title">{{ page.title }}</h1>
+    {% endunless %}
+
+    {{ content }}
+
+    {%- assign search_provider = site.search_provider | default: "lunr" -%}
+    {%- case search_provider -%}
+    {%- when "lunr" -%}
+    <input type="text" id="search" class="search-input" tabindex="-1"
+      placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: 'Enter your search term...' }}" />
+    <div id="results" class="results"></div>
+    {%- when "google" -%}
+    <form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
+      <input type="text" id="cse-search-input-box-id" class="search-input" tabindex="-1"
+        placeholder="{{ site.data.ui-text[site.locale].search_placeholder_text | default: 'Enter your search term...' }}" />
+    </form>
+    <div id="results" class="results">
+      <gcse:searchresults-only></gcse:searchresults-only>
+    </div>
+    {%- when "algolia" -%}
+    <div class="search-searchbar"></div>
+    <div class="search-hits"></div>
+    {%- endcase -%}
   </div>
 </div>
-
-<script type="text/javascript">
-  $(function() {
-    $('#search-query').focus().lunrSearch({
-      indexUrl  : '/javascripts/index.json',  // url for the .json file containing search index data
-      results   : '#search-container',        // selector for containing search results element
-      template  : '#search-results-template', // selector for Mustache.js template
-    });
-  });
-</script>
-
-
-{% raw %}
-<script id="search-results-template" type="text/mustache">
-  <h2>Search results for &ldquo;{{query}}&rdquo;</h2>
-  <ul>
-    {{#entries}}
-      <li>
-        <a href="{{url}}">{{title}}</a> - {{#date}}<small><time datetime="{{pubdate}}" pubdate>{{displaydate}}</time></small>{{/date}}
-      </li>
-    {{/entries}}
-  </ul>
-</script>
-{% endraw %}
