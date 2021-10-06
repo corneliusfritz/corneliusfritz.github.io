@@ -32,7 +32,6 @@ To do so, I am signing this object:
       ]
     },
     "service": {
-      "hostname": "www.eskinasy.com",
       "protocol": "https:"
     },
     "type": "web_service_binding",
