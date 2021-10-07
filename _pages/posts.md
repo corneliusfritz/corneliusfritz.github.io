@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /posts/
-title: &title "News Archive"
+title: &title "News"
 header:
   overlay_image: /assets/images/Untitled.jpg
   overlay_filter: 0.5

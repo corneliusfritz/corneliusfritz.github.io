@@ -24,7 +24,7 @@ github_username: corneliusfritz
 linkedin_username: cornelius-fritz
 
 logo: "/images/logo.png"
-search: true #, false (default)
+search: false #, false (default)
 logo: /assets/images/logo.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 excerpt: "A nice background picture"
 header:
@@ -33,8 +33,8 @@ header:
 masthead_title: " " # overrides the website title displayed in the masthead, use " " for no title
 #atom_feed:
 #  path: # blank (default) uses feed.xml
-search: true #false (default)
-search_full_content: true #false (default)
+search: false #false (default)
+search_full_content: false #false (default)
 search_provider: algolia # lunr (default), algolia, google
 algolia:
   application_id:  # YOUR_APPLICATION_ID
@@ -146,7 +146,7 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 10 # amount of posts to show
+paginate: 3 # amount of posts to show
 paginate_path: /page:num/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
@@ -210,7 +210,7 @@ defaults:
   # _posts
   - scope:
       path: ""
-      type: posts
+      type: about
     values:
       layout: single
       author_profile: true
