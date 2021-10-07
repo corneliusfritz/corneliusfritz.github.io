@@ -1,5 +1,5 @@
 ---
-title: Paper accepted at JRSSA
+title: Paper accepted at International Interactions 
 layout: single
 header:
   overlay_image: /assets/images/picture_2.jpeg
