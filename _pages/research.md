@@ -11,6 +11,15 @@ classes: wide
 author_profile: true  
 ---
 
+Research Interest
+---------------
+
++ Dynamic Social Network Analysis 
++ Relational Event Models
++ Semiparametric Smoothing Methods  
++ Scalable optimization and its Statistical Properties   
++ Dynamic Modelling based on Markov Processes or Markov Chains 
+
 
 Publications
 ---------------
