@@ -3,7 +3,7 @@ main:
     url: /about/
   - title: "News Archive"
     url: /posts/
-  - title: "Publications, Software & Workshops"
-    url: /publications/
+  - title: "Research"
+    url: /research/
   - title: "Curriculum Vitae"
     url: /cv/
