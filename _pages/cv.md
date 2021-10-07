@@ -11,6 +11,16 @@ classes: wide
 author_profile: true  
 ---
 
+Teaching Experience
+---------------
+
++ Seminar on *Statistical Analysis of Social Networks*(Lecturer and Supervisor)
++ Seminar on *Complex Networks: Community Detection and Dynamics*(Lecturer and Supervisor)
++ Statistical Inference 2 for Master (Trainer)
++ Statistical Inference 1 for Master (Trainer)
++ Introduction to R for Bachelor (Lecturer)
++ Generalized Linear Models for Bachelor (Tutor)
+
 Work Experience
 ---------------
 __2020 - today__<br/>
@@ -51,4 +61,6 @@ B.Sc. in Statistcs
 
 __2013__<br/>
 Abitur (high school graduation), Stadt. Heinrich-Heine-Gymnasium, Munich
+
+
 

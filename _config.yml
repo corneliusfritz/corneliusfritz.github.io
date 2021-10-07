@@ -71,7 +71,7 @@ author:
   links:
     - label: "Mail"
       icon: "fas fa-fw fa-envelope-square"
-      url: "cornelius.fritz@stat.uni-muenchen.de"
+      url: "mailto:cornelius.fritz@stat.uni-muenchen.de"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/cornelius_fritz"
