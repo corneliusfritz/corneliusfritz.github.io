@@ -3,7 +3,7 @@ permalink: /research/
 layout: single
 title: "Research"
 header:
-  overlay_image: /assets/images/IMG_0784.JPG
+  overlay_image: /assets/images/picture_2.jpeg
   overlay_filter: 0.5
 show_overlay_title: true
 share: false
