@@ -13,7 +13,7 @@ author_profile: true
 
 Work Experience
 ---------------
-__10.2014 - today__<br/>
+__2020 - today__<br/>
 Department of Statistics, LMU Munich, Germany<br/>
 Research Assistant
 
