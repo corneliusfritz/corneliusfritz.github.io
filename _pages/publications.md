@@ -1,9 +1,9 @@
 ---
 permalink: /publications/
 layout: single
-title: "Publications, Software and Workshops"
+title: "Research"
 header:
-  overlay_image: /assets/images/changcheng.jpg
+  overlay_image: /assets/images/background.JPG
   overlay_filter: 0.5
 show_overlay_title: true
 share: false
@@ -11,39 +11,44 @@ classes: wide
 author_profile: true  
 ---
 
+
 Publications
 ---------------
 
-I try to keep publications up to date on my [Google Scholar profile](https://scholar.google.de/citations?user=_DYguksAAAAJ).
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2021):*The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model*, International Interactions (to appear,[arXiv](https://arxiv.org/abs/2104.02705))
++ Fritz C. and Kauermann G.  (2021):*On the Interplay of Regional Mobility, Social Connectedness, and the Spread of COVID-19 in Germany*, Journal of Royal Statistical Society, Series A (to appear,[arXiv](https://arxiv.org/abs/2008.03013))
++ Fritz C., Thurner P. W. and Kauermann G. (2021):*Separable and Semiparametric Network-based Counting Processes applied to the International Combat Aircraft Trades*, Network Science ([OnlineFirst](https://www.cambridge.org/core/journals/network-science/article/separable-and-semiparametric-networkbased-counting-processes-applied-to-the-international-combat-aircraft-trades/0D57EC7B7E1775B0BEF72BDE101E507F))
++ Fritz C., Lebacher M. and Kauermann G. (2020):*Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time*, Statistica Neerlandica, Vol. 74, No. 3, 275-299 ([Link](https://onlinelibrary.wiley.com/doi/full/10.1111/stan.12198))
++ Baumann S. A., Fritz C.,&nbsp;Mueller R. S. (2020):*Food antigen-specific IgE in dogs with suspected food hypersensitivity*, Tier&auml;rztliche Praxis Ausgabe K: Kleintiere/Heimtiere, Vol. 48, No. 6, 395-402 ([Link](https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-1274-9210))
 
 
-Software (R-packages)
+Preprints
+---------------
++ R&uuml;gamer D., Kolb C., Fritz C., Pfisterer F., Bischl B., Shen R., Bukas C., Barros de Andrade e Sousa L., Thalmeier D., Baumann P., Klein N., M&uuml;ller C.L. (2021):*deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression*([arXiv](https://arxiv.org/abs/2104.02705), under review)
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2021):*All that Glitters is not Gold: Modeling Relational Events with Measurement Errors*([arXiv](https://arxiv.org/abs/2109.10348), under review)
++ Berger U., Fritz C., Kauermann G.  (2021):*Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht*([Technical Report.](https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf), under review)
++ Fritz C.$\*$, Dorigatti E.$\*$, R&uuml;gamer D. (2021):*Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany*([arXiv](https://arxiv.org/abs/2101.00661), under review)
+
+Theses
+---------------
++ [Dynamic Social Network Models for Time-Stamped Data](https://epub.ub.uni-muenchen.de/60292/). Master Thesis, LMU Munich
++ [Explorative Datenvisualisierung mit Shiny in R.](https://epub.ub.uni-muenchen.de/29575/). Bachelor Thesis, LMU Munich
+
+
+Talks
 ---------------
 
-+ `deepregression` *Semi-Strutured Deep Distrobutional Regression* on [Github](https://github.com/davidruegamer/deepregression/) and soon CRAN.
-+ `selfmade`  *SELective inference For Mixed and ADditive model Estimators* on [CRAN](https://cran.r-project.org/web/packages/selfmade/index.html) and [Github](https://github.com/davidruegamer/selfmade/)
-+ `FDboost`  *Boosting Functional Regression Models* on [CRAN](https://cran.r-project.org/web/packages/FDboost/index.html) and [Github](https://github.com/boost-R/FDboost)
-+ `cAIC4`  *Conditional Akaike Information Criterion for 'lme4'* on [CRAN](https://cran.r-project.org/web/packages/cAIC4/index.html) and [Github](https://github.com/davidruegamer/cAIC4dev)
-+ `iboost`  *Inference for Model-based Boosting* on [Github](https://github.com/davidruegamer/iboost)
-+ `coinflibs`  *Conditional Inference after Likelihood-based Selection* on [Github](https://github.com/davidruegamer/coinflibs)
-+ `effortless`  *efficient operations on row-wise tensor product linked evaluations with special structures* on [Github](https://github.com/davidruegamer/effortless)
-
-
-
-Talks, Workshops and Research Stays
----------------
-
-+ __18. March '21 (Leuven, BE)__ Sampling-based Approaches for Valid Post-Selection Inference *Seminar Series in Statistics, KU Leuven*
-+ __28. October '20 (Dortmund, GER)__ Semi-Structured Deep Distributional Regression. *Regression approaches for large-scale high-dimensional data, Dortmund Data Science Centers*
-+ __15. October '20 (Bonn, GER)__ Semi-Structured Deep Distributional Regression. *(Virtual) Institutskolloquium IMBIE*
-+ __29. July '20 (Munich, GER)__ Semi-Structured Deep Distributional Regression. *Virtual Workshop by the Munich Center of Machine Learning*
-+ __26. February '20 (Munich, GER)__ Semi-Structured Deep Distributional Learning. *Institutskolloquium, Department of Statistics, LMU Munich*
-+ __January '20 (Xiamen, CHN)__ Short research stay and exchange with several people involved in the DFG RTG group [High Dimensional Nonstationary Time Series](https://www.wiwi.hu-berlin.de/de/forschung/irtg/)  
-+ __21. March '19 (Munich, GER)__ Inference for L2-Boosting, DAGSTAT 2019, Machine Learning Session
-+ __15. June '18 (Munich, GER)__ Estimation, Model Choice and Subsequent Inference: Methods for Additive and Functional Regression Models. *Doctoral Dissertation Defense*
-+ __26. - 28. March 2018 (Frankfurt a.M., GER)__ Boosting Factor-Specific Functional Historical Models. *Award Session, 64th Biometric Colloquium*
-+ __16. - 18. December 2017 (London, UK)__ Selective Inference for L2-Boosting. *10th International Conference of the ERCIM WG on Computational and Methodological Statistics (CMStatistics 2017)*
-+ __23. - 25. July 2017 (Reisensburg, GER)__ Boosting functional regression models with FDboost. *Statistical Computing 2017*
-+ __9. - 11. December 2016 (Seville, ESP)__ Boosting Factor-Specific Functional Historical Models. *9th International Conference of the ERCIM WG on Computational and Methodological Statistics (CMStatistics 2016)*
-+ __30. November 2016 (Munich, GER)__ Selective Inference for L2-Boosting. *Institutskolloquium, Department of Statistics LMU, Munich*
++ __8.10.2020 (Online)__ The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model. *ViEWS Workshop*
++ __24. - 25.9.2020 (Online)__ Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time
+. *COSTNET 2020*
++ __10.6.2020 (Online)__ Regional Mobility, Social Connectedness,and the Spread of COVID-19 in Germany. *COSTNET COVID-19 Conference*
++ __13. - 17.9.2020 (Online)__ A Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2017
+. *Sunbelt Virtual Conference*
++ __9. - 11.10.2019 (Bilbao, ES)__ A Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2017
+. *COSTNET19 Conference*
++ __9. - 11.9.2019 (Zurich, CH)__ A Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2017
+. *EUSN2019 - Europen Conference on Social Networks*
++ __6. - 7.9.2019 (Zurich, CH)__ Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time
+. *Satellite meeting on Relational Event Model: EUSN2019 - Europen Conference on Social Networks*
++ __24.4.2019 (Munich, GER)__ A Separable Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2018. *Summer Retreat, Department of Statistics LMU, Munich*
 

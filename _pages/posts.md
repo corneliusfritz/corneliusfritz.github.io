@@ -3,7 +3,7 @@ layout: archive
 permalink: /posts/
 title: &title "News Archive"
 header:
-  overlay_image: /assets/images/changcheng.jpg
+  overlay_image: /assets/images/background.JPG
   overlay_filter: 0.5
 show_overlay_title: true
 pagination:

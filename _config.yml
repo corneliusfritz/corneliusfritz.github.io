@@ -18,7 +18,7 @@ title: "Cornelius Fritz"
 masthead_title: "Cornelius Fritz"
 description: "Personal homepage of Cornelius Fritz"
 baseurl: # the optional subpath of your site, e.g. "/blog"
-url: https://davidruegamer.github.io
+url: https://corneliusfritz.github.io
 twitter_username: cornelius_fritz
 github_username: corneliusfritz
 linkedin_username: cornelius-fritz
@@ -26,10 +26,10 @@ linkedin_username: cornelius-fritz
 logo: "/images/logo.png"
 search: true #, false (default)
 logo: /assets/images/logo.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-excerpt: "The Great Wall near Beijing."
+excerpt: "A nice background picture"
 header:
   overlay_image: /assets/images/background.JPG
-  overlay_filter: 0.15
+  overlay_filter: 0.9
 masthead_title: " " # overrides the website title displayed in the masthead, use " " for no title
 #atom_feed:
 #  path: # blank (default) uses feed.xml

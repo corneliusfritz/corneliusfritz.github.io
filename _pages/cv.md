@@ -3,7 +3,7 @@ permalink: /cv/
 layout: single
 title: "Curriculum Vitae"
 header:
-  overlay_image: /assets/images/changcheng.jpg
+  overlay_image: /assets/images/background.JPG
   overlay_filter: 0.5
 show_overlay_title: true
 share: false
@@ -52,22 +52,3 @@ B.Sc. in Statistcs
 __2013__<br/>
 Abitur (high school graduation), Stadt. Heinrich-Heine-Gymnasium, Munich
 
-
-Professional Activities
----------------
-
-* Research Group Leader for 2 Subgroups with up to 12 Ph.D. Students and 4 Postdocs
-* Co-Supervising 9 Ph.D. Students
-* Reviewer for 
-    + several Journals including Artificial  Intelligence  in  Medicine,  Journal  of  Graphical  and  Computational  Statistics, Biometrika, Biostatistics, Statistics and Computing, Computational Statistics & Data Analysis
-    + Conferences such as the UAI 2021 (I was among the [Top Reviewers](https://www.auai.org/uai2021/top_program_committee)), ECML-PKKD 2020, 2021 (Research Track), AAAI 2020, AISTATS 2020, ICML 2020, IJCAI 2019
-
-
-Awards, Honors and Fundings
----------------
-
-* Doctoral Dissertation Defense with *summa cum laude*
-* Gustav-Adolf-Lienert Award
-* Top 10% of graduating students (Master's)
-* Top 10% of graduating students (Bachelor's)
-* Student loan refund
