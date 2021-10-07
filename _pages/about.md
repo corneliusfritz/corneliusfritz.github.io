@@ -11,8 +11,16 @@ classes: wide
 author_profile: true  
 ---
 
-Hi everyone,
+Hello! 
 
-I am currently interim professor for Data Science at the LMU Munich. Before I was a Lecturer at the [Chair of Statistical Learning and Data Science](https://www.slds.stat.uni-muenchen.de/people/ruegamer/). I there lead the Subgroup [Classical Machine Learning](https://www.slds.stat.uni-muenchen.de/research/machine-learning.html) and [Deep Learning](https://www.slds.stat.uni-muenchen.de/research/deep-learning.html). Before I worked in the [Biostatistics Working Group](https://www.biostat.statistik.uni-muenchen.de/index.html) led by Prof. Dr. Greven, were I was partly funded by the [Emmy Noether project 'Statistical Methods for Longitudinal Functional Data'](https://www.biostat.statistik.uni-muenchen.de/forschung/emmy_noether_pup/index.html). I am also part of the organizing team [Applied R Munich](https://www.meetup.com/de-DE/Applied-R-Munich/) and (co-)author of several R packages (see Software section or [my github profile](https://github.com/davidruegamer)).
+I am Cornelius Fritz and currently a PhD Student under G\"oran Kauermann working on all kinds of things remotely related to networks. My position is partly funded by the DFG project DFG Project ["International Arms Trade: A Network Approach"](https://www.arms-trade-research.uni-muenchen.de/index.html) and the  Munich Center for Machine Learning[(MCML)](https://mcml.ai/). In this context, my research mainly revolves around analyzing dynamic networks to answer questions posed within substantive sciences, e.g., Political Science and Sociology, by novel data analysis techniques that combine statistical and machine learning thinking. My current research interest are: 
 
-My current research involves the development of uncertainty quantification approaches for statistical and machine learning models and unification of concepts from statistics and deep learning. 
+-Dynamic Social Network Analysis 
+-Relational Event Models
+-Semiparametric Smoothing Methods  
+-Scalable optimization and its Statistical Properties   
+-Dynamic Modelling based on Markov Processes or Markov Chains 
+
+Prior to this I received my B.Sc. and M.S.c degree in Statistics at the LMU Munich in 2016 and 2018. Now he is a Ph.D. student of G\"oran Kauermann at the LMU Munich funded by the \emph{Munich Center for Machine Learning} (MCML). 
+
+

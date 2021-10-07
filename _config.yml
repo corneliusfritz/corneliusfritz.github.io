@@ -14,21 +14,21 @@
 # remote_theme           : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 lang: en-US
-title: "Dr. David R&uuml;gamer"
-masthead_title: "Dr. David R&uuml;gamer"
-description: "Personal homepage of Dr. David R&uuml;gamer"
+title: "Cornelius Fritz"
+masthead_title: "Cornelius Fritz"
+description: "Personal homepage of Cornelius Fritz"
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: https://davidruegamer.github.io
-twitter_username: DavidRuegamer
-github_username: davidruegamer
-linkedin_username: david-ruegamer
+twitter_username: cornelius_fritz
+github_username: corneliusfritz
+linkedin_username: cornelius-fritz
 
-logo: "/images/ears.jpg"
+logo: "/images/logo.png"
 search: true #, false (default)
 logo: /assets/images/logo.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 excerpt: "The Great Wall near Beijing."
 header:
-  overlay_image: /assets/images/changcheng.jpg
+  overlay_image: /assets/images/background.JPG
   overlay_filter: 0.15
 masthead_title: " " # overrides the website title displayed in the masthead, use " " for no title
 #atom_feed:
@@ -58,29 +58,30 @@ social:
   type: # Person or Organization (defaults to Person)
   name: # If the user or organization name differs from the site's name
   links:
-    - "https://www.linkedin.com/in/david-ruegamer"
-    - "https://github.com/davidruegamer"
+    - "https://https://www.linkedin.com/in/cornelius-fritz-1715816b"
+    - "https://github.com/corneliusfritz"
+     - "https://twitter.com/cornelius_fritz?lang=de"
   # An array of links to social media profiles
 
 # Site Author
 author: 
-  name: "Dr. David R&uuml;gamer"
+  name: "Cornelius Fritz"
   avatar: /assets/images/ears.jpg
-  bio: "I'm currently interim professor for Data Science at the LMU Munich. My research is at the intersection of statistics, machine and deep learning."
+  bio: "PhD student at LMU under Göran Kauermann in statistics working on social network analysis"
   location: "Munich, Germany"
   links:
     - label: "Github"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/davidruegamer"
+      url: "https://github.com/corneliusfritz"
     - label: "LinkedIn"
       icon: "fab fa-linkedin-in"
-      url: "https://www.linkedin.com/in/david-ruegamer/"
+      url: "https://www.linkedin.com/in/cornelius-fritz-1715816b"
     - label: "University"
       icon: "fas fa-fw fa-link"
-      url: "https://www.slds.stat.uni-muenchen.de/people/ruegamer/"
+      url: "https://www.en.wisostat.statistik.uni-muenchen.de/personen/doktoranden/fritz/index.html"
     - label: "Google Scholar"
       icon: "fab fa fa-graduation-cap"
-      url: "https://scholar.google.de/citations?user=_DYguksAAAAJ"
+      url: "https://scholar.google.de/citations?user=0X7D4mwAAAAJ&hl=de"
 
 # Reading Files
 include:
