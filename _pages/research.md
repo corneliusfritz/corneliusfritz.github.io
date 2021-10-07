@@ -1,5 +1,5 @@
 ---
-permalink: /publications/
+permalink: /research/
 layout: single
 title: "Research"
 header:
