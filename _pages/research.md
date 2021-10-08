@@ -11,7 +11,7 @@ classes: wide
 author_profile: true  
 ---
 
-Research Interest
+Research Interests
 ---------------
 
 + Dynamic Social Network Analysis 
