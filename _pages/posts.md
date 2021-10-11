@@ -4,7 +4,7 @@ permalink: /posts/
 title: &title "News"
 header:
   overlay_image: /assets/images/Untitled.jpg
-  overlay_filter: 0.5
+  overlay_filter: 0.15
 show_overlay_title: true
 pagination:
   enabled: true

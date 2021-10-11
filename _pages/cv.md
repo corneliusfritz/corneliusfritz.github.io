@@ -4,7 +4,7 @@ layout: single
 title: "Curriculum Vitae"
 header:
   overlay_image: /assets/images/IMG_0049.JPG
-  overlay_filter: 0.5
+  overlay_filter: 0.15
 show_overlay_title: true
 share: false
 classes: wide
