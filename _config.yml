@@ -19,7 +19,7 @@ masthead_title: "Cornelius Fritz"
 description: "Personal homepage of Cornelius Fritz"
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: https://corneliusfritz.github.io
-twitter_username: cornelius_fritz
+twitter_username: cornelius_fritz    
 github_username: corneliusfritz
 linkedin_username: cornelius-fritz
 
