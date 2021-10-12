@@ -1,14 +1,13 @@
 ---
 permalink: /research/
 layout: single
+author_profile: true
 title: "Research"
+tagby: false
 header:
   overlay_image: /assets/images/IMG_0053.JPG
   overlay_filter: 0.15
-show_overlay_title: true
-share: false
-classes: wide
-author_profile: true  
+  
 ---
 
 Research Interests
