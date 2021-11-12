@@ -43,7 +43,7 @@ Undergraduate Assistant
 Educational Background
 ---------------
 
-__2018 - today__<br/>
+__2019 - today__<br/>
 LMU Munich, Munich, Germany<br/>
 Ph.D. student,
 

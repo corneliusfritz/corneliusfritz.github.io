@@ -17,38 +17,38 @@ Research Interests
   + Relational Event Models
   + Temporal Exponential Random Graph Models 
   + Stochastic Actor-Oriented Models
-  + Community Detection 
+  + Stochastic Block Models 
   + Latent Space Models 
-  + Application of Semiparametric Smoothing Methods 
 + Optimization and its statistical Properties
   + Variants of EM Algorithms 
   + Interrelations between Multiple Imputation, Expectation Maximization, and Data Augmentation Algorithms 
-  + Quantification of different types of uncertainties  
+  + Quantification of different Types of Uncertainties    
   + Applications to Latent Variable Models, models including intractable constants, and dynamic network models 
 + General Statistical Modelling 
   + Combination of Statistical and Deep Learning Methods
-  + Models with Missing Data 
-  + Epidemiological Models (Nowcasting, Backprojection, )  
+  + Models including Missing Data
+  + Semiparametric Smoothing Methods 
+  + Epidemiological Models (Nowcasting, Backprojection, ...)  
   + Models based on Counting Processes
-  + Decomposition of different types of uncertainties  
-
+  + Decomposition of different Types of Uncertainties  
+  
 
 Publications
 ---------------
 
-+ Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2021):*The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model*, International Interactions (to appear,[arXiv](https://arxiv.org/abs/2104.02705))
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2021): *The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model*, International Interactions (to appear,[arXiv](https://arxiv.org/abs/2104.02705))
 + Fritz C. and Kauermann G.  (2021):*On the Interplay of Regional Mobility, Social Connectedness, and the Spread of COVID-19 in Germany*, Journal of Royal Statistical Society, Series A (to appear,[arXiv](https://arxiv.org/abs/2008.03013))
-+ Fritz C., Thurner P. W. and Kauermann G. (2021):*Separable and Semiparametric Network-based Counting Processes applied to the International Combat Aircraft Trades*, Network Science, Vol. 9, No. 3, 291-311 ([Link](https://www.cambridge.org/core/journals/network-science/article/separable-and-semiparametric-networkbased-counting-processes-applied-to-the-international-combat-aircraft-trades/0D57EC7B7E1775B0BEF72BDE101E507F))
-+ Fritz C., Lebacher M. and Kauermann G. (2020):*Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time*, Statistica Neerlandica, Vol. 74, No. 3, 275-299 ([Link](https://onlinelibrary.wiley.com/doi/full/10.1111/stan.12198))
-+ Baumann S. A., Fritz C.,&nbsp;Mueller R. S. (2020):*Food antigen-specific IgE in dogs with suspected food hypersensitivity*, Tier&auml;rztliche Praxis Ausgabe K: Kleintiere/Heimtiere, Vol. 48, No. 6, 395-402 ([Link](https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-1274-9210))
++ Fritz C., Thurner P. W. and Kauermann G. (2021): *Separable and Semiparametric Network-based Counting Processes applied to the International Combat Aircraft Trades*, Network Science, Vol. 9, No. 3, 291-311 ([Link](https://www.cambridge.org/core/journals/network-science/article/separable-and-semiparametric-networkbased-counting-processes-applied-to-the-international-combat-aircraft-trades/0D57EC7B7E1775B0BEF72BDE101E507F))
++ Fritz C., Lebacher M. and Kauermann G. (2020): *Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time*, Statistica Neerlandica, Vol. 74, No. 3, 275-299 ([Link](https://onlinelibrary.wiley.com/doi/full/10.1111/stan.12198))
++ Baumann S. A., Fritz C.,&nbsp;Mueller R. S. (2020): *Food antigen-specific IgE in dogs with suspected food hypersensitivity*, Tier&auml;rztliche Praxis Ausgabe K: Kleintiere/Heimtiere, Vol. 48, No. 6, 395-402 ([Link](https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-1274-9210))
 
 
 Preprints
 ---------------
-+ R&uuml;gamer D., Kolb C., Fritz C., Pfisterer F., Bischl B., Shen R., Bukas C., Barros de Andrade e Sousa L., Thalmeier D., Baumann P., Klein N., M&uuml;ller C.L. (2021):*deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression*([arXiv](https://arxiv.org/abs/2104.02705), under review)
-+ Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2021):*All that Glitters is not Gold: Modeling Relational Events with Measurement Errors*([arXiv](https://arxiv.org/abs/2109.10348), under review)
++ R&uuml;gamer D., Kolb C., Fritz C., Pfisterer F., Bischl B., Shen R., Bukas C., Barros de Andrade e Sousa L., Thalmeier D., Baumann P., Klein N., M&uuml;ller C.L. (2021): *deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression* ([arXiv](https://arxiv.org/abs/2104.02705), under review)
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2021): *All that Glitters is not Gold: Modeling Relational Events with Measurement Errors* ([arXiv](https://arxiv.org/abs/2109.10348), under review)
 + Berger U., Fritz C., Kauermann G.  (2021):*Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht*([Technical Report.](https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf), under review)
-+ Fritz C., Dorigatti E., R&uuml;gamer D. (2021): *Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany*([arXiv](https://arxiv.org/abs/2101.00661), under review) 
++ Fritz C., Dorigatti E., R&uuml;gamer D. (2021): *Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany* ([arXiv](https://arxiv.org/abs/2101.00661), under review) 
 
 Theses
 ---------------

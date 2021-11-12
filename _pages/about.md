@@ -23,20 +23,20 @@ If you have any questions on some of my papers, want to discuss some research to
   + Relational Event Models
   + Temporal Exponential Random Graph Models 
   + Stochastic Actor-Oriented Models
-  + Community Detection 
+  + Stochastic Block Models 
   + Latent Space Models 
-  + Application of Semiparametric Smoothing Methods 
 + Optimization and its statistical Properties
   + Variants of EM Algorithms 
   + Interrelations between Multiple Imputation, Expectation Maximization, and Data Augmentation Algorithms 
-  + Quantification of different types of uncertainties  
+  + Quantification of different Types of Uncertainties    
   + Applications to Latent Variable Models, models including intractable constants, and dynamic network models 
 + General Statistical Modelling 
   + Combination of Statistical and Deep Learning Methods
-  + Models with Missing Data 
-  + Epidemiological Models (Nowcasting, Backprojection, )  
+  + Models including Missing Data
+  + Semiparametric Smoothing Methods 
+  + Epidemiological Models (Nowcasting, Backprojection, ...)  
   + Models based on Counting Processes
-  + Decomposition of different types of uncertainties  
+  + Decomposition of different Types of Uncertainties  
   
 
 
