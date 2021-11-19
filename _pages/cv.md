@@ -62,7 +62,7 @@ B.Sc. in Statistcs
 __2013__<br/>
 Abitur (high school graduation), Stadt. Heinrich-Heine-Gymnasium, Munich
 
-Download my CV 
+Download my <a href="/assets/pdf/cv_cornelius_fritz.pdf" target="_blank">CV</a>
 ---------------
-<a href="cornelisfritz.github.io/assets/pdf/cv_cornelius_fritz.pdf" target="_blank">PDF.</a>
+
 
