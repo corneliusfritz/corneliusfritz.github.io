@@ -23,18 +23,18 @@ Teaching Experience
 
 Work Experience
 ---------------
-__2020 - today__<br/>
+__2019 - today__<br/>
 Department of Statistics, LMU Munich, Germany<br/>
 Research Assistant
+
+__2018 - 2019__<br/>
+Department of Statistics, LMU Munich, Germany<br/>
+Tutor
 
 __2016 - 2019__<br/>
 Department of Statistics, LMU Munich, Germany<br/>
 Graduate Assistant
-
-__2017 - 2019__<br/>
-Department of Statistics, LMU Munich, Germany<br/>
-Tutor
-
+´
 __2015 - 2016__<br/>
 Department of Statistics, LMU Munich, Germany<br/>
 Undergraduate Assistant
@@ -62,5 +62,7 @@ B.Sc. in Statistcs
 __2013__<br/>
 Abitur (high school graduation), Stadt. Heinrich-Heine-Gymnasium, Munich
 
-
+Download my CV 
+---------------
+<a href="cornelisfritz.github.io/assets/pdf/cv_cornelius_fritz.pdf" target="_blank">PDF.</a>
 
