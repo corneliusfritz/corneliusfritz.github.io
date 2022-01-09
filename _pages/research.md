@@ -45,6 +45,9 @@ Publications
 
 Preprints
 ---------------
+
++ Fritz C., De Nicola G., Rave M., Weigert M., Khazaei Y., Berger U.,	K{\"u}chenhoff H., Kauermann G. (2022): *Statistical modelling of COVID-19 data: Putting Generalised Additive Models to work* ([arXiv](https://arxiv.org/abs/2201.02182), under review)
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2021): *All that Glitters is not Gold: Modeling Relational Events with Measurement Errors* ([arXiv](https://arxiv.org/abs/2109.10348), under review)
 + R&uuml;gamer D., Kolb C., Fritz C., Pfisterer F., Bischl B., Shen R., Bukas C., Barros de Andrade e Sousa L., Thalmeier D., Baumann P., Klein N., M&uuml;ller C.L. (2021): *deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression* ([arXiv](https://arxiv.org/abs/2104.02705), under review)
 + Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2021): *All that Glitters is not Gold: Modeling Relational Events with Measurement Errors* ([arXiv](https://arxiv.org/abs/2109.10348), under review)
 + Berger U., Fritz C., Kauermann G.  (2021):*Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht*([Technical Report.](https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf), under review)
