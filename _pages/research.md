@@ -36,14 +36,19 @@ Research Interests
 Publications
 ---------------
 
-+ Fritz C., Dorigatti E., R&uuml;gamer D. (2022): *Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany*, Scientific Reports ([link](https://www.nature.com/articles/s41598-022-07757-5)) 
-+ Berger U., Fritz C., Kauermann G.  (2022):*Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht*, Das Gesundheitswesen (to appear, [Technical Report.](https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf))
-+ Fritz C. and Kauermann G.  (2022):*On the Interplay of Regional Mobility, Social Connectedness, and the Spread of COVID-19 in Germany*, Journal of Royal Statistical Society, Series A, Vol. 185, No. 1, 291-311 ([link](https://rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12753))
-+ Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2021): *The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model*, International Interactions (OnlineFirst,[link](https://www.tandfonline.com/doi/full/10.1080/03050629.2022.1993210))
-+ Fritz C., Thurner P. W. and Kauermann G. (2021): *Separable and Semiparametric Network-based Counting Processes applied to the International Combat Aircraft Trades*, Network Science, Vol. 9, No. 3, 291-311 ([Link](https://www.cambridge.org/core/journals/network-science/article/separable-and-semiparametric-networkbased-counting-processes-applied-to-the-international-combat-aircraft-trades/0D57EC7B7E1775B0BEF72BDE101E507F))
-+ Fritz C., Lebacher M. and Kauermann G. (2020): *Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time*, Statistica Neerlandica, Vol. 74, No. 3, 275-299 ([Link](https://onlinelibrary.wiley.com/doi/full/10.1111/stan.12198))
-+ Baumann S. A., Fritz C.,&nbsp;Mueller R. S. (2020): *Food antigen-specific IgE in dogs with suspected food hypersensitivity*, Tier&auml;rztliche Praxis Ausgabe K: Kleintiere/Heimtiere, Vol. 48, No. 6, 395-402 ([Link](https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-1274-9210))
-
+<ol reversed>
+ <li>Fritz C., Dorigatti E., R&uuml;gamer D. (2022): *Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany*, Scientific Reports ([link](https://www.nature.com/articles/s41598-022-07757-5)) </li>
+  <li>Berger U., Fritz C., Kauermann G.  (2022):*Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht*, Das Gesundheitswesen (to appear, [Technical Report.](https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf))</li>
+  <li>Fritz C. and Kauermann G.  (2022):*On the Interplay of Regional Mobility, Social Connectedness, and the Spread of COVID-19 in Germany*, Journal of Royal Statistical Society, Series A, Vol. 185, No. 1, 291-311 ([link](https://rss.onlinelibrary.wiley.com/doi/10.1111/rssa.12753))
+</li>
+  <li>Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2021): *The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model*, International Interactions (OnlineFirst,[link](https://www.tandfonline.com/doi/full/10.1080/03050629.2022.1993210))
+</li>
+  <li>Fritz C., Thurner P. W. and Kauermann G. (2021): *Separable and Semiparametric Network-based Counting Processes applied to the International Combat Aircraft Trades*, Network Science, Vol. 9, No. 3, 291-311 ([Link](https://www.cambridge.org/core/journals/network-science/article/separable-and-semiparametric-networkbased-counting-processes-applied-to-the-international-combat-aircraft-trades/0D57EC7B7E1775B0BEF72BDE101E507F))</li>
+  <li>Fritz C., Lebacher M. and Kauermann G. (2020): *Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time*, Statistica Neerlandica, Vol. 74, No. 3, 275-299 ([Link](https://onlinelibrary.wiley.com/doi/full/10.1111/stan.12198))
+</li>
+ <li> Baumann S. A., Fritz C.,&nbsp;Mueller R. S. (2020): *Food antigen-specific IgE in dogs with suspected food hypersensitivity*, Tier&auml;rztliche Praxis Ausgabe K: Kleintiere/Heimtiere, Vol. 48, No. 6, 395-402 ([Link](https://www.thieme-connect.de/products/ejournals/abstract/10.1055/a-1274-9210))
+  </li>
+</ol>
 
 Preprints
 ---------------
