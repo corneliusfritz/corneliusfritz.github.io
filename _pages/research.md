@@ -38,7 +38,7 @@ Publications
 
 
 <ol reversed>
-   <li>Fritz, C., De Nicola, G., Gunther, F., Rügamer, D., Rave, M., Schneble, M., Bender, A., Weigert, M., Brinks, R., Hoyer, A., Berger, U., Küchenhoff, H., Kauermann, G.  (2022): <em>Challenges in Interpreting Epidemiological Surveillance Data - Experiences from Germany</em>, Jorunal of Computational and Graphical Statistics (to appear) </li>
+   <li>Fritz, C., De Nicola, G., Gunther, F., Rügamer, D., Rave, M., Schneble, M., Bender, A., Weigert, M., Brinks, R., Hoyer, A., Berger, U., Küchenhoff, H., Kauermann, G.  (2022): <em>Challenges in Interpreting Epidemiological Surveillance Data - Experiences from Germany</em>, Journal of Computational and Graphical Statistics (to appear) </li>
  <li>Fritz C., Dorigatti E., R&uuml;gamer D. (2022): <em>Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany</em>, Scientific Reports (
 <a href="https://www.nature.com/articles/s41598-022-07757-5">link</a>) </li>
   <li>Berger U., Fritz C., Kauermann G.  (2022):<em>Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht</em>, Das Gesundheitswesen (to appear, <a href="https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf">Technical Report</a>)</li>
@@ -56,9 +56,10 @@ Publications
 Preprints
 ---------------
 
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2022): *Exponential Random Graph Models for Dynamic Signed Networks: An Application to International Relations* ([arXiv](https://arxiv.org/abs/2205.13411), under review)
 + Fritz C., De Nicola G., Kevork S., Harhoff D., Kauermann G. (2022): *Modelling the large and dynamically growing bipartite network of German patents and inventor* ([arXiv](https://arxiv.org/abs/2201.09744), under review)
 + Fritz C., De Nicola G., Rave M., Weigert M., Khazaei Y., Berger U.,	K&uuml;chenhoff H., Kauermann G. (2022): *Statistical modelling of COVID-19 data: Putting Generalised Additive Models to work* ([arXiv](https://arxiv.org/abs/2201.02182), provisionally accepted in Statistical Modelling)
-+ Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2021): *All that Glitters is not Gold: Relational Events Models with Spurious Events* ([arXiv](https://arxiv.org/abs/2109.10348), in revision)
++ Fritz C., Mehrl M., Thurner P. W., Kauermann G.   (2022): *All that Glitters is not Gold: Relational Events Models with Spurious Events* ([arXiv](https://arxiv.org/abs/2109.10348), in revision)
 + R&uuml;gamer D., Kolb C., Fritz C., Pfisterer F., Bischl B., Shen R., Bukas C., Barros de Andrade e Sousa L., Thalmeier D., Baumann P., Klein N., M&uuml;ller C.L. (2021): *deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression* ([arXiv](https://arxiv.org/abs/2104.02705), provisionally accepted in Journal of Statistical Software)
 
 
