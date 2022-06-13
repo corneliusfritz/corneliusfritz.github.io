@@ -38,7 +38,8 @@ Publications
 
 
 <ol reversed>
-   <li>Fritz, C., De Nicola, G., Gunther, F., Rügamer, D., Rave, M., Schneble, M., Bender, A., Weigert, M., Brinks, R., Hoyer, A., Berger, U., Küchenhoff, H., Kauermann, G.  (2022): <em>Challenges in Interpreting Epidemiological Surveillance Data - Experiences from Germany</em>, Journal of Computational and Graphical Statistics (to appear) </li>
+   <li>Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2022): <em>All that Glitters is not Gold: Relational Events Models with Spurious Events</em>, Network Science (to appear) </li>
+   <li>Fritz, C., De Nicola, G., Gunther, F. Rügamer, D., Rave, M., Schneble, M., Bender, A., Weigert, M., Brinks, R., Hoyer, A., Berger, U., Küchenhoff, H., Kauermann, G.  (2022): <em>Challenges in Interpreting Epidemiological Surveillance Data - Experiences from Germany</em>, Journal of Computational and Graphical Statistics (to appear) </li>
  <li>Fritz C., Dorigatti E., R&uuml;gamer D. (2022): <em>Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany</em>, Scientific Reports (
 <a href="https://www.nature.com/articles/s41598-022-07757-5">link</a>) </li>
   <li>Berger U., Fritz C., Kauermann G.  (2022):<em>Eine statistische Analyse des Effekts von verpflichtenden Tests an Schulen mit Pr&auml;senzunterricht im Vergleich zum Distanzunterricht</em>, Das Gesundheitswesen (to appear, <a href="https://epub.ub.uni-muenchen.de/76005/1/tr000.pdf">Technical Report</a>)</li>
