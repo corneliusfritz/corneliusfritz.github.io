@@ -36,8 +36,9 @@ Research Interests
 Publications
 ---------------
 
+
 <ol reversed>
-<li> Fritz C., De Nicola G., Rave M., Weigert M., Khazaei Y., Berger U.,	K&uuml;chenhoff H., Kauermann G. (2022): <em>Statistical modelling of COVID-19 data: Putting Generalised Additive Models to work</em>, Statistical Modelling (to appear, <a href="https://arxiv.org/abs/2201.02182">arXiv</a>)
+<li> Fritz C., De Nicola G., Rave M., Weigert M., Khazaei Y., Berger U.,	K&uuml;chenhoff H., Kauermann G. (2022): <em>Statistical modelling of COVID-19 data: Putting Generalised Additive Models to work</em>, Statistical Modelling (to appear, <a href="https://arxiv.org/abs/2201.02182">arXiv</a>)</li>
    <li>Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2022): <em>All that Glitters is not Gold: Relational Events Models with Spurious Events</em>, Network Science  (to appear, <a href="https://arxiv.org/abs/2109.10348">arXiv</a>) </li>
    <li>Fritz, C., De Nicola, G., Gunther, F. Rügamer, D., Rave, M., Schneble, M., Bender, A., Weigert, M., Brinks, R., Hoyer, A., Berger, U., Küchenhoff, H., Kauermann, G.  (2022): <em>Challenges in Interpreting Epidemiological Surveillance Data - Experiences from Germany</em>, Journal of Computational and Graphical Statistics (to appear) </li>
  <li>Fritz C., Dorigatti E., R&uuml;gamer D. (2022): <em>Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany</em>, Scientific Reports (
