@@ -38,9 +38,9 @@ Research Interests
 
 Publications
 ---------------
-<div id="refs"></div>
 
-
+<script src="https://bibbase.org/show?bib=https://corneliusfritz.github.io/_pages/library_publ.bib&jsonp=1"></script>
+        
 Preprints
 ---------------
 
