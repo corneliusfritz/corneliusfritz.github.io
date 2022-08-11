@@ -2,10 +2,10 @@
 permalink: /research/
 layout: single
 author_profile: true
-bibliography: library_publ.bib  
-nocite: '@*'
+#bibliography: library_publ.bib  
+#nocite: '@*'
 title: "Research"
-csl: 3d-research.csl
+#csl: 3d-research.csl
 tagby: false
 header:
   overlay_image: /assets/images/IMG_0053.JPG
@@ -39,9 +39,6 @@ Research Interests
 Publications
 ---------------
 
-{% cite fritz2022 %}
-
-{% bibliography --cited %}
 
         
 Preprints
