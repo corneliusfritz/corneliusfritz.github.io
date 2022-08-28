@@ -209,6 +209,33 @@ compress_html:
   ignore:
     envs: development
 
+
+
+scholar:
+  locale: en
+
+  sort_by: none
+  order: ascending
+
+  group_by: none
+  group_order: ascending
+
+  source: ./_bibliography
+  bibliography: references.bib
+  bibliography_template: ""
+
+  replace_strings: true
+  join_strings:    true
+  style: _bibliography/3d-research.csl
+  use_raw_bibtex_entry: false
+
+  details_dir:    bibliography
+  details_layout: bibtex.html
+  details_link:   Details
+
+  query: "@*"
+
+
 # Defaults
 defaults:
   # _posts
