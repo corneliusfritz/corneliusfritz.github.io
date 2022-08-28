@@ -39,8 +39,8 @@ Research Interests
 Publications
 ---------------
 
-{% bibliography -q @article %}
-        
+{% bibliography %}
+
 Preprints
 ---------------
 
