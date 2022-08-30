@@ -7,7 +7,7 @@ author_profile: true
 title: "Research"
 #csl: 3d-research.csl
 tagby: false
-years: [2020, 2019, 2018, 2017, 2016, 2015, 2014]
+years: [2022, 2021, 2020]
 toc: true
 toc_label: "Year"
 toc_icon: "calendar"
