@@ -7,6 +7,8 @@ gem "minimal-mistakes-jekyll"
 group :jekyll_plugins do
   gem "jekyll-scholar"
   gem "jekyll-archives"
-  gem "jemoji"
 end
 
+gem "webrick", "~> 1.7"
+gem "rexml", ">= 3.2.5"
+gem "jemoji"

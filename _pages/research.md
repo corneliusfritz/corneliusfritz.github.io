@@ -7,6 +7,10 @@ author_profile: true
 title: "Research"
 #csl: 3d-research.csl
 tagby: false
+years: [2020, 2019, 2018, 2017, 2016, 2015, 2014]
+toc: true
+toc_label: "Year"
+toc_icon: "calendar"
 header:
   overlay_image: /assets/images/IMG_0053.JPG
   overlay_filter: 0.15
@@ -39,13 +43,16 @@ Research Interests
 Publications
 ---------------
 
+{% for y in page.years %}
+  <h3  id="{{y}}" class="pubyear">{{y}}</h3>
+  {% bibliography -f my_publications -q @*[year={{y}}]* %}
+{% endfor %}
 
 Preprints
 ---------------
 
 + Fritz C., Mehrl M., Thurner P. W., Kauermann G. (2022): *Exponential Random Graph Models for Dynamic Signed Networks: An Application to International Relations* ([arXiv](https://arxiv.org/abs/2205.13411), under review)
 + Fritz C., De Nicola G., Kevork S., Harhoff D., Kauermann G. (2022): *Modelling the large and dynamically growing bipartite network of German patents and inventor* ([arXiv](https://arxiv.org/abs/2201.09744), under review)
-+ R&uuml;gamer D., Kolb C., Fritz C., Pfisterer F., Bischl B., Shen R., Bukas C., Barros de Andrade e Sousa L., Thalmeier D., Baumann P., Klein N., M&uuml;ller C.L. (2021): *deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression* ([arXiv](https://arxiv.org/abs/2104.02705), provisionally accepted in Journal of Statistical Software)
 
 
 Theses
