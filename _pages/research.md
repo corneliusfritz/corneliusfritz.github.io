@@ -8,9 +8,9 @@ title: "Research"
 #csl: 3d-research.csl
 tagby: false
 years: [2022, 2021, 2020]
-toc: true
-toc_label: "Year"
-toc_icon: "calendar"
+#toc: true
+#toc_label: "Year"
+#toc_icon: "calendar"
 header:
   overlay_image: /assets/images/IMG_0053.JPG
   overlay_filter: 0.15
