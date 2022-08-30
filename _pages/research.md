@@ -45,7 +45,7 @@ Publications
 
 {% for y in page.years %}
   <h3  id="{{y}}" class="pubyear">{{y}}</h3>
-  {% bibliography -f my_publications -q @*[year={{y}}]* %}
+  {% bibliography -f bibliography -q @*[year={{y}}]* %}
 {% endfor %}
 
 Preprints
