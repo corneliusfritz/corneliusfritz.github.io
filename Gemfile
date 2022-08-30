@@ -7,5 +7,6 @@ gem "minimal-mistakes-jekyll"
 group :jekyll_plugins do
   gem "jekyll-scholar"
   gem "jekyll-archives"
+  gem "jemoji"
 end
 
