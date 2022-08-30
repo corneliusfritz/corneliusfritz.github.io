@@ -163,6 +163,8 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-scholar
+  - jekyll-archives
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -209,8 +211,29 @@ compress_html:
     envs: development
 
 
+# Jekyll Scholar
 scholar:
-  style: _bibliography/my-ieee.cls
+  style: apa
+  locale: en
+
+  sort_by: none
+  order: descending
+
+  #source: ./_bibliography
+  bibliography: bibliography.bib
+  bibliography_template: bib
+
+  details_dir:    bibliography
+  details_layout: bibtex.html
+  details_link:   Details
+
+  repository: /assets/publications
+  repository_file_delimiter: "."
+
+  bibliography_list_tag: "ul"
+
+  query: "@*"
+
 
 
 
