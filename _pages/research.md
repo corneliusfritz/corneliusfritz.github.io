@@ -57,6 +57,7 @@ Preprints
 
 Theses
 ---------------
++ [Statistical Approaches to Dynamic Networks in Society](https://edoc.ub.uni-muenchen.de/30395/). Dissertation, LMU Munich
 + [Dynamic Social Network Models for Time-Stamped Data](https://epub.ub.uni-muenchen.de/60292/). Master Thesis, LMU Munich
 + [Explorative Datenvisualisierung mit Shiny in R.](https://epub.ub.uni-muenchen.de/29575/). Bachelor Thesis, LMU Munich
 
