@@ -34,7 +34,7 @@ Tutor
 __2016 - 2019__<br/>
 Department of Statistics, LMU Munich, Germany<br/>
 Graduate Assistant
-´
+
 __2015 - 2016__<br/>
 Department of Statistics, LMU Munich, Germany<br/>
 Undergraduate Assistant
