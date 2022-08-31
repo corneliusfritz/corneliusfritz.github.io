@@ -226,7 +226,6 @@ scholar:
   details_dir:    bibliography
   details_layout: bibtex.html
   details_link:   Details
-
   repository: /assets/publications
   repository_file_delimiter: "."
 
