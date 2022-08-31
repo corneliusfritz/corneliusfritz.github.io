@@ -5,6 +5,7 @@
 @article{ruegamer2021,
 	title={deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression}, 
 	author={David Rügamer and Chris Kolb and Cornelius Fritz and Florian Pfisterer and Bernd Bischl and Ruolin Shen and Christina Bukas and Lisa Barros de Andrade e Sousa and Dominik Thalmeier and Philipp Baumann and Nadja Klein and Christian L. Müller},
+	abstract = {In this paper we describe the implementation of semi-structured deep distributional regression, a flexible framework to learn conditional distributions based on the combination of additive regression models and deep networks. Our implementation encompasses (1) a modular neural network building system based on the deep learning library \pkg{TensorFlow} for the fusion of various statistical and deep learning approaches, (2) an orthogonalization cell to allow for an interpretable combination of different subnetworks, as well as (3) pre-processing steps necessary to set up such models. The software package allows to define models in a user-friendly manner via a formula interface that is inspired by classical statistical model frameworks such as mgcv. The packages' modular design and functionality provides a unique resource for both scalable estimation of complex statistical models and the combination of approaches from deep learning and statistics. This allows for state-of-the-art predictive performance while simultaneously retaining the indispensable interpretability of classical statistical models. },
 	year={2022},
 	journal = {Journal of Statistical Software},
 	volume = {to appear},
@@ -18,6 +19,7 @@
 author = {Fritz, Cornelius and De Nicola, Giacomo and Rave, Martje and Weigert,  Maximilian and  Berger, Ursula and Küchenhoff, Helmut and Kauermann, G{\"{o}}ran},
 title = {Statistical modelling of COVID-19 data: Putting Generalised Additive Models to work},
 	keywords = {publications},
+	abstract = { Over the course of the COVID-19 pandemic, Generalised Additive Models (GAMs) have been successfully employed on numerous occasions to obtain vital data-driven insights. In this paper we further substantiate the success story of GAMs, demonstrating their flexibility by focusing on three relevant pandemic-related issues. First, we examine the interdepency among infections in different age groups, concentrating on school children. In this context, we derive the setting under which parameter estimates are independent of the (unknown) case-detection ratio, which plays an important role in COVID-19 surveillance data. Second, we model the incidence of hospitalisations, for which data is only available with a temporal delay. We illustrate how correcting for this reporting delay through a nowcasting procedure can be naturally incorporated into the GAM framework as an offset term. Third, we propose a multinomial model for the weekly occupancy of intensive care units (ICU), where we distinguish between the number of COVID-19 patients, other patients and vacant beds. With these three examples, we aim to showcase the practical and "off-the-shelf" applicability of GAMs to gain new insights from real-world data. },
 year = {2022}, 
 journal = {Statistical Modelling},
 volume = {to appear},
@@ -30,6 +32,7 @@ doi={https://doi.org/10.48550/arXiv.2201.02182},
 	author={Cornelius Fritz and Marius Mehrl and Paul W. Thurner and Göran Kauermann},
 	year={2022},
 journal={Network Science},
+abstract = { As relational event models are an increasingly popular model for studying relational structures, the reliability of large-scale event data collection becomes more and more important. Automated or human-coded events often suffer from non-negligible false-discovery rates in event identification. And most sensor data is primarily based on actors' spatial proximity for predefined time windows; hence, the observed events could relate either to a social relationship or random co-location. Both examples imply spurious events that may bias estimates and inference. We propose the Relational Event Model for Spurious Events (REMSE), an extension to existing approaches for interaction data. The model provides a flexible solution for modeling data while controlling for spurious events. Estimation of our model is carried out in an empirical Bayesian approach via data augmentation. Based on a simulation study, we investigate the properties of the estimation procedure. To demonstrate its usefulness in two distinct applications, we employ this model to combat events from the Syrian civil war and student co-location data. Results from the simulation and the applications identify the REMSE as a suitable approach to modeling relational event data in the presence of spurious events. },
 doi={https://doi.org/10.48550/arXiv.2109.10348},
 volume = {to appear},
 	keywords = {publications}
@@ -47,7 +50,8 @@ volume = {to appear},
 
 
 @article{fritz2021,
-	title={Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany}, 
+	title={Combining Graph Neural Networks and Spatio-temporal Disease Models to Predict COVID-19 Cases in Germany},
+	abstract = {During 2020, the infection rate of COVID-19 has been investigated by many scholars from different research fields. In this context, reliable and interpretable forecasts of disease incidents are a vital tool for policymakers to manage healthcare resources. In this context, several experts have called for the necessity to account for human mobility to explain the spread of COVID-19. Existing approaches often apply standard models of the respective research field, frequently restricting modeling possibilities. For instance, most statistical or epidemiological models cannot directly incorporate unstructured data sources, including relational data that may encode human mobility. In contrast, machine learning approaches may yield better predictions by exploiting these data structures yet lack intuitive interpretability as they are often categorized as black-box models. We propose a combination of both research directions and present a multimodal learning framework that amalgamates statistical regression and machine learning models for predicting local COVID-19 cases in Germany. Results and implications: the novel approach introduced enables the use of a richer collection of data types, including mobility flows and colocation probabilities, and yields the lowest mean squared error scores throughout the observational period in the reported benchmark study. The results corroborate that during most of the observational period more dispersed meeting patterns and a lower percentage of people staying put are associated with higher infection rates. Moreover, the analysis underpins the necessity of including mobility data and showcases the flexibility and interpretability of the proposed approach.}, 
 	author={Cornelius Fritz and Emilio Dorigatti and David Rügamer},
 	year={2022},
 	pages = {1-18},
@@ -61,6 +65,8 @@ volume = {to appear},
 @article{Berger,
 	title={Reihentestungen an Schulen können die Dunkelziffer vonCOVID-19 Infektionen unter Schülern signifikant senken}, 
 	author={Ursula Berger and Cornelius Fritz and Göran Kauermann},
+	abstract = {Aim of the study The aim of this was to study investigate the effectiveness of mandatory Covid-19 tests for in-classroom teaching in reopened schools as a containment measure in the pandemic. In Bavaria, mandatory testing at schools was implemented directly after the Easter vacations in 2021. For the first week after the vacations, this resulted in a natural experiment that allowed us to quantify the impact of the new testing strategy on reported Covid-19 cases.Methods We compared changes in the reported 7-day incidence of new infections between districts with in-classroom teaching at school and districts with closed schools. During the calendar week 15, districts with reported incidences below 100 were allowed to reopen schools and have in-classroom teaching if mandatory COVID-19 testing was performed at school with rapid antigen tests. We do not have data on the rapid test results; however, positive test results in the rapid antigen test were verified by a PCR test, and cases of positive PCR test results were reported at the district level by age groups. In the calendar weeks 13 and 14, all schools in Bavaria were closed due to Easter vacations. Taking into account a latency period of about 3–4 days and a reporting period of 1–2 days, this means that any additional increase in reported incidences for districts with in-class teaching and mandatory testing in the week after the vacation cannot be attributed to transmissions at schools, but reflects the reduction of underreporting due to the newly implemented testing strategy.Results Reported incidence increased by a factor of 6.6 for 5–11 year old and by 1.7 for 12–20 year old pupils in districts with in-classroom teaching and mandatory testing at schools. This increase was accompanied by a reduction in underreporting and was significant compared to districts with school closure. Given the situation of a natural experiment, this increase in the reported incidence among school children can be attributed to the testing strategy. For the same time period, no differences in reported incidences were found for the other age groups.Conclusion In-class teaching with mandatory testing in reopened schools changes the role of schools in the pandemic. Our analyses show that reopening schools with a mandatory testing approach is beneficial from an epidemiologic perspective as it can strongly reduce the dark figure of COVID-19 cases among children.},
+	doi = {10.1055/a-1813-9778},
 	year={2022},
 	journal = {Das Gesundheitswesen},
 	keywords = {publications}
@@ -80,10 +86,11 @@ year = {2022},
 keywords = {publications}
 }
 
-@article{Fritz2021,
+@article{FritzMehrl2021,
 	author = {Fritz, Cornelius and Mehrl, Marius and Thurner, Paul W. and Kauermann, G{\"{o}}ran},
 	journal = {International Interactions},
 	number = {Online First},
+	abstract = {Accurate and interpretable forecasting models predicting spatially and temporally fine-grained changes in the numbers of intrastate conflict casualties are of crucial importance for policymakers and international non-governmental organizations (NGOs). Using a count data approach, we propose a hierarchical hurdle regression model to address the corresponding prediction challenge at the monthly PRIO-grid level. More precisely, we model the intensity of local armed conflict at a specific point in time as a three-stage process. Stages one and two of our approach estimate whether we will observe any casualties at the country- and grid-cell-level, respectively, while stage three applies a regression model for truncated data to predict the number of such fatalities conditional upon the previous two stages. Within this modeling framework, we focus on the role of governmental arms imports as a processual factor allowing governments to intensify or deter from fighting. We further argue that a grid cell’s geographic remoteness is bound to moderate the effects of these military buildups. Out-of-sample predictions corroborate the effectiveness of our parsimonious and theory-driven model, which enables full transparency combined with accuracy in the forecasting process.},
 	title = {The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model},
 	doi = {10.1080/03050629.2022.1993210},
 	year = {2021}, 
@@ -112,6 +119,18 @@ keywords = {publications}
 	number = {6},
 	pages = {395--402},
 	title = {{Food antigen-specific IgE in dogs with suspected food hypersensitivity}},
+	abstract = {
+	
+	Objective: Knowledge of cross-reactions in food-sensitive dogs will influence the choice of elimination diets and the long-term management of those patients. The objective of this study was to evaluate food allergen-specific IgE tests of suspected allergic dogs for concurrent positive reactions as possible evidence for cross reactions between allergens.
+	
+	Material and methods: Results of serum IgE tests from 760 suspected allergic dogs submitted to 2 laboratories were evaluated statistically. After the tested allergens were grouped by their phylogenetic relationship, odds ratios as well as a sensitivity analysis of the odds ratios were performed to evaluate if concurrent positive IgE results to 2 allergens occurred more often than expected.
+	
+	Results: Within related allergen pairs 27% (laboratory 1) and 72% (laboratory 2) of the pairs could be considered as associated. For the unrelated allergen pairs only 6.8% and 10.6% of the analyzed pairs were considered associated respectively. Strong correlations were shown in the group of ruminant allergens, especially beef and lamb, and grain allergens. High rates of concurrent reactions were also detected in the poultry group, especially between chicken and duck, as well as between pork and ruminant allergens, and soy and grain allergens.
+	
+	Conclusion: As our results showed not only correlations within related but also between non-related allergens, the possible relevance of carbohydrate moieties as well as panallergens for canine hypersensitivities warrants further study. Further investigations are necessary to distinguish co-sensitization from cross-reactions and determine the clinical relevance of food-specific IgE reactivity.
+	
+	Clinical relevance: Due to possible cross reactivity related allergens, especially beef and lamb as well as grain allergens, should not be used for an elimination diet to avoid false results.
+	},
 	volume = {48},
 	year = {2020}, 
 	keywords = {publications}
@@ -120,13 +139,12 @@ keywords = {publications}
 @article{Fritz2019,
 author = {Fritz, Cornelius and Lebacher, Michael and Kauermann, G{\"{o}}ran},
 doi = {10.1111/stan.12198},
-file = {:home/corneliusfritz/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Fritz, Lebacher, Kauermann - 2020 - Tempus volat, hora fugit A survey of tie‐oriented dynamic network models in discrete and continuou.pdf:pdf},
 journal = {Statistica Neerlandica},
 keywords = {ERGM,REM,STERGM,TERGM,continuous‐time,discrete‐time,event modeling,random graphs},
 number = {3},
 pages = {275--299},
-publisher = {John Wiley & Sons, Ltd (10.1111)},
 title = {{Tempus Volat, Hora Fugit: A survey of Tie‐oriented Dynamic Network Models in Discrete and Continuous Time}},
+abstract = {Given the growing number of available tools for modeling dynamic networks, the choice of a suitable model becomes central. The goal of this survey is to provide an overview of tie-oriented dynamic network models. The survey is focused on introducing binary network models with their corresponding assumptions, advantages, and shortfalls. The models are divided according to generating processes, operating in discrete and continuous time. First, we introduce the Temporal Exponential Random Graph Model (TERGM) and the Separable TERGM (STERGM), both being time-discrete models. These models are then contrasted with continuous process models, focusing on the Relational Event Model (REM). We additionally show how the REM can handle time-clustered observations, i.e., continuous time data observed at discrete time points. Besides the discussion of theoretical properties and fitting procedures, we specifically focus on the application of the models on two networks that represent international arms transfers and email exchange. The data allow to demonstrate the applicability and interpretation of the network models. },
 volume = {74},
 year = {2020}, 
 keywords = {publications}
