@@ -18,26 +18,4 @@ I am Cornelius Fritz and will be the interim professor of Data Science at [LMU](
 My research mainly revolves around analyzing dynamic networks to answer questions posed within substantive sciences, e.g., Political Science and Sociology, through novel data analysis techniques that combine statistical and machine learning thinking. I was also an active member of the [CODAG](https://www.covid19.statistik.uni-muenchen.de/index.html) (COVID-19 Data Analysis Group),  researching the interplay of mobility patterns and COVID-19 infections as well as as well as supporting other projects. <br>
 
 If you have any questions on some of my papers, want to discuss some research topic, or just want to get in touch, you can best reach me via mail
-[mail](maiat:cornelius.fritz@stat.uni-muenchen.de) or [Twitter](https://twitter.com/cornelius_fritz). My general research interests are: 
-
-+ Dynamic and Static Social Network Analysis 
-  + Relational Event Models
-  + Temporal Exponential Random Graph Models 
-  + Stochastic Actor-Oriented Models
-  + Stochastic Block Models 
-  + Latent Space Models 
-+ Optimization and its statistical Properties
-  + Variants of EM Algorithms 
-  + Interrelations between Multiple Imputation, Expectation Maximization, and Data Augmentation Algorithms 
-  + Quantification of different Types of Uncertainties    
-  + Applications to Latent Variable Models, models including intractable constants, and dynamic network models 
-+ General Statistical Modelling 
-  + Combination of Statistical and Deep Learning Methods
-  + Models including Missing Data
-  + Semiparametric Smoothing Methods 
-  + Epidemiological Models (Nowcasting, Backprojection, ...)  
-  + Models based on Counting Processes
-  + Decomposition of different Types of Uncertainties  
-  
-
-
+[mail](maiat:cornelius.fritz@stat.uni-muenchen.de) or [Twitter](https://twitter.com/cornelius_fritz). 
