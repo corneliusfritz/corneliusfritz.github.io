@@ -3,7 +3,7 @@ permalink: /cv/
 layout: single
 title: "Curriculum Vitae"
 header:
-  overlay_image: /assets/images/IMG_0049.JPG
+  overlay_image: /assets/images/pic_nyc.JPG
   overlay_filter: 0.15
 show_overlay_title: true
 share: false

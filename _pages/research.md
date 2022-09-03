@@ -12,8 +12,8 @@ years: [2022, 2021, 2020]
 #toc_label: "Year"
 #toc_icon: "calendar"
 header:
-  overlay_image: /assets/images/IMG_0053.JPG
   overlay_filter: 0.15
+  overlay_image: /assets/images/Untitled.jpg
   
 ---
 
