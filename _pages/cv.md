@@ -11,56 +11,7 @@ classes: wide
 author_profile: true  
 ---
 
-Teaching Experience
----------------
-
-+ Seminar on *Statistical Analysis of Social Networks*(Lecturer and Supervisor)
-+ Seminar on *Complex Networks: Community Detection and Dynamics*(Lecturer and Supervisor)
-+ Statistical Inference 2 for Master (Trainer)
-+ Statistical Inference 1 for Master (Trainer)
-+ Introduction to R for Bachelor (Lecturer)
-+ Generalized Linear Models for Bachelor (Tutor)
-
-Work Experience
----------------
-__2019 - today__<br/>
-Department of Statistics, LMU Munich, Germany<br/>
-Research Assistant
-
-__2018 - 2019__<br/>
-Department of Statistics, LMU Munich, Germany<br/>
-Tutor
-
-__2016 - 2019__<br/>
-Department of Statistics, LMU Munich, Germany<br/>
-Graduate Assistant
-
-__2015 - 2016__<br/>
-Department of Statistics, LMU Munich, Germany<br/>
-Undergraduate Assistant
-
-
-Educational Background
----------------
-
-__2019 - today__<br/>
-LMU Munich, Munich, Germany<br/>
-Ph.D. student,
-
-__2018__<br/>
-Universidad Complutense de Madrid, Madrid, Spain<br/>
-Visiting student
-
-__2016 - 2018__<br/>
-LMU Munich, Munich, Germany<br/>
-M.Sc. in Statistcs
-
-__2013 - 2016__<br/>
-LMU Munich, Munich, Germany<br/>
-B.Sc. in Statistcs
-
-__2013__<br/>
-Abitur (high school graduation), Stadt. Heinrich-Heine-Gymnasium, Munich
+<object data="/assets/pdf/cv_cornelius_fritz.pdf" width="1000" height="1000" type='application/pdf'></object>
 
 Download my <a href="/assets/pdf/cv_cornelius_fritz.pdf" target="_blank">CV</a>
 ---------------
