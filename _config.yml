@@ -19,7 +19,7 @@ masthead_title: "Cornelius Fritz"
 description: "Personal homepage of Cornelius Fritz"
 baseurl: # the optional subpath of your site, e.g. "/blog"
 url: https://corneliusfritz.github.io
-twitter_username: cornelius_fritz    
+twitter_username: cornelius_fritz
 github_username: corneliusfritz
 linkedin_username: cornelius-fritz
 
@@ -47,7 +47,7 @@ google:
 
 # Social Sharing
 twitter:
-  username: 
+  username:
 facebook:
   username:
   app_id:
@@ -63,7 +63,7 @@ social:
   # An array of links to social media profiles
 
 # Site Author
-author: 
+author:
   name: "Cornelius Fritz"
   avatar: /assets/images/logo.png
   bio: "Postdoc at LMU working on social network analysis"
@@ -83,7 +83,7 @@ author:
       url: "https://www.linkedin.com/in/cornelius-fritz-1715816b"
     - label: "University"
       icon: "fas fa-fw fa-link"
-      url: "https://www.en.wisostat.statistik.uni-muenchen.de/personen/doktoranden/fritz/index.html"
+      url: "https://www.en.wisostat.statistik.uni-muenchen.de//personen/mitarbeiter/fritz/index.html"
     - label: "Google Scholar"
       icon: "fab fa fa-graduation-cap"
       url: "https://scholar.google.de/citations?user=0X7D4mwAAAAJ&hl=de"
