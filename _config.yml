@@ -66,12 +66,12 @@ social:
 author:
   name: "Cornelius Fritz"
   avatar: /assets/images/logo.png
-  bio: "Postdoc at LMU working on social network analysis"
-  location: "Munich, Germany"
+  bio: "Postdoc at PSU working on social network analysis"
+  location: "State College, United States"
   links:
     - label: "Mail"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:cornelius.fritz@stat.uni-muenchen.de"
+      url: "mailto:cfritz@psu.edu"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/cornelius_fritz"
@@ -83,7 +83,7 @@ author:
       url: "https://www.linkedin.com/in/cornelius-fritz-1715816b"
     - label: "University"
       icon: "fas fa-fw fa-link"
-      url: "https://www.en.wisostat.statistik.uni-muenchen.de//personen/mitarbeiter/fritz/index.html"
+      url: "https://scholar.google.de/citations?user=0X7D4mwAAAAJ&hl=de"
     - label: "Google Scholar"
       icon: "fab fa fa-graduation-cap"
       url: "https://scholar.google.de/citations?user=0X7D4mwAAAAJ&hl=de"
