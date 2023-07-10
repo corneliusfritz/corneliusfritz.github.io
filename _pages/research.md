@@ -60,27 +60,3 @@ Theses
 + [Explorative Datenvisualisierung mit Shiny in R.](https://epub.ub.uni-muenchen.de/29575/). Bachelor Thesis, LMU Munich
 
 
-Talks
----------------
-
-+ __08.08.2023__ Analyzing Durational Event Data. *JSM 2023 in Toronto*
-+ __25.07.2023__ Analyzing Durational Event Data. *Seminar at the Social Networks Lab at ETH Zurich*
-+ __13.07.2023__ Challenges in modern statistical network analysis. *Institutskolloquium at LMU Munich*
-+ __10.06.2022__ Statistical Approaches to Dynamic Networks: From Discrete to Continuous Observations. *Seminar at the Social Networks Lab at ETH Zurich*
-+ __06.06.2022__ Statistical Approaches to Dynamic Networks: From Discrete to Continuous Observations. *CI Seminar USI Lugano*
-+ __29.03.2022__ All that Glitters is not Gold: Relational Events Models with Spurious Events. *DAG-STAT 2022 Hamburg*
-+ __26.11.2021 (Online)__ Networks $\neq$ Networks. *Center for Advanced Studies LMU: AI and Uncertainty*
-+ __08.10.2020 (Online)__ The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model. *ViEWS Workshop*
-+ __24. - 25.9.2020 (Online)__ Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time
-. *COSTNET 2020*
-+ __10.6.2020 (Online)__ Regional Mobility, Social Connectedness,and the Spread of COVID-19 in Germany. *COSTNET COVID-19 Conference*
-+ __13. - 17.9.2020 (Online)__ A Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2017
-. *Sunbelt Virtual Conference*
-+ __9. - 11.10.2019 (Bilbao, ES)__ A Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2017
-. *COSTNET19 Conference*
-+ __9. - 11.9.2019 (Zurich, CH)__ A Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2017
-. *EUSN2019 - Europen Conference on Social Networks*
-+ __6. - 7.9.2019 (Zurich, CH)__ Tempus Volat, Hora Fugit - A Survey of Tie-Oriented Dynamic Network Models in Discrete and Continuous Time
-. *Satellite meeting on Relational Event Model: EUSN2019 - Europen Conference on Social Networks*
-+ __24.4.2019 (Munich, GER)__ A Separable Counting Processes-based Model for the Analysis of the International Arms Trade Network from 1950 to 2018. *Summer Retreat, Department of Statistics LMU, Munich*
-
