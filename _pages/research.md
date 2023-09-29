@@ -17,14 +17,9 @@ Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank
 ## Publications
 
 {% for y in page.years %}
-
-<h3 id="{{y}}" class="pubyear">
-
-{{y}}
-
-</h3>
-
-{% bibliography -f bibliography -q @* [year={{y}}]\* %} {% endfor %}
+  <h3  id="{{y}}" class="pubyear">{{y}}</h3>
+  {% bibliography -f bibliography -q @*[year={{y}}]* %}
+{% endfor %}
 
 ## Preprints
 
