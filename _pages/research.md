@@ -2,15 +2,9 @@
 permalink: /research/
 layout: single
 author_profile: true
-#bibliography: library_publ.bib  
-#nocite: '@*'
 title: "Research"
-#csl: 3d-research.csl
 tagby: false
 years: [2023, 2022, 2021, 2020]
-#toc: true
-#toc_label: "Year"
-#toc_icon: "calendar"
 header:
   overlay_filter: 0.15
   overlay_image: /assets/images/Untitled.jpg
