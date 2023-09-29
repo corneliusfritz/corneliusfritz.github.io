@@ -7,6 +7,7 @@
 	pages = {351-363},
 	journal={Journal of Economic Behavior \& Organization},
 	doi = {https://doi.org/10.1016/j.jebo.2023.09.021},
+	abstract = {Networks are ubiquitous in economic research on organizations, trade, and many other areas. However, while economic theory extensively considers networks, no general framework for their empirical modeling has yet emerged. We thus introduce two different statistical models for this purpose – the Exponential Random Graph Model (ERGM) and the Additive and Multiplicative Effects network model (AME). Both model classes can account for network interdependencies between observations, but differ in how they do so. The ERGM allows one to explicitly specify and test the influence of particular network structures, making it a natural choice if one is substantively interested in estimating endogenous network effects. In contrast, AME captures these effects by introducing actor-specific latent variables affecting their propensity to form ties. This makes the latter a good choice if the researcher is interested in capturing the effect of exogenous covariates on tie formation without having a specific theory on the endogenous dependence structures at play. After introducing the two model classes, we showcase them through real-world applications to networks stemming from international arms trade and foreign exchange activity. We further provide full replication materials to facilitate the adoption of these methods in empirical economic research.},
 	keywords = {publications}
 }
 
@@ -25,6 +26,7 @@
 @article{fritz2023,
 	author = {Fritz, Cornelius and De Nicola, Giacomo and Kevorg, Sevag and Harhoff, Dietmar and Kauermann, G{\"{o}}ran},
 	title = {Modelling the large and dynamically growing bipartite network of German patents and inventors},
+	abstract = {To explore the driving forces behind innovation, we analyse the dynamic bipartite network of all inventors and patents registered within the field of electrical engineering in Germany in the past two decades. To deal with the sheer size of the data, we decompose the network by exploiting the fact that most inventors tend to only stay active for a relatively short period. We thus propose a Temporal Exponential Random Graph Model with time-varying actor set and sufficient statistics mirroring substantial expectations for our analysis. Our results corroborate that inventor characteristics and team formation are essential to the dynamics of invention.},
 	volume = {186},
 	number = {3},
 	pages = {557–576},
@@ -41,6 +43,7 @@
 	title={deepregression: a Flexible Neural Network Framework for Semi-Structured Deep Distributional Regression}, 
 	author={David Rügamer and Chris Kolb and Cornelius Fritz and Florian Pfisterer and Bernd Bischl and Ruolin Shen and Christina Bukas and Lisa Barros de Andrade e Sousa and Dominik Thalmeier and Philipp Baumann and Nadja Klein and Christian L. Müller},
 	year={2023},
+	abstract = {In this paper we describe the implementation of semi-structured deep distributional regression, a flexible framework to learn conditional distributions based on the combination of additive regression models and deep networks. Our implementation encompasses (1) a modular neural network building system based on the deep learning library TensorFlow for the fusion of various statistical and deep learning approaches, (2) an orthogonalization cell to allow for an interpretable combination of different subnetworks, as well as (3) pre-processing steps necessary to set up such models. The software package allows to define models in a user-friendly manner via a formula interface that is inspired by classical statistical model frameworks such as mgcv. The package's modular design and functionality provides a unique resource for both scalable estimation of complex statistical models and the combination of approaches from deep learning and statistics. This allows for state-of-the-art predictive performance while simultaneously retaining the indispensable interpretability of classical statistical models.},
 	journal = {Journal of Statistical Software},
 	volume = {105},
 	number = {2},
@@ -56,15 +59,16 @@
 	title = {Statistical modelling of COVID-19 data: Putting Generalised Additive Models to work},
 	keywords = {publications},
 	year = {2022}, 
+	abstract = {Over the course of the COVID-19 pandemic, Generalized Additive Models (GAMs) have been successfully employed on numerous occasions to obtain vital data-driven insights. In this article we further substantiate the success story of GAMs, demonstrating their flexibility by focusing on three relevant pandemic-related issues. First, we examine the interdepency among infections in different age groups, concentrating on school children. In this context, we derive the setting under which parameter estimates are independent of the (unknown) case-detection ratio, which plays an important role in COVID-19 surveillance data. Second, we model the incidence of hospitalizations, for which data is only available with a temporal delay. We illustrate how correcting for this reporting delay through a nowcasting procedure can be naturally incorporated into the GAM framework as an offset term. Third, we propose a multinomial model for the weekly occupancy of intensive care units (ICU), where we distinguish between the number of COVID-19 patients, other patients and vacant beds. With these three examples, we aim to showcase the practical and ‘off-the-shelf’ applicability of GAMs to gain new insights from real-world data.},
 	journal = {Statistical Modelling},
 	volume = {(OnlineFirst)},
 	doi={10.1177/1471082X221124628}
 }
 
-@article{fritzmehrl2022,
+@article{fritzmehrl2023,
 	title={All that Glitters is not Gold: Relational Events Models with Spurious Events}, 
 	author={Cornelius Fritz and Marius Mehrl and Paul W. Thurner and Göran Kauermann},
-	year={2022},
+	year={2023},
 journal={Network Science},
 abstract = { As relational event models are an increasingly popular model for studying relational structures, the reliability of large-scale event data collection becomes more and more important. Automated or human-coded events often suffer from non-negligible false-discovery rates in event identification. And most sensor data is primarily based on actors' spatial proximity for predefined time windows; hence, the observed events could relate either to a social relationship or random co-location. Both examples imply spurious events that may bias estimates and inference. We propose the Relational Event Model for Spurious Events (REMSE), an extension to existing approaches for interaction data. The model provides a flexible solution for modeling data while controlling for spurious events. Estimation of our model is carried out in an empirical Bayesian approach via data augmentation. Based on a simulation study, we investigate the properties of the estimation procedure. To demonstrate its usefulness in two distinct applications, we employ this model to combat events from the Syrian civil war and student co-location data. Results from the simulation and the applications identify the REMSE as a suitable approach to modeling relational event data in the presence of spurious events. },
 doi={https://doi.org/10.48550/arXiv.2109.10348},
@@ -121,19 +125,22 @@ year = {2022},
 keywords = {publications}
 }
 
-@article{FritzMehrl2021,
+@article{FritzMehrl2022,
 	author = {Fritz, Cornelius and Mehrl, Marius and Thurner, Paul W. and Kauermann, G{\"{o}}ran},
 	journal = {International Interactions},
 	number = {Online First},
 	abstract = {Accurate and interpretable forecasting models predicting spatially and temporally fine-grained changes in the numbers of intrastate conflict casualties are of crucial importance for policymakers and international non-governmental organizations (NGOs). Using a count data approach, we propose a hierarchical hurdle regression model to address the corresponding prediction challenge at the monthly PRIO-grid level. More precisely, we model the intensity of local armed conflict at a specific point in time as a three-stage process. Stages one and two of our approach estimate whether we will observe any casualties at the country- and grid-cell-level, respectively, while stage three applies a regression model for truncated data to predict the number of such fatalities conditional upon the previous two stages. Within this modeling framework, we focus on the role of governmental arms imports as a processual factor allowing governments to intensify or deter from fighting. We further argue that a grid cell’s geographic remoteness is bound to moderate the effects of these military buildups. Out-of-sample predictions corroborate the effectiveness of our parsimonious and theory-driven model, which enables full transparency combined with accuracy in the forecasting process.},
 	title = {The Role of Governmental Weapons Procurements in Forecasting Monthly Fatalities in Intrastate Conflicts: A Semiparametric Hierarchical Hurdle Model},
 	doi = {10.1080/03050629.2022.1993210},
-	year = {2021}, 
+	year = {2022}, 
+	volume = {8},
+	number = {4}, 
+	pages = {778-799},
 	keywords = {publications}
 }
 
 
-@article{Fritz2020a,
+@article{Fritz2021a,
 abstract = {We propose a novel tie-oriented model for longitudinal event network data. The generating mechanism is assumed to be a multivariate Poisson process that governs the onset and repetition of yearly observed events with two separate intensity functions. We apply the model to a network obtained from the yearly dyadic number of international deliveries of combat aircraft trades between 1950 and 2017. Based on the trade gravity approach, we identify economic and political factors impeding or promoting the number of transfers. Extensive dynamics as well as country heterogeneities require the specification of semiparametric time-varying effects as well as random effects. Our findings reveal strong heterogeneous as well as time-varying effects of endogenous and exogenous covariates on the onset and repetition of aircraft trade events.},
 author = {Fritz, Cornelius and Thurner, Paul W. and Kauermann, G{\"{o}}ran},
 doi = {10.1017/nws.2021.9},
