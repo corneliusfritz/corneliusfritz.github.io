@@ -12,7 +12,12 @@ header:
 
 ## Research Interests
 
-Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank">research statement</a> to get an understanding on what I spend most of my time.
+Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank">research statement</a> to get a feel for what I spend most of my time on.
+
+## Preprints
+
+{% bibliography -f preprint %}
+
 
 ## Publications
 
@@ -21,9 +26,6 @@ Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank
   {% bibliography -f bibliography -q @*[year={{y}}]* %}
 {% endfor %}
 
-## Preprints
-
-{% bibliography -f preprint %}
 
 ## Theses
 
