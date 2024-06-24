@@ -1,6 +1,6 @@
 ---
 permalink: /bigergm_project/
-layout: default
+layout: single
 title: "bigergm"
 header:
   overlay_image: /assets/images/background.JPG
@@ -11,10 +11,10 @@ classes: wide
 author_profile: false  
 ---
 
-[Project website](https://www.corneliusfritz.com/bigergm){target="_blank"}
- <a href="https://www.corneliusfritz.com/bigergm" target="_blank">Go to application</a> 
+<a href="https://www.corneliusfritz.com/bigergm" target="_blank">Project website</a> 
 
 Workshop materials:
 
 - Slides for Michael's talk
-- [Slides for Cornelius's talk](https://www.corneliusfritz.com/presentation/bigergm.html){target="_blank"}
+-  <a href="https://www.corneliusfritz.com/presentation/bigergm.html" target="_blank">Slides for Cornelius's talk</a> 
+
