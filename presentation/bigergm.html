@@ -10,8 +10,8 @@
 <link href="bigergm_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.555">
 
-  <meta name="author" content="Cornelius Fritz and Michael Schweinberger">
-  <title>bigergm: Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Network</title>
+  <meta name="author" content="Cornelius Fritz, Michael Schweinberger, and David R. Hunter">
+  <title>bigergm: Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Networks</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -411,126 +411,107 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">bigergm: Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Network</h1>
+<section id="title-slide" data-background-image="bigergm_files/logo.png" data-background-position="50% 92%" data-background-size="15%" class="quarto-title-block center">
+  <h1 class="title">bigergm: Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Networks</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Cornelius Fritz and Michael Schweinberger 
+Cornelius Fritz, Michael Schweinberger, and David R. Hunter 
 </div>
 </div>
 </div>
 
 </section>
-<section id="plan-bigergm-workshop" class="slide level2">
-<h2>Plan: <a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true">bigergm workshop</a></h2>
+<section id="roadmap-bigergm-workshop" class="slide level2">
+<h2>Roadmap: <a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true">bigergm workshop</a></h2>
 <ol type="1">
-<li>Short Recap: Local dependence via nonoverlapping blocks</li>
+<li>Local dependence leveraging additional structure</li>
 <li>Preparation and Background</li>
 <li>Demonstration of capabilities of the package <code>bigergm</code></li>
-<li>Hand-on part: Application to Twitter Following Network of State Legislators</li>
+<li>Application to Twitter (X): Following Network of State Legislators</li>
 </ol>
 <p><img data-src="bigergm_files/blueprint_workshop.jpg" class="absolute" style="top: 320px; left: 300px; width: 400px; "></p>
 </section>
 <section>
-<section id="short-recap-local-dependence-via-nonoverlapping-blocks" class="title-slide slide level1 center">
-<h1>Short Recap: <br> Local dependence via nonoverlapping blocks</h1>
+<section id="local-dependence-leveraging-additional-structure-non-overlapping-blocks" class="title-slide slide level1 center">
+<h1>Local dependence leveraging additional structure: <br> Non-overlapping blocks</h1>
 
 </section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
 <ul>
-<li>Exponential Random Graph Models (ERGMs) model the probability of observing a network as a function of network statistics.</li>
+<li>Exponential Random Graph Models (ERGMs) express the probability of observing a network as a function of network features:</li>
 </ul>
 <p><span class="math display">\[
-\mathbb{P}_{\beta}(\mathbf{y}| \mathbf{x}) = \exp\left(\beta^\top \mathbf{s}(\mathbf{y}, \mathbf{x})\right)/ c(\beta, \mathbf{x})
+\mathbb{P}_{\beta}(\mathbf{x}| \mathbf{y}) = \exp\left(\beta^\top \mathbf{s}(\mathbf{x}, \mathbf{y})\right)/ c(\beta, \mathbf{y})
 \]</span> where</p>
 <ul>
-<li>network <span class="math inline">\(\mathbf{y} = \{0,1\}^{N\times N}\)</span></li>
-<li><span class="math inline">\(p\)</span> covariates <span class="math inline">\(\mathbf{x} = (x_{i,p}) \in \mathbb{R}^{N\times q}\)</span></li>
+<li>network <span class="math inline">\(\mathbf{x} = \{0,1\}^{N\times N}\)</span></li>
+<li><span class="math inline">\(p\)</span> covariates <span class="math inline">\(\mathbf{y} = (y_{i,p}) \in \mathbb{R}^{N\times q}\)</span></li>
 <li><span class="math inline">\(\beta \in \mathbb{R}^p\)</span> parameters</li>
-<li><span class="math inline">\(\mathbf{s}(\mathbf{y}, \mathbf{x})\)</span> sufficient statistics</li>
-<li><span class="math inline">\(c(\beta, \mathbf{x})\)</span> normalizing constant</li>
+<li><span class="math inline">\(\mathbf{s}(\mathbf{x}, \mathbf{y})\)</span> network features</li>
+<li><span class="math inline">\(c(\beta, \mathbf{y})\)</span> normalizing constant</li>
 </ul>
 </section>
-<section id="limitations-when-applied-to-large-networks" class="slide level2">
-<h2>Limitations when applied to large networks</h2>
-<ul>
-<li>Scalable model vs.&nbsp;scalable method</li>
-<li>Computational cost of model fitting</li>
-<li>Model degeneracy <br> <span class="math inline">\(\Rightarrow\)</span> Local dependence <br> <img data-src="bigergm_files/plot_network.png" class="absolute" style="top: 260px; left: 300px; width: 450px; "></li>
-</ul>
-</section>
-<section id="exponential-random-graph-models-for-large-networks" class="slide level2">
-<h2>Exponential Random Graph Models for Large Networks</h2>
+<section id="exponential-random-graph-models-for-big-networks" class="slide level2">
+<h2>Exponential Random Graph Models for Big Networks</h2>
 <p><img data-src="bigergm_files/plot_network_blocks.png" class="absolute" style="top: 100px; left: 250px; width: 600px; "></p>
 </section>
-<section id="exponential-random-graph-models-for-large-networks-1" class="slide level2">
-<h2>Exponential Random Graph Models for Large Networks</h2>
+<section id="exponential-random-graph-models-for-big-networks-1" class="slide level2">
+<h2>Exponential Random Graph Models for Big Networks</h2>
 <p><span class="math display">\[
 \begin{split}
-\mathbb{P}_\theta(\mathbf{y} | \mathbf{z}, \mathbf{x}) = &amp;\left[\prod_{k \neq l}^K \mathbb{P}_{B}(\mathbf{y}_{k,l} | \mathbf{z}, \mathbf{x})\right] \left[\prod_{k = 1}^K \mathbb{P}_{W}(\mathbf{y}_{k,k} | \mathbf{z},\mathbf{x}) \right]
+\mathbb{P}_\theta(\mathbf{x} | \mathbf{y}, \mathbf{z}) = &amp;\left[\prod_{k \neq l}^K \mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y}, \mathbf{z})\right] \left[\prod_{k = 1}^K \mathbb{P}_{W}(\mathbf{x}_{k,k} | \mathbf{y},\mathbf{z}) \right]
 \end{split}
 \]</span> where</p>
 <ul>
-<li><span class="math inline">\(\mathbf{y}_{k,l}\)</span> is the submatrix of <span class="math inline">\(\mathbf{Y}\)</span> between blocks <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span></li>
-<li><span class="math inline">\(\mathbf{y}_{k,k}\)</span> is the submatrix of <span class="math inline">\(\mathbf{Y}\)</span> within block <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(\mathbf{x}_{k,l}\)</span> is the submatrix of <span class="math inline">\(\mathbf{x}\)</span> between blocks <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span></li>
+<li><span class="math inline">\(\mathbf{x}_{k,k}\)</span> is the submatrix of <span class="math inline">\(\mathbf{x}\)</span> within block <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(\mathbf{y}\)</span> is the covariate matrix</li>
 <li><span class="math inline">\(\mathbf{z}\)</span> is the block structure of the network</li>
-<li><span class="math inline">\(\mathbf{x}\)</span> is the covariate matrix</li>
-<li><span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the parameters</li>
 </ul>
 </section>
 <section id="specification-within-block-model" class="slide level2">
 <h2>Specification: Within-block Model</h2>
 <p><span class="math display">\[
-\mathbb{P}_{W}(\mathbf{y}_{k,k} | \mathbf{z}, \mathbf{x}) = \exp\left(\alpha^\top \mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x})\right)/ c_W(\alpha, \mathbf{z}, \mathbf{x}),
+\mathbb{P}_{W}(\mathbf{x}_{k,k} | \mathbf{y}, \mathbf{z}) = \exp\left(\alpha^\top \mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y})\right)/ c_W(\alpha, \mathbf{y}, \mathbf{z}),
 \]</span></p>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(\mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x})\)</span> is a vector of sufficient statistics counting, e.g., the edges within block <span class="math inline">\(k\)</span></li>
+<li><span class="math inline">\(\mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y})\)</span> is a vector of network features counting, e.g., the edges within block <span class="math inline">\(k\)</span></li>
 <li><span class="math inline">\(\alpha\)</span> parameter to estimate</li>
-<li><span class="math inline">\(c_W(\alpha, \mathbf{z}, \mathbf{x})\)</span> is the normalizing constant</li>
+<li><span class="math inline">\(c_W(\alpha, \mathbf{y}, \mathbf{z})\)</span> is the normalizing constant</li>
 </ul>
 <p><img data-src="bigergm_files/statistics_no_caption_1.png" class="absolute" style="top: 450px; left: 50px; width: 250px; " alt="Degree"> <img data-src="bigergm_files/statistics_no_caption_2.png" class="absolute" style="top: 450px; left: 350px; width: 250px; " alt="Isolates"> <img data-src="bigergm_files/statistics_no_caption_3.png" class="absolute" style="top: 450px; left: 650px; width: 250px; " alt="Shared Partner"></p>
 </section>
 <section id="specification-between-block-model" class="slide level2">
 <h2>Specification: Between-block Model</h2>
 <p><span class="math display">\[
-\mathbb{P}_{B}(\mathbf{y}_{k,l} | \mathbf{z},  \mathbf{x})  = \prod_{(i,j) \text{; } z_{ik} = 1 \text{, } z_{jl} = 1} \mathbb{P}_{\beta}( y_{i,j}  \mid \mathbf{z}, \mathbf{x}),
+\mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y},  \mathbf{z})  = \prod_{(i,j) \text{; } z_{ik} = 1 \text{, } z_{jl} = 1} \mathbb{P}_{\beta}( x_{i,j}  \mid \mathbf{y}, \mathbf{z}),
 \]</span> where <span class="math display">\[
-\mathbb{P}_{\beta}( y_{i,j} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}) = (\pi_{k,l}(\beta, \mathbf{x}))^{y_{i,j}} (1 - \pi_{k,l}(\beta, \mathbf{x}))^{1 - y_{i,j}}
-\]</span> e.g.,</p>
+\mathbb{P}_{\beta}( x_{i,j} | \mathbf{y},\mathbf{z}) = (\pi_{k,l}(\beta, \mathbf{y}))^{x_{i,j}} (1 - \pi_{k,l}(\beta, \mathbf{y}))^{1 - x_{i,j}}
+\]</span> e.g.</p>
 <p><span class="math display">\[
-\pi_{k,l}(\beta, \mathbf{x}) = \text{logit}^{-1}\left(\beta + \sum_{p = 1}^P \beta_p \, \mathbb{I}\left(x_{i,p} = x_{j,p}\right) \right)
+\pi_{k,l}(\beta, \mathbf{y}) = \text{logit}^{-1}\left(\beta_0 + \sum_{p = 1}^P \beta_p \, \mathbb{I}\left(y_{i,p} = y_{j,p}\right) \right)
 \]</span></p>
 </section>
 <section id="specification-between-block-model-1" class="slide level2">
 <h2>Specification: Between-block Model</h2>
 <p><span class="math display">\[
-\mathbb{P}_{B}(\mathbf{y}_{k,l} | \mathbf{z}, \mathbf{x}) = \exp\left(\beta^\top \mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x})\right)/ c_B(\beta, \mathbf{z}, \mathbf{x}),
+\mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y}, \mathbf{z}) = \exp\left(\beta^\top \mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y})\right)/ c_B(\beta, \mathbf{y}, \mathbf{z}),
 \]</span> where <span class="math display">\[
-\mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x}) = \left(\sum_{i&lt;j} \mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, ...,  \sum_{i&lt;j} \mathbb{I}(x_{P,i} = x_{P,j})\, y_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, ...,  \sum_{i&lt;j} \mathbb{I}(y_{P,i} = y_{P,j})\, x_{i,j}\right)
 \]</span></p>
 <p>Remarks:</p>
 <ol type="1">
 <li>Within- and between-block models can be represented by ERGMs</li>
-<li>Between-block models do not include terms that imply dependence between connections</li>
+<li>Between-block models do not include terms that induce dependence between connections</li>
 </ol>
 </section>
 <section id="estimation" class="slide level2">
 <h2>Estimation</h2>
-<p><img data-src="bigergm_files/estimation.jpg" class="absolute" style="top: 50px; left: 50px; width: 1000px; "></p>
-</section>
-<section id="estimation-1" class="slide level2">
-<h2>Estimation</h2>
-<p><span class="math display">\[
-\mathbf{Z} \sim \text{Multinomial}(1; \gamma_1, \ldots, \gamma_K),
-\]</span></p>
-<ol type="1">
-<li><p>Step: Estimate the block structure <span class="math inline">\(\mathbf{z}\)</span> by a variational EM algorithm with MM updates (<span class="citation" data-cites="babkin_2020">Babkin, Stewart, and Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2020</a>)</span> and <span class="citation" data-cites="vu_2013">Vu, Hunter, and Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2013</a>)</span>)</p></li>
-<li><p>Step: Estimate the parameters <span class="math inline">\(\alpha\)</span> (a) and <span class="math inline">\(\beta\)</span> (b) conditional on <span class="math inline">\(\mathbf{z}\)</span> with <code>ergm</code></p></li>
-</ol>
+<p><img data-src="bigergm_files/estimation.png" class="absolute" style="top: 50px; left: 50px; width: 1000px; "></p>
 </section></section>
 <section>
 <section id="background-and-preparation" class="title-slide slide level1 center">
@@ -538,25 +519,25 @@ Cornelius Fritz and Michael Schweinberger
 
 </section>
 <section id="the-package-bigergm" class="slide level2">
-<h2>The package <code>bigergm</code></h2>
-<p><img data-src="bigergm_files/evolution_packages.png" class="absolute" style="top: 370px; left: 170px; width: 800px; "></p>
+<h2>The package <a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true"><code>bigergm</code></a></h2>
+<p><img data-src="bigergm_files/evolution_packages.png" class="absolute" style="top: 400px; left: 170px; width: 800px; "></p>
 <ul>
-<li><span class="math inline">\(\mathtt{hergm}\)</span>: First package developed by <span class="citation" data-cites="schweinberger2018">Schweinberger and Luna (<a href="#/literature" role="doc-biblioref" onclick="">2018</a>)</span>.<br>
+<li><span class="math inline">\(\mathtt{hergm}\)</span>: First package developed by <span class="citation" data-cites="schweinberger2018">Schweinberger &amp; Luna (<a href="#/literature" role="doc-biblioref" onclick="">2018</a>)</span>.<br>
 </li>
-<li><span class="math inline">\(\mathtt{lighthergm}\)</span>: Extension to larger networks based on <span class="citation" data-cites="babkin_2020">Babkin, Stewart, and Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2020</a>)</span> and <span class="citation" data-cites="martinezdahbura2021">Martínez Dahbura et al. (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span></li>
-<li><span class="math inline">\(\mathtt{bigergm}\)</span>: Extension to directed networks with a clean interface and additional features based on <span class="citation" data-cites="fritz2024">Fritz et al. (<a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span>.</li>
+<li><span class="math inline">\(\mathtt{lighthergm}\)</span>: Scaling up estimation to big networks based on <span class="citation" data-cites="babkin_2020">Babkin, Stewart, Long, &amp; Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2020</a>)</span> and <span class="citation" data-cites="martinezdahbura2021">Dahbura, Komatsu, Nishida, &amp; Mele (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span></li>
+<li><span class="math inline">\(\mathtt{bigergm}\)</span>: Extension to directed networks with a clean interface and additional features based on <span class="citation" data-cites="fritz2024">Fritz, Georg, Mele, &amp; Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span></li>
 </ul>
 </section>
 <section id="installation" class="slide level2">
 <h2>Installation</h2>
 <ul>
-<li>For the CRAN version (1.2.1) of the package:</li>
+<li>The package can be installed in R as follows:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"bigergm"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>In case this does not work try</li>
+<li>An alternative is to install the package from GitHub:</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"cfritz/bigergm-tutorial"</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -565,35 +546,34 @@ Cornelius Fritz and Michael Schweinberger
 </section></section>
 <section>
 <section id="bigergm-hierarchical-exponential-family-random-graph-models-for-big-networks" class="title-slide slide level1 center">
-<h1><code>bigergm</code>: Hierarchical exponential-family random graph models for big networks</h1>
+<h1><a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true"><code>bigergm</code></a>: Hierarchical exponential-family random graph models for big networks</h1>
 
 </section>
 <section id="bigergm-hierarchical-exponential-family-random-graph-models-for-big-networks-1" class="slide level2">
-<h2><code>bigergm</code>: Hierarchical exponential-family random graph models for big networks</h2>
+<h2><a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true"><code>bigergm</code></a>: Hierarchical exponential-family random graph models for big networks</h2>
 <ol type="1">
-<li>Model specification</li>
-<li>Simulate from the model</li>
-<li>Estimate the model</li>
-<li>Diagnose the fit</li>
+<li>Specify</li>
+<li>Simulate</li>
+<li>Estimate</li>
+<li>Diagnose</li>
 </ol>
 </section></section>
 <section>
-<section id="model-specification" class="title-slide slide level1 center">
-<h1>1. Model Specification</h1>
+<section id="specify" class="title-slide slide level1 center">
+<h1>1. Specify</h1>
 
 </section>
-<section id="specification-of-a-hergm" class="slide level2">
-<h2>Specification of a HERGM</h2>
-<p>Assume the block memberships are known and specify two ERGMs:</p>
+<section id="specify-a-ergm-with-additional-structure" class="slide level2">
+<h2>Specify a ERGM with additional structure</h2>
 <ol type="1">
-<li>Within-block ERGM (drawn in blue)</li>
-<li>Between-block ERGM (drawn in yellow)</li>
+<li>Within-block ERGM (colored blue)</li>
+<li>Between-block ERGM colored yellow)</li>
 </ol>
 <p><img data-src="bigergm_files/block_structure.jpg" class="absolute" style="top: 260px; left: 200px; width: 700px; "></p>
 </section>
-<section id="specification-of-a-hergm-1" class="slide level2">
-<h2>Specification of a HERGM</h2>
-<p>Assume the block memberships saved as a vertex attribute ‘block’:</p>
+<section id="specify-a-ergm-with-additional-structure-1" class="slide level2">
+<h2>Specify a ERGM with additional structure</h2>
+<p>The block memberships saved as a vertex attribute ‘block’:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> lhs_network <span class="sc">~</span> network_term_1 <span class="sc">+</span> ... <span class="sc">+</span> network_term_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -601,52 +581,52 @@ Cornelius Fritz and Michael Schweinberger
 <li><code>lhs_network</code>: A <code>network</code> object where the simulation should be started. States the size of the network and whether it’s directed or not.</li>
 <li><code>network_term(s)</code>: <code>ergmTerms</code> specifying the network model.
 <ul>
-<li>Within-block ERGM: All provided terms are included and evaluated for each within-block subnetwork.</li>
-<li>Between-block ERGM: Only terms that imply dependence between connections are included and evaluated for each between-block subnetwork.</li>
+<li>Within-block ERGM: Dyad-independent or dyad-dependent terms</li>
+<li>Between-block ERGM: Only dyad-independent terms</li>
 </ul></li>
 </ol>
 </section>
-<section id="specification-of-a-hergm-example-1" class="slide level2">
-<h2>Specification of a HERGM: Example 1</h2>
+<section id="example-1" class="slide level2">
+<h2>Example 1</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> network_tmp <span class="sc">~</span> edges   <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"x"</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Within-block model: <span class="math display">\[
-\mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x}) = \left(\sum_{i&lt;j} a_{i,j}^{k,k}\, y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}\right)
+\mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y}) = \left(\sum_{i&lt;j}  x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}\right)
 \]</span> Between-block model: <span class="math display">\[
-\mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x}) = \left(\sum_{i&lt;j} a_{i,j}^{k,l}\,y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i&lt;j}x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}\right)
 \]</span></p>
 </section>
-<section id="specification-of-a-hergm-example-2" class="slide level2">
-<h2>Specification of a HERGM: Example 2</h2>
+<section id="example-2" class="slide level2">
+<h2>Example 2</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> network_tmp <span class="sc">~</span> edges <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"x"</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"y"</span>) <span class="sc">+</span> transitiveties</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Within-block model: <span class="math display">\[
 \begin{split}
-\mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x}) = \Bigg(&amp;\sum_{i&lt;j} a_{i,j}^{k,k}\,y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \\
-&amp;\sum_{i&lt;j} y_{i,j}\,\mathbb{I} \Bigg(\sum_{h \neq i,j} a_{i,j,h}^{k,k}\, y_{i,h}\, y_{h,j}&gt;0 \Bigg)\Bigg)
+\mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y}) = \Bigg(&amp;\sum_{i&lt;j} x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \\
+&amp;\sum_{i&lt;j} x_{i,j}\,\mathbb{I} \Bigg(\sum_{h \neq i,j} x_{i,h}\, x_{h,j}&gt;0 \Bigg)\Bigg)
 \end{split}
 \]</span></p>
 <p>Between-block model: <span class="math display">\[
-\mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x}) = \left(\sum_{i&lt;j}a_{i,j}^{k,l}\, y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i&lt;j}x_{i,j}, \sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i&lt;j}\mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}\right)
 \]</span></p>
 </section></section>
 <section>
-<section id="model-simulation" class="title-slide slide level1 center">
-<h1>2. Model Simulation</h1>
+<section id="simulate" class="title-slide slide level1 center">
+<h1>2. Simulate</h1>
 
 </section>
-<section id="model-simulation-1" class="slide level2">
-<h2>Model Simulation</h2>
+<section id="simulate-1" class="slide level2">
+<h2>Simulate</h2>
 <ol type="1">
 <li>Specify the base network</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Load the needed packages</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Load the required packages</span></span>
 <span id="cb6-2"><a href=""></a><span class="fu">library</span>(bigergm)</span>
 <span id="cb6-3"><a href=""></a><span class="fu">library</span>(network)</span>
-<span id="cb6-4"><a href=""></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb6-4"><a href=""></a><span class="co"># Ensure that all results are reproducible</span></span>
 <span id="cb6-5"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb6-6"><a href=""></a><span class="co"># Specify base network (which has 200 nodes and is undirected)</span></span>
 <span id="cb6-7"><a href=""></a>network_tmp <span class="ot">&lt;-</span> network<span class="sc">::</span><span class="fu">network.initialize</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span>
@@ -663,14 +643,14 @@ Cornelius Fritz and Michael Schweinberger
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> network_tmp <span class="sc">~</span> edges <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"x"</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"y"</span>) <span class="sc">+</span> transitiveties</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-simulation-2" class="slide level2">
-<h2>Model Simulation</h2>
+<section id="simulate-2" class="slide level2">
+<h2>Simulate</h2>
 <ol start="3" type="1">
-<li>Simulate a network from this model</li>
+<li>Simulate a network from specified model</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>sim_net <span class="ot">&lt;-</span> bigergm<span class="sc">::</span><span class="fu">simulate_bigergm</span>(</span>
-<span id="cb8-2"><a href=""></a>  <span class="co"># Formula for the model</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>sim_net <span class="ot">&lt;-</span> <span class="fu">simulate_bigergm</span>(</span>
+<span id="cb8-2"><a href=""></a>  <span class="co"># Model specification </span></span>
 <span id="cb8-3"><a href=""></a>  <span class="at">formula =</span> model_formula,</span>
 <span id="cb8-4"><a href=""></a>  <span class="co"># The coefficients for the between connections</span></span>
 <span id="cb8-5"><a href=""></a>  <span class="at">coef_between =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.7</span>,<span class="fl">0.8</span>, <span class="fl">0.4</span>),</span>
@@ -680,13 +660,13 @@ Cornelius Fritz and Michael Schweinberger
 <span id="cb8-9"><a href=""></a>  <span class="at">nsim =</span> <span class="dv">1</span>, </span>
 <span id="cb8-10"><a href=""></a>  <span class="co"># Control argument to guide simulation</span></span>
 <span id="cb8-11"><a href=""></a>  <span class="at">control_within =</span> ergm<span class="sc">::</span><span class="fu">control.simulate.formula</span>(<span class="at">MCMC.burnin =</span> <span class="dv">50000</span>, <span class="at">MCMC.interval =</span> <span class="dv">10000</span>), </span>
-<span id="cb8-12"><a href=""></a>  <span class="co"># Set seed for reproducibility</span></span>
+<span id="cb8-12"><a href=""></a>  <span class="co"># Ensure that all results are reproducible</span></span>
 <span id="cb8-13"><a href=""></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
 <span id="cb8-14"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-simulation-3" class="slide level2">
-<h2>Model Simulation</h2>
+<section id="simulate-3" class="slide level2">
+<h2>Simulate</h2>
 <ol start="4" type="1">
 <li>Plot simulated network</li>
 </ol>
@@ -696,12 +676,12 @@ Cornelius Fritz and Michael Schweinberger
 </div>
 <img data-src="bigergm_files/figure-revealjs/unnamed-chunk-9-1.png" width="1440" class="r-stretch"></section></section>
 <section>
-<section id="model-estimation" class="title-slide slide level1 center">
-<h1>3. Model Estimation</h1>
+<section id="estimate" class="title-slide slide level1 center">
+<h1>3. Estimate</h1>
 
 </section>
-<section id="model-fitting-with-unknown-block-structure" class="slide level2">
-<h2>Model Fitting with unknown block structure</h2>
+<section id="estimate-with-unknown-block-structure" class="slide level2">
+<h2>Estimate with unknown block structure</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Update the formula to refer to the simulated network </span></span>
 <span id="cb10-2"><a href=""></a>model_formula <span class="ot">&lt;-</span> <span class="fu">update</span>(model_formula, sim_net<span class="sc">~</span>.)</span>
@@ -710,21 +690,21 @@ Cornelius Fritz and Michael Schweinberger
 <span id="cb10-5"><a href=""></a>  <span class="at">object =</span> model_formula,</span>
 <span id="cb10-6"><a href=""></a>  <span class="co"># The number of blocks</span></span>
 <span id="cb10-7"><a href=""></a>  <span class="at">n_blocks =</span>  <span class="dv">4</span>, </span>
-<span id="cb10-8"><a href=""></a>  <span class="co"># The maximum number of MM algorithm steps</span></span>
+<span id="cb10-8"><a href=""></a>  <span class="co"># The maximum number of MM steps</span></span>
 <span id="cb10-9"><a href=""></a>  <span class="at">n_MM_step_max =</span> <span class="dv">100</span>,</span>
 <span id="cb10-10"><a href=""></a>  <span class="co"># The tolarence for the MM algorithm</span></span>
 <span id="cb10-11"><a href=""></a>  <span class="at">tol_MM_step =</span> <span class="fl">1e-6</span>,</span>
 <span id="cb10-12"><a href=""></a>  <span class="co"># Perform parameter estimation after the block recovery step</span></span>
 <span id="cb10-13"><a href=""></a>  <span class="at">estimate_parameters =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb10-14"><a href=""></a>  <span class="co"># Indicate that clustering must take into account nodematch on x and y</span></span>
+<span id="cb10-14"><a href=""></a>  <span class="co"># Indicate whether clustering should take into account nodematch on x and y</span></span>
 <span id="cb10-15"><a href=""></a>  <span class="at">clustering_with_features =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb10-16"><a href=""></a>  <span class="co"># Keep track of block memberships at each iteration</span></span>
 <span id="cb10-17"><a href=""></a>  <span class="at">check_block_membership =</span> <span class="cn">TRUE</span></span>
 <span id="cb10-18"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-fitting-with-unknown-block-structure-1" class="slide level2">
-<h2>Model Fitting with unknown block structure</h2>
+<section id="estimate-with-unknown-block-structure-1" class="slide level2">
+<h2>Estimate with unknown block structure</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">summary</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -760,20 +740,20 @@ AIC: 6709.794 BIC:  6736.106</code></pre>
 <p>Ground truth coefficients:</p>
 <ul>
 <li>Within-block: -2.5 (edges), 1 (nm.x), 1 (nm.y), 0.5 (tt)</li>
-<li>Between-block: -4.7 (edges), 0.8 (nm.x), 0.4 (nm.y</li>
+<li>Between-block: -4.7 (edges), 0.8 (nm.x), 0.4 (nm.y)</li>
 </ul>
 </section>
-<section id="model-fitting-with-unknown-block-structure-2" class="slide level2">
-<h2>Model Fitting with unknown block structure</h2>
+<section id="estimate-with-unknown-block-structure-2" class="slide level2">
+<h2>Estimate with unknown block structure</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">plot</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="bigergm_files/figure-revealjs/unnamed-chunk-12-1.png" width="1440" class="r-stretch"></section>
-<section id="model-fitting-with-unknown-block-structure-3" class="slide level2">
-<h2>Model Fitting with unknown block structure</h2>
+<section id="estimate-with-unknown-block-structuree" class="slide level2">
+<h2>Estimate with unknown block structuree</h2>
 <ul>
-<li>Compare the found block structure with the true block structure by the adjusted rand index</li>
+<li>Compare the estimated block structure with the true block structure by the adjusted Rand index (ARI)</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">ari</span>(res<span class="sc">$</span>block, sim_net <span class="sc">%v%</span> <span class="st">"block"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -790,46 +770,31 @@ AIC: 6709.794 BIC:  6736.106</code></pre>
 
 </div>
 <img data-src="bigergm_files/figure-revealjs/unnamed-chunk-14-1.png" width="1440" class="r-stretch"></section>
-<section id="model-fitting-with-known-block-structure" class="slide level2">
-<h2>Model Fitting with known block structure</h2>
+<section id="estimate-with-known-block-structure" class="slide level2">
+<h2>Estimate with known block structure</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>res_known <span class="ot">&lt;-</span><span class="fu">bigergm</span>(</span>
+<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="|4-5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>res_known <span class="ot">&lt;-</span><span class="fu">bigergm</span>(</span>
 <span id="cb17-2"><a href=""></a>  <span class="co"># The model you would like to estimate</span></span>
 <span id="cb17-3"><a href=""></a>  <span class="at">object =</span> model_formula,</span>
 <span id="cb17-4"><a href=""></a>  <span class="co"># Specify the block structure</span></span>
-<span id="cb17-5"><a href=""></a>  <span class="at">blocks =</span> sim_net <span class="sc">%v%</span> <span class="st">"block"</span>,</span>
-<span id="cb17-6"><a href=""></a>  <span class="co"># The maximum number of MM algorithm steps</span></span>
-<span id="cb17-7"><a href=""></a>  <span class="at">n_MM_step_max =</span> <span class="dv">100</span>,</span>
-<span id="cb17-8"><a href=""></a>  <span class="co"># The tolarence for the MM algorithm</span></span>
-<span id="cb17-9"><a href=""></a>  <span class="at">tol_MM_step =</span> <span class="fl">1e-6</span>,</span>
-<span id="cb17-10"><a href=""></a>  <span class="co"># Perform parameter estimation after the block recovery step</span></span>
-<span id="cb17-11"><a href=""></a>  <span class="at">estimate_parameters =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb17-12"><a href=""></a>  <span class="co"># Indicate that clustering must take into account nodematch on x and y</span></span>
-<span id="cb17-13"><a href=""></a>  <span class="at">clustering_with_features =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb17-14"><a href=""></a>  <span class="co"># Keep track of block memberships at each iteration</span></span>
-<span id="cb17-15"><a href=""></a>  <span class="at">check_block_membership =</span> <span class="cn">TRUE</span></span>
-<span id="cb17-16"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="model-fitting-with-known-block-structure-1" class="slide level2">
-<h2>Model Fitting with known block structure</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">summary</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href=""></a>  <span class="at">blocks =</span> sim_net <span class="sc">%v%</span> <span class="st">"block"</span></span>
+<span id="cb17-6"><a href=""></a>)</span>
+<span id="cb17-7"><a href=""></a><span class="fu">summary</span>(res_known)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 .main()
 
 Found 4 clusters of relative sizes: 
- 0.295 0.275 0.225 0.205
+ 0.225 0.275 0.29 0.21
 
 Results of within-cluster estimation: 
 Maximum Pseudolikelihood Results:
 
                Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-edges          -2.70189    0.08884      0  -30.41   &lt;1e-04 ***
-nodematch.x     0.93662    0.08120      0   11.54   &lt;1e-04 ***
-nodematch.y     0.91773    0.07333      0   12.52   &lt;1e-04 ***
-transitiveties  0.65987    0.05540      0   11.91   &lt;1e-04 ***
+edges          -2.67073    0.08859      0  -30.15   &lt;1e-04 ***
+nodematch.x     0.93762    0.08116      0   11.55   &lt;1e-04 ***
+nodematch.y     0.91850    0.07332      0   12.53   &lt;1e-04 ***
+transitiveties  0.63566    0.05512      0   11.53   &lt;1e-04 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -837,64 +802,60 @@ Results of between-cluster estimation:
  Results:
 
             Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-edges        -4.5848     0.1062      0 -43.184  &lt; 1e-04 ***
-nodematch.x   0.5452     0.1615      0   3.375 0.000738 ***
-nodematch.y   0.1856     0.1529      0   1.214 0.224796    
+edges        -4.5891     0.1061      0 -43.234  &lt; 1e-04 ***
+nodematch.x   0.5562     0.1604      0   3.468 0.000524 ***
+nodematch.y   0.2138     0.1516      0   1.410 0.158430    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-AIC: 6709.794 BIC:  6736.106</code></pre>
+AIC: 6726.304 BIC:  6752.603</code></pre>
 </div>
 </div>
-<p>Ground truth coefficients:</p>
-<ul>
-<li>Within-block: -2.5 (edges), 1 (nm.x), 1 (nm.y), 0.5 (tt)</li>
-<li>Between-block: -4.7 (edges), 0.8 (nm.x), 0.4 (nm.y</li>
-</ul>
 </section></section>
 <section>
-<section id="model-diagnostics" class="title-slide slide level1 center">
-<h1>3. Model Diagnostics</h1>
+<section id="diagnose" class="title-slide slide level1 center">
+<h1>3. Diagnose</h1>
 
 </section>
-<section id="model-diagnostics-1" class="slide level2">
-<h2>Model Diagnostics</h2>
+<section id="diagnose-1" class="slide level2">
+<h2>Diagnose</h2>
 <ul>
-<li>Check if simulations from the estimated model correspond to the observed network</li>
-<li>Function calculates degree, edgewise-shared partner, and geodesic distance statistics</li>
+<li>Check if simulations from the estimated model match the observed network</li>
+<li>Function calculates degree, edgewise shared partner, and geodesic distance statistics</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>tmp <span class="ot">&lt;-</span> <span class="fu">gof</span>(res_known, </span>
-<span id="cb20-2"><a href=""></a>    <span class="co"># Control argument to guide simulation</span></span>
-<span id="cb20-3"><a href=""></a>    <span class="at">control_within =</span> ergm<span class="sc">::</span><span class="fu">control.simulate.formula</span>(<span class="at">MCMC.burnin =</span> <span class="dv">50000</span>, </span>
-<span id="cb20-4"><a href=""></a>                                                    <span class="at">MCMC.interval =</span> <span class="dv">10000</span>), </span>
-<span id="cb20-5"><a href=""></a>    <span class="co"># How many simulations should be performed?</span></span>
-<span id="cb20-6"><a href=""></a>    <span class="at">nsim =</span> <span class="dv">100</span>,</span>
-<span id="cb20-7"><a href=""></a>    <span class="co"># Either 'full' or 'within' to say if gof should be based on only within-connections or all</span></span>
-<span id="cb20-8"><a href=""></a>    <span class="at">type =</span> <span class="st">"full"</span>,</span>
-<span id="cb20-9"><a href=""></a>    <span class="co"># Seed for reproducibility</span></span>
-<span id="cb20-10"><a href=""></a>    <span class="at">seed =</span> <span class="dv">123</span>,</span>
-<span id="cb20-11"><a href=""></a>    <span class="co"># Should the simulation start from the observed network?</span></span>
-<span id="cb20-12"><a href=""></a>    <span class="at">start_from_observed =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb20-13"><a href=""></a>    <span class="co"># Should all geodesic distances be computed for the simulated networks?</span></span>
-<span id="cb20-14"><a href=""></a>    <span class="at">compute_geodesic_distance =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>tmp <span class="ot">&lt;-</span> <span class="fu">gof</span>(res_known, </span>
+<span id="cb19-2"><a href=""></a>    <span class="co"># Control arguments for within-block simulations</span></span>
+<span id="cb19-3"><a href=""></a>    <span class="at">control_within =</span> ergm<span class="sc">::</span><span class="fu">control.simulate.formula</span>(<span class="at">MCMC.burnin =</span> <span class="dv">50000</span>, </span>
+<span id="cb19-4"><a href=""></a>                                                    <span class="at">MCMC.interval =</span> <span class="dv">10000</span>), </span>
+<span id="cb19-5"><a href=""></a>    <span class="co"># How many simulations should be performed?</span></span>
+<span id="cb19-6"><a href=""></a>    <span class="at">nsim =</span> <span class="dv">100</span>,</span>
+<span id="cb19-7"><a href=""></a>    <span class="co"># Either 'full' or 'within' to say if gof should be based on only </span></span>
+<span id="cb19-8"><a href=""></a>    <span class="co"># within-connections or all</span></span>
+<span id="cb19-9"><a href=""></a>    <span class="at">type =</span> <span class="st">"full"</span>,</span>
+<span id="cb19-10"><a href=""></a>    <span class="co"># Ensure that all results are reproducible</span></span>
+<span id="cb19-11"><a href=""></a>    <span class="at">seed =</span> <span class="dv">123</span>,</span>
+<span id="cb19-12"><a href=""></a>    <span class="co"># Should the simulation start from the observed network?</span></span>
+<span id="cb19-13"><a href=""></a>    <span class="at">start_from_observed =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb19-14"><a href=""></a>    <span class="co"># Should all geodesic distances be computed for the simulated networks?</span></span>
+<span id="cb19-15"><a href=""></a>    <span class="at">compute_geodesic_distance =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-diagnostics-2" class="slide level2">
-<h2>Model Diagnostics</h2>
+<section id="diagnose-2" class="slide level2">
+<h2>Diagnose</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb21-2"><a href=""></a><span class="fu">plot</span>(tmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb20-2"><a href=""></a><span class="fu">plot</span>(tmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-18-1.png" width="1920" class="r-stretch"></section></section>
+<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-17-1.png" width="1920" class="r-stretch"></section></section>
 <section>
 <section id="application-to-twitter-x-following-network-of-state-legislators" class="title-slide slide level1 center">
-<h1>Application to Twitter (X) Following Network of State Legislators</h1>
+<h1>Application to Twitter (X):<br> Following Network of State Legislators</h1>
 
 </section>
 <section id="data-twitter-x-network-of-u.s.-state-legislators" class="slide level2">
 <h2>Data: <a href="https://www.corneliusfritz.com/bigergm/reference/state_twitter" data-preview-link="true">Twitter (X) network of U.S. state legislators</a></h2>
-<p>Thanks to Bruce Desmarais for providing the data and allowing its inclusion in the package:</p>
+<p>We are indebted Bruce Desmarais for sharing the Twitter (X) data and allowing us to include them in the package:</p>
 <ul>
 <li><p>Gopal, Kim, Nakka, Boehmke, Harden, Desmarais. The National Network of U.S. State Legislators on Twitter. Political Science Research &amp; Methods, Forthcoming.</p></li>
 <li><p>Kim, Nakka, Gopal, Desmarais, Mancinelli, Harden, Ko, and Boehmke (2022). Attention to the COVID-19 pandemic on Twitter: Partisan differences among U.S. state legislators. Legislative Studies Quarterly 47, 1023–1041.</p></li>
@@ -903,8 +864,8 @@ AIC: 6709.794 BIC:  6736.106</code></pre>
 <section id="data-twitter-x-network-of-u.s.-state-legislators-1" class="slide level2">
 <h2>Data: <a href="https://www.corneliusfritz.com/bigergm/reference/state_twitter" data-preview-link="true">Twitter (X) network of U.S. state legislators</a></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">data</span>(<span class="st">"state_twitter"</span>)</span>
-<span id="cb22-2"><a href=""></a>state_twitter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">data</span>(<span class="st">"state_twitter"</span>)</span>
+<span id="cb21-2"><a href=""></a>state_twitter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Network attributes:
   vertices = 2191 
@@ -927,73 +888,173 @@ AIC: 6709.794 BIC:  6736.106</code></pre>
 <section id="data-twitter-x-network-of-u.s.-state-legislators-2" class="slide level2">
 <h2>Data: <a href="https://www.corneliusfritz.com/bigergm/reference/state_twitter" data-preview-link="true">Twitter (X) network of U.S. state legislators</a></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">library</span>(ggnet)</span>
-<span id="cb24-2"><a href=""></a><span class="fu">library</span>(GGally)</span>
-<span id="cb24-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb24-4"><a href=""></a><span class="fu">ggnet2</span>(state_twitter,  <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"state"</span>, <span class="at">edge.alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
-<span id="cb24-5"><a href=""></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
-<span id="cb24-6"><a href=""></a>  <span class="fu">scale_colour_viridis_d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(ggnet)</span>
+<span id="cb23-2"><a href=""></a><span class="fu">library</span>(GGally)</span>
+<span id="cb23-3"><a href=""></a><span class="co"># Ensure that all results are reproducible</span></span>
+<span id="cb23-4"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb23-5"><a href=""></a><span class="fu">ggnet2</span>(state_twitter,  <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"state"</span>, <span class="at">edge.alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb23-6"><a href=""></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb23-7"><a href=""></a>  <span class="fu">scale_colour_viridis_d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-20-1.png" width="1920" class="r-stretch"></section>
-<section id="model-specification-1" class="slide level2">
-<h2>1. Model Specification</h2>
+<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-19-1.png" width="1920" class="r-stretch"></section>
+<section id="specify-1" class="slide level2">
+<h2>1. Specify</h2>
 <ul>
-<li>Issue with blocks of different size: Parameters of the within-block model might change between blocks</li>
-<li>Solution based on <code>ergm.multi</code>: Size-dependent parametrizations!</li>
+<li>Issue with blocks of different size: Parameters of within-block model may change between blocks</li>
+<li>Solution based on <code>ergm.multi</code>: Size-dependent parametrizations</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span>n<span class="dv">-1</span>) </span>
-<span id="cb25-2"><a href=""></a>model_formula <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span><span class="fu">log</span>(n)<span class="sc">-</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span>n<span class="dv">-1</span>) </span>
+<span id="cb24-2"><a href=""></a>model_formula <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span><span class="fu">log</span>(n)<span class="sc">-</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img data-src="bigergm_files/edge_term_plot.png" class="absolute" style="top: 340px; left: 0px; width: 1000px; "></p>
 </section>
-<section id="model-specification-2" class="slide level2">
-<h2>1. Model Specification</h2>
+<section id="exercise-1-specification" class="slide level2">
+<h2>Exercise 1: Specification</h2>
+<ul>
+<li>Specify a HERGM for the Twitter (X) network of U.S. state legislators with the following terms:
+<ul>
+<li>Homophily based on party affiliation, race, and gender with <code>nodematch</code> statistic</li>
+<li>Size-dependent parametrizations of the edge term</li>
+</ul></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Solution</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>formula_tmp <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"party"</span>) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href=""></a>  <span class="fu">nodematch</span>(<span class="st">"race"</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"gender"</span>) <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span><span class="fu">log</span>(n)<span class="sc">-</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="exercise-2-estimation" class="slide level2">
+<h2>Exercise 2: Estimation</h2>
+<ul>
+<li>Estimate the HERGM with the <code>bigergm</code> function assuming there are 50 blocks (use the covariate information for the first step)
+<ul>
+<li>Check if different initialization methods lead to different results (see help(bigergm) for guidance on availablity of different initialization methods).</li>
+<li>Compare the estimated blocks with the state each legislator serves for with the adjusted Rand index (ARI).</li>
+</ul></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Hint 1</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="co"># clustering_with_features, n_blocks, initialization</span></span>
+<span id="cb26-2"><a href=""></a><span class="fu">help</span>(bigergm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Hint 2</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">help</span>(ari)</span>
+<span id="cb27-2"><a href=""></a><span class="fu">help</span>(attribute.methods)</span>
+<span id="cb27-3"><a href=""></a><span class="co"># state_twitter%v%"state"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="exercise-2-estimation-1" class="slide level2">
+<h2>Exercise 2: Estimation</h2>
+<ul>
+<li>Estimate the HERGM with the <code>bigergm</code> function assuming there are 50 blocks (use the covariate information for the first step)
+<ul>
+<li>Check if different initialization methods lead to different results (see help(bigergm) for guidance on availablity of different initialization methods).</li>
+<li>Compare the estimated blocks with the state each legislator serves for with the adjusted Rand index (ARI).</li>
+</ul></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Solution 1</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>twitter_tmp <span class="ot">&lt;-</span> <span class="fu">bigergm</span>(</span>
+<span id="cb28-2"><a href=""></a>  <span class="at">object =</span> formula_tmp,</span>
+<span id="cb28-3"><a href=""></a>  <span class="co"># Perform parameter estimation after the block recovery step</span></span>
+<span id="cb28-4"><a href=""></a>  <span class="at">clustering_with_features =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-5"><a href=""></a>  <span class="co"># How many blocks should be estimated?</span></span>
+<span id="cb28-6"><a href=""></a>  <span class="at">n_blocks =</span> <span class="dv">50</span>, </span>
+<span id="cb28-7"><a href=""></a>  <span class="co"># Set algorithm for initialization </span></span>
+<span id="cb28-8"><a href=""></a>  <span class="at">initialization =</span> <span class="st">"walktrap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Solution 2</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="co"># summary(twitter_tmp)</span></span>
+<span id="cb29-2"><a href=""></a><span class="co"># ari(twitter_tmp$block,state_twitter%v%"state")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="exercise-3-simulation" class="slide level2">
+<h2>Exercise 3: Simulation</h2>
+<ul>
+<li>Simulate 10 networks from the estimated model and plot the number of edges in the within- and between-block networks</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Hint</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">help</span>(simulate)</span>
+<span id="cb30-2"><a href=""></a><span class="fu">help</span>(simulate_bigergm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Solution</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>twitter_sim <span class="ot">&lt;-</span> <span class="fu">simulate</span>(twitter_tmp, <span class="at">output =</span> <span class="st">"stats"</span>, <span class="at">nsim =</span> <span class="dv">10</span>,</span>
+<span id="cb31-2"><a href=""></a>                        <span class="at">control_within =</span> <span class="fu">control.simulate.formula</span>(<span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span>
+<span id="cb31-3"><a href=""></a><span class="co"># plot(twitter_sim$within_network$edges, </span></span>
+<span id="cb31-4"><a href=""></a><span class="co">#      xlab = "Index", ylab = "Within-block Edges", type = "l")</span></span>
+<span id="cb31-5"><a href=""></a><span class="co"># plot(twitter_sim$between_network$edges, </span></span>
+<span id="cb31-6"><a href=""></a><span class="co">#      xlab = "Index", ylab = "Within-block Edges", type = "l")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="specify-2" class="slide level2">
+<h2>1. Specify</h2>
 <ul>
 <li>Issue with blocks of different size: Parameters of the within-block model might change between blocks</li>
 <li>Solution based on <code>ergm.multi</code>: Size-dependent parametrizations!</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"party"</span>) <span class="sc">+</span>   <span class="fu">nodematch</span>(<span class="st">"race"</span>) <span class="sc">+</span>  </span>
-<span id="cb26-2"><a href=""></a>  <span class="fu">nodematch</span>(<span class="st">"gender"</span>) <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>mutual,<span class="sc">~</span><span class="fu">log</span>(n)) <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span><span class="fu">log</span>(n)<span class="sc">-</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>model_formula <span class="ot">&lt;-</span> state_twitter <span class="sc">~</span>  edges <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"party"</span>) <span class="sc">+</span>   </span>
+<span id="cb32-2"><a href=""></a>   <span class="fu">nodematch</span>(<span class="st">"race"</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">"gender"</span>) <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>transitiveties,<span class="sc">~</span><span class="fu">log</span>(n)) <span class="sc">+</span> </span>
+<span id="cb32-3"><a href=""></a>   <span class="fu">N</span>(<span class="sc">~</span>mutual,<span class="sc">~</span><span class="fu">log</span>(n)) <span class="sc">+</span> <span class="fu">N</span>(<span class="sc">~</span>edges,<span class="sc">~</span><span class="fu">log</span>(n)<span class="sc">-</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img data-src="bigergm_files/edge_term_plot.png" class="absolute" style="top: 340px; left: 0px; "></p>
 </section>
-<section id="model-estimation-1" class="slide level2">
-<h2>2. Model Estimation</h2>
+<section id="estimate-1" class="slide level2">
+<h2>2. Estimate</h2>
 <ul>
 <li>Support for parallel computation and ML estimation for within-block model</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>twitter_res <span class="ot">&lt;-</span> <span class="fu">bigergm</span>(</span>
-<span id="cb27-2"><a href=""></a>  <span class="at">object =</span> model_formula,</span>
-<span id="cb27-3"><a href=""></a>  <span class="co"># The number of blocks</span></span>
-<span id="cb27-4"><a href=""></a>  <span class="at">n_MM_step_max =</span> <span class="dv">1000</span>,<span class="at">tol_MM_step =</span> <span class="fl">0.0001</span>,</span>
-<span id="cb27-5"><a href=""></a>  <span class="co"># The maximum number of MM algorithm steps</span></span>
-<span id="cb27-6"><a href=""></a>  <span class="at">estimate_parameters =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb27-7"><a href=""></a>  <span class="co"># Perform parameter estimation after the block recovery step</span></span>
-<span id="cb27-8"><a href=""></a>  <span class="at">clustering_with_features =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb27-9"><a href=""></a>  <span class="co"># Indicate that clustering must take into account nodematch on characteristics</span></span>
-<span id="cb27-10"><a href=""></a>  <span class="at">check_block_membership =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb27-11"><a href=""></a>  <span class="co"># How many blocks should be estimated?</span></span>
-<span id="cb27-12"><a href=""></a>  <span class="at">n_blocks =</span> <span class="dv">50</span>,</span>
-<span id="cb27-13"><a href=""></a>  <span class="co"># Which estimation for the within-block model should be used?</span></span>
-<span id="cb27-14"><a href=""></a>  <span class="at">method_within =</span> <span class="st">"MLE"</span>,</span>
-<span id="cb27-15"><a href=""></a>  <span class="co"># Control argument to guide simulation</span></span>
-<span id="cb27-16"><a href=""></a>  <span class="at">control_within =</span> <span class="fu">control.ergm</span>(<span class="at">parallel=</span><span class="dv">5</span>, <span class="at">parallel.type=</span><span class="st">"PSOCK"</span>, </span>
-<span id="cb27-17"><a href=""></a>                                <span class="at">MCMC.burnin =</span> <span class="dv">10000</span>, </span>
-<span id="cb27-18"><a href=""></a>                                <span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>twitter_res <span class="ot">&lt;-</span> <span class="fu">bigergm</span>(</span>
+<span id="cb33-2"><a href=""></a>  <span class="at">object =</span> model_formula,</span>
+<span id="cb33-3"><a href=""></a>  <span class="co"># The number of blocks</span></span>
+<span id="cb33-4"><a href=""></a>  <span class="at">n_MM_step_max =</span> <span class="dv">1000</span>,<span class="at">tol_MM_step =</span> <span class="fl">0.0001</span>,</span>
+<span id="cb33-5"><a href=""></a>  <span class="co"># The maximum number of MM steps </span></span>
+<span id="cb33-6"><a href=""></a>  <span class="at">estimate_parameters =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-7"><a href=""></a>  <span class="co"># Perform parameter estimation after the block recovery step</span></span>
+<span id="cb33-8"><a href=""></a>  <span class="at">clustering_with_features =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb33-9"><a href=""></a>  <span class="co"># Indicate wether clustering should take into account </span></span>
+<span id="cb33-10"><a href=""></a>  <span class="co"># nodematch on characteristics</span></span>
+<span id="cb33-11"><a href=""></a>  <span class="at">check_block_membership =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb33-12"><a href=""></a>  <span class="co"># How many blocks should be estimated?</span></span>
+<span id="cb33-13"><a href=""></a>  <span class="at">n_blocks =</span> <span class="dv">50</span>,</span>
+<span id="cb33-14"><a href=""></a>  <span class="co"># Which estimation for the within-block model should be used?</span></span>
+<span id="cb33-15"><a href=""></a>  <span class="at">method_within =</span> <span class="st">"MLE"</span>,</span>
+<span id="cb33-16"><a href=""></a>  <span class="co"># Control arguments for within-block simulations</span></span>
+<span id="cb33-17"><a href=""></a>  <span class="at">control_within =</span> <span class="fu">control.ergm</span>(<span class="at">parallel=</span><span class="dv">5</span>, <span class="at">parallel.type=</span><span class="st">"PSOCK"</span>, </span>
+<span id="cb33-18"><a href=""></a>                                <span class="at">MCMC.burnin =</span> <span class="dv">10000</span>, </span>
+<span id="cb33-19"><a href=""></a>                                <span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-estimation-2" class="slide level2">
-<h2>2. Model Estimation</h2>
+<section id="estimate-2" class="slide level2">
+<h2>2. Estimate</h2>
 <ul>
 <li>Homophily based on party affiliation</li>
-<li>Strong reciprocity effect that gets smaller for bigger networks</li>
+<li>Strong reciprocity, decreasing with network size</li>
+<li>Strong transitivity, decreasing with network size</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">summary</span>(twitter_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">summary</span>(twitter_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 .main()
@@ -1004,14 +1065,16 @@ Found 50 clusters of relative sizes:
 Results of within-cluster estimation: 
 Monte Carlo Maximum Likelihood Results:
 
-                 Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-edges            -3.04587    0.11571      0 -26.324  &lt; 1e-04 ***
-nodematch.party   0.95655    0.01421      0  67.322  &lt; 1e-04 ***
-nodematch.race   -0.08742    0.01212      0  -7.214  &lt; 1e-04 ***
-nodematch.gender  0.04682    0.01205      0   3.885 0.000102 ***
-N(1)~mutual       3.89250    0.23406      0  16.630  &lt; 1e-04 ***
-N(log(n))~mutual -0.40576    0.05576      0  -7.277  &lt; 1e-04 ***
-N(log(n))~edges   0.12668    0.02763      0   4.585  &lt; 1e-04 ***
+                         Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+edges                    -5.45631    0.28616      0 -19.067  &lt; 1e-04 ***
+nodematch.party           0.94663    0.01448      0  65.373  &lt; 1e-04 ***
+nodematch.race           -0.09377    0.01241      0  -7.553  &lt; 1e-04 ***
+nodematch.gender          0.04707    0.01249      0   3.770 0.000163 ***
+N(1)~transitiveties       2.08173    0.25310      0   8.225  &lt; 1e-04 ***
+N(log(n))~transitiveties -0.42863    0.06667      0  -6.429  &lt; 1e-04 ***
+N(1)~mutual               3.43146    0.24329      0  14.104  &lt; 1e-04 ***
+N(log(n))~mutual         -0.29835    0.05813      0  -5.132  &lt; 1e-04 ***
+N(log(n))~edges           0.62627    0.07441      0   8.416  &lt; 1e-04 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1025,258 +1088,42 @@ nodematch.race   -0.16491    0.03039      0   -5.427   &lt;1e-04 ***
 nodematch.gender  0.19144    0.03030      0    6.319   &lt;1e-04 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-AIC: 185019.8 BIC:  185090.9</code></pre>
+AIC: 184705.1 BIC:  184795.7</code></pre>
 </div>
 </div>
 </section>
-<section id="model-estimation-3" class="slide level2">
-<h2>2. Model Estimation</h2>
+<section id="estimate-3" class="slide level2">
+<h2>2. Estimate</h2>
 <ul>
 <li>Exploit that <code>est_within</code> is an <code>ergm</code> object</li>
 <li>Check if the MCMC chains used for estimation have converged</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">mcmc.diagnostics</span>(twitter_res<span class="sc">$</span>est_within)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb36-2"><a href=""></a><span class="fu">mcmc.diagnostics</span>(twitter_res<span class="sc">$</span>est_within,<span class="at">which =</span> <span class="st">"plots"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
+<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-25-2.png" width="960"></p>
+<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-31-2.png" width="960"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-25-3.png" width="960"></p>
+<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-31-3.png" width="960"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Sample statistics summary:
-
-Iterations = 1600000:28320000
-Thinning interval = 160000 
-Number of chains = 5 
-Sample size per chain = 168 
-
-1. Empirical mean and standard deviation for each variable,
-   plus standard error of the mean:
-
-                    Mean     SD Naive SE Time-series SE
-edges            -11.890 175.76    6.064          8.583
-nodematch.party  -17.800 153.31    5.290          8.086
-nodematch.race   -27.021 144.91    5.000          7.497
-nodematch.gender -10.102 129.45    4.466          6.388
-N(1)~mutual       -4.175  83.09    2.867          3.968
-N(log(n))~mutual -16.695 344.55   11.888         16.342
-N(log(n))~edges  -49.032 728.49   25.135         35.496
-
-2. Quantiles for each variable:
-
-                    2.5%    25%     50%    75%  97.5%
-edges             -376.1 -124.2 -13.500 105.25  317.0
-nodematch.party   -325.0 -117.2 -14.000  70.25  293.1
-nodematch.race    -310.0 -117.2 -31.000  75.00  238.0
-nodematch.gender  -256.3  -96.0 -16.000  72.25  242.0
-N(1)~mutual       -168.0  -59.0  -0.500  51.00  154.0
-N(log(n))~mutual  -702.3 -245.8  -4.409 212.15  616.9
-N(log(n))~edges  -1578.3 -519.6 -54.918 447.79 1308.2
-
-
-Are sample statistics significantly different from observed?
-                 edges nodematch.party nodematch.race nodematch.gender
-diff.      -11.8904762    -17.80000000  -27.021428571      -10.1023810
-test stat.  -1.3807419     -2.20622070   -3.675023011       -1.5955725
-P-val.       0.1673583      0.02736855    0.000237828        0.1105843
-           N(1)~mutual N(log(n))~mutual N(log(n))~edges       (Omni)
-diff.       -4.1750000      -16.6950264     -49.0319873           NA
-test stat.  -1.0908493       -1.0702744      -1.3774202 3.135240e+01
-P-val.       0.2753392        0.2844958       0.1683824 8.940145e-05
-
-Sample statistics cross-correlations:
-                     edges nodematch.party nodematch.race nodematch.gender
-edges            1.0000000       0.8814441      0.8187963        0.7625403
-nodematch.party  0.8814441       1.0000000      0.7318705        0.6735875
-nodematch.race   0.8187963       0.7318705      1.0000000        0.6612188
-nodematch.gender 0.7625403       0.6735875      0.6612188        1.0000000
-N(1)~mutual      0.8580525       0.8098689      0.7040710        0.6655056
-N(log(n))~mutual 0.8534376       0.8041862      0.6991226        0.6645736
-N(log(n))~edges  0.9954118       0.8765130      0.8147870        0.7625566
-                 N(1)~mutual N(log(n))~mutual N(log(n))~edges
-edges              0.8580525        0.8534376       0.9954118
-nodematch.party    0.8098689        0.8041862       0.8765130
-nodematch.race     0.7040710        0.6991226       0.8147870
-nodematch.gender   0.6655056        0.6645736       0.7625566
-N(1)~mutual        1.0000000        0.9949813       0.8512068
-N(log(n))~mutual   0.9949813        1.0000000       0.8547778
-N(log(n))~edges    0.8512068        0.8547778       1.0000000
-
-Sample statistics auto-correlation:
-Chain 1 
-                 edges nodematch.party nodematch.race nodematch.gender
-Lag 0       1.00000000      1.00000000     1.00000000      1.000000000
-Lag 160000  0.34885592      0.36414672     0.34812140      0.337823966
-Lag 320000  0.15971413      0.19082021     0.12801347      0.048801040
-Lag 480000  0.11847870      0.13408554     0.12299642      0.096050801
-Lag 640000  0.04570699      0.08016623     0.14265127      0.008587245
-Lag 8e+05  -0.06263137      0.02151122     0.03895235     -0.011758537
-           N(1)~mutual N(log(n))~mutual N(log(n))~edges
-Lag 0       1.00000000       1.00000000      1.00000000
-Lag 160000  0.36649452       0.35794460      0.34104908
-Lag 320000  0.16544730       0.17537181      0.15788239
-Lag 480000  0.07023077       0.08186650      0.11968910
-Lag 640000  0.03777603       0.04924275      0.05198415
-Lag 8e+05  -0.08886208      -0.08084780     -0.06197975
-Chain 2 
-                edges nodematch.party nodematch.race nodematch.gender
-Lag 0      1.00000000      1.00000000     1.00000000       1.00000000
-Lag 160000 0.33707814      0.41851866     0.28621151       0.24030313
-Lag 320000 0.10541115      0.12651406     0.04957546       0.12564437
-Lag 480000 0.08005787      0.07647567     0.04341644       0.10395156
-Lag 640000 0.08901910      0.04938715     0.11736741       0.02494368
-Lag 8e+05  0.05247781      0.03419189     0.02081867      -0.06261225
-           N(1)~mutual N(log(n))~mutual N(log(n))~edges
-Lag 0       1.00000000       1.00000000      1.00000000
-Lag 160000  0.28989792       0.29695086      0.34453214
-Lag 320000  0.13548676       0.14351576      0.11414000
-Lag 480000  0.12625392       0.14732338      0.08695416
-Lag 640000  0.06697054       0.06256789      0.08324135
-Lag 8e+05   0.08275685       0.06667197      0.03246033
-Chain 3 
-                  edges nodematch.party nodematch.race nodematch.gender
-Lag 0       1.000000000      1.00000000     1.00000000       1.00000000
-Lag 160000  0.366083885      0.47681304     0.40564069       0.38687671
-Lag 320000  0.080254165      0.15081230     0.17791898       0.23937671
-Lag 480000  0.040976263      0.04681833     0.22825038       0.14541333
-Lag 640000 -0.006142376     -0.03354484     0.08867294       0.03615663
-Lag 8e+05  -0.087562126     -0.11612468    -0.04300949      -0.11412446
-            N(1)~mutual N(log(n))~mutual N(log(n))~edges
-Lag 0       1.000000000      1.000000000      1.00000000
-Lag 160000  0.437050648      0.431343858      0.36446075
-Lag 320000  0.226091817      0.239534373      0.08859479
-Lag 480000  0.091602949      0.095433673      0.04625595
-Lag 640000  0.005981851      0.009630729     -0.00131592
-Lag 8e+05  -0.145587233     -0.140569489     -0.07930088
-Chain 4 
-                 edges nodematch.party nodematch.race nodematch.gender
-Lag 0       1.00000000      1.00000000     1.00000000       1.00000000
-Lag 160000  0.35547073      0.40737408     0.36607080       0.34949642
-Lag 320000  0.18361611      0.14639358     0.17205404       0.12119458
-Lag 480000  0.03513381     -0.01970507     0.01711107       0.03391617
-Lag 640000 -0.09650451     -0.09175227    -0.04661196      -0.10171441
-Lag 8e+05  -0.12287066     -0.01406531    -0.08613987      -0.09275703
-           N(1)~mutual N(log(n))~mutual N(log(n))~edges
-Lag 0       1.00000000      1.000000000      1.00000000
-Lag 160000  0.45328530      0.453339205      0.33474080
-Lag 320000  0.23294402      0.227654516      0.16159048
-Lag 480000  0.01598602      0.008149971      0.02171636
-Lag 640000 -0.18580520     -0.212078087     -0.10647683
-Lag 8e+05  -0.17986895     -0.207533550     -0.13656017
-Chain 5 
-                 edges nodematch.party nodematch.race nodematch.gender
-Lag 0       1.00000000      1.00000000    1.000000000       1.00000000
-Lag 160000  0.26881484      0.32383118    0.296670921       0.35907029
-Lag 320000  0.05114291      0.06231089    0.049369239       0.14136243
-Lag 480000 -0.04114368     -0.02450974    0.002220829       0.01496881
-Lag 640000  0.02961881     -0.03737898    0.109191192       0.03772330
-Lag 8e+05  -0.13001825     -0.11959102   -0.054395813       0.02303975
-             N(1)~mutual N(log(n))~mutual N(log(n))~edges
-Lag 0       1.0000000000       1.00000000      1.00000000
-Lag 160000  0.3480267443       0.34627050      0.27802634
-Lag 320000  0.0792782958       0.07570091      0.05503603
-Lag 480000 -0.0531496652      -0.06865251     -0.04198045
-Lag 640000 -0.0002373613      -0.02213916      0.02214456
-Lag 8e+05  -0.1183395786      -0.13044056     -0.12703874
-
-Sample statistics burn-in diagnostic (Geweke):
-Chain 1 
-
-Fraction in 1st window = 0.1
-Fraction in 2nd window = 0.5 
-
-           edges  nodematch.party   nodematch.race nodematch.gender 
-      -1.6511758       -0.7672300       -1.6188113       -1.3524167 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-      -0.8563223       -0.7627923       -1.6029524 
-
-Individual P-values (lower = worse):
-           edges  nodematch.party   nodematch.race nodematch.gender 
-      0.09870268       0.44294477       0.10548788       0.17624203 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-      0.39181953       0.44558725       0.10894517 
-Joint P-value (lower = worse):  0.2746526 
-Chain 2 
-
-Fraction in 1st window = 0.1
-Fraction in 2nd window = 0.5 
-
-           edges  nodematch.party   nodematch.race nodematch.gender 
-       1.0490924        0.6394453        1.6360128        0.1108994 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-       0.5809691        0.6980310        1.3018599 
-
-Individual P-values (lower = worse):
-           edges  nodematch.party   nodematch.race nodematch.gender 
-       0.2941356        0.5225333        0.1018369        0.9116962 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-       0.5612613        0.4851578        0.1929643 
-Joint P-value (lower = worse):  0.49358 
-Chain 3 
-
-Fraction in 1st window = 0.1
-Fraction in 2nd window = 0.5 
-
-           edges  nodematch.party   nodematch.race nodematch.gender 
-     -1.66006767      -0.01791663      -1.82023432      -1.53643801 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-     -0.29732702      -0.36936631      -1.88600397 
-
-Individual P-values (lower = worse):
-           edges  nodematch.party   nodematch.race nodematch.gender 
-      0.09690084       0.98570536       0.06872333       0.12443099 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-      0.76621685       0.71185471       0.05929442 
-Joint P-value (lower = worse):  0.1592678 
-Chain 4 
-
-Fraction in 1st window = 0.1
-Fraction in 2nd window = 0.5 
-
-           edges  nodematch.party   nodematch.race nodematch.gender 
-       0.2060549        0.4928775        0.8447013       -0.9556590 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-      -0.3076860       -0.4378724        0.1812937 
-
-Individual P-values (lower = worse):
-           edges  nodematch.party   nodematch.race nodematch.gender 
-       0.8367480        0.6220992        0.3982776        0.3392446 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-       0.7583212        0.6614788        0.8561371 
-Joint P-value (lower = worse):  0.04872456 
-Chain 5 
-
-Fraction in 1st window = 0.1
-Fraction in 2nd window = 0.5 
-
-           edges  nodematch.party   nodematch.race nodematch.gender 
-        1.595868         1.188481         1.716439         1.024495 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-        1.882890         1.748365         1.531691 
-
-Individual P-values (lower = worse):
-           edges  nodematch.party   nodematch.race nodematch.gender 
-      0.11051835       0.23464398       0.08608177       0.30560135 
-     N(1)~mutual N(log(n))~mutual  N(log(n))~edges 
-      0.05971527       0.08040081       0.12559871 
-Joint P-value (lower = worse):  0.6283914 
-
+<pre><code>
 Note: MCMC diagnostics shown here are from the last round of
   simulation, prior to computation of final parameter estimates.
   Because the final estimates are refinements of those used for this
@@ -1287,54 +1134,73 @@ Note: MCMC diagnostics shown here are from the last round of
 </div>
 </div>
 </section>
-<section id="model-assessment-simulation" class="slide level2">
-<h2>3. Model Assessment: Simulation</h2>
+<section id="diagnose-simulation" class="slide level2">
+<h2>3. Diagnose: Simulation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>sim_tmp <span class="ot">&lt;-</span> <span class="fu">simulate</span>(twitter_res, <span class="at">nsim =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">1</span>,<span class="at">output =</span> <span class="st">"stats"</span>,</span>
-<span id="cb32-2"><a href=""></a>                    <span class="at">control_within =</span> <span class="fu">control.simulate.formula</span>(<span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span>
-<span id="cb32-3"><a href=""></a><span class="fu">plot</span>(sim_tmp<span class="sc">$</span>within_network<span class="sc">$</span>edges, <span class="at">xlab =</span> <span class="st">"Index"</span>, <span class="at">type =</span> <span class="st">"l"</span>,</span>
-<span id="cb32-4"><a href=""></a>     <span class="at">ylab =</span> <span class="st">"Number of edges"</span>, <span class="at">main =</span> <span class="st">"Within-block"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>sim_tmp <span class="ot">&lt;-</span> <span class="fu">simulate</span>(twitter_res, <span class="at">nsim =</span> <span class="dv">10</span>, <span class="at">seed =</span> <span class="dv">1</span>,<span class="at">output =</span> <span class="st">"stats"</span>,</span>
+<span id="cb38-2"><a href=""></a>                    <span class="at">control_within =</span> <span class="fu">control.simulate.formula</span>(<span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span>
+<span id="cb38-3"><a href=""></a><span class="fu">plot</span>(sim_tmp<span class="sc">$</span>within_network<span class="sc">$</span>edges, <span class="at">xlab =</span> <span class="st">"Index"</span>, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb38-4"><a href=""></a>     <span class="at">ylab =</span> <span class="st">"Number of edges"</span>, <span class="at">main =</span> <span class="st">"Within-block"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
-<section id="model-assessment-simulation-1" class="slide level2">
-<h2>3. Model Assessment: Simulation</h2>
+<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-32-1.png" width="960" class="r-stretch"></section>
+<section id="diagnose-simulation-1" class="slide level2">
+<h2>3. Diagnose: Simulation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">plot</span>(sim_tmp<span class="sc">$</span>between_network<span class="sc">$</span>edges, <span class="at">xlab =</span> <span class="st">"Index"</span>,<span class="at">type =</span> <span class="st">"l"</span>,</span>
-<span id="cb33-2"><a href=""></a>     <span class="at">ylab =</span> <span class="st">"Number of edges"</span>, <span class="at">main =</span> <span class="st">"Between-block"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a><span class="fu">plot</span>(sim_tmp<span class="sc">$</span>between_network<span class="sc">$</span>edges, <span class="at">xlab =</span> <span class="st">"Index"</span>,<span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb39-2"><a href=""></a>     <span class="at">ylab =</span> <span class="st">"Number of edges"</span>, <span class="at">main =</span> <span class="st">"Between-block"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
-<section id="model-assessment-gof" class="slide level2">
-<h2>3. Model Assessment: GoF</h2>
+<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" class="r-stretch"></section>
+<section id="diagnose-gof" class="slide level2">
+<h2>3. Diagnose: GoF</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>twitter_gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(twitter_res, </span>
-<span id="cb34-2"><a href=""></a>                   <span class="co"># How many simulations should be performed?</span></span>
-<span id="cb34-3"><a href=""></a>                   <span class="at">n_sim =</span> <span class="dv">100</span>, </span>
-<span id="cb34-4"><a href=""></a>                   <span class="co"># Seed for reproducibility</span></span>
-<span id="cb34-5"><a href=""></a>                   <span class="at">seed =</span> <span class="dv">2</span>, </span>
-<span id="cb34-6"><a href=""></a>                   <span class="co"># Options are 'full' or 'within'</span></span>
-<span id="cb34-7"><a href=""></a>                   <span class="at">type =</span> <span class="st">"within"</span>, </span>
-<span id="cb34-8"><a href=""></a>                   <span class="co"># Should the geodesic distance be computed?</span></span>
-<span id="cb34-9"><a href=""></a>                   <span class="at">compute_geodesic_distance =</span> T,</span>
-<span id="cb34-10"><a href=""></a>                   <span class="co"># Control argument to guide simulation</span></span>
-<span id="cb34-11"><a href=""></a>                   <span class="at">control_within =</span> <span class="fu">control.simulate.formula</span>(<span class="at">parallel=</span><span class="dv">5</span>, <span class="at">parallel.type=</span><span class="st">"PSOCK"</span>,</span>
-<span id="cb34-12"><a href=""></a>                                                     <span class="at">MCMC.burnin =</span> <span class="dv">10000</span>, </span>
-<span id="cb34-13"><a href=""></a>                                                     <span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a><span class="co"># Assess fit</span></span>
+<span id="cb40-2"><a href=""></a>twitter_gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(twitter_res, </span>
+<span id="cb40-3"><a href=""></a>                   <span class="co"># How many simulations should be performed?</span></span>
+<span id="cb40-4"><a href=""></a>                   <span class="at">n_sim =</span> <span class="dv">100</span>, </span>
+<span id="cb40-5"><a href=""></a>                   <span class="co"># Ensure that all results are reproducible</span></span>
+<span id="cb40-6"><a href=""></a>                   <span class="at">seed =</span> <span class="dv">2</span>, </span>
+<span id="cb40-7"><a href=""></a>                   <span class="co"># Either 'full' or 'within' to say if gof should be based on only </span></span>
+<span id="cb40-8"><a href=""></a>                   <span class="co"># within-connections or all</span></span>
+<span id="cb40-9"><a href=""></a>                   <span class="at">type =</span> <span class="st">"within"</span>, </span>
+<span id="cb40-10"><a href=""></a>                   <span class="co"># Should the geodesic distance be computed?</span></span>
+<span id="cb40-11"><a href=""></a>                   <span class="at">compute_geodesic_distance =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-12"><a href=""></a>                   <span class="co"># Control arguments for within-block simulations</span></span>
+<span id="cb40-13"><a href=""></a>                   <span class="at">control_within =</span> <span class="fu">control.simulate.formula</span>(<span class="at">parallel=</span><span class="dv">4</span>, </span>
+<span id="cb40-14"><a href=""></a>                                                     <span class="at">parallel.type=</span><span class="st">"PSOCK"</span>,</span>
+<span id="cb40-15"><a href=""></a>                                                     <span class="at">MCMC.burnin =</span> <span class="dv">10000</span>, </span>
+<span id="cb40-16"><a href=""></a>                                                     <span class="at">MCMC.interval =</span> <span class="dv">20000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-assessment-gof-1" class="slide level2">
-<h2>3. Model Assessment: GoF</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb35-2"><a href=""></a><span class="fu">plot</span>(twitter_gof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<section id="diagnose-gof-1" class="slide level2">
+<h2>3. Diagnose: GoF</h2>
+<ul>
+<li>Plot the goodness-of-fit statistics</li>
+</ul>
+<div class="cell" data-fig-caption="Goodness-of-fit statistics">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb41-2"><a href=""></a><span class="fu">plot</span>(twitter_gof)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-35-1.png" width="1920"></p>
+</figure>
 </div>
-<img data-src="bigergm_files/figure-revealjs/unnamed-chunk-29-1.png" width="1920" class="r-stretch"></section>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="bigergm_files/figure-revealjs/unnamed-chunk-35-2.png" width="1920"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="conclusion-and-outlook" class="slide level2">
 <h2>Conclusion and Outlook</h2>
 <ul>
-<li><code>bigergm</code> is a powerful tool for fitting, simulating, and diagnosing HERGMs for big networks</li>
+<li><code>bigergm</code> is a powerful tool for estimating, simulating, and diagnosing HERGMs for big networks</li>
 <li>Package is under active development:
 <ul>
 <li>Degree-correction</li>
@@ -1352,21 +1218,18 @@ Note: MCMC diagnostics shown here are from the last round of
 
 </div>
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-babkin_2020" class="csl-entry" role="listitem">
-Babkin, Sergii, Jonathan Stewart, and Michael Schweinberger. 2020. <span>“Large-Scale Estimation of Random Graph Models with Local Dependence.”</span> <em>Computational Statistics &amp; Data Analysis</em> 152: 107029.
-</div>
-<div id="ref-fritz2024" class="csl-entry" role="listitem">
-Fritz, Cornelius, Co-Piere Georg, Angelo Mele, and Michael Schweinberger. 2024. <span>“A Strategic Model of Software Dependency Networks,”</span> Working Paper. Available at https://arxiv.org/abs/2402.13375.
+Babkin, S., Stewart, J., Long, X., &amp; Schweinberger, M. (2020). Large-scale estimation of random graph models with local dependence. <em>Computational Statistics &amp; Data Analysis</em>, <em>152</em>, 107029.
 </div>
 <div id="ref-martinezdahbura2021" class="csl-entry" role="listitem">
-Martínez Dahbura, Juan Nelson, Shota Komatsu, Takanori Nishida, and Angelo Mele. 2021. <span>“A Structural Model of Business Card Exchange Networks,”</span> Working Paper. Available at https://arxiv.org/abs/2105.12704.
+Dahbura, J. N. M., Komatsu, S., Nishida, T., &amp; Mele, A. (2021). <em>A Structural Model of Business Card Exchange Networks</em>. Working Paper. Available at https://arxiv.org/abs/2105.12704.
+</div>
+<div id="ref-fritz2024" class="csl-entry" role="listitem">
+Fritz, C., Georg, C.-P., Mele, A., &amp; Schweinberger, M. (2024). <em>A strategic model of software dependency networks</em>. Working Paper. Available at https://arxiv.org/abs/2402.13375.
 </div>
 <div id="ref-schweinberger2018" class="csl-entry" role="listitem">
-Schweinberger, Michael, and Pamela Luna. 2018. <span>“Hergm: Hierarchical Exponential-Family Random Graph Models.”</span> <em>Journal of Statistical Software</em> 85 (1): 1–39.
-</div>
-<div id="ref-vu_2013" class="csl-entry" role="listitem">
-Vu, Duy, David Hunter, and Michael Schweinberger. 2013. <span>“Model-Based Clustering of Large Networks.”</span> <em>The Annals of Applied Statistics</em> 7 (2): 1010–39.
+Schweinberger, M., &amp; Luna, P. (2018). hergm: Hierarchical Exponential-Family Random Graph Models. <em>Journal of Statistical Software</em>, <em>85</em>(1), 1–39.
 </div>
 </div>
 </section></section>

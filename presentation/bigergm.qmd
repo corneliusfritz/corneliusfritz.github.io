@@ -1,6 +1,11 @@
 ---
-title: "bigergm: Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Network"
-author: "Cornelius Fritz and Michael Schweinberger"
+title: "bigergm: Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Networks"
+author: "Cornelius Fritz, Michael Schweinberger, and David R. Hunter"
+csl: apa.csl
+title-slide-attributes:
+  data-background-image: bigergm_files/logo.png
+  data-background-size: 15%
+  data-background-position: 50% 92%
 format:
   revealjs: 
     theme: "clean.scss"
@@ -62,6 +67,8 @@ references:
     given: Sergii
   - family: Stewart
     given: Jonathan
+  - family: Long
+    given: Xiaochen
   - family: Schweinberger
     given: Michael
   container-title: Computational Statistics & Data Analysis
@@ -90,7 +97,7 @@ references:
   - family: Fritz
     given: Cornelius
   - family: Georg
-    given: Co-Piere
+    given: Co-Pierre
   - family: Mele
     given: Angelo
   - family: Schweinberger
@@ -103,8 +110,8 @@ references:
 - id: martinezdahbura2021
   title: "A Structural Model of Business Card Exchange Networks"
   author:
-  - family: Martínez Dahbura
-    given: Juan Nelson
+  - family: Dahbura
+    given: Juan Nelson Martínez
   - family: Komatsu
     given: Shota
   - family: Nishida
@@ -120,74 +127,64 @@ editor:
     wrap: 72
 ---
 
-## Plan: [bigergm workshop](https://www.corneliusfritz.com/bigergm){preview-link="true"}
+## Roadmap: [bigergm workshop](https://www.corneliusfritz.com/bigergm){preview-link="true"}
 
-1.  Short Recap: Local dependence via nonoverlapping blocks
+1.  Local dependence leveraging additional structure
 2.  Preparation and Background
 3.  Demonstration of capabilities of the package `bigergm`
-4.  Hand-on part: Application to Twitter Following Network of State
+4.  Application to Twitter (X): Following Network of State
     Legislators
 
 ![](bigergm_files/blueprint_workshop.jpg){.absolute top="320" left="300"
 width="400"}
 
-# Short Recap: <br> Local dependence via nonoverlapping blocks
+# Local dependence leveraging additional structure: <br> Non-overlapping blocks
 
 ## Motivation
 
--   Exponential Random Graph Models (ERGMs) model the probability of
-    observing a network as a function of network statistics.
+-   Exponential Random Graph Models (ERGMs) express the probability of observing a network as a function of network features:
 
 $$
- \mathbb{P}_{\beta}(\mathbf{y}| \mathbf{x}) = \exp\left(\beta^\top \mathbf{s}(\mathbf{y}, \mathbf{x})\right)/ c(\beta, \mathbf{x})
+ \mathbb{P}_{\beta}(\mathbf{x}| \mathbf{y}) = \exp\left(\beta^\top \mathbf{s}(\mathbf{x}, \mathbf{y})\right)/ c(\beta, \mathbf{y})
 $$ where
 
--   network $\mathbf{y} = \{0,1\}^{N\times N}$
--   $p$ covariates $\mathbf{x} = (x_{i,p}) \in \mathbb{R}^{N\times q}$
+-   network $\mathbf{x} = \{0,1\}^{N\times N}$
+-   $p$ covariates $\mathbf{y} = (y_{i,p}) \in \mathbb{R}^{N\times q}$
 -   $\beta \in \mathbb{R}^p$ parameters
--   $\mathbf{s}(\mathbf{y}, \mathbf{x})$ sufficient statistics
--   $c(\beta, \mathbf{x})$ normalizing constant
+-   $\mathbf{s}(\mathbf{x}, \mathbf{y})$ network features
+-   $c(\beta, \mathbf{y})$ normalizing constant
 
-## Limitations when applied to large networks
-
--   Scalable model vs. scalable method
--   Computational cost of model fitting
--   Model degeneracy <br> $\Rightarrow$ Local dependence <br>
-    ![](bigergm_files/plot_network.png){.absolute top="260" left="300"
-    width="450"}
-
-## Exponential Random Graph Models for Large Networks
+## Exponential Random Graph Models for Big Networks
 
 ![](bigergm_files/plot_network_blocks.png){.absolute top="100"
 left="250" width="600"}
 
-## Exponential Random Graph Models for Large Networks
+## Exponential Random Graph Models for Big Networks
 
 $$
 \begin{split}
-\mathbb{P}_\theta(\mathbf{y} | \mathbf{z}, \mathbf{x}) = &\left[\prod_{k \neq l}^K \mathbb{P}_{B}(\mathbf{y}_{k,l} | \mathbf{z}, \mathbf{x})\right] \left[\prod_{k = 1}^K \mathbb{P}_{W}(\mathbf{y}_{k,k} | \mathbf{z},\mathbf{x}) \right]
+\mathbb{P}_\theta(\mathbf{x} | \mathbf{y}, \mathbf{z}) = &\left[\prod_{k \neq l}^K \mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y}, \mathbf{z})\right] \left[\prod_{k = 1}^K \mathbb{P}_{W}(\mathbf{x}_{k,k} | \mathbf{y},\mathbf{z}) \right]
 \end{split}
 $$ where
 
--   $\mathbf{y}_{k,l}$ is the submatrix of $\mathbf{Y}$ between blocks
+-   $\mathbf{x}_{k,l}$ is the submatrix of $\mathbf{x}$ between blocks
     $k$ and $l$
--   $\mathbf{y}_{k,k}$ is the submatrix of $\mathbf{Y}$ within block $k$
+-   $\mathbf{x}_{k,k}$ is the submatrix of $\mathbf{x}$ within block $k$
+-   $\mathbf{y}$ is the covariate matrix
 -   $\mathbf{z}$ is the block structure of the network
--   $\mathbf{x}$ is the covariate matrix
--   $\alpha$ and $\beta$ are the parameters
 
 ## Specification: Within-block Model
 
 $$
-\mathbb{P}_{W}(\mathbf{y}_{k,k} | \mathbf{z}, \mathbf{x}) = \exp\left(\alpha^\top \mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x})\right)/ c_W(\alpha, \mathbf{z}, \mathbf{x}),
+\mathbb{P}_{W}(\mathbf{x}_{k,k} | \mathbf{y}, \mathbf{z}) = \exp\left(\alpha^\top \mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y})\right)/ c_W(\alpha, \mathbf{y}, \mathbf{z}),
 $$
 
 where
 
--   $\mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x})$ is a vector of
-    sufficient statistics counting, e.g., the edges within block $k$
+-   $\mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y})$ is a vector of
+    network features counting, e.g., the edges within block $k$
 -   $\alpha$ parameter to estimate
--   $c_W(\alpha, \mathbf{z}, \mathbf{x})$ is the normalizing constant
+-   $c_W(\alpha, \mathbf{y}, \mathbf{z})$ is the normalizing constant
 
 ![Degree](bigergm_files/statistics_no_caption_1.png){.absolute top="450" left="50" width="250"}
 ![Isolates](bigergm_files/statistics_no_caption_2.png){.absolute top="450" left="350" width="250"}
@@ -197,74 +194,62 @@ Partner](bigergm_files/statistics_no_caption_3.png){.absolute top="450" left="65
 ## Specification: Between-block Model
 
 $$
-\mathbb{P}_{B}(\mathbf{y}_{k,l} | \mathbf{z},  \mathbf{x})  = \prod_{(i,j) \text{; } z_{ik} = 1 \text{, } z_{jl} = 1} \mathbb{P}_{\beta}( y_{i,j}  \mid \mathbf{z}, \mathbf{x}), 
+\mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y},  \mathbf{z})  = \prod_{(i,j) \text{; } z_{ik} = 1 \text{, } z_{jl} = 1} \mathbb{P}_{\beta}( x_{i,j}  \mid \mathbf{y}, \mathbf{z}), 
 $$
 where 
 $$
-\mathbb{P}_{\beta}( y_{i,j} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}) = (\pi_{k,l}(\beta, \mathbf{x}))^{y_{i,j}} (1 - \pi_{k,l}(\beta, \mathbf{x}))^{1 - y_{i,j}}
+\mathbb{P}_{\beta}( x_{i,j} | \mathbf{y},\mathbf{z}) = (\pi_{k,l}(\beta, \mathbf{y}))^{x_{i,j}} (1 - \pi_{k,l}(\beta, \mathbf{y}))^{1 - x_{i,j}}
 $$ 
-e.g., 
+e.g.
 
 $$
-\pi_{k,l}(\beta, \mathbf{x}) = \text{logit}^{-1}\left(\beta + \sum_{p = 1}^P \beta_p \, \mathbb{I}\left(x_{i,p} = x_{j,p}\right) \right)
+\pi_{k,l}(\beta, \mathbf{y}) = \text{logit}^{-1}\left(\beta_0 + \sum_{p = 1}^P \beta_p \, \mathbb{I}\left(y_{i,p} = y_{j,p}\right) \right)
 $$
 
 
 ## Specification: Between-block Model
 
 $$
-\mathbb{P}_{B}(\mathbf{y}_{k,l} | \mathbf{z}, \mathbf{x}) = \exp\left(\beta^\top \mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x})\right)/ c_B(\beta, \mathbf{z}, \mathbf{x}),
+\mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y}, \mathbf{z}) = \exp\left(\beta^\top \mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y})\right)/ c_B(\beta, \mathbf{y}, \mathbf{z}),
 $$ 
 where 
 $$
-\mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x}) = \left(\sum_{i<j} \mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, ...,  \sum_{i<j} \mathbb{I}(x_{P,i} = x_{P,j})\, y_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, ...,  \sum_{i<j} \mathbb{I}(y_{P,i} = y_{P,j})\, x_{i,j}\right)
 $$
 
 Remarks:
 
 1.  Within- and between-block models can be represented by ERGMs
-2.  Between-block models do not include terms that imply dependence
+2.  Between-block models do not include terms that induce dependence
     between connections
 
 ## Estimation
 
-![](bigergm_files/estimation.jpg){.absolute top="50" left="50"
+![](bigergm_files/estimation.png){.absolute top="50" left="50"
 width="1000"}
-
-## Estimation
-
-$$
-\mathbf{Z} \sim \text{Multinomial}(1; \gamma_1, \ldots, \gamma_K),
-$$
-
-1.  Step: Estimate the block structure $\mathbf{z}$ by a variational EM
-    algorithm with MM updates (@babkin_2020 and @vu_2013)
-
-2.  Step: Estimate the parameters $\alpha$ (a) and $\beta$ (b)
-    conditional on $\mathbf{z}$ with `ergm`
 
 # Background and Preparation
 
-## The package `bigergm`
+## The package [`bigergm`](https://www.corneliusfritz.com/bigergm){preview-link="true"}
 
-![](bigergm_files/evolution_packages.png){.absolute top="370" left="170"
+![](bigergm_files/evolution_packages.png){.absolute top="400" left="170"
 width="800"}
 
 -   $\mathtt{hergm}$: First package developed by @schweinberger2018.\
--   $\mathtt{lighthergm}$: Extension to larger networks based on
+-   $\mathtt{lighthergm}$: Scaling up estimation to big networks based on
     @babkin_2020 and @martinezdahbura2021
 -   $\mathtt{bigergm}$: Extension to directed networks with a clean
-    interface and additional features based on @fritz2024.
+    interface and additional features based on @fritz2024
 
 ## Installation
 
--   For the CRAN version (1.2.1) of the package:
+-   The package can be installed in R as follows:
 
 ```{r, eval=FALSE, echo=TRUE}
 install.packages("bigergm", dependencies = TRUE)
 ```
 
--   In case this does not work try
+-   An alternative is to install the package from GitHub:
 
 ```{r, eval=FALSE, echo=TRUE}
 devtools::install_github("cfritz/bigergm-tutorial", dependencies = TRUE)
@@ -273,30 +258,28 @@ devtools::install_github("cfritz/bigergm-tutorial", dependencies = TRUE)
 ![](bigergm_files/picture_installing.jpg){.absolute top="310" left="300"
 width="400"}
 
-# `bigergm`: Hierarchical exponential-family random graph models for big networks
+# [`bigergm`](https://www.corneliusfritz.com/bigergm){preview-link="true"}: Hierarchical exponential-family random graph models for big networks
 
-## `bigergm`: Hierarchical exponential-family random graph models for big networks
+## [`bigergm`](https://www.corneliusfritz.com/bigergm){preview-link="true"}: Hierarchical exponential-family random graph models for big networks
 
-1.  Model specification
-2.  Simulate from the model
-3.  Estimate the model
-4.  Diagnose the fit
+1.  Specify
+2.  Simulate 
+3.  Estimate 
+4.  Diagnose
 
-# 1. Model Specification
+# 1. Specify 
 
-## Specification of a HERGM
+## Specify a ERGM with additional structure
 
-Assume the block memberships are known and specify two ERGMs:
-
-1.  Within-block ERGM (drawn in blue)
-2.  Between-block ERGM (drawn in yellow)
+1.  Within-block ERGM (colored blue)
+2.  Between-block ERGM colored yellow)
 
 ![](bigergm_files/block_structure.jpg){.absolute top="260" left="200"
 width="700"}
 
-## Specification of a HERGM
+## Specify a ERGM with additional structure
 
-Assume the block memberships saved as a vertex attribute 'block':
+The block memberships saved as a vertex attribute 'block':
 
 ```{r, echo = TRUE}
 model_formula <- lhs_network ~ network_term_1 + ... + network_term_p
@@ -306,14 +289,11 @@ model_formula <- lhs_network ~ network_term_1 + ... + network_term_p
     started. States the size of the network and whether it's directed or
     not.
 2.  `network_term(s)`: `ergmTerms` specifying the network model.
-    -   Within-block ERGM: All provided terms are included and evaluated
-        for each within-block subnetwork.
-    -   Between-block ERGM: Only terms that imply dependence between
-        connections are included and evaluated for each between-block
-        subnetwork.
+    -   Within-block ERGM: Dyad-independent or dyad-dependent terms
+    -   Between-block ERGM: Only dyad-independent terms
 
 
-## Specification of a HERGM: Example 1
+## Example 1
 
 ```{r, echo = TRUE}
 model_formula <- network_tmp ~ edges   + nodematch("x") + nodematch("y")
@@ -321,14 +301,14 @@ model_formula <- network_tmp ~ edges   + nodematch("x") + nodematch("y")
 
 Within-block model: 
 $$
-\mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x}) = \left(\sum_{i<j} a_{i,j}^{k,k}\, y_{i,j}, \sum_{i<j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i<j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}\right)
+\mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y}) = \left(\sum_{i<j}  x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}\right)
 $$ 
 Between-block model: 
 $$
-\mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x}) = \left(\sum_{i<j} a_{i,j}^{k,l}\,y_{i,j}, \sum_{i<j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i<j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i<j}x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}\right)
 $$
 
-## Specification of a HERGM: Example 2
+## Example 2
 
 ```{r, echo = TRUE}
 model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + transitiveties
@@ -337,27 +317,27 @@ model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + transit
 Within-block model: 
 $$
 \begin{split}
-\mathbf{s}_W(\mathbf{y}_{k,k}, \mathbf{x}) = \Bigg(&\sum_{i<j} a_{i,j}^{k,k}\,y_{i,j}, \sum_{i<j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i<j} a_{i,j}^{k,k}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \\ 
-&\sum_{i<j} y_{i,j}\,\mathbb{I} \Bigg(\sum_{h \neq i,j} a_{i,j,h}^{k,k}\, y_{i,h}\, y_{h,j}>0 \Bigg)\Bigg)
+\mathbf{s}_W(\mathbf{x}_{k,k}, \mathbf{y}) = \Bigg(&\sum_{i<j} x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \\ 
+&\sum_{i<j} x_{i,j}\,\mathbb{I} \Bigg(\sum_{h \neq i,j} x_{i,h}\, x_{h,j}>0 \Bigg)\Bigg)
 \end{split}
 $$
 
 Between-block model:
 $$
-\mathbf{s}_B(\mathbf{y}_{k,l}, \mathbf{x}) = \left(\sum_{i<j}a_{i,j}^{k,l}\, y_{i,j}, \sum_{i<j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i<j} a_{i,j}^{k,l}\,\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i<j}x_{i,j}, \sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, \sum_{i<j}\mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}\right)
 $$
 
-# 2. Model Simulation
+# 2. Simulate
 
-## Model Simulation
+## Simulate
 
 1.  Specify the base network
 
 ```{r, echo = TRUE}
-# Load the needed packages
+# Load the required packages
 library(bigergm)
 library(network)
-# Set seed for reproducibility
+# Ensure that all results are reproducible
 set.seed(123)
 # Specify base network (which has 200 nodes and is undirected)
 network_tmp <- network::network.initialize(n = 200, directed = FALSE)
@@ -374,13 +354,13 @@ network_tmp%v% "y" <- sample(c("A","B","C"), 200, replace = TRUE)
 model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + transitiveties
 ```
 
-## Model Simulation
+## Simulate
 
-3.  Simulate a network from this model
+3.  Simulate a network from specified model
 
 ```{r, echo = TRUE, cache=TRUE}
-sim_net <- bigergm::simulate_bigergm(
-  # Formula for the model
+sim_net <- simulate_bigergm(
+  # Model specification 
   formula = model_formula,
   # The coefficients for the between connections
   coef_between = c(-4.7,0.8, 0.4),
@@ -390,12 +370,12 @@ sim_net <- bigergm::simulate_bigergm(
   nsim = 1, 
   # Control argument to guide simulation
   control_within = ergm::control.simulate.formula(MCMC.burnin = 50000, MCMC.interval = 10000), 
-  # Set seed for reproducibility
+  # Ensure that all results are reproducible
   seed = 123
 )
 ```
 
-## Model Simulation
+## Simulate
 
 4.  Plot simulated network
 
@@ -405,9 +385,9 @@ sim_net <- bigergm::simulate_bigergm(
 plot(sim_net, vertex.col = sim_net %v% "block")
 ```
 
-# 3. Model Estimation
+# 3. Estimate
 
-## Model Fitting with unknown block structure
+## Estimate with unknown block structure
 
 ```{r, echo = TRUE, cache=TRUE}
 # Update the formula to refer to the simulated network 
@@ -417,20 +397,20 @@ res <-bigergm(
   object = model_formula,
   # The number of blocks
   n_blocks =  4, 
-  # The maximum number of MM algorithm steps
+  # The maximum number of MM steps
   n_MM_step_max = 100,
   # The tolarence for the MM algorithm
   tol_MM_step = 1e-6,
   # Perform parameter estimation after the block recovery step
   estimate_parameters = TRUE,
-  # Indicate that clustering must take into account nodematch on x and y
+  # Indicate whether clustering should take into account nodematch on x and y
   clustering_with_features = TRUE,
   # Keep track of block memberships at each iteration
   check_block_membership = TRUE
 )
 ```
 
-## Model Fitting with unknown block structure
+## Estimate with unknown block structure
 
 ```{r, echo = TRUE, cache=TRUE}
 summary(res)
@@ -439,9 +419,9 @@ summary(res)
 Ground truth coefficients:
 
 -   Within-block: -2.5 (edges), 1 (nm.x), 1 (nm.y), 0.5 (tt)
--   Between-block: -4.7 (edges), 0.8 (nm.x), 0.4 (nm.y
+-   Between-block: -4.7 (edges), 0.8 (nm.x), 0.4 (nm.y)
 
-## Model Fitting with unknown block structure
+## Estimate with unknown block structure
 
 ```{r, echo = TRUE, cache=TRUE}
 #| fig-width: 15
@@ -449,10 +429,10 @@ Ground truth coefficients:
 plot(res)
 ```
 
-## Model Fitting with unknown block structure
+## Estimate with unknown block structuree
 
--   Compare the found block structure with the true block structure by
-    the adjusted rand index
+-   Compare the estimated block structure with the true block structure by
+    the adjusted Rand index (ARI)
 
 ```{r, echo = TRUE, cache=TRUE}
 ari(res$block, sim_net %v% "block")
@@ -467,56 +447,37 @@ plot(res$MM_lower_bound, type = "l", xlab = "Iteration", ylab = "Lower Bound",
      main = "Convergence of the MM algorithm")
 ```
 
-## Model Fitting with known block structure
+## Estimate with known block structure
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, `code-line-numbers` = "|4-5"}
 res_known <-bigergm(
   # The model you would like to estimate
   object = model_formula,
   # Specify the block structure
-  blocks = sim_net %v% "block",
-  # The maximum number of MM algorithm steps
-  n_MM_step_max = 100,
-  # The tolarence for the MM algorithm
-  tol_MM_step = 1e-6,
-  # Perform parameter estimation after the block recovery step
-  estimate_parameters = TRUE,
-  # Indicate that clustering must take into account nodematch on x and y
-  clustering_with_features = TRUE,
-  # Keep track of block memberships at each iteration
-  check_block_membership = TRUE
+  blocks = sim_net %v% "block"
 )
+summary(res_known)
 ```
 
-## Model Fitting with known block structure
+# 3. Diagnose
 
-```{r, echo = TRUE, cache=TRUE}
-summary(res)
-```
+## Diagnose
 
-Ground truth coefficients:
-
--   Within-block: -2.5 (edges), 1 (nm.x), 1 (nm.y), 0.5 (tt)
--   Between-block: -4.7 (edges), 0.8 (nm.x), 0.4 (nm.y
-
-# 3. Model Diagnostics
-
-## Model Diagnostics
-
-- Check if simulations from the estimated model correspond to the observed network 
-- Function calculates degree, edgewise-shared partner, and geodesic distance statistics
+- Check if simulations from the estimated model match the observed network 
+- Function calculates degree, edgewise shared partner, and geodesic distance statistics
 
 
 ```{r, echo = TRUE, cache=TRUE}
 tmp <- gof(res_known, 
-    # Control argument to guide simulation
+    # Control arguments for within-block simulations
     control_within = ergm::control.simulate.formula(MCMC.burnin = 50000, 
                                                     MCMC.interval = 10000), 
     # How many simulations should be performed?
     nsim = 100,
-    # Either 'full' or 'within' to say if gof should be based on only within-connections or all
+    # Either 'full' or 'within' to say if gof should be based on only 
+    # within-connections or all
     type = "full",
-    # Seed for reproducibility
+    # Ensure that all results are reproducible
     seed = 123,
     # Should the simulation start from the observed network?
     start_from_observed = TRUE, 
@@ -524,7 +485,7 @@ tmp <- gof(res_known,
     compute_geodesic_distance = TRUE)
 ```
 
-## Model Diagnostics
+## Diagnose
 
 ```{r, echo = TRUE, cache=TRUE}
 #| fig-width: 20
@@ -533,12 +494,12 @@ par(mfrow = c(2,2))
 plot(tmp)
 ```
 
-# Application to Twitter (X) Following Network of State Legislators
+# Application to Twitter (X):<br> Following Network of State Legislators
 
 
 ## Data: [Twitter (X) network of U.S. state legislators](https://www.corneliusfritz.com/bigergm/reference/state_twitter){preview-link="true"}
 
-Thanks to Bruce Desmarais for providing the data and allowing its inclusion in the package: 
+We are indebted Bruce Desmarais for sharing the Twitter (X) data and allowing us to include them in the package: 
 
 - Gopal, Kim, Nakka, Boehmke, Harden, Desmarais. The National Network of U.S. State Legislators on Twitter. Political Science Research & Methods, Forthcoming.
 
@@ -558,6 +519,7 @@ state_twitter
 #| fig-height: 10
 library(ggnet)
 library(GGally)
+# Ensure that all results are reproducible
 set.seed(123)
 ggnet2(state_twitter,  size = 1, color = "state", edge.alpha = 0.1) + 
   guides(color = "none") + 
@@ -565,11 +527,11 @@ ggnet2(state_twitter,  size = 1, color = "state", edge.alpha = 0.1) +
 ```
 
 
-## 1. Model Specification
+## 1. Specify
 
--   Issue with blocks of different size: Parameters of the within-block
-    model might change between blocks
--   Solution based on `ergm.multi`: Size-dependent parametrizations!
+-   Issue with blocks of different size: Parameters of within-block
+    model may change between blocks
+-   Solution based on `ergm.multi`: Size-dependent parametrizations
 
 ```{r, echo = TRUE, cache=TRUE}
 model_formula <- state_twitter ~  edges + N(~edges,~n-1) 
@@ -579,21 +541,115 @@ model_formula <- state_twitter ~  edges + N(~edges,~log(n)-1)
 ![](bigergm_files/edge_term_plot.png){.absolute top="340" left="0"
 width="1000"}
 
-## 1. Model Specification
+## Exercise 1: Specification 
+
+- Specify a HERGM for the Twitter (X) network of U.S. state legislators with the following terms:
+    - Homophily based on party affiliation, race, and gender with `nodematch` statistic
+    - Size-dependent parametrizations of the edge term
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Solution"
+formula_tmp <- state_twitter ~  edges + nodematch("party") + 
+  nodematch("race") + nodematch("gender") + N(~edges,~log(n)-1) 
+```
+
+
+## Exercise 2: Estimation 
+
+- Estimate the HERGM with the `bigergm` function assuming there are 50 blocks (use the covariate information for the first step)
+  - Check if different initialization methods lead to different results (see help(bigergm) for guidance on availablity of different initialization methods).
+  - Compare the estimated blocks with the state each legislator serves for with the adjusted Rand index (ARI). 
+
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Hint 1"
+# clustering_with_features, n_blocks, initialization
+help(bigergm)
+```
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Hint 2"
+help(ari)
+help(attribute.methods)
+# state_twitter%v%"state"
+```
+
+## Exercise 2: Estimation 
+
+- Estimate the HERGM with the `bigergm` function assuming there are 50 blocks (use the covariate information for the first step)
+  - Check if different initialization methods lead to different results (see help(bigergm) for guidance on availablity of different initialization methods).
+  - Compare the estimated blocks with the state each legislator serves for with the adjusted Rand index (ARI). 
+
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Solution 1"
+twitter_tmp <- bigergm(
+  object = formula_tmp,
+  # Perform parameter estimation after the block recovery step
+  clustering_with_features = TRUE,
+  # How many blocks should be estimated?
+  n_blocks = 50, 
+  # Set algorithm for initialization 
+  initialization = "walktrap")
+```
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Solution 2"
+# summary(twitter_tmp)
+# ari(twitter_tmp$block,state_twitter%v%"state")
+```
+
+## Exercise 3: Simulation  
+
+- Simulate 10 networks from the estimated model and plot the number of edges in the within- and between-block networks
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Hint"
+help(simulate)
+help(simulate_bigergm)
+```
+
+
+```{r, echo = TRUE, cache=TRUE}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Solution"
+twitter_sim <- simulate(twitter_tmp, output = "stats", nsim = 10,
+                        control_within = control.simulate.formula(MCMC.interval = 20000))
+# plot(twitter_sim$within_network$edges, 
+#      xlab = "Index", ylab = "Within-block Edges", type = "l")
+# plot(twitter_sim$between_network$edges, 
+#      xlab = "Index", ylab = "Within-block Edges", type = "l")
+```
+  
+## 1. Specify
 
 -   Issue with blocks of different size: Parameters of the within-block
     model might change between blocks
 -   Solution based on `ergm.multi`: Size-dependent parametrizations!
 
 ```{r, echo = TRUE, cache=TRUE}
-model_formula <- state_twitter ~  edges + nodematch("party") +   nodematch("race") +  
-  nodematch("gender") + N(~mutual,~log(n)) + N(~edges,~log(n)-1) 
+model_formula <- state_twitter ~  edges + nodematch("party") +   
+   nodematch("race") + nodematch("gender") + N(~transitiveties,~log(n)) + 
+   N(~mutual,~log(n)) + N(~edges,~log(n)-1) 
 ```
 
 ![](bigergm_files/edge_term_plot.png){.absolute top="340" left="0"}
 
 
-## 2. Model Estimation
+## 2. Estimate
 
 - Support for parallel computation and ML estimation for within-block model
 
@@ -602,41 +658,44 @@ twitter_res <- bigergm(
   object = model_formula,
   # The number of blocks
   n_MM_step_max = 1000,tol_MM_step = 0.0001,
-  # The maximum number of MM algorithm steps
+  # The maximum number of MM steps 
   estimate_parameters = TRUE,
   # Perform parameter estimation after the block recovery step
   clustering_with_features = TRUE,
-  # Indicate that clustering must take into account nodematch on characteristics
+  # Indicate wether clustering should take into account 
+  # nodematch on characteristics
   check_block_membership = TRUE, 
   # How many blocks should be estimated?
   n_blocks = 50,
   # Which estimation for the within-block model should be used?
   method_within = "MLE",
-  # Control argument to guide simulation
+  # Control arguments for within-block simulations
   control_within = control.ergm(parallel=5, parallel.type="PSOCK", 
                                 MCMC.burnin = 10000, 
                                 MCMC.interval = 20000))
+
 ```
 
-## 2. Model Estimation
+## 2. Estimate
 
 - Homophily based on party affiliation
-- Strong reciprocity effect that gets smaller for bigger networks
-
+- Strong reciprocity, decreasing with network size
+- Strong transitivity, decreasing with network size
 
 ```{r, echo = TRUE, cache=TRUE}
 summary(twitter_res)
 ```
-## 2. Model Estimation
+## 2. Estimate
 
 -   Exploit that `est_within` is an `ergm` object
 -   Check if the MCMC chains used for estimation have converged
 
 ```{r, echo = TRUE, cache=TRUE}
-mcmc.diagnostics(twitter_res$est_within)
+par(mfrow = c(2,2))
+mcmc.diagnostics(twitter_res$est_within,which = "plots")
 ```
 
-## 3. Model Assessment: Simulation
+## 3. Diagnose: Simulation
 
 ```{r, echo = TRUE, cache=TRUE}
 sim_tmp <- simulate(twitter_res, nsim = 10, seed = 1,output = "stats",
@@ -645,44 +704,51 @@ plot(sim_tmp$within_network$edges, xlab = "Index", type = "l",
      ylab = "Number of edges", main = "Within-block")
 ```
 
-## 3. Model Assessment: Simulation
+## 3. Diagnose: Simulation
 
 ```{r, echo = TRUE, cache=TRUE}
 plot(sim_tmp$between_network$edges, xlab = "Index",type = "l",
      ylab = "Number of edges", main = "Between-block")
 ```
 
-## 3. Model Assessment: GoF
+## 3. Diagnose: GoF
 
 ```{r, echo = TRUE, cache=TRUE}
+# Assess fit
 twitter_gof <- gof(twitter_res, 
                    # How many simulations should be performed?
                    n_sim = 100, 
-                   # Seed for reproducibility
+                   # Ensure that all results are reproducible
                    seed = 2, 
-                   # Options are 'full' or 'within'
+                   # Either 'full' or 'within' to say if gof should be based on only 
+                   # within-connections or all
                    type = "within", 
                    # Should the geodesic distance be computed?
-                   compute_geodesic_distance = T,
-                   # Control argument to guide simulation
-                   control_within = control.simulate.formula(parallel=5, parallel.type="PSOCK",
+                   compute_geodesic_distance = TRUE,
+                   # Control arguments for within-block simulations
+                   control_within = control.simulate.formula(parallel=4, 
+                                                     parallel.type="PSOCK",
                                                      MCMC.burnin = 10000, 
                                                      MCMC.interval = 20000))
 ```
 
-## 3. Model Assessment: GoF
+## 3. Diagnose: GoF
+
+- Plot the goodness-of-fit statistics
+
 
 ```{r, echo = TRUE, cache=TRUE}
 #| fig-width: 20
 #| fig-height: 10
-par(mfrow = c(2,3))
+#| fig-caption: Goodness-of-fit statistics
+par(mfrow = c(2,2))
 plot(twitter_gof)
 ```
 
 
 ## Conclusion and Outlook 
 
--   `bigergm` is a powerful tool for fitting, simulating, and diagnosing
+-   `bigergm` is a powerful tool for estimating, simulating, and diagnosing
     HERGMs for big networks 
 -  Package is under active development:
     - Degree-correction 
