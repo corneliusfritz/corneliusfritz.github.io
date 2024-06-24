@@ -1,5 +1,5 @@
 ---
-permalink: /about/
+permalink: /workshop/
 layout: single
 title: "bigergm"
 header:
@@ -12,9 +12,9 @@ author_profile: true
 ---
 
 
-[Project website](bigergm)
+[Project website](https://www.corneliusfritz.com/bigergm)
 
 Workshop materials:
 
 - Slides for Michael's talk
-- [Slides for Cornelius's talk](presentation/bigergm.html)
+- [Slides for Cornelius's talk](https://www.corneliusfritz.com/presentation/bigergm.html)
