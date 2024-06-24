@@ -1,6 +1,6 @@
 ---
 permalink: /bigergm_project/
-layout: single
+layout: default
 title: "bigergm"
 header:
   overlay_image: /assets/images/background.JPG
@@ -12,7 +12,7 @@ author_profile: false
 ---
 
 [Project website](https://www.corneliusfritz.com/bigergm){target="_blank"}
-
+ <a href="https://www.corneliusfritz.com/bigergm" target="_blank">Go to application</a> 
 
 Workshop materials:
 
