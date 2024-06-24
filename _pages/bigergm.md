@@ -8,14 +8,13 @@ header:
 show_overlay_title: true
 share: false
 classes: wide
-author_profile: true  
+author_profile: false  
 ---
 
-
-<a href="https://www.corneliusfritz.com/bigergm" >target="_blank"> Project website</a>
+[Project website](https://www.corneliusfritz.com/bigergm){target="_blank"}
 
 
 Workshop materials:
 
 - Slides for Michael's talk
-- <a href="https://www.corneliusfritz.com/presentation/bigergm.html" >target="_blank"> Slides for Cornelius's talk</a>
+- [Slides for Cornelius's talk](https://www.corneliusfritz.com/presentation/bigergm.html){target="_blank"}
