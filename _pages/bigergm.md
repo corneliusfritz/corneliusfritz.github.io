@@ -1,5 +1,5 @@
 ---
-permalink: /bigergm/
+permalink: /bigergm_project/
 layout: single
 title: "bigergm"
 header:
