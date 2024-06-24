@@ -76,14 +76,14 @@
     
 <p>This vignette briefly introduces how to use the R package
 <code>bigergm</code>, which estimates Hierarchical Exponential-Family
-Random Graph Models <span class="citation">(HERGMs, Schweinberger and
-Handcock 2015)</span>. The package <code>bigergm</code> builds on the R
-packages <code>lighthergm</code> <span class="citation">(Martínez
-Dahbura et al. 2021)</span> and <code>hergm</code> <span class="citation">(Schweinberger and Luna 2018)</span> and applies
+Random Graph Models <span class="citation">(HERGMs, Schweinberger &amp;
+Handcock, 2015)</span>. The package <code>bigergm</code> builds on the R
+packages <code>lighthergm</code> <span class="citation">(Dahbura,
+Komatsu, Nishida, &amp; Mele, 2021)</span> and <code>hergm</code> <span class="citation">(Schweinberger &amp; Luna, 2018)</span> and applies
 scalable algorithms to scale the estimation up to big networks with up
-to 50 K population members (see <span class="citation">Martínez Dahbura
-et al. (2021)</span> and <span class="citation">Fritz et al.
-(2024)</span>).</p>
+to 50 K population members (see <span class="citation">Dahbura et al.
+(2021)</span> and <span class="citation">Fritz, Georg, Mele, &amp;
+Schweinberger (2024)</span>).</p>
 <div class="section level2">
 <h2 id="exponential-random-graph-models-for-large-networks">Exponential Random Graph Models for Large Networks<a class="anchor" aria-label="anchor" href="#exponential-random-graph-models-for-large-networks"></a>
 </h2>
@@ -100,7 +100,7 @@ underlying structure of the network.</p>
 scalable algorithm for estimating HERGMs, which generalize ERGMs that
 allow for local dependence induced by non-overlapping blocks of nodes
 with network data. Introduced by <span class="citation">Schweinberger
-and Handcock (2015)</span>, complex dependence is allowed only between
+&amp; Handcock (2015)</span>, complex dependence is allowed only between
 nodes within the same block. Thereby, we obtain a more flexible model
 that can capture the cohesive subgroups in the network globally while
 accounting for dependence within these subgroups on the local level.</p>
@@ -203,7 +203,7 @@ e.g., the edges within block <span class="math inline">\(k\)</span> and
 a normalizing constant guaranteeing that the probability distribution
 sums to one. Examples of network statistics include the number of edges,
 triangles, and degree statistics (see <span class="citation">Morris,
-Handcock, and Hunter (2008)</span> and all references therein).</p>
+Handcock, &amp; Hunter (2008)</span> and all references therein).</p>
 </div>
 </div>
 <div class="section level3">
@@ -218,11 +218,10 @@ variable and following a multinomial distribution: <span class="math display">\[
 marginal probability that a node belongs to block <span class="math inline">\(k\)</span> for <span class="math inline">\(k = 1,
 \ldots, K\)</span>. Given this context, the model is estimated in two
 steps by the algorithm proposed by <span class="citation">Babkin,
-Stewart, and Schweinberger (2020)</span>:</p>
+Stewart, Long, &amp; Schweinberger (2020)</span>:</p>
 <ol style="list-style-type: decimal">
 <li>Recover the block membership matrix <span class="math inline">\(\mathbf{Z}\)</span> by maximizing a lower bound of
-the likelihood from the observed network <span class="math inline">\(\mathbf{Y}\)</span> (see <span class="citation">Babkin, Stewart, and Schweinberger (2020)</span> and
-<span class="citation">Vu, Hunter, and Schweinberger (2013)</span> for
+the likelihood from the observed network <span class="math inline">\(\mathbf{Y}\)</span> (see <span class="citation">Babkin et al. (2020)</span> and <span class="citation">Vu, Hunter, &amp; Schweinberger (2013)</span> for
 details).</li>
 <li>Given the estimated block membership matrix <span class="math inline">\(\hat{\mathbf{Z}}\)</span>, estimate the
 coefficients <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> by maximizing the pseudo-likelihood
@@ -238,7 +237,7 @@ step, the entire computational machinery implemented in the
 membership matrix is known.</p>
 <p>The package <code>bigergm</code> implements a scalable algorithm for
 estimating HERGMs even for large networks by exploiting the structure of
-the model and the network data (details are provided in <span class="citation">Martínez Dahbura et al. (2021)</span> and <span class="citation">Fritz et al. (2024)</span>).</p>
+the model and the network data (details are provided in <span class="citation">Dahbura et al. (2021)</span> and <span class="citation">Fritz et al. (2024)</span>).</p>
 </div>
 </div>
 <div class="section level2">
@@ -314,10 +313,9 @@ explanations, <span class="math inline">\(K\)</span>).</p></li>
 <li><p><code>n_MM_step_max</code>: Maximum number of MM algorithm
 steps.</p></li>
 <li><p><code>tol_MM_step</code>: Threshhold when convergence is reached.
-Following <span class="citation">Vu, Hunter, and Schweinberger
-(2013)</span>, we stop the algorithm when the relative change in the
-lower bound of the objective function is less than
-<code>tol_MM_step</code>.</p></li>
+Following <span class="citation">Vu et al. (2013)</span>, we stop the
+algorithm when the relative change in the lower bound of the objective
+function is less than <code>tol_MM_step</code>.</p></li>
 <li><p><code>estimate_parameters</code>: boolean value set to TRUE, if
 the algorithm should estimate the parameters after the block recovery
 step.</p></li>
@@ -391,8 +389,10 @@ otherwise.</p>
 <code class="sourceCode R"><span><span class="co"># For the within networks</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">est_within</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; ergm::ergm(formula = within_formula, offset.coef = offset.coef, </span></span>
-<span><span class="co">#&gt;     estimate = method, control = control)</span></span>
+<span><span class="co">#&gt; ergm::ergm(formula = within_formula, constraints = constraints, </span></span>
+<span><span class="co">#&gt;     obs.constraints = obs.constraints, offset.coef = offset.coef, </span></span>
+<span><span class="co">#&gt;     target.stats = target.stats, estimate = method, control = control, </span></span>
+<span><span class="co">#&gt;     newnetwork = newnetwork)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Maximum Pseudolikelihood Results:</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -568,46 +568,43 @@ initial value.</li>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-babkin_2020" class="csl-entry">
-Babkin, Sergii, Jonathan Stewart, and Michael Schweinberger. 2020.
-<span>“Large-Scale Estimation of Random Graph Models with Local
-Dependence.”</span> <em>Computational Statistics &amp; Data
-Analysis</em> 152: 107029.
-</div>
-<div id="ref-fritz2024" class="csl-entry">
-Fritz, Cornelius, Co-Piere Georg, Angelo Mele, and Michael
-Schweinberger. 2024. <span>“A Strategic Model of Software Dependency
-Networks,”</span> Working Paper. Available at
-https://arxiv.org/abs/2402.13375.
+Babkin, S., Stewart, J., Long, X., &amp; Schweinberger, M. (2020).
+Large-scale estimation of random graph models with local dependence.
+<em>Computational Statistics &amp; Data Analysis</em>, <em>152</em>,
+107029.
 </div>
 <div id="ref-martinezdahbura2021" class="csl-entry">
-Martínez Dahbura, Juan Nelson, Shota Komatsu, Takanori Nishida, and
-Angelo Mele. 2021. <span>“A Structural Model of Business Card Exchange
-Networks,”</span> Working Paper. Available at
-https://arxiv.org/abs/2105.12704.
+Dahbura, J. N. M., Komatsu, S., Nishida, T., &amp; Mele, A. (2021).
+<em>A Structural Model of Business Card Exchange Networks</em>. Working
+Paper. Available at https://arxiv.org/abs/2105.12704.
+</div>
+<div id="ref-fritz2024" class="csl-entry">
+Fritz, C., Georg, C.-P., Mele, A., &amp; Schweinberger, M. (2024). <em>A
+strategic model of software dependency networks</em>. Working Paper.
+Available at https://arxiv.org/abs/2402.13375.
 </div>
 <div id="ref-morris2008" class="csl-entry">
-Morris, Martina, Mark S Handcock, and Dave Hunter. 2008.
-<span>“Specification of Exponential-Family Random Graph Models: Terms
-and Computational Aspects.”</span> <em>Journal of Statistical
-Software</em> 24 (4).
+Morris, M., Handcock, M. S., &amp; Hunter, D. (2008). Specification of
+Exponential-Family Random Graph Models: Terms and Computational Aspects.
+<em>Journal of Statistical Software</em>, <em>24</em>(4).
 </div>
 <div id="ref-schweinberger2015" class="csl-entry">
-Schweinberger, Michael, and Mark S Handcock. 2015. <span>“Local
-Dependence in Random Graph Models: Characterization, Properties and
-Statistical Inference.”</span> <em>Journal of the Royal Statistical
-Society B</em> 77 (3): 647–76.
+Schweinberger, M., &amp; Handcock, M. S. (2015). Local Dependence in
+Random Graph Models: Characterization, Properties and Statistical
+Inference. <em>Journal of the Royal Statistical Society B</em>,
+<em>77</em>(3), 647–676.
 </div>
 <div id="ref-schweinberger2018" class="csl-entry">
-Schweinberger, Michael, and Pamela Luna. 2018. <span>“Hergm:
-Hierarchical Exponential-Family Random Graph Models.”</span> <em>Journal
-of Statistical Software</em> 85 (1): 1–39.
+Schweinberger, M., &amp; Luna, P. (2018). hergm: Hierarchical
+Exponential-Family Random Graph Models. <em>Journal of Statistical
+Software</em>, <em>85</em>(1), 1–39.
 </div>
 <div id="ref-vu_2013" class="csl-entry">
-Vu, Duy, David Hunter, and Michael Schweinberger. 2013.
-<span>“Model-Based Clustering of Large Networks.”</span> <em>The Annals
-of Applied Statistics</em> 7 (2): 1010–39.
+Vu, D., Hunter, D., &amp; Schweinberger, M. (2013). Model-based
+clustering of large networks. <em>The Annals of Applied Statistics</em>,
+<em>7</em>(2), 1010–1039.
 </div>
 </div>
 </div>
