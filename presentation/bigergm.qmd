@@ -131,7 +131,7 @@ editor:
 
 1.  Local dependence leveraging additional structure
 2.  Preparation and Background
-3.  Demonstration of capabilities of the package `bigergm`
+3.  Demonstration of [`bigergm`](https://www.corneliusfritz.com/bigergm){preview-link="true"}
 4.  Application to Twitter (X): Following Network of State
     Legislators
 
@@ -241,6 +241,16 @@ width="800"}
 -   $\mathtt{bigergm}$: Extension to directed networks with a clean
     interface and additional features based on @fritz2024
 
+## Presentation features
+
+1. TOC available after pressing the three stripes in the upper right corner 
+2. PDF output under `Tools` menu
+3. Code can be copied by pressing the `Copy to Clipboard` button
+
+```{r, eval=FALSE, echo=TRUE}
+a <- 1
+```
+
 ## Installation
 
 -   The package can be installed in R as follows:
@@ -285,9 +295,10 @@ The block memberships saved as a vertex attribute 'block':
 model_formula <- lhs_network ~ network_term_1 + ... + network_term_p
 ```
 
-1.  `lhs_network`: A `network` object where the simulation should be
-    started. States the size of the network and whether it's directed or
-    not.
+1.  `lhs_network`: 
+    -   A `network` object where the simulation should be
+    started. 
+    -   Defines the size of the network and its directionality.
 2.  `network_term(s)`: `ergmTerms` specifying the network model.
     -   Within-block ERGM: Dyad-independent or dyad-dependent terms
     -   Between-block ERGM: Only dyad-independent terms
@@ -311,7 +322,8 @@ $$
 ## Example 2
 
 ```{r, echo = TRUE}
-model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + transitiveties
+model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + 
+  transitiveties
 ```
 
 Within-block model: 
@@ -358,7 +370,7 @@ model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + transit
 
 3.  Simulate a network from specified model
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, `code-line-numbers` = "|2-3|4-7|8-9|10-13"}
 sim_net <- simulate_bigergm(
   # Model specification 
   formula = model_formula,
@@ -369,7 +381,8 @@ sim_net <- simulate_bigergm(
   # Number of simulations
   nsim = 1, 
   # Control argument to guide simulation
-  control_within = ergm::control.simulate.formula(MCMC.burnin = 50000, MCMC.interval = 10000), 
+  control_within = ergm::control.simulate.formula(MCMC.burnin = 50000, 
+                                                  MCMC.interval = 10000), 
   # Ensure that all results are reproducible
   seed = 123
 )
@@ -389,7 +402,7 @@ plot(sim_net, vertex.col = sim_net %v% "block")
 
 ## Estimate with unknown block structure
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, `code-line-numbers` = "|4-5|6-7|8-11|12-15"}
 # Update the formula to refer to the simulated network 
 model_formula <- update(model_formula, sim_net~.)
 res <-bigergm(
@@ -401,8 +414,6 @@ res <-bigergm(
   n_MM_step_max = 100,
   # The tolarence for the MM algorithm
   tol_MM_step = 1e-6,
-  # Perform parameter estimation after the block recovery step
-  estimate_parameters = TRUE,
   # Indicate whether clustering should take into account nodematch on x and y
   clustering_with_features = TRUE,
   # Keep track of block memberships at each iteration
@@ -467,7 +478,7 @@ summary(res_known)
 - Function calculates degree, edgewise shared partner, and geodesic distance statistics
 
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, `code-line-numbers` = "|2-6|7-9|10-15"}
 tmp <- gof(res_known, 
     # Control arguments for within-block simulations
     control_within = ergm::control.simulate.formula(MCMC.burnin = 50000, 
@@ -571,13 +582,13 @@ formula_tmp <- state_twitter ~  edges + nodematch("party") +
 help(bigergm)
 ```
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, eval=FALSE}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Hint 2"
 help(ari)
 help(attribute.methods)
-# state_twitter%v%"state"
+state_twitter%v%"state"
 ```
 
 ## Exercise 2: Estimation 
@@ -601,12 +612,12 @@ twitter_tmp <- bigergm(
   initialization = "walktrap")
 ```
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, eval=FALSE}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Solution 2"
-# summary(twitter_tmp)
-# ari(twitter_tmp$block,state_twitter%v%"state")
+summary(twitter_tmp)
+ari(twitter_tmp$block,state_twitter%v%"state")
 ```
 
 ## Exercise 3: Simulation  
@@ -622,16 +633,16 @@ help(simulate_bigergm)
 ```
 
 
-```{r, echo = TRUE, cache=TRUE}
+```{r, echo = TRUE, cache=TRUE, eval=FALSE}
 #| echo: true
 #| code-fold: true
 #| code-summary: "Solution"
 twitter_sim <- simulate(twitter_tmp, output = "stats", nsim = 10,
                         control_within = control.simulate.formula(MCMC.interval = 20000))
-# plot(twitter_sim$within_network$edges, 
-#      xlab = "Index", ylab = "Within-block Edges", type = "l")
-# plot(twitter_sim$between_network$edges, 
-#      xlab = "Index", ylab = "Within-block Edges", type = "l")
+plot(twitter_sim$within_network$edges,
+     xlab = "Index", ylab = "Within-block Edges", type = "l")
+plot(twitter_sim$between_network$edges,
+     xlab = "Index", ylab = "Within-block Edges", type = "l")
 ```
   
 ## 1. Specify
@@ -653,7 +664,7 @@ model_formula <- state_twitter ~  edges + nodematch("party") +
 
 - Support for parallel computation and ML estimation for within-block model
 
-```{r, echo = TRUE, cache=TRUE}
+```{r estimate_x_1, echo = TRUE, cache=TRUE}
 twitter_res <- bigergm(
   object = model_formula,
   # The number of blocks
@@ -682,7 +693,7 @@ twitter_res <- bigergm(
 - Strong reciprocity, decreasing with network size
 - Strong transitivity, decreasing with network size
 
-```{r, echo = TRUE, cache=TRUE}
+```{r estimate_x_2, echo = TRUE, cache=TRUE}
 summary(twitter_res)
 ```
 ## 2. Estimate
@@ -690,30 +701,39 @@ summary(twitter_res)
 -   Exploit that `est_within` is an `ergm` object
 -   Check if the MCMC chains used for estimation have converged
 
-```{r, echo = TRUE, cache=TRUE}
+```{r mcmc_x, echo = TRUE, cache=TRUE}
 par(mfrow = c(2,2))
 mcmc.diagnostics(twitter_res$est_within,which = "plots")
 ```
 
-## 3. Diagnose: Simulation
+## 3. Diagnose: GoF
 
-```{r, echo = TRUE, cache=TRUE}
-sim_tmp <- simulate(twitter_res, nsim = 10, seed = 1,output = "stats",
-                    control_within = control.simulate.formula(MCMC.interval = 20000))
-plot(sim_tmp$within_network$edges, xlab = "Index", type = "l",
-     ylab = "Number of edges", main = "Within-block")
+```{r simulation_x_1, echo = TRUE, cache=TRUE}
+sim_networks <- simulate(twitter_res, nsim = 100, seed = 2, 
+                         control_within = control.simulate.formula(parallel=5,
+                                                                   parallel.type="PSOCK", 
+                                                                   MCMC.burnin = 20000, 
+                                                                   MCMC.interval = 30000))
 ```
 
-## 3. Diagnose: Simulation
-
-```{r, echo = TRUE, cache=TRUE}
-plot(sim_tmp$between_network$edges, xlab = "Index",type = "l",
-     ylab = "Number of edges", main = "Between-block")
+```{r simulation_x_2, echo = TRUE, cache=TRUE}
+#| code-fold: true
+#| code-summary: "Code"
+simulated <-  mapply(FUN = function(x) {
+  tmp_x <- get_within_networks(x, x%v%"block")
+  summary(tmp_x ~transitiveties + triangle + edges + mutual)
+}, x = sim_networks,
+SIMPLIFY = FALSE)
+simulated <- do.call(rbind, simulated)
+state_twitter_block <- get_within_networks(state_twitter, twitter_res$block)
+observed_statistics <- summary(state_twitter_block ~ transitiveties + triangle + edges + mutual)
+plot(density(simulated[,1]), xlab = "Transitivities", ylab = "Density", main = "")
+abline(v = observed_statistics[1], col = "red")
 ```
 
 ## 3. Diagnose: GoF
 
-```{r, echo = TRUE, cache=TRUE}
+```{r gof_x_1, echo = TRUE, cache=TRUE}
 # Assess fit
 twitter_gof <- gof(twitter_res, 
                    # How many simulations should be performed?
@@ -726,10 +746,9 @@ twitter_gof <- gof(twitter_res,
                    # Should the geodesic distance be computed?
                    compute_geodesic_distance = TRUE,
                    # Control arguments for within-block simulations
-                   control_within = control.simulate.formula(parallel=4, 
-                                                     parallel.type="PSOCK",
+                   control_within = control.simulate.formula(
                                                      MCMC.burnin = 10000, 
-                                                     MCMC.interval = 20000))
+                                                     MCMC.interval = 30000))
 ```
 
 ## 3. Diagnose: GoF
@@ -737,11 +756,11 @@ twitter_gof <- gof(twitter_res,
 - Plot the goodness-of-fit statistics
 
 
-```{r, echo = TRUE, cache=TRUE}
+```{r gof_x_2, echo = TRUE, cache=TRUE}
 #| fig-width: 20
 #| fig-height: 10
 #| fig-caption: Goodness-of-fit statistics
-par(mfrow = c(2,2))
+par(mfrow = c(1,2))
 plot(twitter_gof)
 ```
 
@@ -752,8 +771,8 @@ plot(twitter_gof)
     HERGMs for big networks 
 -  Package is under active development:
     - Degree-correction 
-    - Bipartite networks
     - Overlapping blocks
+    - Bipartite networks
     - More efficient estimation algorithms
 -   Feedback and contributions are welcome!
 
