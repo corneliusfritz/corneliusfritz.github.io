@@ -214,7 +214,7 @@ $$
 $$ 
 where 
 $$
-\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, ...,  \sum_{i<j} \mathbb{I}(y_{P,i} = y_{P,j})\, x_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i<j} x_{i,j},\sum_{i<j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, ...,  \sum_{i<j} \mathbb{I}(y_{P,i} = y_{P,j})\, x_{i,j}\right)
 $$
 
 Remarks:
@@ -230,17 +230,6 @@ width="1000"}
 
 # Background and Preparation
 
-## The package [`bigergm`](https://www.corneliusfritz.com/bigergm){preview-link="true"}
-
-![](bigergm_files/evolution_packages.png){.absolute top="400" left="170"
-width="800"}
-
--   $\mathtt{hergm}$: First package developed by @schweinberger2018.\
--   $\mathtt{lighthergm}$: Scaling up estimation to big networks based on
-    @babkin_2020 and @martinezdahbura2021
--   $\mathtt{bigergm}$: Extension to directed networks with a clean
-    interface and additional features based on @fritz2024
-
 ## Presentation features
 
 1. TOC available after pressing the three stripes in the upper right corner 
@@ -250,6 +239,19 @@ width="800"}
 ```{r, eval=FALSE, echo=TRUE}
 a <- 1
 ```
+
+## The package [`bigergm`](https://www.corneliusfritz.com/bigergm){preview-link="true"}
+
+![](bigergm_files/evolution_packages.png){.absolute top="410" left="170"
+width="800"}
+
+-   $\mathtt{hergm}$: First package developed by @schweinberger2018.\
+-   $\mathtt{lighthergm}$: Scaling up estimation to big networks based on
+    @babkin_2020 and @martinezdahbura2021
+-   $\mathtt{bigergm}$: Extension to directed networks with a clean
+    interface and additional features based on @fritz2024
+
+
 
 ## Installation
 
@@ -284,7 +286,7 @@ width="400"}
 1.  Within-block ERGM (colored blue)
 2.  Between-block ERGM colored yellow)
 
-![](bigergm_files/block_structure.jpg){.absolute top="260" left="200"
+![](bigergm_files/block_structure.png){.absolute top="260" left="200"
 width="700"}
 
 ## Specify a ERGM with additional structure
@@ -370,7 +372,7 @@ model_formula <- network_tmp ~ edges + nodematch("x") + nodematch("y") + transit
 
 3.  Simulate a network from specified model
 
-```{r, echo = TRUE, cache=TRUE, `code-line-numbers` = "|2-3|4-7|8-9|10-13"}
+```{r, echo = TRUE, cache=TRUE, `code-line-numbers` = "|2-3|4-7|8-9|10-14"}
 sim_net <- simulate_bigergm(
   # Model specification 
   formula = model_formula,

@@ -501,7 +501,7 @@ Cornelius Fritz, Michael Schweinberger, and David R. Hunter
 <p><span class="math display">\[
 \mathbb{P}_{B}(\mathbf{x}_{k,l} | \mathbf{y}, \mathbf{z}) = \exp\left(\beta^\top \mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y})\right)/ c_B(\beta, \mathbf{y}, \mathbf{z}),
 \]</span> where <span class="math display">\[
-\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, ...,  \sum_{i&lt;j} \mathbb{I}(y_{P,i} = y_{P,j})\, x_{i,j}\right)
+\mathbf{s}_B(\mathbf{x}_{k,l}, \mathbf{y}) = \left(\sum_{i&lt;j} x_{i,j},\sum_{i&lt;j} \mathbb{I}(y_{1,i} = y_{1,j})\, x_{i,j}, ...,  \sum_{i&lt;j} \mathbb{I}(y_{P,i} = y_{P,j})\, x_{i,j}\right)
 \]</span></p>
 <p>Remarks:</p>
 <ol type="1">
@@ -518,16 +518,6 @@ Cornelius Fritz, Michael Schweinberger, and David R. Hunter
 <h1>Background and Preparation</h1>
 
 </section>
-<section id="the-package-bigergm" class="slide level2">
-<h2>The package <a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true"><code>bigergm</code></a></h2>
-<p><img data-src="bigergm_files/evolution_packages.png" class="absolute" style="top: 400px; left: 170px; width: 800px; "></p>
-<ul>
-<li><span class="math inline">\(\mathtt{hergm}\)</span>: First package developed by <span class="citation" data-cites="schweinberger2018">Schweinberger &amp; Luna (<a href="#/literature" role="doc-biblioref" onclick="">2018</a>)</span>.<br>
-</li>
-<li><span class="math inline">\(\mathtt{lighthergm}\)</span>: Scaling up estimation to big networks based on <span class="citation" data-cites="babkin_2020">Babkin, Stewart, Long, &amp; Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2020</a>)</span> and <span class="citation" data-cites="martinezdahbura2021">Dahbura, Komatsu, Nishida, &amp; Mele (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span></li>
-<li><span class="math inline">\(\mathtt{bigergm}\)</span>: Extension to directed networks with a clean interface and additional features based on <span class="citation" data-cites="fritz2024">Fritz, Georg, Mele, &amp; Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span></li>
-</ul>
-</section>
 <section id="presentation-features" class="slide level2">
 <h2>Presentation features</h2>
 <ol type="1">
@@ -538,6 +528,16 @@ Cornelius Fritz, Michael Schweinberger, and David R. Hunter
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="the-package-bigergm" class="slide level2">
+<h2>The package <a href="https://www.corneliusfritz.com/bigergm" data-preview-link="true"><code>bigergm</code></a></h2>
+<p><img data-src="bigergm_files/evolution_packages.png" class="absolute" style="top: 410px; left: 170px; width: 800px; "></p>
+<ul>
+<li><span class="math inline">\(\mathtt{hergm}\)</span>: First package developed by <span class="citation" data-cites="schweinberger2018">Schweinberger &amp; Luna (<a href="#/literature" role="doc-biblioref" onclick="">2018</a>)</span>.<br>
+</li>
+<li><span class="math inline">\(\mathtt{lighthergm}\)</span>: Scaling up estimation to big networks based on <span class="citation" data-cites="babkin_2020">Babkin, Stewart, Long, &amp; Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2020</a>)</span> and <span class="citation" data-cites="martinezdahbura2021">Dahbura, Komatsu, Nishida, &amp; Mele (<a href="#/literature" role="doc-biblioref" onclick="">2021</a>)</span></li>
+<li><span class="math inline">\(\mathtt{bigergm}\)</span>: Extension to directed networks with a clean interface and additional features based on <span class="citation" data-cites="fritz2024">Fritz, Georg, Mele, &amp; Schweinberger (<a href="#/literature" role="doc-biblioref" onclick="">2024</a>)</span></li>
+</ul>
 </section>
 <section id="installation" class="slide level2">
 <h2>Installation</h2>
@@ -580,7 +580,7 @@ Cornelius Fritz, Michael Schweinberger, and David R. Hunter
 <li>Within-block ERGM (colored blue)</li>
 <li>Between-block ERGM colored yellow)</li>
 </ol>
-<p><img data-src="bigergm_files/block_structure.jpg" class="absolute" style="top: 260px; left: 200px; width: 700px; "></p>
+<p><img data-src="bigergm_files/block_structure.png" class="absolute" style="top: 260px; left: 200px; width: 700px; "></p>
 </section>
 <section id="specify-a-ergm-with-additional-structure-1" class="slide level2">
 <h2>Specify a ERGM with additional structure</h2>
@@ -665,7 +665,7 @@ Cornelius Fritz, Michael Schweinberger, and David R. Hunter
 <li>Simulate a network from specified model</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|2-3|4-7|8-9|10-13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>sim_net <span class="ot">&lt;-</span> <span class="fu">simulate_bigergm</span>(</span>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|2-3|4-7|8-9|10-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>sim_net <span class="ot">&lt;-</span> <span class="fu">simulate_bigergm</span>(</span>
 <span id="cb9-2"><a href=""></a>  <span class="co"># Model specification </span></span>
 <span id="cb9-3"><a href=""></a>  <span class="at">formula =</span> model_formula,</span>
 <span id="cb9-4"><a href=""></a>  <span class="co"># The coefficients for the between connections</span></span>
