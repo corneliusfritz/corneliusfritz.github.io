@@ -13,7 +13,9 @@ author_profile: true
 
 Hi!
 
-I am Cornelius Fritz, a postdoctoral fellow at Penn State working with [Michael Schweinberger](https://science.psu.edu/stat/people/mus47) and [David Hunter](https://science.psu.edu/stat/people/drh20) on network models under local dependence. Before that, I was the interim professor of Data Science at [LMU](https://www.lmu.de/de/index.html). I obtained my Ph.D. student in statistics under the supervision of [Göran Kauermann](https://www.en.wisostat.statistik.uni-muenchen.de/personen/lehrstuhlinhaber/kauermann/index.html). My research was partially funded by the DFG project DFG Project ["International Arms Trade: A Network Approach"](https://www.arms-trade-research.uni-muenchen.de/index.html) and the Munich Center for Machine Learning [(MCML)](https://mcml.ai/). <br>
+I am Cornelius Fritz, an assistant professor at the [School for Computer Science and Statistics](https://www.tcd.ie/scss/) at [Trinity College Dublin](https://www.tcd.ie/).  
+Before that I was a postdoc at Penn State working with [Michael Schweinberger](https://science.psu.edu/stat/people/mus47) and [David Hunter](https://science.psu.edu/stat/people/drh20) on network models under local dependence. 
+I obtained my Ph.D. student in statistics under the supervision of [Göran Kauermann](https://www.en.wisostat.statistik.uni-muenchen.de/personen/lehrstuhlinhaber/kauermann/index.html). 
 
 Smart devices collecting interpersonal data surround us at every move and facilitate novel ways of measuring and understanding social behavior. The collected data provide planetary-scale views of online interpersonal relations, allowing a more nuanced look at bias in information diffusion, polarization, and echo chamber effects. In my research, I use statistics to learn from such network data to answer questions posed within the social sciences in uncertain and changing environments. <br>
 

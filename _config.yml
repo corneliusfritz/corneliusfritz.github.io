@@ -66,12 +66,12 @@ social:
 author:
   name: "Cornelius Fritz"
   avatar: /assets/images/logo.png
-  bio: "Postdoc at PSU working on social network analysis"
-  location: "State College, United States"
+  bio: "Assistant Professor at TCD working on the analysis of dependent data"
+  location: "Dublin, Ireland"
   links:
     - label: "Mail"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:cfritz@psu.edu"
+      url: "mailto:fritzc@tcd.ie"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/cornelius_fritz"
