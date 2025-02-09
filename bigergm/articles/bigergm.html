@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="bigergm">
 <title>An Introduction to Estimating Exponential Random Graph Models for Large Networks with `bigergm` • bigergm</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -15,48 +14,38 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="An Introduction to Estimating Exponential Random Graph Models for Large Networks with `bigergm`">
-<meta property="og:description" content="bigergm">
-<meta property="og:image" content="/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="An Introduction to Estimating Exponential Random Graph Models for Large Networks with `bigergm`">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">bigergm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.3</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item">
-  <a class="nav-link" href="../articles/bigergm.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="active nav-item"><a class="nav-link" href="../articles/bigergm.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav"></ul>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+      </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -68,7 +57,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>An Introduction to Estimating Exponential Random Graph Models for Large Networks with `bigergm`</h1>
             
       
-      
+
       <div class="d-none name"><code>bigergm.Rmd</code></div>
     </div>
 
@@ -76,14 +65,14 @@
     
 <p>This vignette briefly introduces how to use the R package
 <code>bigergm</code>, which estimates Hierarchical Exponential-Family
-Random Graph Models <span class="citation">(HERGMs, Schweinberger &amp;
-Handcock, 2015)</span>. The package <code>bigergm</code> builds on the R
-packages <code>lighthergm</code> <span class="citation">(Dahbura,
-Komatsu, Nishida, &amp; Mele, 2021)</span> and <code>hergm</code> <span class="citation">(Schweinberger &amp; Luna, 2018)</span> and applies
+Random Graph Models <span class="citation">(HERGMs, Schweinberger and
+Handcock 2015)</span>. The package <code>bigergm</code> builds on the R
+packages <code>lighthergm</code> <span class="citation">(Martínez
+Dahbura et al. 2021)</span> and <code>hergm</code> <span class="citation">(Schweinberger and Luna 2018)</span> and applies
 scalable algorithms to scale the estimation up to big networks with up
-to 50 K population members (see <span class="citation">Dahbura et al.
-(2021)</span> and <span class="citation">Fritz, Georg, Mele, &amp;
-Schweinberger (2024)</span>).</p>
+to 50 K population members (see <span class="citation">Martínez Dahbura
+et al. (2021)</span> and <span class="citation">Fritz et al.
+(2024)</span>).</p>
 <div class="section level2">
 <h2 id="exponential-random-graph-models-for-large-networks">Exponential Random Graph Models for Large Networks<a class="anchor" aria-label="anchor" href="#exponential-random-graph-models-for-large-networks"></a>
 </h2>
@@ -100,134 +89,237 @@ underlying structure of the network.</p>
 scalable algorithm for estimating HERGMs, which generalize ERGMs that
 allow for local dependence induced by non-overlapping blocks of nodes
 with network data. Introduced by <span class="citation">Schweinberger
-&amp; Handcock (2015)</span>, complex dependence is allowed only between
+and Handcock (2015)</span>, complex dependence is allowed only between
 nodes within the same block. Thereby, we obtain a more flexible model
 that can capture the cohesive subgroups in the network globally while
 accounting for dependence within these subgroups on the local level.</p>
 <div class="section level3">
 <h3 id="model-specification">Model Specification<a class="anchor" aria-label="anchor" href="#model-specification"></a>
 </h3>
-<p>Consider a network of <span class="math inline">\(N\)</span>
-population members encompassed in the set <span class="math inline">\(\mathcal{P} = \{1, \ldots, N\}\)</span>. Define
-the adjacency matrix corresponding to this network as <span class="math inline">\(\mathbf{Y}= (Y_{i,j}) \in \mathbb{R}^{N\times
-N}\)</span>, where <span class="math inline">\(Y_{i,j}\)</span> is the
-entry in the <span class="math inline">\(i\)</span>-th row and <span class="math inline">\(j\)</span>-th column of the matrix. If <span class="math inline">\(Y_{i,j} = 1\)</span>, nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are connected; otherwise, they are not
-connected. In this vignette we only regard undirected networks, thus the
-adjacency matrix is symmetric, i.e., <span class="math inline">\(Y_{i,j}
-= Y_{j, i}\)</span>.<br>
+<p>Consider a network of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
+population members encompassed in the set
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒫</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>N</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal{P} = \{1, \ldots, N\}</annotation></semantics></math>.
+Define the adjacency matrix corresponding to this network as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐘</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>N</mi><mo>×</mo><mi>N</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{Y}= (Y_{i,j}) \in \mathbb{R}^{N\times N}</annotation></semantics></math>,
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">Y_{i,j}</annotation></semantics></math>
+is the entry in the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-th
+row and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>-th
+column of the matrix. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Y_{i,j} = 1</annotation></semantics></math>,
+nodes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+are connected; otherwise, they are not connected. In this vignette we
+only regard undirected networks, thus the adjacency matrix is symmetric,
+i.e.,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>Y</mi><mrow><mi>j</mi><mo>,</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">Y_{i,j} = Y_{j, i}</annotation></semantics></math>.<br>
 Note, however, that the package <code>bigergm</code> also supports
-directed networks. The number of blocks is denoted as <span class="math inline">\(K\)</span> and <span class="math inline">\(\mathbf{z}= (z_{i,k}) \in \mathbb{R}^{N\times
-K}\)</span> is the block membership matrix with entries <span class="math inline">\(z_{i,k}\)</span> equal to 1 if node <span class="math inline">\(i\)</span> belongs to block <span class="math inline">\(k\)</span> and 0 otherwise. Let <span class="math inline">\(\mathbf{Y}_{k,l}\)</span> be the submatrix of
-<span class="math inline">\(\mathbf{Y}\)</span> of the connections
-between blocks <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span>, i.e., the matrix including the
-connections between population members <span class="math inline">\(i\)</span> and <span class="math inline">\(j \in
-\mathcal{P}\)</span> with <span class="math inline">\(z_{i,k} = z_{j,l}=
-1\)</span>. The submatrix <span class="math inline">\(\mathbf{Y}_{k,k}\)</span> of <span class="math inline">\(\mathbf{Y}\)</span> contains the connections
-within block <span class="math inline">\(k\)</span>, i.e., the matrix
-including the connections between population members <span class="math inline">\(i\)</span> and <span class="math inline">\(j \in
-\mathcal{P}\)</span> with <span class="math inline">\(z_{i,k} = z_{j,k}=
-1\)</span>. Let <span class="math inline">\(\mathbf{x} = (x_{i,p}) \in
-\mathbb{R}^{N\times p}\)</span> be a matrix of nodal covariates, where
-<span class="math inline">\(p\)</span> is the number of covariates and
-<span class="math inline">\(x_{i,p}\)</span> refers to the <span class="math inline">\(p\)</span>th nodal covariate of population member
-<span class="math inline">\(i\)</span>. For the context of
-<code>bigergm</code>, assume that all nodal covariates are categorical.
-Generally, we refer to random variables by capitalized letters and their
-realizations by lowercase letters.</p>
-<p>Given this notation, the probability of observing the network <span class="math inline">\(\mathbf{Y}\)</span> for a given the block
-membership matrix <span class="math inline">\(\mathbf{Z}\)</span> is
-given by: <span class="math display">\[
-\mathbf{P}_\theta(\mathbf{Y} = \mathbf{y} | \mathbf{Z} =
-\mathbf{z},\mathbf{X} = \mathbf{x}) = \prod_{k \neq l}
-\mathbf{P}_{\alpha}(\mathbf{Y}_{k,l} | \mathbf{Z} = \mathbf{z},
-\mathbf{X} = \mathbf{x}) \prod_{k} \mathbf{P}_{\beta}(\mathbf{Y}_{k,k} |
-\mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}),
-\]</span> where <span class="math inline">\(\mathbf{P}_{\alpha}(\mathbf{Y}_{k,l} | \mathbf{Z}
-= \mathbf{z})\)</span> is the probability of observing the edges between
-blocks <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span> given <span class="math inline">\(\mathbf{z}\)</span> and <span class="math inline">\(\mathbf{P}_{\beta}(\mathbf{Y}_{k,k} | \mathbf{Z} =
-\mathbf{z})\)</span> is the probability of observing the edges within
-block <span class="math inline">\(k\)</span> given <span class="math inline">\(\mathbf{z}\)</span>. The parameter vectors <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the coefficients of the
-between-block and within-block networks, respectively. How these two
-models are specified is sketched in the next two paragraphs.</p>
+directed networks. The number of blocks is denoted as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐳</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>N</mi><mo>×</mo><mi>K</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{z}= (z_{i,k}) \in \mathbb{R}^{N\times K}</annotation></semantics></math>
+is the block membership matrix with entries
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">z_{i,k}</annotation></semantics></math>
+equal to 1 if node
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+belongs to block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+and 0 otherwise. Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{Y}_{k,l}</annotation></semantics></math>
+be the submatrix of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐘</mi><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math>
+of the connections between blocks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>,
+i.e., the matrix including the connections between population members
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mi>𝒫</mi></mrow><annotation encoding="application/x-tex">j \in \mathcal{P}</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mrow><mi>j</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_{i,k} = z_{j,l}= 1</annotation></semantics></math>.
+The submatrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{Y}_{k,k}</annotation></semantics></math>
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐘</mi><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math>
+contains the connections within block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>,
+i.e., the matrix including the connections between population members
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mi>𝒫</mi></mrow><annotation encoding="application/x-tex">j \in \mathcal{P}</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mrow><mi>j</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_{i,k} = z_{j,k}= 1</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐱</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>,</mo><mi>p</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><msup><mi>ℝ</mi><mrow><mi>N</mi><mo>×</mo><mi>p</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{x} = (x_{i,p}) \in \mathbb{R}^{N\times p}</annotation></semantics></math>
+be a matrix of nodal covariates, where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
+is the number of covariates and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi>i</mi><mo>,</mo><mi>p</mi></mrow></msub><annotation encoding="application/x-tex">x_{i,p}</annotation></semantics></math>
+refers to the
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>th
+nodal covariate of population member
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
+For the context of <code>bigergm</code>, assume that all nodal
+covariates are categorical. Generally, we refer to random variables by
+capitalized letters and their realizations by lowercase letters.</p>
+<p>Given this notation, the probability of observing the network
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐘</mi><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math>
+for a given the block membership matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐙</mi><annotation encoding="application/x-tex">\mathbf{Z}</annotation></semantics></math>
+is given by:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐏</mi><mi>θ</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>𝐘</mi><mo>=</mo><mi>𝐲</mi><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>∏</mo><mrow><mi>k</mi><mo>≠</mo><mi>l</mi></mrow></munder><msub><mi>𝐏</mi><mi>α</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><munder><mo>∏</mo><mi>k</mi></munder><msub><mi>𝐏</mi><mi>β</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\mathbf{P}_\theta(\mathbf{Y} = \mathbf{y} | \mathbf{Z} = \mathbf{z},\mathbf{X} = \mathbf{x}) = \prod_{k \neq l} \mathbf{P}_{\alpha}(\mathbf{Y}_{k,l} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}) \prod_{k} \mathbf{P}_{\beta}(\mathbf{Y}_{k,k} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}),
+</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐏</mi><mi>α</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{P}_{\alpha}(\mathbf{Y}_{k,l} | \mathbf{Z} = \mathbf{z})</annotation></semantics></math>
+is the probability of observing the edges between blocks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐳</mi><annotation encoding="application/x-tex">\mathbf{z}</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐏</mi><mi>β</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{P}_{\beta}(\mathbf{Y}_{k,k} | \mathbf{Z} = \mathbf{z})</annotation></semantics></math>
+is the probability of observing the edges within block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+given
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐳</mi><annotation encoding="application/x-tex">\mathbf{z}</annotation></semantics></math>.
+The parameter vectors
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+are the coefficients of the between-block and within-block networks,
+respectively. How these two models are specified is sketched in the next
+two paragraphs.</p>
 <div class="section level4">
 <h4 id="between-block-model">Between-block Model<a class="anchor" aria-label="anchor" href="#between-block-model"></a>
 </h4>
 <p>For the probability model for edges between population members of
-blocks <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span>, we employ a network model assuming
-dyadic independence between the edges:</p>
-<p><span class="math display">\[
-\mathbf{P}_{\alpha}(\mathbf{Y}_{k,l} = \mathbf{y}_{k,l} | \mathbf{Z} =
-\mathbf{z}, \mathbf{X} = \mathbf{x})  = \prod_{(i,j) \text{; } z_{ik} =
-1 \text{, } z_{jl} = 1} \mathbf{P}_{\alpha}(Y_{i,j}  = y_{i,j} |
-\mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}),
-\]</span> where <span class="math display">\[
-\mathbf{P}_{\alpha}(Y_{i,j} = y_{i,j} | \mathbf{Z} = \mathbf{z},
-\mathbf{X} = \mathbf{x}) = (\pi_{k,l}(\alpha, \mathbf{x}))^{y_{i,j}} (1
-- \pi_{k,l}(\alpha, \mathbf{x}))^{1 - y_{i,j}}
-\]</span> is the probability distribution of a Bernoulli distribution
-with parameter <span class="math inline">\(\pi_{k,l}(\alpha,
-\mathbf{x})\)</span> evaluated at <span class="math inline">\(y_{i,j}\)</span>.<br>
-The parameter <span class="math inline">\(\pi_{k,l}(\alpha,
-\mathbf{x})\)</span> is the probability of observing an edge between
-nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with <span class="math inline">\(z_{i,k} = z_{j,l} = 1\)</span> and have different
-forms:</p>
+blocks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>,
+we employ a network model assuming dyadic independence between the
+edges:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐏</mi><mi>α</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>=</mo><msub><mi>𝐲</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>∏</mo><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mtext mathvariant="normal">; </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>z</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><mn>1</mn><mrow><mtext mathvariant="normal">, </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>z</mi><mrow><mi>j</mi><mi>l</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow></munder><msub><mi>𝐏</mi><mi>α</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\mathbf{P}_{\alpha}(\mathbf{Y}_{k,l} = \mathbf{y}_{k,l} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x})  = \prod_{(i,j) \text{; } z_{ik} = 1 \text{, } z_{jl} = 1} \mathbf{P}_{\alpha}(Y_{i,j}  = y_{i,j} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}), 
+</annotation></semantics></math> where
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐏</mi><mi>α</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>π</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub></msup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>π</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mo>−</mo><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub></mrow></msup></mrow><annotation encoding="application/x-tex">
+\mathbf{P}_{\alpha}(Y_{i,j} = y_{i,j} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}) = (\pi_{k,l}(\alpha, \mathbf{x}))^{y_{i,j}} (1 - \pi_{k,l}(\alpha, \mathbf{x}))^{1 - y_{i,j}}
+</annotation></semantics></math> is the probability distribution of a
+Bernoulli distribution with parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_{k,l}(\alpha, \mathbf{x})</annotation></semantics></math>
+evaluated at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{i,j}</annotation></semantics></math>.<br>
+The parameter
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_{k,l}(\alpha, \mathbf{x})</annotation></semantics></math>
+is the probability of observing an edge between nodes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mrow><mi>j</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_{i,k} = z_{j,l} = 1</annotation></semantics></math>
+and have different forms:</p>
 <ul>
 <li>For the standard Stochastic Block Model (SBM), the probability of
-observing an edge between nodes <span class="math inline">\(i\)</span>
-and <span class="math inline">\(j\)</span> is given by <span class="math inline">\(\alpha_{k,l}\)</span>.</li>
+observing an edge between nodes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+is given by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><annotation encoding="application/x-tex">\alpha_{k,l}</annotation></semantics></math>.</li>
 <li>Extending this simplistic model, the current implementation allows
 the usage of <code>nodematch</code> statistics to include the nodal
-covariates <span class="math inline">\(\mathbf x\)</span> in the model,
-implying the following probability for <span class="math inline">\(y_{i,j}\)</span> with <span class="math inline">\(z_{i,k} = z_{j,l} = 1\)</span>:</li>
+covariates
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf x</annotation></semantics></math>
+in the model, implying the following probability for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">y_{i,j}</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mrow><mi>j</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_{i,k} = z_{j,l} = 1</annotation></semantics></math>:</li>
 </ul>
-<p><span class="math display">\[
-\pi_{k,l}(\alpha, \mathbf{x}) = \text{logit}^{-1}\left(\alpha + \sum_{p
-= 1}^P \alpha_p \, \mathbb{I}\left(x_{i,p} = x_{j,p}\right) \right),
-\]</span> where all parameters (<span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\alpha_p\)</span> for <span class="math inline">\(p = 1, \ldots, P\)</span>) can vary for each pair
-of blocks <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span>.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mtext mathvariant="normal">logit</mtext><mrow><mi>−</mi><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>+</mo><munderover><mo>∑</mo><mrow><mi>p</mi><mo>=</mo><mn>1</mn></mrow><mi>P</mi></munderover><msub><mi>α</mi><mi>p</mi></msub><mspace width="0.167em"></mspace><mi>𝕀</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>,</mo><mi>p</mi></mrow></msub><mo>=</mo><msub><mi>x</mi><mrow><mi>j</mi><mo>,</mo><mi>p</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\pi_{k,l}(\alpha, \mathbf{x}) = \text{logit}^{-1}\left(\alpha + \sum_{p = 1}^P \alpha_p \, \mathbb{I}\left(x_{i,p} = x_{j,p}\right) \right),
+</annotation></semantics></math> where all parameters
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mi>p</mi></msub><annotation encoding="application/x-tex">\alpha_p</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">p = 1, \ldots, P</annotation></semantics></math>)
+can vary for each pair of blocks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math>.</p>
 </div>
 <div class="section level4">
 <h4 id="within-block-model">Within-block Model<a class="anchor" aria-label="anchor" href="#within-block-model"></a>
 </h4>
-<p>The probability of observing the edges within block <span class="math inline">\(k\)</span> is modeled as a function of network
-statistics, such as the number of edges or triangles within block <span class="math inline">\(k\)</span>. We specify the within-block networks
-as exponential-family random graph models: <span class="math display">\[
-\mathbf{P}_{\beta}(\mathbf{Y}_{k,k} = \mathbf{y}_{k,k} | \mathbf{Z} =
-\mathbf{z}, \mathbf{X} = \mathbf{x}) = \exp\left(\beta^\top
-\mathbf{s}(\mathbf{y}_{k,k}, \mathbf{x})\right)/ c(\beta, \mathbf{z},
-\mathbf{x}),
-\]</span> where <span class="math inline">\(\mathbf{s}(\mathbf{y}_{k,k},
-\mathbf{x})\)</span> is a vector of sufficient statistics counting,
-e.g., the edges within block <span class="math inline">\(k\)</span> and
-<span class="math inline">\(c(\beta, \mathbf{z}, \mathbf{x})\)</span> is
-a normalizing constant guaranteeing that the probability distribution
+<p>The probability of observing the edges within block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+is modeled as a function of network statistics, such as the number of
+edges or triangles within block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
+We specify the within-block networks as exponential-family random graph
+models:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝐏</mi><mi>β</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐘</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>𝐲</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="prefix">|</mo><mi>𝐙</mi><mo>=</mo><mi>𝐳</mi><mo>,</mo><mi>𝐗</mi><mo>=</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>exp</mo><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>β</mi><mi>⊤</mi></msup><mi>𝐬</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐲</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>c</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>β</mi><mo>,</mo><mi>𝐳</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\mathbf{P}_{\beta}(\mathbf{Y}_{k,k} = \mathbf{y}_{k,k} | \mathbf{Z} = \mathbf{z}, \mathbf{X} = \mathbf{x}) = \exp\left(\beta^\top \mathbf{s}(\mathbf{y}_{k,k}, \mathbf{x})\right)/ c(\beta, \mathbf{z}, \mathbf{x}),
+</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐬</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐲</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{s}(\mathbf{y}_{k,k}, \mathbf{x})</annotation></semantics></math>
+is a vector of sufficient statistics counting, e.g., the edges within
+block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>β</mi><mo>,</mo><mi>𝐳</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">c(\beta, \mathbf{z}, \mathbf{x})</annotation></semantics></math>
+is a normalizing constant guaranteeing that the probability distribution
 sums to one. Examples of network statistics include the number of edges,
 triangles, and degree statistics (see <span class="citation">Morris,
-Handcock, &amp; Hunter (2008)</span> and all references therein).</p>
+Handcock, and Hunter (2008)</span> and all references therein).</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="estimation">Estimation<a class="anchor" aria-label="anchor" href="#estimation"></a>
 </h3>
-<p>Since the block membership matrix <span class="math inline">\(\mathbf{z}\)</span> is usually unobserved, we
-estimate it. Therefore, we assume that the now random block membership
-matrix <span class="math inline">\(\mathbf{Z}\)</span> is a latent
-variable and following a multinomial distribution: <span class="math display">\[
+<p>Since the block membership matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐳</mi><annotation encoding="application/x-tex">\mathbf{z}</annotation></semantics></math>
+is usually unobserved, we estimate it. Therefore, we assume that the now
+random block membership matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐙</mi><annotation encoding="application/x-tex">\mathbf{Z}</annotation></semantics></math>
+is a latent variable and following a multinomial distribution:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐙</mi><mo>∼</mo><mtext mathvariant="normal">Multinomial</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>;</mo><msub><mi>γ</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>γ</mi><mi>K</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
 \mathbf{Z} \sim \text{Multinomial}(1; \gamma_1, \ldots, \gamma_K),
-\]</span> where <span class="math inline">\(\gamma_k\)</span> is the
-marginal probability that a node belongs to block <span class="math inline">\(k\)</span> for <span class="math inline">\(k = 1,
-\ldots, K\)</span>. Given this context, the model is estimated in two
-steps by the algorithm proposed by <span class="citation">Babkin,
-Stewart, Long, &amp; Schweinberger (2020)</span>:</p>
+</annotation></semantics></math> where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>γ</mi><mi>k</mi></msub><annotation encoding="application/x-tex">\gamma_k</annotation></semantics></math>
+is the marginal probability that a node belongs to block
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">k = 1, \ldots, K</annotation></semantics></math>.
+Given this context, the model is estimated in two steps by the algorithm
+proposed by <span class="citation">Babkin, Stewart, and Schweinberger
+(2020)</span>:</p>
 <ol style="list-style-type: decimal">
-<li>Recover the block membership matrix <span class="math inline">\(\mathbf{Z}\)</span> by maximizing a lower bound of
-the likelihood from the observed network <span class="math inline">\(\mathbf{Y}\)</span> (see <span class="citation">Babkin et al. (2020)</span> and <span class="citation">Vu, Hunter, &amp; Schweinberger (2013)</span> for
-details).</li>
-<li>Given the estimated block membership matrix <span class="math inline">\(\hat{\mathbf{Z}}\)</span>, estimate the
-coefficients <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> by maximizing the pseudo-likelihood
-of the observed network <span class="math inline">\(\mathbf{Y}\)</span>.
-The pseudo-likelihood of the observed network <span class="math inline">\(\mathbf{Y}\)</span> given the estimated block
-membership matrix <span class="math inline">\(\hat{\mathbf{Z}}\)</span>
+<li>Recover the block membership matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐙</mi><annotation encoding="application/x-tex">\mathbf{Z}</annotation></semantics></math>
+by maximizing a lower bound of the likelihood from the observed network
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐘</mi><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math>
+(see <span class="citation">Babkin, Stewart, and Schweinberger
+(2020)</span> and <span class="citation">Vu, Hunter, and Schweinberger
+(2013)</span> for details).</li>
+<li>Given the estimated block membership matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>𝐙</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{Z}}</annotation></semantics></math>,
+estimate the coefficients
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+by maximizing the pseudo-likelihood of the observed network
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐘</mi><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math>.
+The pseudo-likelihood of the observed network
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝐘</mi><annotation encoding="application/x-tex">\mathbf{Y}</annotation></semantics></math>
+given the estimated block membership matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>𝐙</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{\mathbf{Z}}</annotation></semantics></math>
 is equivalent to the likelihood of a logistic regression model and can,
 therefore, be estimated by standard optimization algorithms. For this
 step, the entire computational machinery implemented in the
@@ -237,7 +329,7 @@ step, the entire computational machinery implemented in the
 membership matrix is known.</p>
 <p>The package <code>bigergm</code> implements a scalable algorithm for
 estimating HERGMs even for large networks by exploiting the structure of
-the model and the network data (details are provided in <span class="citation">Dahbura et al. (2021)</span> and <span class="citation">Fritz et al. (2024)</span>).</p>
+the model and the network data (details are provided in <span class="citation">Martínez Dahbura et al. (2021)</span> and <span class="citation">Fritz et al. (2024)</span>).</p>
 </div>
 </div>
 <div class="section level2">
@@ -270,8 +362,12 @@ differently for connections across and within communities:</p>
 <li>Connections across communities happen by luck, influenced by
 homophily</li>
 <li>Connections within communities also consider interdependencies among
-links. For example, the probability that population members <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> get connected may be influenced by a
-third population member <span class="math inline">\(k\)</span>.</li>
+links. For example, the probability that population members
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+get connected may be influenced by a third population member
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.</li>
 </ul>
 <p>To estimate an Exponential Random Graph model with local dependence,
 we first need to specify the model formula that specifies the model. As
@@ -286,18 +382,18 @@ number of triangles, and nodematch statistics for the nodal covariates
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_formula</span> <span class="op">&lt;-</span> <span class="va">toyNet</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"y"</span><span class="op">)</span> <span class="op">+</span> <span class="va">triangle</span></span></code></pre></div>
 <p>Assuming that covariate ‘x’ is the first and covariate ‘y’ is the
-second covariate, the probability of observing <span class="math inline">\(Y_{i,j}\)</span> with <span class="math inline">\(z_{i,k} = z_{j,l} = 1\)</span> is specified by:
-<span class="math display">\[
-\pi_{k,l}(\alpha, \mathbf{x}) = \text{logit}^{-1}\left(\alpha_0 +
-\alpha_{2}\, \mathbb{I}(x_{i,1} = x_{j,1}) + \alpha_2\,
-\mathbb{I}(x_{i,2} = x_{j,2})\right)
-\]</span> and the sufficient statistics of the within-block model are:
-<span class="math display">\[
-\mathbf{s}(\mathbf{y}_{k,k}, \mathbf{x}) = \left(\sum_{i&lt;j} y_{i,j},
-\sum_{i&lt;j} \mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j}
-\mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j}\sum_{h \neq i,j}
-y_{i,j}\, y_{i,h}\, y_{h,j}\right).
-\]</span></p>
+second covariate, the probability of observing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">Y_{i,j}</annotation></semantics></math>
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>z</mi><mrow><mi>j</mi><mo>,</mo><mi>l</mi></mrow></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">z_{i,k} = z_{j,l} = 1</annotation></semantics></math>
+is specified by:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mrow><mi>k</mi><mo>,</mo><mi>l</mi></mrow></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mtext mathvariant="normal">logit</mtext><mrow><mi>−</mi><mn>1</mn></mrow></msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>α</mi><mn>0</mn></msub><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><mspace width="0.167em"></mspace><mi>𝕀</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>,</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>x</mi><mrow><mi>j</mi><mo>,</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>α</mi><mn>2</mn></msub><mspace width="0.167em"></mspace><mi>𝕀</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>,</mo><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>x</mi><mrow><mi>j</mi><mo>,</mo><mn>2</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\pi_{k,l}(\alpha, \mathbf{x}) = \text{logit}^{-1}\left(\alpha_0 + \alpha_{2}\, \mathbb{I}(x_{i,1} = x_{j,1}) + \alpha_2\, \mathbb{I}(x_{i,2} = x_{j,2})\right)
+</annotation></semantics></math> and the sufficient statistics of the
+within-block model are:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐬</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>𝐲</mi><mrow><mi>k</mi><mo>,</mo><mi>k</mi></mrow></msub><mo>,</mo><mi>𝐱</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>,</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><mi>𝕀</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mi>i</mi></mrow></msub><mo>=</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>,</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><mi>𝕀</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mi>i</mi></mrow></msub><mo>=</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>,</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><munder><mo>∑</mo><mrow><mi>h</mi><mo>≠</mo><mi>i</mi><mo>,</mo><mi>j</mi></mrow></munder><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mspace width="0.167em"></mspace><msub><mi>y</mi><mrow><mi>i</mi><mo>,</mo><mi>h</mi></mrow></msub><mspace width="0.167em"></mspace><msub><mi>y</mi><mrow><mi>h</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\mathbf{s}(\mathbf{y}_{k,k}, \mathbf{x}) = \left(\sum_{i&lt;j} y_{i,j}, \sum_{i&lt;j} \mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j} \mathbb{I}(x_{1,i} = x_{1,j})\, y_{i,j}, \sum_{i&lt;j}\sum_{h \neq i,j} y_{i,j}\, y_{i,h}\, y_{h,j}\right).
+</annotation></semantics></math></p>
 <p>We can estimate the specified model with the <code><a href="../reference/bigergm.html">bigergm()</a></code>
 function, which takes the following parameters:</p>
 <ul>
@@ -309,13 +405,15 @@ continue the estimation.</p></li>
 if the algorithm should consider nodal covariates in the first step of
 the estimation.</p></li>
 <li><p><code>n_blocks</code>: Number of blocks to recover (in the above
-explanations, <span class="math inline">\(K\)</span>).</p></li>
+explanations,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>).</p></li>
 <li><p><code>n_MM_step_max</code>: Maximum number of MM algorithm
 steps.</p></li>
 <li><p><code>tol_MM_step</code>: Threshhold when convergence is reached.
-Following <span class="citation">Vu et al. (2013)</span>, we stop the
-algorithm when the relative change in the lower bound of the objective
-function is less than <code>tol_MM_step</code>.</p></li>
+Following <span class="citation">Vu, Hunter, and Schweinberger
+(2013)</span>, we stop the algorithm when the relative change in the
+lower bound of the objective function is less than
+<code>tol_MM_step</code>.</p></li>
 <li><p><code>estimate_parameters</code>: boolean value set to TRUE, if
 the algorithm should estimate the parameters after the block recovery
 step.</p></li>
@@ -365,8 +463,11 @@ otherwise.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bigergm_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
-<p>The parameter estimates of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> may be inspected using the
-<code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> function.</p>
+<p>The parameter estimates of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+may be inspected using the <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> function.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For the between networks</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">est_between</span><span class="op">)</span></span>
@@ -389,10 +490,8 @@ otherwise.</p>
 <code class="sourceCode R"><span><span class="co"># For the within networks</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">est_within</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; ergm::ergm(formula = within_formula, constraints = constraints, </span></span>
-<span><span class="co">#&gt;     obs.constraints = obs.constraints, offset.coef = offset.coef, </span></span>
-<span><span class="co">#&gt;     target.stats = target.stats, estimate = method, control = control, </span></span>
-<span><span class="co">#&gt;     newnetwork = newnetwork)</span></span>
+<span><span class="co">#&gt; ergm::ergm(formula = within_formula, offset.coef = offset.coef, </span></span>
+<span><span class="co">#&gt;     estimate = method, control = control)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Maximum Pseudolikelihood Results:</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -539,7 +638,8 @@ represents the simulated networks.</p>
 <h2 id="when-you-work-with-large-networks">When you work with large networks<a class="anchor" aria-label="anchor" href="#when-you-work-with-large-networks"></a>
 </h2>
 <p>If you would like to estimate an bigergm with a large network (say,
-when the number of nodes <span class="math inline">\(\geq\)</span>
+when the number of nodes
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mo>≥</mo><annotation encoding="application/x-tex">\geq</annotation></semantics></math>
 50,000):</p>
 <ul>
 <li>Select features sparse enough to fit into memory. Covariates such as
@@ -568,66 +668,69 @@ initial value.</li>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-babkin_2020" class="csl-entry">
-Babkin, S., Stewart, J., Long, X., &amp; Schweinberger, M. (2020).
-Large-scale estimation of random graph models with local dependence.
-<em>Computational Statistics &amp; Data Analysis</em>, <em>152</em>,
-107029.
-</div>
-<div id="ref-martinezdahbura2021" class="csl-entry">
-Dahbura, J. N. M., Komatsu, S., Nishida, T., &amp; Mele, A. (2021).
-<em>A Structural Model of Business Card Exchange Networks</em>. Working
-Paper. Available at https://arxiv.org/abs/2105.12704.
+Babkin, Sergii, Jonathan Stewart, and Michael Schweinberger. 2020.
+<span>“Large-Scale Estimation of Random Graph Models with Local
+Dependence.”</span> <em>Computational Statistics &amp; Data
+Analysis</em> 152: 107029.
 </div>
 <div id="ref-fritz2024" class="csl-entry">
-Fritz, C., Georg, C.-P., Mele, A., &amp; Schweinberger, M. (2024). <em>A
-strategic model of software dependency networks</em>. Working Paper.
-Available at https://arxiv.org/abs/2402.13375.
+Fritz, Cornelius, Co-Piere Georg, Angelo Mele, and Michael
+Schweinberger. 2024. <span>“A Strategic Model of Software Dependency
+Networks,”</span> Working Paper. Available at
+https://arxiv.org/abs/2402.13375.
+</div>
+<div id="ref-martinezdahbura2021" class="csl-entry">
+Martínez Dahbura, Juan Nelson, Shota Komatsu, Takanori Nishida, and
+Angelo Mele. 2021. <span>“A Structural Model of Business Card Exchange
+Networks,”</span> Working Paper. Available at
+https://arxiv.org/abs/2105.12704.
 </div>
 <div id="ref-morris2008" class="csl-entry">
-Morris, M., Handcock, M. S., &amp; Hunter, D. (2008). Specification of
-Exponential-Family Random Graph Models: Terms and Computational Aspects.
-<em>Journal of Statistical Software</em>, <em>24</em>(4).
+Morris, Martina, Mark S Handcock, and Dave Hunter. 2008.
+<span>“Specification of Exponential-Family Random Graph Models: Terms
+and Computational Aspects.”</span> <em>Journal of Statistical
+Software</em> 24 (4).
 </div>
 <div id="ref-schweinberger2015" class="csl-entry">
-Schweinberger, M., &amp; Handcock, M. S. (2015). Local Dependence in
-Random Graph Models: Characterization, Properties and Statistical
-Inference. <em>Journal of the Royal Statistical Society B</em>,
-<em>77</em>(3), 647–676.
+Schweinberger, Michael, and Mark S Handcock. 2015. <span>“Local
+Dependence in Random Graph Models: Characterization, Properties and
+Statistical Inference.”</span> <em>Journal of the Royal Statistical
+Society B</em> 77 (3): 647–76.
 </div>
 <div id="ref-schweinberger2018" class="csl-entry">
-Schweinberger, M., &amp; Luna, P. (2018). hergm: Hierarchical
-Exponential-Family Random Graph Models. <em>Journal of Statistical
-Software</em>, <em>85</em>(1), 1–39.
+Schweinberger, Michael, and Pamela Luna. 2018. <span>“Hergm:
+Hierarchical Exponential-Family Random Graph Models.”</span> <em>Journal
+of Statistical Software</em> 85 (1): 1–39.
 </div>
 <div id="ref-vu_2013" class="csl-entry">
-Vu, D., Hunter, D., &amp; Schweinberger, M. (2013). Model-based
-clustering of large networks. <em>The Annals of Applied Statistics</em>,
-<em>7</em>(2), 1010–1039.
+Vu, Duy, David Hunter, and Michael Schweinberger. 2013.
+<span>“Model-Based Clustering of Large Networks.”</span> <em>The Annals
+of Applied Statistics</em> 7 (2): 1010–39.
 </div>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Cornelius Fritz, Shota Komatsu, Juan Nelson Martínez Dahbura, Takanori Nishida, Angelo Mele, Michael Schweinberger.</p>
+  <p>Developed by Cornelius Fritz, Michael Schweinberger, Shota Komatsu, Juan Nelson Martínez Dahbura, Takanori Nishida, Angelo Mele.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
