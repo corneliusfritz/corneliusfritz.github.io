@@ -4,7 +4,7 @@ layout: single
 author_profile: true
 title: "Research"
 tagby: false
-years: [2023, 2022, 2021, 2020]
+years: [2025, 2024, 2023, 2022, 2021, 2020]
 header:
   overlay_filter: 0.15
   overlay_image: /assets/images/Untitled.jpg
