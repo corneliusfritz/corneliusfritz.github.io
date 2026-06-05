@@ -7,17 +7,19 @@
 	doi = {10.48550/arXiv.2604.22791},
 	publisher = {arXiv},
 	keywords = {preprint},
-	archiveprefix = {arXiv}
+	archiveprefix = {arXiv},
+	abstract = {We introduce R package iglm, which implements a comprehensive framework for studying relationships among predictors and outcomes under interference. The implemented regression framework facilitates the study of spillover and other phenomena in connected populations and has important advantages over existing packages, among them scalability and provable theoretical guarantees. On the computational side, the regression framework relies on scalable methods that can be applied to small and large data sets, by solving a convex optimization program based on pseudo-likelihoods using Minorization-Maximization and Quasi-Newton algorithms. On the statistical side, the regression framework comes with provable theoretical guarantees. To increase the versatility of iglm, users can add custom-built model terms. We showcase iglm using two data sets, including hate speech on the social media platform X and communications among students.}
 }
 
 @misc{fritzyuan2025,
-	title = {Scalable Sample-to-Population Estimation of Hyperbolic Space Models for Hypergraphs },
+	title = {Scalable Sample-to-Population Estimation of Hyperbolic Space Models for Hypergraphs},
 	author = {Fritz, Cornelius and Yuan, Yubai and Schweinberger, Michael},
 	year = {2025+},
 	doi = {10.48550/arXiv.2509.07031},
 	publisher = {arXiv},
 	keywords = {preprint},
-	archiveprefix = {arXiv}
+	archiveprefix = {arXiv},
+	abstract = {Hypergraphs are useful mathematical representations of overlapping and nested subsets of interacting units, including groups of genes or brain regions, economic cartels, political or military coalitions, and groups of products that are purchased together. Despite the vast range of applications, the statistical analysis of hypergraphs is challenging: there are many hyperedges of small and large sizes, and hyperedges can overlap or be nested. We develop a novel statistical approach to hypergraphs with overlapping and nested hyperedges of varying sizes and levels of sparsity, which is amenable to scalable sample-to-population estimation with non-asymptotic theoretical guarantees. Our contributions include introducing a probabilistic framework that embeds the units of a hypergraph in an unobserved hyperbolic space, capturing core-periphery structure along with local structure in hypergraphs, developing scalable manifold optimization algorithms for learning hyperbolic space models based on samples from a hypergraph, and demonstrating that the positions of units are identifiable (up to rotations) and providing non-asymptotic theoretical guarantees based on samples from a hypergraph. We apply this framework to detect core-periphery structure and proximity among U.S. politicians based on historical media reports.}
 }
 
 @misc{schalberger2025,
@@ -29,14 +31,13 @@
 	primaryclass = {cs},
 	publisher = {arXiv},
 	doi = {10.48550/arXiv.2507.07660},
-	publisher = {arXiv},
 	keywords = {preprint},
-	archiveprefix = {arXiv}
+	archiveprefix = {arXiv},
+	abstract = {Traditional network analysis often relies on binary edges, but real-world relationships are frequently more complex, involving cooperation, neutrality, and conflict. While signed interaction analysis—especially in polarized social media debates—has gained traction, existing methods like Stochastic Block Models (SBM) and Exponential Family Random Graph Models (ERGM) face scalability challenges. Specifically, their reliance on homogeneity assumptions and global dependence becomes unrealistic as network sizes increase. To address these limitations, we propose a novel method that combines SBM and ERGM strengths while mitigating their individual weaknesses. It incorporates local dependence based on non-overlapping blocks, using a two-step approach: first, decomposing the network into sub-networks using an SBM approximation, and second, estimating parameters using ERGM methods. We validate this method on large synthetic networks and apply it to a signed Wikipedia network involving thousands of editors, finding patterns consistent with structural balance theory.}
 }
 
 @misc{mehrl2025,
-	title = {Guardians of the Regime: When and Why
-	Autocrats Create Secret Police},
+	title = {Guardians of the Regime: When and Why Autocrats Create Secret Police},
 	author = {Mehrl, Marius and Pfander, Mila and Winner, Theresa and Fritz, Cornelius},
 	year = {2025},
 	number = {arXiv:2506.10194v1},
@@ -44,9 +45,9 @@
 	doi = {10.48550/arXiv.2506.10194v1},
 	publisher = {arXiv},
 	keywords = {preprint},
-	archiveprefix = {arXiv}
+	archiveprefix = {arXiv},
+	abstract = {The paper explores the institutional choices of autocrats regarding the formation of secret police, which exist in fewer than half of all autocratic country-years. We address the core question: Under what conditions do dictatorships establish secret police organizations? To do so, we develop a theoretical framework for potential predictors and utilize statistical variable selection techniques to analyze factors derived from literature on authoritarian survival and state security forces. We find that secret police are more likely to emerge when rulers face specific, structural, and regime-external threats, such as organized anti-system mobilization, protests, or international rivals. The emergence is also linked to observing successful regime-internal contestation in other countries, which signals similar risks at home. Beyond threats, rulers must possess the sufficient material resources and personalized power necessary to actually establish these organizations. The research contributes to the study of authoritarian politics by identifying the specific conditions—beyond mere repression needs—that lead autocrats to invest in secret police institutions.}
 }
-
 
 @misc{fritz2025,
 	title = {Scalable Durational Event Models: Application to Physical and Digital Interactions},
@@ -57,10 +58,9 @@
 	doi = {10.48550/arXiv.2504.00049},
 	publisher = {arXiv},
 	keywords = {preprint},
-	archiveprefix = {arXiv}
+	archiveprefix = {arXiv},
+	abstract = {Durable interactions are ubiquitous in social network analysis and are increasingly observed with precise time stamps. Phone and video calls, for example, are events to which a specific duration can be assigned. We term data encoding interactions with the start and end times "durational event data". Recent advances in data collection have enabled the observation of such data over extended periods of time and between large populations of actors. Methodologically, we propose the Durational Event Model, an extension of Relational Event Models that decouples the modeling of event incidence from event duration. Computationally, we derive a fast, memory-efficient, and exact block-coordinate ascent algorithm to facilitate large-scale inference. Theoretical complexity analysis and numerical simulations demonstrate computational superiority of this approach over traditional Newton-Raphson-based methods. We apply the model to physical and digital interactions among college students in Copenhagen. Our empirical findings reveal that past interactions are the main drivers of physical interactions, whereas digital interactions are more strongly influenced by friendship ties and prior dyadic contact.}
 }
-
-
 
 @misc{software_dependence,
 	title={Vulnerability Webs: Systemic Risk in Software Networks},
@@ -69,6 +69,7 @@
 	note = {Under Review}, 
 	doi = {10.48550/arXiv.2402.13375},
 	keywords = {preprint},
+	abstract = {Software development frequently relies on code reuse to minimize costs, a practice that creates significant vulnerability risks through dependencies. We examine this phenomenon by analyzing 52,897 dependencies across 16,102 Python repositories using a strategic network formation model that accounts for both observable and unobservable heterogeneity. We highlight how dependency structures can lead to systemic economic shocks, citing high-profile incidents like Heartbleed and CrowdStrike. Through variational approximation of conditional distributions, our study demonstrates that the creation of dependencies generates negative externalities within the software ecosystem. When modeled as a contagion process, the propagation of vulnerabilities suggests that common protection heuristics are often ineffective. As a mitigation strategy, we identify AI-assisted coding as an effective alternative, as it enables developers to replace external dependencies with in-house code, thereby reducing systemic risk.}
 }
 
 @misc{Fritz_Fuchs-Kreiss,
@@ -78,13 +79,3 @@
 	note = {Working Paper},
 	keywords = {preprint}
 }
-
-
-
-
-
-
-
-
-
-

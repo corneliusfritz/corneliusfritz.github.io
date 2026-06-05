@@ -23,9 +23,9 @@ twitter_username: cornelius_fritz
 github_username: corneliusfritz
 linkedin_username: cornelius-fritz
 
-logo: "/images/logo.png"
+# logo: "/images/logo.png"
 search: false #, false (default)
-logo: /assets/images/logo.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+# logo: /assets/images/logo.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 excerpt: "A nice background picture"
 header:
   overlay_image: /assets/images/background.JPG
@@ -65,7 +65,7 @@ social:
 # Site Author
 author:
   name: "Cornelius Fritz"
-  avatar: /assets/images/logo.png
+  avatar: /assets/images/logo2.jpg
   bio: "Assistant Professor at TCD working on the analysis of dependent data"
   location: "Dublin, Ireland"
   links:

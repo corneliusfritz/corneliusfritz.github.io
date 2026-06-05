@@ -4,50 +4,536 @@
 
 @charset "utf-8";
 
+// Google Font Import Config
+$sans-serif: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !default;
+$global-font-family: $sans-serif !default;
+$header-font-family: $sans-serif !default;
+
+// Premium minimalist colors override
+$text-color: #1d1d1f !default;
+$muted-text-color: #515154 !default;
+$primary-color: #1d1d1f !default;
+$link-color: #2f80ed !default;
+$link-color-hover: mix(#000, #2f80ed, 20%) !default;
+$border-color: rgba(0, 0, 0, 0.08) !default;
+$background-color: #ffffff !default;
+$code-background-color: #f5f5f7 !default;
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
 
 html {
-  font-size: 16px; // change to whatever
+  font-size: 16px;
+  scroll-behavior: smooth;
 
   @include breakpoint($medium) {
-    font-size: 18px; // change to whatever
+    font-size: 18px;
   }
 
   @include breakpoint($large) {
-    font-size: 20px; // change to whatever
+    font-size: 20px;
   }
 
   @include breakpoint($x-large) {
-    font-size: 22px; // change to whatever
+    font-size: 22px;
   }
 }
 
-$abstract-color                : #009628 !default;
-$BibTex-color                  : #b201a6 !default;
-$download-color                : #b51b00 !default;
-$supplement-color              : #abb500 !default;
-
-.center-image
-{
-    margin: 0 auto;
-    display: block;
+// Section anchors scroll offset for sticky navbar
+section[id] {
+  scroll-margin-top: 75px;
 }
 
+// Modern Sticky Navigation Bar (Masthead)
+.masthead {
+  position: sticky !important;
+  top: 0;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  
+  .masthead__inner-wrap {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  // Transparent navigation state when over hero image (at scroll top)
+  &.transparent-nav {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid transparent !important;
+    box-shadow: none !important;
+
+    .custom-nav {
+      .visible-links a {
+        color: rgba(255, 255, 255, 0.85) !important;
+
+        &::after {
+          background: #ffffff !important;
+        }
+
+        &:hover, &.active {
+          color: #ffffff !important;
+        }
+      }
+    }
+  }
+}
+
+// Custom Non-Collapsible Flex Navigation
+.custom-nav {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end !important;
+  width: 100%;
+  background: transparent !important;
+
+  .site-logo {
+    margin-right: 0.5rem;
+    
+    img {
+      max-height: 40px !important;
+      width: auto;
+      display: block;
+      border-radius: 4px;
+      transition: max-height 0.2s ease-in-out;
+
+      @include breakpoint($medium) {
+        max-height: 48px !important;
+      }
+    }
+  }
+
+  .site-title {
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    color: #1d1d1f !important;
+    font-size: 1.1em;
+    text-decoration: none;
+    margin-right: auto;
+  }
+  
+  .visible-links {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap; // Don't wrap, keep inline
+    
+    li {
+      margin-left: 0.4em;
+      margin-right: 0.4em;
+      list-style-type: none;
+
+      @include breakpoint($small) {
+        margin-left: 0.6em;
+        margin-right: 0.6em;
+      }
+
+      @include breakpoint($medium) {
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+
+      a {
+        font-weight: 600;
+        font-size: 1em;
+        color: #515154 !important;
+        text-decoration: none;
+        position: relative;
+        padding: 0.4rem 0;
+        transition: color 0.2s ease-in-out;
+
+        @include breakpoint($medium) {
+          font-size: 1em;
+        }
+        
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 2px;
+          background: #2f80ed;
+          width: 100%;
+          transition: transform 0.2s ease-in-out;
+          transform: scaleX(0);
+        }
+        
+        &:hover, &.active {
+          color: #1d1d1f !important;
+          
+          &::after {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Pull page hero under sticky header for seamless transparent overlay
+.page__hero--overlay {
+  margin-top: -65px !important;
+  padding-top: 5.5em !important;
+}
+
+// Rounded sidebar avatar
+.sidebar {
+  .author__avatar {
+    img {
+      border-radius: 50% !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      border: 3px solid #fff;
+      transition: transform 0.3s ease-in-out;
+      
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+  
+  .author__name {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: 1.25em;
+    margin-top: 15px;
+    color: #1d1d1f;
+  }
+  
+  .author__bio {
+    font-weight: 400;
+    color: #6e6e73;
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+}
+
+// Modern Outline Pill Buttons for Publications
 .btnId {
-    margin-top: 0.5em;
+  margin-top: 0.6em;
+  margin-right: 0.5em;
+  background-color: transparent !important;
+  color: #515154 !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 20px !important;
+  padding: 0.4em 1.1em !important;
+  font-size: 0.72em !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0.1px;
+  box-shadow: none !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
 }
 
-.dropDownAbstract{
-	font-size: $type-size-8;
-	display: none;
-	position: relative;
-	border-left: 3px solid $primary-color;
-	padding-left: 3px
+// Specific button hover states with soft pastel colors
+.btnPub {
+  &--abstract {
+    border-color: rgba(79, 111, 82, 0.3) !important;
+    color: #4F6F52 !important;
+    
+    &:hover {
+      background-color: #f1f6f2 !important;
+      border-color: #4F6F52 !important;
+      color: #354a37 !important;
+    }
+  }
+  
+  &--BibTex {
+    border-color: rgba(108, 95, 92, 0.3) !important;
+    color: #6C5F5C !important;
+    
+    &:hover {
+      background-color: #f5f2f1 !important;
+      border-color: #6C5F5C !important;
+      color: #483f3d !important;
+    }
+  }
+  
+  &--download {
+    border-color: rgba(160, 64, 64, 0.3) !important;
+    color: #A04040 !important;
+    
+    &:hover {
+      background-color: #fdf5f5 !important;
+      border-color: #A04040 !important;
+      color: #702828 !important;
+      text-decoration: none !important;
+    }
+  }
+  
+  &--supplement {
+    border-color: rgba(160, 122, 64, 0.3) !important;
+    color: #A07A40 !important;
+    
+    &:hover {
+      background-color: #fdf9f2 !important;
+      border-color: #A07A40 !important;
+      color: #705528 !important;
+      text-decoration: none !important;
+    }
+  }
 }
 
-.dropDownBibtex{
-	font-size: $type-size-8;
-	display:none;
-	position:relative;
+a {
+  .btnId {
+    text-decoration: none !important;
+  }
+}
+
+// Clean Dropdowns for BibTeX and Abstracts
+.dropDownAbstract, .dropDownBibtex {
+  display: none;
+  margin-top: 0.8em;
+  padding: 1em 1.2em !important;
+  background-color: #f5f5f7;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  font-size: 0.8em !important;
+  line-height: 1.5;
+  color: #1d1d1f;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.01);
+  
+  pre {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    font-family: $monospace;
+    font-size: 0.85em;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #1d1d1f;
+  }
+}
+
+.dropDownAbstract {
+  border-left: 3px solid #4F6F52 !important;
+}
+
+// Horizontal tabs for publication years
+.publication-years-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+  margin-top: 1.5em;
+  margin-bottom: 1.2em;
+}
+
+.main-tab-btn, .year-tab-btn {
+  background-color: #f5f5f7;
+  color: #515154;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  padding: 0.45em 1.3em;
+  font-size: 0.82em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+
+  &:hover {
+    background-color: #e8e8ed;
+    color: #1d1d1f;
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  &.active {
+    background-color: #2f80ed;
+    color: #ffffff;
+    border-color: #2f80ed;
+    box-shadow: 0 4px 12px rgba(47, 128, 237, 0.15);
+  }
+}
+
+.main-tab-btn {
+  font-size: 0.9em;
+  padding: 0.55em 1.55em;
+}
+
+.sub-years-container {
+  display: none; /* Controlled by JS */
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1.2em;
+  padding: 0.4em 0 0.4em 1em;
+  border-left: 2px solid rgba(47, 128, 237, 0.3);
+  animation: tabFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.publications-by-year {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 1.2em 1.5em;
+  background-color: #ffffff;
+  margin-top: 0.8em;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  animation: tabFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  ul.bibliography {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Collapsible Accordions for Research
+details.collapsible-research {
+  margin-bottom: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  
+  summary {
+    padding: 1.2em 1.5em;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: #1d1d1f;
+    cursor: pointer;
+    list-style: none; // Hide Chrome arrow
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+    transition: background-color 0.2s;
+    
+    &::-webkit-details-marker {
+      display: none; // Hide Safari arrow
+    }
+    
+    &::after {
+      content: "+";
+      font-weight: 400;
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+      color: #888;
+    }
+    
+    &:hover {
+      background-color: #f5f5f7;
+    }
+  }
+  
+  &[open] {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+    
+    summary {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      background-color: #f5f5f7;
+      
+      &::after {
+        content: "−";
+      }
+    }
+    
+    // Spacing inside expanded bibliography container
+    ul.bibliography {
+      padding: 1.2em 1.5em;
+      margin: 0;
+    }
+  }
+}
+
+.center-image {
+  margin: 0 auto;
+  display: block;
+}
+
+// Package grid & modern cards
+.package-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  margin-top: 1.5em;
+}
+
+.package-card {
+  padding: 1.5em !important;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  .package-title {
+    margin: 0 0 0.5em 0 !important;
+    font-size: 1.25em !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px;
+    
+    a {
+      color: #1d1d1f !important;
+      text-decoration: none !important;
+      
+      &:hover {
+        color: #2f80ed !important;
+      }
+    }
+  }
+
+  .package-subtitle {
+    margin: 0 0 1.2em 0 !important;
+    font-size: 0.9em !important;
+    color: #515154 !important;
+    line-height: 1.5 !important;
+  }
+
+  .package-actions {
+    display: flex;
+    flex-wrap: wrap;
+    
+    .btnId {
+      margin-top: 0 !important; // override margin top on cards
+    }
+  }
+}
+
+// Make the author profile picture (avatar) border/background completely transparent/hidden (no frame)
+.author__avatar img {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+// Ensure the sidebar (profile photo, bio, links) is fully opaque and not dimmed/grayed out
+.sidebar {
+  opacity: 1 !important;
 }

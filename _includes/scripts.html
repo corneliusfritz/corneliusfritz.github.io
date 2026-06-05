@@ -37,3 +37,103 @@
     <script src="{{ script_path }}"></script>
   {% endfor %}
 {% endif %}
+
+<script>
+  (function() {
+    function initTransparentNav() {
+      var masthead = document.querySelector('.masthead');
+      var hasHero = document.querySelector('.page__hero--overlay') !== null;
+      
+      if (masthead && hasHero) {
+        function checkScroll() {
+          var scrolled = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
+          if (scrolled > 10) {
+            masthead.classList.remove('transparent-nav');
+          } else {
+            masthead.classList.add('transparent-nav');
+          }
+        }
+        
+        window.addEventListener('scroll', checkScroll, { passive: true });
+        checkScroll();
+      }
+    }
+
+    function initPubTabs() {
+      var mainButtons = document.querySelectorAll('.main-tab-btn');
+      var yearButtons = document.querySelectorAll('.year-tab-btn');
+      var subYearsContainer = document.getElementById('sub-years-tabs');
+      var lists = document.querySelectorAll('.publications-by-year');
+      
+      // Handle Top-Level Tabs
+      mainButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var target = btn.getAttribute('data-main-target');
+          var isAlreadyActive = btn.classList.contains('active');
+          
+          // 1. Reset all main active states
+          mainButtons.forEach(function(b) { b.classList.remove('active'); });
+          
+          // 2. Hide all publication lists
+          lists.forEach(function(l) { l.style.display = 'none'; });
+          
+          if (target === 'publications') {
+            if (isAlreadyActive) {
+              // Hide sub-years menu and reset years selection
+              if (subYearsContainer) subYearsContainer.style.display = 'none';
+              yearButtons.forEach(function(yb) { yb.classList.remove('active'); });
+            } else {
+              // Show sub-years menu
+              btn.classList.add('active');
+              if (subYearsContainer) subYearsContainer.style.display = 'flex';
+            }
+          } else {
+            // Preprints or Theses clicked: hide sub-years menu and reset years selection
+            if (subYearsContainer) subYearsContainer.style.display = 'none';
+            yearButtons.forEach(function(yb) { yb.classList.remove('active'); });
+            
+            if (!isAlreadyActive) {
+              btn.classList.add('active');
+              var targetList = document.getElementById('pub-year-' + target);
+              if (targetList) targetList.style.display = 'block';
+            }
+          }
+        });
+      });
+      
+      // Handle Year Buttons (Sub-tabs)
+      yearButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var year = btn.getAttribute('data-year');
+          var targetList = document.getElementById('pub-year-' + year);
+          var isAlreadyActive = btn.classList.contains('active');
+          
+          // Reset year buttons & hide only year-based lists
+          yearButtons.forEach(function(yb) { yb.classList.remove('active'); });
+          
+          lists.forEach(function(l) {
+            if (l.id !== 'pub-year-preprints' && l.id !== 'pub-year-theses') {
+              l.style.display = 'none';
+            }
+          });
+          
+          if (!isAlreadyActive && targetList) {
+            btn.classList.add('active');
+            targetList.style.display = 'block';
+          }
+        });
+      });
+    }
+    
+    function init() {
+      initTransparentNav();
+      initPubTabs();
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

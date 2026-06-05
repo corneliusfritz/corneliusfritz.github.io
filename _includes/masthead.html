@@ -1,17 +1,16 @@
-{% if site.logo contains "://" %} {% capture logo_path %}{{ site.logo }}{% endcapture %} {% else %}
-{% capture logo_path %}{{ site.logo }}{% endcapture %} {% endif %}
+{% if site.logo %}
+  {% if site.logo contains "://" %}{% capture logo_path %}{{ site.logo }}{% endcapture %}{% else %}{% capture logo_path %}{{ site.logo }}{% endcapture %}{% endif %}
+{% else %}
+  {% assign logo_path = nil %}
+{% endif %}
 <div class="masthead">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
-        {% unless logo_path == empty %}
-        <a class="site-logo" href="{{ '/' | relative_url }}"><img src="/assets/images/logo.jpg" alt=""
+      <nav id="site-nav" class="custom-nav">
+        {% if logo_path %}
+        <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt=""
             style="max-height:60px; width:auto;"></a>
-        {% endunless %}
-        <a class="site-title" href="{{ '/' | relative_url }}">
-          {{ site.masthead_title | default: site.title }}
-          {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle }}</span>{% endif %}
-        </a>
+        {% endif %}
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
           {%- if link.url contains '://' -%}
@@ -35,11 +34,6 @@
           </svg>
         </button>
         {% endif %}
-        <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle menu" }}</span>
-          <div class="navicon"></div>
-        </button>
-        <ul class="hidden-links hidden"></ul>
       </nav>
     </div>
   </div>

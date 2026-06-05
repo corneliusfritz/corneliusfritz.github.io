@@ -15,10 +15,14 @@
     <a href="{{links['sup.pdf']}}"><button class="btn btnId btnPub--supplement" style="outline:none; position:relative;white-space: normal;">Supplement</button></a>
     {% endif %}
 
+    {% if entry.bibtex %}
     <div class="dropDownBibtex" id="{{key}}-bibtex">
     <pre>{{entry.bibtex}}</pre>
     </div>
+    {% endif %}
     
+    {% if entry.abstract %}
     <div class="dropDownAbstract" id="{{key}}-abstract">
     {{entry.abstract}}
     </div>
+    {% endif %}
