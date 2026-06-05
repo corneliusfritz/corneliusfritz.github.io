@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="Cornelius Fritz">
 <meta property="og:title"
   content="Interview with Center for Data Innovation">
-<meta property="og:url" content="http://0.0.0.0:4000/2021/03/04/interview-fb-data-for-good.html">
+<meta property="og:url" content="http://localhost:4000/2021/03/04/interview-fb-data-for-good.html">
 
 
 <meta property="og:description" content="5 Q’s for Cornelius Fritz, Statistician at the University of Munich about Facebook’s Data for Good Program">
 
 
 
-<meta property="og:image" content="http://0.0.0.0:4000/assets/images/picture_2.jpeg">
+<meta property="og:image" content="http://localhost:4000/assets/images/picture_2.jpeg">
 
 
 
@@ -37,7 +37,7 @@
 
 
 
-<link rel="canonical" href="http://0.0.0.0:4000/2021/03/04/interview-fb-data-for-good.html">
+<link rel="canonical" href="http://localhost:4000/2021/03/04/interview-fb-data-for-good.html">
 
 
 
@@ -50,7 +50,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": null,
-      "url": "http://0.0.0.0:4000",
+      "url": "http://localhost:4000",
       "sameAs": ["https://https://www.linkedin.com/in/cornelius-fritz-1715816b","https://github.com/corneliusfritz"]
     }
   </script>
@@ -382,9 +382,54 @@ $(document).ready(function(){
       });
     }
     
+    function initScrollSpy() {
+      var sections = document.querySelectorAll('section[id]');
+      var navLinks = document.querySelectorAll('.custom-nav .visible-links a');
+      
+      if (sections.length === 0 || navLinks.length === 0) return;
+      
+      function spy() {
+        var scrollPos = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
+        var activeSection = null;
+        
+        sections.forEach(function(section) {
+          var sectionTop = section.offsetTop - 120; // 120px offset matches header height
+          var sectionHeight = section.offsetHeight;
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            activeSection = section.getAttribute('id');
+          }
+        });
+
+        // Fallback: if scrolled to the very bottom, make CV active
+        var isAtBottom = (window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 60;
+        if (isAtBottom && sections.length > 0) {
+          activeSection = sections[sections.length - 1].getAttribute('id');
+        }
+        
+        // If not scrolled down at all, default to the first section
+        if (scrollPos < 100 && sections.length > 0) {
+          activeSection = sections[0].getAttribute('id');
+        }
+
+        // Apply active class to the link matching the active section
+        navLinks.forEach(function(link) {
+          link.classList.remove('active');
+          var href = link.getAttribute('href');
+          if (href && href.endsWith('#' + activeSection)) {
+            link.classList.add('active');
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', spy, { passive: true });
+      window.addEventListener('resize', spy);
+      spy();
+    }
+    
     function init() {
       initTransparentNav();
       initPubTabs();
+      initScrollSpy();
     }
     
     if (document.readyState === 'loading') {
