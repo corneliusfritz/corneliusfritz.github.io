@@ -2,17 +2,17 @@
 ---
 {{reference}}
     {% if entry.abstract %}
-    <button class="btn btnId btnPub--abstract" id="b_{{key}}-abstract" style="outline:none;">Abstract</button>
+    <a href="javascript:void(0)" class="btn btnId btnPub--abstract" id="b_{{key}}-abstract" style="outline:none;">Abstract</a>
     {% endif %}
 
-    <button class="btn btnId btnPub--BibTex" id="b_{{key}}-bibtex" style="outline:none;">BibTeX</button>
+    <a href="javascript:void(0)" class="btn btnId btnPub--BibTex" id="b_{{key}}-bibtex" style="outline:none;">BibTeX</a>
     
     {% if link %}
-    <a href="{{link}}"><button class="btn btnId btnPub--download" style="outline:none; position:relative;white-space: normal;">PDF</button></a>
+    <a href="{{link}}" class="btn btnId btnPub--download" style="outline:none; position:relative;white-space: normal;">PDF</a>
     {% endif %}
     
     {% if links['sup.pdf'] %}
-    <a href="{{links['sup.pdf']}}"><button class="btn btnId btnPub--supplement" style="outline:none; position:relative;white-space: normal;">Supplement</button></a>
+    <a href="{{links['sup.pdf']}}" class="btn btnId btnPub--supplement" style="outline:none; position:relative;white-space: normal;">Supplement</a>
     {% endif %}
 
     {% if entry.bibtex %}

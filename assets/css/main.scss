@@ -43,15 +43,14 @@ html {
 section[id] {
   scroll-margin-top: 75px;
 }
-
 // Modern Sticky Navigation Bar (Masthead)
 .masthead {
   position: sticky !important;
   top: 0;
   z-index: 999;
   background-color: rgba(255, 255, 255, 0.7) !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -218,78 +217,46 @@ section[id] {
   }
 }
 
-// Modern Outline Pill Buttons for Publications
+// Modern Outline Pill Buttons for Publications and Packages (Apple Liquid Style)
 .btnId {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-family: $sans-serif !important;
   margin-top: 0.6em;
   margin-right: 0.5em;
-  background-color: transparent !important;
+  background-color: #f5f5f7 !important;
   color: #515154 !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
-  border-radius: 20px !important;
-  padding: 0.4em 1.1em !important;
-  font-size: 0.72em !important;
-  font-weight: 500 !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-radius: 30px !important;
+  padding: 0.5em 1.4em !important;
+  font-size: 0.82em !important;
+  font-weight: 600 !important;
   text-transform: none !important;
   letter-spacing: 0.1px;
-  box-shadow: none !important;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+  
+  &:visited {
+    color: #515154 !important;
+  }
   
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+    background-color: #e8e8ed !important;
+    color: #1d1d1f !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    transform: scale(1.04) translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06) !important;
+    text-decoration: none !important;
   }
   
   &:active {
-    transform: translateY(0);
-  }
-}
-
-// Specific button hover states with soft pastel colors
-.btnPub {
-  &--abstract {
-    border-color: rgba(79, 111, 82, 0.3) !important;
-    color: #4F6F52 !important;
-    
-    &:hover {
-      background-color: #f1f6f2 !important;
-      border-color: #4F6F52 !important;
-      color: #354a37 !important;
-    }
-  }
-  
-  &--BibTex {
-    border-color: rgba(108, 95, 92, 0.3) !important;
-    color: #6C5F5C !important;
-    
-    &:hover {
-      background-color: #f5f2f1 !important;
-      border-color: #6C5F5C !important;
-      color: #483f3d !important;
-    }
-  }
-  
-  &--download {
-    border-color: rgba(160, 64, 64, 0.3) !important;
-    color: #A04040 !important;
-    
-    &:hover {
-      background-color: #fdf5f5 !important;
-      border-color: #A04040 !important;
-      color: #702828 !important;
-      text-decoration: none !important;
-    }
-  }
-  
-  &--supplement {
-    border-color: rgba(160, 122, 64, 0.3) !important;
-    color: #A07A40 !important;
-    
-    &:hover {
-      background-color: #fdf9f2 !important;
-      border-color: #A07A40 !important;
-      color: #705528 !important;
-      text-decoration: none !important;
-    }
+    transform: scale(0.96) translateY(0) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+    background-color: #dfdfe5 !important;
   }
 }
 
@@ -342,26 +309,45 @@ a {
 .main-tab-btn, .year-tab-btn {
   background-color: #f5f5f7;
   color: #515154 !important;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  padding: 0.45em 1.3em;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 30px;
+  padding: 0.5em 1.4em;
   font-size: 0.82em;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     background-color: #e8e8ed;
     color: #1d1d1f !important;
-    border-color: rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.12);
+    transform: scale(1.04) translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+    transform: scale(0.96) translateY(0);
+    background-color: #dfdfe5 !important;
   }
 
   &.active {
-    background-color: #2f80ed;
+    background-color: #1d1d1f;
     color: #ffffff !important;
-    border-color: #2f80ed;
-    box-shadow: 0 4px 12px rgba(47, 128, 237, 0.15);
+    border-color: #1d1d1f;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+
+    &:hover {
+      background-color: #323236;
+      border-color: #323236;
+      color: #ffffff !important;
+      transform: scale(1.04) translateY(-1px);
+    }
+    
+    &:active {
+      transform: scale(0.96) translateY(0);
+    }
   }
 }
 
@@ -394,13 +380,19 @@ a {
 }
 
 .publications-by-year {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-  padding: 1.2em 1.5em;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  padding: 1.5em 1.8em;
   background-color: #ffffff;
   margin-top: 0.8em;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
-  animation: tabFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.015);
+  animation: tabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+  }
 
   ul.bibliography {
     padding: 0 !important;
@@ -492,17 +484,17 @@ details.collapsible-research {
 }
 
 .package-card {
-  padding: 1.5em !important;
+  padding: 1.6em !important;
   background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.015);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
   
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.045);
+    border-color: rgba(0, 0, 0, 0.1);
   }
 
   .package-title {
@@ -529,12 +521,7 @@ details.collapsible-research {
   }
 
   .package-actions {
-    display: flex;
-    flex-wrap: wrap;
-    
-    .btnId {
-      margin-top: 0 !important; // override margin top on cards
-    }
+    display: block;
   }
 }
 
