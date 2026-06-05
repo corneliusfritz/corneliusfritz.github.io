@@ -73,8 +73,8 @@ Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank
     <h3 class="package-title"><a href="https://www.corneliusfritz.com/iglm" target="_blank">iglm</a></h3>
     <p class="package-subtitle">Regression under Interference in Connected Populations</p>
     <div class="package-actions">
-      <a href="https://www.corneliusfritz.com/assets/pdf/iglm.pdf" target="_blank" class="btn btnId btnPub--download">Preprint</a>
       <a href="https://cran.r-project.org/web/packages/iglm/index.html" target="_blank" class="btn btnId btnPub--BibTex">CRAN</a>
+      <a href="https://www.corneliusfritz.com/assets/pdf/iglm.pdf" target="_blank" class="btn btnId btnPub--download">Preprint</a>
     </div>
   </div>
 

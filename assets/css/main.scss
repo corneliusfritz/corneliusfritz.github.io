@@ -146,7 +146,7 @@ section[id] {
 
       a {
         font-weight: 600;
-        font-size: 1em;
+        font-size: 1.15em;
         color: #515154 !important;
         text-decoration: none;
         position: relative;
@@ -527,10 +527,20 @@ details.collapsible-research {
 }
 
 // Make the author profile picture (avatar) border/background completely transparent/hidden (no frame)
+// and force it to be a perfect circle using object-fit and square dimensions
 .author__avatar img {
+  width: 36px !important;
+  height: 36px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
   border: none !important;
   padding: 0 !important;
   background: transparent !important;
+
+  @include breakpoint($large) {
+    width: 110px !important;
+    height: 110px !important;
+  }
 }
 
 // Ensure the sidebar (profile photo, bio, links) is fully opaque and not dimmed/grayed out
@@ -567,5 +577,16 @@ details.collapsible-research {
   }
   .mobile-cv-note {
     display: block !important;
+  }
+}
+
+// Make introduction bio paragraph text slightly larger and more readable on mobile
+#about p {
+  font-size: 1.1em;
+  line-height: 1.65;
+
+  @include breakpoint($medium) {
+    font-size: 1.05em; // slightly larger for readability
+    line-height: 1.5;
   }
 }
