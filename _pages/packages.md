@@ -21,3 +21,8 @@ author_profile: false
 - <a href="https://www.corneliusfritz.com/assets/pdf/bigergm_sunbelt.pdf" target="_blank">Slides for Michael's talk</a>
 - <a href="https://www.corneliusfritz.com/presentation/bigergm.html" target="_blank">Slides for Cornelius's talk</a>
 - <a href="https://cran.r-project.org/web/packages/bigergm/index.html" target="_blank">CRAN</a>
+
+<a href="https://www.corneliusfritz.com/redeem" target="_blank">**redeem: Relational Event and Durational Event Models**</a>
+
+- <a href="https://arxiv.org/abs/2504.00049" target="_blank">Preprint</a>
+
