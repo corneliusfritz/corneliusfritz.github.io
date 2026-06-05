@@ -341,7 +341,7 @@ a {
 
 .main-tab-btn, .year-tab-btn {
   background-color: #f5f5f7;
-  color: #515154;
+  color: #515154 !important;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 20px;
   padding: 0.45em 1.3em;
@@ -353,13 +353,13 @@ a {
 
   &:hover {
     background-color: #e8e8ed;
-    color: #1d1d1f;
+    color: #1d1d1f !important;
     border-color: rgba(0, 0, 0, 0.15);
   }
 
   &.active {
     background-color: #2f80ed;
-    color: #ffffff;
+    color: #ffffff !important;
     border-color: #2f80ed;
     box-shadow: 0 4px 12px rgba(47, 128, 237, 0.15);
   }
@@ -368,6 +368,18 @@ a {
 .main-tab-btn {
   font-size: 0.9em;
   padding: 0.55em 1.55em;
+  
+  &[href] {
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      text-decoration: none !important;
+      color: #1d1d1f;
+    }
+  }
 }
 
 .sub-years-container {

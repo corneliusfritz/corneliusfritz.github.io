@@ -27,14 +27,29 @@ If you have any questions on some of my papers, want to discuss some research to
 <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.08); margin: 3em 0;">
 
 <section id="research" markdown="1" style="padding-top: 1.5em; margin-bottom: 3.5em;">
-<h2>Research</h2>
+<h2>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3em; color: #2f80ed; display: inline-block;">
+    <circle cx="18" cy="5" r="3"></circle>
+    <circle cx="6" cy="12" r="3"></circle>
+    <circle cx="18" cy="19" r="3"></circle>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+  </svg>
+  Research
+</h2>
 
-Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank">research statement</a> to get a feel for what I spend most of my time on.
+My research focuses on developing statistical methodologies and machine learning models for complex, dependent data structures, with a particular emphasis on network science and social systems. My main research directions include:
 
-<div class="publication-years-tabs" style="margin-top: 1.5em;">
+* **Dynamic Networks & Relational Event Models**: Developing stochastic frameworks (such as tie-oriented relational and durational event models) to capture time-stamped, event-based social interactions, online behaviors, and international state relations.
+* **Joint Models for Attributes and Networks**: Developing statistical methods and frameworks to jointly model network structure alongside node-level attributes, capturing selection and peer influence dynamics.
+* **Scalable Network Models**: Designing estimation algorithms and diagnostic tools for large-scale networks, specifically hierarchical exponential-family models (ERGM) and signed models (SERGM) containing positive and negative ties.
+* **Applied Spatio-temporal Modeling**: Collaborating with interdisciplinary teams to analyze epidemiological data (e.g., spatio-temporal disease spread forecasting) and political science data (e.g., intrastate conflict forecasting and aircraft trade).
+
+<div class="publication-years-tabs" style="margin-top: 2em;">
   <button class="main-tab-btn" data-main-target="preprints">Preprints</button>
   <button class="main-tab-btn" data-main-target="publications">Publications</button>
   <button class="main-tab-btn" data-main-target="theses">Theses</button>
+  <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank" class="main-tab-btn">Research Statement</a>
 </div>
 
 <div id="sub-years-tabs" class="sub-years-container">
@@ -64,13 +79,57 @@ Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank
 
 <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.08); margin: 3em 0;">
 
+<section id="group" markdown="1" style="padding-top: 1.5em; margin-bottom: 3.5em;">
+<h2>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3em; color: #2f80ed; display: inline-block;">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+    <circle cx="9" cy="7" r="4"></circle>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+  </svg>
+  Group
+</h2>
+
+Our research group focuses on statistical modeling, network analysis, and dependent data.
+
+### PhD Students
+
+<div style="margin-top: 1.5em;">
+  <div class="member-card" style="display: flex; align-items: flex-start; gap: 1.5em; margin-bottom: 2.5em; flex-wrap: wrap;">
+    <img src="{{ '/assets/images/daniel.jpg' | relative_url }}" alt="Daniel Seussler" style="width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(0, 0, 0, 0.08); flex-shrink: 0;" />
+    <div style="flex: 1; min-width: 250px;">
+      <h4 style="margin: 0 0 0.4em 0; font-size: 1.1em; font-weight: 700; color: #1d1d1f;"><a href="https://dseussler.github.io/" target="_blank" style="text-decoration: none; color: #2f80ed;">Daniel Seussler</a> <span style="font-size: 0.85em; font-weight: normal; color: #6e6e73; margin-left: 0.5em;">(Trinity College Dublin)</span></h4>
+      <p style="margin: 0; font-size: 0.95em; line-height: 1.5; color: #515154;"><strong>Research:</strong> Statistical modeling of public health dynamics and healthcare accessibility using data from Madagascar.</p>
+    </div>
+  </div>
+
+  <div class="member-card" style="display: flex; align-items: flex-start; gap: 1.5em; margin-bottom: 2.5em; flex-wrap: wrap;">
+    <img src="{{ '/assets/images/marc.jpg' | relative_url }}" alt="Marc Schalberger" style="width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(0, 0, 0, 0.08); flex-shrink: 0;" />
+    <div style="flex: 1; min-width: 250px;">
+      <h4 style="margin: 0 0 0.4em 0; font-size: 1.1em; font-weight: 700; color: #1d1d1f;"><a href="https://mschalberger.github.io/" target="_blank" style="text-decoration: none; color: #2f80ed;">Marc Schalberger</a> <span style="font-size: 0.85em; font-weight: normal; color: #6e6e73; margin-left: 0.5em;">(FU Berlin)</span></h4>
+      <p style="margin: 0; font-size: 0.95em; line-height: 1.5; color: #515154;"><strong>Research:</strong> Network science, signed exponential random graph models (SERGM), and scalable algorithms for large-scale network data.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<hr style="border: 0; height: 1px; background: rgba(0,0,0,0.08); margin: 3em 0;">
+
 <section id="packages" markdown="1" style="padding-top: 1.5em; margin-bottom: 3.5em;">
-<h2>Packages</h2>
+<h2>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3em; color: #2f80ed; display: inline-block;">
+    <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+    <polygon points="12 22.08 12 12 3 6.92 3 17.08 12 22.08"></polygon>
+    <polygon points="12 22.08 21 17.08 21 6.92 12 12 12 22.08"></polygon>
+    <polygon points="12 12 21 6.92 12 1.84 3 6.92 12 12"></polygon>
+  </svg>
+  Packages
+</h2>
 
 <div class="package-grid">
 
   <div class="package-card">
-    <h3 class="package-title"><a href="https://www.corneliusfritz.com/iglm" target="_blank">iglm</a></h3>
+    <h3 class="package-title"><a href="https://corneliusfritz.github.io/iglm/" target="_blank">iglm</a></h3>
     <p class="package-subtitle">Regression under Interference in Connected Populations</p>
     <div class="package-actions">
       <a href="https://cran.r-project.org/web/packages/iglm/index.html" target="_blank" class="btn btnId btnPub--BibTex">CRAN</a>
@@ -111,7 +170,16 @@ Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank
 <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.08); margin: 3em 0;">
 
 <section id="cv" markdown="1" style="padding-top: 1.5em; margin-bottom: 2em;">
-<h2>Curriculum Vitae</h2>
+<h2>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3em; color: #2f80ed; display: inline-block;">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+  Curriculum Vitae
+</h2>
 
 <iframe class="cv-iframe" src="{{ '/assets/pdf/cv_cornelius_fritz.pdf' | relative_url }}" style="width:100%; height:650px; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px;" frameborder="0"></iframe>
 

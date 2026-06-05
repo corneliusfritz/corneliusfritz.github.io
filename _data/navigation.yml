@@ -3,6 +3,8 @@ main:
     url: "/#about"
   - title: "Research"
     url: "/#research"
+  - title: "Group"
+    url: "/#group"
   - title: "Packages"
     url: "/#packages"
   - title: "CV"

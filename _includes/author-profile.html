@@ -37,6 +37,13 @@
         {{ author.bio }}
       </p>
     {% endif %}
+    {% if author.interests %}
+      <div class="author__interests" style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px;">
+        {% for interest in author.interests %}
+          <span class="badge badge--interest" style="font-size: 0.75em; font-weight: 600; padding: 4px 10px; border-radius: 12px; background-color: rgba(47, 128, 237, 0.08); color: #2f80ed; border: 1px solid rgba(47, 128, 237, 0.12); white-space: nowrap;">{{ interest }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 
   <div class="author__urls-wrapper">
