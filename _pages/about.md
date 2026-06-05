@@ -113,7 +113,14 @@ Check out my current <a href="/assets/pdf/rs_cornelius_fritz.pdf" target="_blank
 <section id="cv" markdown="1" style="padding-top: 1.5em; margin-bottom: 2em;">
 <h2>Curriculum Vitae</h2>
 
-<iframe src="{{ '/assets/pdf/cv_cornelius_fritz.pdf' | relative_url }}" style="width:100%; height:650px; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px;" frameborder="0"></iframe>
+<iframe class="cv-iframe" src="{{ '/assets/pdf/cv_cornelius_fritz.pdf' | relative_url }}" style="width:100%; height:650px; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px;" frameborder="0"></iframe>
+
+<div class="mobile-cv-note">
+  <p>
+    <i class="fas fa-info-circle" style="margin-right: 0.5em; color: #2f80ed;"></i>
+    PDF previewing is limited on mobile devices. Use the button below to view or download my complete CV.
+  </p>
+</div>
 
 <div style="margin-top: 2.5em; text-align: center;">
   <a href="/assets/pdf/cv_cornelius_fritz.pdf" class="btn btnId btnPub--download" target="_blank" style="font-size: 0.95em !important; padding: 0.6em 1.8em !important; border-radius: 30px !important; text-decoration: none !important;">

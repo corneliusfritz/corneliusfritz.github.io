@@ -537,3 +537,35 @@ details.collapsible-research {
 .sidebar {
   opacity: 1 !important;
 }
+
+/* Responsive CV section for mobile devices */
+.cv-iframe {
+  display: block;
+}
+
+.mobile-cv-note {
+  display: none;
+  text-align: center;
+  padding: 2em 1.5em;
+  border: 1px dashed rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  background-color: #f8f9fa;
+  
+  p {
+    margin: 0 !important;
+    font-size: 0.95em !important;
+    color: #515154 !important;
+    line-height: 1.6 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .cv-iframe {
+    display: none !important;
+  }
+  .mobile-cv-note {
+    display: block !important;
+  }
+}
