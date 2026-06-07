@@ -3,7 +3,7 @@
 function external_new_window() {
     for(var c = document.getElementsByTagName("a"), a = 0;a < c.length;a++) {
     var b = c[a];
-    b.getAttribute("href") && b.hostname !== location.hostname && (b.target = "_blank")
+    b.getAttribute("href") && (b.protocol === "http:" || b.protocol === "https:") && b.hostname !== location.hostname && (b.target = "_blank")
     }
 }
 //open PDF links in a new window

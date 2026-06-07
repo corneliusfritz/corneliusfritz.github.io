@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="Cornelius Fritz">
 <meta property="og:title"
   content="Interview with Center for Data Innovation">
-<meta property="og:url" content="https://corneliusfritz.github.io/2021/03/04/interview-fb-data-for-good.html">
+<meta property="og:url" content="http://localhost:4000/2021/03/04/interview-fb-data-for-good.html">
 
 
 <meta property="og:description" content="5 Q’s for Cornelius Fritz, Statistician at the University of Munich about Facebook’s Data for Good Program">
 
 
 
-<meta property="og:image" content="https://corneliusfritz.github.io/assets/images/picture_2.jpeg">
+<meta property="og:image" content="http://localhost:4000/assets/images/picture_2.jpeg">
 
 
 
@@ -37,7 +37,7 @@
 
 
 
-<link rel="canonical" href="https://corneliusfritz.github.io/2021/03/04/interview-fb-data-for-good.html">
+<link rel="canonical" href="http://localhost:4000/2021/03/04/interview-fb-data-for-good.html">
 
 
 
@@ -50,7 +50,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": null,
-      "url": "https://corneliusfritz.github.io",
+      "url": "http://localhost:4000",
       "sameAs": ["https://https://www.linkedin.com/in/cornelius-fritz-1715816b","https://github.com/corneliusfritz"]
     }
   </script>
@@ -262,13 +262,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-    var str =$(this).attr('id');
-    
     $(".btnId").click(function(){
         var str = $(this).attr('id');
-        var ret = str.split("_");
-        var id = ret[1];
-        $('#' + id).toggle();
+        if (str && /^b_/.test(str)) {
+            var id = str.substring(2);
+            $('#' + id).toggle();
+        }
     });
 });
 </script>
@@ -447,7 +446,7 @@ $(document).ready(function(){
 function external_new_window() {
     for(var c = document.getElementsByTagName("a"), a = 0;a < c.length;a++) {
     var b = c[a];
-    b.getAttribute("href") && b.hostname !== location.hostname && (b.target = "_blank")
+    b.getAttribute("href") && (b.protocol === "http:" || b.protocol === "https:") && b.hostname !== location.hostname && (b.target = "_blank")
     }
 }
 //open PDF links in a new window

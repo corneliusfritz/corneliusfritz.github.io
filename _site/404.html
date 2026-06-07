@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Cornelius Fritz">
 <meta property="og:title"
   content="Page Not Found">
-<meta property="og:url" content="https://corneliusfritz.github.io/404.html">
+<meta property="og:url" content="http://localhost:4000/404.html">
 
 
 <meta property="og:description" content="Sorry, but this page does not exist">
@@ -33,7 +33,7 @@
 
 
 
-<link rel="canonical" href="https://corneliusfritz.github.io/404.html">
+<link rel="canonical" href="http://localhost:4000/404.html">
 
 
 
@@ -46,7 +46,7 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": null,
-      "url": "https://corneliusfritz.github.io",
+      "url": "http://localhost:4000",
       "sameAs": ["https://https://www.linkedin.com/in/cornelius-fritz-1715816b","https://github.com/corneliusfritz"]
     }
   </script>
@@ -319,7 +319,7 @@ Wait a bit, maybe the page will then start to exist ... One never knows :-/
 <!--
 <script type="text/javascript">
   var GOOG_FIXURL_LANG = 'en';
-  var GOOG_FIXURL_SITE = 'https://corneliusfritz.github.io'
+  var GOOG_FIXURL_SITE = 'http://localhost:4000'
 </script>
 <script type="text/javascript"
   src="//linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js">
@@ -359,13 +359,12 @@ Wait a bit, maybe the page will then start to exist ... One never knows :-/
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-    var str =$(this).attr('id');
-    
     $(".btnId").click(function(){
         var str = $(this).attr('id');
-        var ret = str.split("_");
-        var id = ret[1];
-        $('#' + id).toggle();
+        if (str && /^b_/.test(str)) {
+            var id = str.substring(2);
+            $('#' + id).toggle();
+        }
     });
 });
 </script>
@@ -544,7 +543,7 @@ $(document).ready(function(){
 function external_new_window() {
     for(var c = document.getElementsByTagName("a"), a = 0;a < c.length;a++) {
     var b = c[a];
-    b.getAttribute("href") && b.hostname !== location.hostname && (b.target = "_blank")
+    b.getAttribute("href") && (b.protocol === "http:" || b.protocol === "https:") && b.hostname !== location.hostname && (b.target = "_blank")
     }
 }
 //open PDF links in a new window
