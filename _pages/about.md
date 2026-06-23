@@ -10,7 +10,7 @@ show_overlay_title: false
 share: false
 classes: wide
 author_profile: true
-years: [2025, 2024, 2023, 2022, 2021, 2020]
+years: [2026, 2025, 2024, 2023, 2022, 2021, 2020]
 ---
 
 <section id="about" markdown="1" style="padding-top: 1em; margin-bottom: 3.5em;">

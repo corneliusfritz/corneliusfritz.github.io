@@ -38,13 +38,13 @@ classes: wide
 </h2>
 
 <div class="software-grid" style="margin-top: 1em;">
-  <!-- Card for JSS Submission -->
+  <!-- Card for Preprint -->
   <div class="software-card" style="margin-bottom: 1.5em;">
     <h3 class="software-title">R Package iglm: Regression under Interference in Connected Populations</h3>
-    <p class="software-subtitle" style="font-size: 0.95em; color: #6e6e73; margin-bottom: 0.8em;">Journal of Statistical Software (JSS) Submission</p>
+    <p class="software-subtitle" style="font-size: 0.95em; color: #6e6e73; margin-bottom: 0.8em;">Preprint (under review)</p>
     <div class="software-actions">
       <a href="https://arxiv.org/abs/2604.22791" target="_blank" class="btn btnId btnPub--supplement">
-        <i class="fas fa-external-link-alt" style="margin-right: 0.5em;"></i> Open Preprint (arXiv)
+        <i class="fas fa-external-link-alt" style="margin-right: 0.5em;"></i> Open arXiv preprint
       </a>
     </div>
   </div>
@@ -52,10 +52,10 @@ classes: wide
   <!-- Card for JASA Paper -->
   <div class="software-card" style="margin-bottom: 1.5em;">
     <h3 class="software-title">A Regression Framework for Studying Relationships among Attributes under Network Interference</h3>
-    <p class="software-subtitle" style="font-size: 0.95em; color: #6e6e73; margin-bottom: 0.8em;">Journal of the American Statistical Association (JASA) Paper</p>
+    <p class="software-subtitle" style="font-size: 0.95em; color: #6e6e73; margin-bottom: 0.8em;">Journal of the American Statistical Association (JASA)</p>
     <div class="software-actions">
       <a href="https://doi.org/10.1080/01621459.2025.2565851" target="_blank" class="btn btnId btnPub--supplement">
-        <i class="fas fa-external-link-alt" style="margin-right: 0.5em;"></i> Open Paper (JASA)
+        <i class="fas fa-external-link-alt" style="margin-right: 0.5em;"></i> Open Website
       </a>
     </div>
   </div>
