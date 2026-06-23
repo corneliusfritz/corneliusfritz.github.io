@@ -1,0 +1,82 @@
+[
+  {
+    "name": "iglm",
+    "title": "iglm",
+    "url": "https://corneliusfritz.github.io/iglm/",
+    "subtitle": "Regression under Interference in Connected Populations",
+    "cran": "iglm",
+    "actions": [
+      {
+        "text": "CRAN",
+        "url": "https://cran.r-project.org/web/packages/iglm/index.html",
+        "class": "btnPub--BibTex"
+      },
+      {
+        "text": "Preprint",
+        "url": "https://www.corneliusfritz.com/assets/pdf/iglm.pdf",
+        "class": "btnPub--download"
+      },
+      {
+        "text": "Workshop",
+        "url": "/iglm-workshop/",
+        "class": "btnPub--supplement"
+      }
+    ],
+    "downloads": 504
+  },
+  {
+    "name": "bigergm",
+    "title": "bigergm",
+    "url": "https://www.corneliusfritz.com/bigergm",
+    "subtitle": "Fit, Simulate, and Diagnose Hierarchical Exponential-Family Models for Big Networks",
+    "cran": "bigergm",
+    "actions": [
+      {
+        "text": "CRAN",
+        "url": "https://cran.r-project.org/web/packages/bigergm/index.html",
+        "class": "btnPub--BibTex"
+      },
+      {
+        "text": "Workshop",
+        "url": "/bigergm-workshop/",
+        "class": "btnPub--supplement"
+      }
+    ],
+    "downloads": 319
+  },
+  {
+    "name": "redeem",
+    "title": "redeem",
+    "url": "https://corneliusfritz.github.io/redeem/",
+    "subtitle": "Relational Event and Durational Event Models",
+    "cran": "redeem",
+    "actions": [
+      {
+        "text": "CRAN",
+        "url": "https://cran.r-project.org/web/packages/redeem/index.html",
+        "class": "btnPub--BibTex"
+      }
+    ],
+    "downloads": 0
+  },
+  {
+    "name": "ergm.sign",
+    "title": "ergm.sign",
+    "url": "https://cran.r-project.org/package=ergm.sign",
+    "subtitle": "Fit, Simulate, and Diagnose Signed Exponential Random Graph Models (SERGMs)",
+    "cran": "ergm.sign",
+    "actions": [
+      {
+        "text": "CRAN",
+        "url": "https://cran.r-project.org/web/packages/ergm.sign/index.html",
+        "class": "btnPub--BibTex"
+      },
+      {
+        "text": "GitHub",
+        "url": "https://github.com/mschalberger/ergm.sign.statnet",
+        "class": "btnPub--supplement"
+      }
+    ],
+    "downloads": 234
+  }
+]

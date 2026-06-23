@@ -115,39 +115,54 @@ Our research group focuses on statistical modeling, network analysis, and depend
 
 <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.08); margin: 3em 0;">
 
-<section id="packages" markdown="1" style="padding-top: 1.5em; margin-bottom: 3.5em;">
+<section id="software" markdown="1" style="padding-top: 1.5em; margin-bottom: 3.5em;">
 <h2>
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3em; color: #2f80ed; display: inline-block;">
-    <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
-    <polygon points="12 22.08 12 12 3 6.92 3 17.08 12 22.08"></polygon>
-    <polygon points="12 22.08 21 17.08 21 6.92 12 12 12 22.08"></polygon>
-    <polygon points="12 12 21 6.92 12 1.84 3 6.92 12 12"></polygon>
+    <polyline points="16 18 22 12 16 6"></polyline>
+    <polyline points="8 6 2 12 8 18"></polyline>
   </svg>
-  Packages
+  Software
 </h2>
 
-<div class="package-grid">
-  {% for pkg in site.data.packages %}
-  <div class="package-card">
-    <h3 class="package-title"><a href="{{ pkg.url }}" target="_blank">{{ pkg.title }}</a></h3>
-    <p class="package-subtitle">{{ pkg.subtitle }}</p>
-    <div class="package-actions">
+<div class="software-grid">
+  {% for pkg in site.data.software %}
+  <div class="software-card">
+    <h3 class="software-title">{{ pkg.title }}</h3>
+    <p class="software-subtitle">{{ pkg.subtitle }}</p>
+    <div class="software-actions">
+      {% if pkg.url %}
+      {% if pkg.url contains "://" %}
+      <a href="{{ pkg.url }}" target="_blank" class="btn btnId btnPub--supplement">Website</a>
+      {% else %}
+      <a href="{{ pkg.url | relative_url }}" class="btn btnId btnPub--supplement">Website</a>
+      {% endif %}
+      {% endif %}
       {% for action in pkg.actions %}
+      {% if action.url contains "://" %}
       <a href="{{ action.url }}" target="_blank" class="btn btnId {{ action.class }}">{{ action.text }}</a>
+      {% else %}
+      <a href="{{ action.url | relative_url }}" class="btn btnId {{ action.class }}">{{ action.text }}</a>
+      {% endif %}
       {% endfor %}
-      {% if pkg.downloads and pkg.downloads > 0 %}
+      {% if pkg.downloads %}
       <span class="btn btnId btnPub--downloads" style="cursor: default; pointer-events: none; opacity: 0.8; background-color: #f5f5f7; border-color: rgba(0, 0, 0, 0.06);">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #2f80ed; margin-right: 0.3em; display: inline-block; vertical-align: middle;">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        {{ pkg.downloads }}
+        {{ pkg.downloads }} / month
       </span>
       {% endif %}
     </div>
   </div>
   {% endfor %}
+</div>
+
+<div style="margin-top: 3.5em;">
+  <div style="background-color: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 18px; padding: 1.5em; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.015);">
+    <img src="{{ '/assets/images/software_downloads.png' | relative_url }}" alt="CRAN Downloads Over Time" class="center-image" style="width: 100%; height: auto; border-radius: 8px;" />
+  </div>
 </div>
 </section>
 

@@ -475,15 +475,15 @@ details.collapsible-research {
   display: block;
 }
 
-// Package grid & modern cards
-.package-grid {
+// Software grid & modern cards
+.software-grid {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
   margin-top: 1.5em;
 }
 
-.package-card {
+.software-card {
   padding: 1.6em !important;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -497,7 +497,7 @@ details.collapsible-research {
     border-color: rgba(0, 0, 0, 0.1);
   }
 
-  .package-title {
+  .software-title {
     margin: 0 0 0.5em 0 !important;
     font-size: 1.25em !important;
     font-weight: 700 !important;
@@ -513,14 +513,14 @@ details.collapsible-research {
     }
   }
 
-  .package-subtitle {
+  .software-subtitle {
     margin: 0 0 1.2em 0 !important;
     font-size: 0.9em !important;
     color: #515154 !important;
     line-height: 1.5 !important;
   }
 
-  .package-actions {
+  .software-actions {
     display: block;
   }
 }
