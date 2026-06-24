@@ -41,7 +41,7 @@ classes: wide
   <!-- Card for Preprint -->
   <div class="software-card" style="margin-bottom: 1.5em;">
     <h3 class="software-title">R Package iglm: Regression under Interference in Connected Populations</h3>
-    <p class="software-subtitle" style="font-size: 0.95em; color: #6e6e73; margin-bottom: 0.8em;">Preprint (under review)</p>
+    <p class="software-subtitle" style="font-size: 0.95em; color: #6e6e73; margin-bottom: 0.8em;">Preprint</p>
     <div class="software-actions">
       <a href="https://arxiv.org/abs/2604.22791" target="_blank" class="btn btnId btnPub--supplement">
         <i class="fas fa-external-link-alt" style="margin-right: 0.5em;"></i> Open arXiv preprint
