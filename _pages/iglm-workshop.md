@@ -42,9 +42,6 @@ classes: wide
   <h3 class="software-title" style="display: flex; align-items: center; gap: 0.5em; margin: 0 0 0.5em 0 !important; font-size: 1.25em !important; font-weight: 700 !important; letter-spacing: -0.3px;">
     <i class="fas fa-database" style="color: #2f80ed;"></i> Dataset Files
   </h3>
-  <p class="software-subtitle" style="font-size: 0.95em; color: #515154; margin: 0 0 1.2em 0 !important; line-height: 1.5 !important;">
-    Download the CSV files used in the workshop exercises and presentation.
-  </p>
   
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1em; margin-top: 1em;">
     <!-- neighborhood.csv -->
