@@ -22,7 +22,7 @@
         "class": "btnPub--supplement"
       }
     ],
-    "downloads": 504
+    "downloads": 532
   },
   {
     "name": "bigergm",
@@ -57,7 +57,7 @@
         "class": "btnPub--BibTex"
       }
     ],
-    "downloads": 0
+    "downloads": 23
   },
   {
     "name": "ergm.sign",
@@ -77,6 +77,6 @@
         "class": "btnPub--supplement"
       }
     ],
-    "downloads": 234
+    "downloads": 237
   }
 ]

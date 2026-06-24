@@ -1,6 +1,3 @@
-#!/usr/bin/env Rscript
-
-# Paths configuration
 SITE_ROOT <- "/Users/corneliusfritz/Dropbox/GitHub/corneliusfritz.github.io"
 OVERLEAF_DIR <- "/Users/corneliusfritz/Dropbox/Apps/Overleaf/cv_cornelius_fritz"
 CV_TEX <- file.path(OVERLEAF_DIR, "cv_long.tex")
